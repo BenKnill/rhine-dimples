@@ -1,5 +1,7 @@
 # Dimples on the Rhine: video v2 plan
 
+> The script below is the first draft. The current script (v2, merged after the GPT-6-Pro review, 587 words) lives in `review.html`, which is the source of truth.
+
 Goal: a narrated video under 5 minutes that climbs the same ladder as the page, ending at
 Kirchhoff's equations. It should feel more like 3Blue1Brown than v1. The signature device:
 **live parameters**. The equation sits on screen; one symbol at a time is turned up or down,
