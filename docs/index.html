@@ -50,6 +50,8 @@
   .article p b { color: var(--text); font-weight: 600; }
   .article .note { font-family: var(--sans); font-size: 14px; color: var(--muted); border-left: 2px solid var(--line-2); padding-left: 12px; }
   .eq { font-family: var(--serif); font-size: 19px; color: var(--glass) !important; text-align: center; margin: 4px 0 16px; overflow-x: auto; }
+  .eq.key { border: 1px solid var(--line-2); border-radius: 8px; padding: 12px 10px; background: #0E1422; font-size: 21px; }
+  .eq .lbl { display: block; font-family: var(--sans); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--faint); margin-bottom: 4px; }
   .ccw { color: var(--cool); } .cw { color: var(--amber); }
   figure.fig { margin: 8px 0 22px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
   figure.fig canvas { display: block; width: 100%; aspect-ratio: 16 / 9; touch-action: none; }
@@ -115,6 +117,9 @@
       <div class="figbar"><button id="loopPair" aria-pressed="false">Add one spinning the other way</button><span class="val" id="loopOut"></span></div>
     </figure>
     <p>Any loop that goes around the whirlpool's core gives nearly the same answer, however big or lopsided, and a loop that misses the core gives almost nothing. The spin is concentrated in the core: outside it the water swirls, but a tiny paddle wheel carried along there hardly turns. Add a second whirlpool spinning the other way, and a loop around both gives zero.</p>
+    <p>In symbols, with <b>u</b> the water's velocity and d<b>l</b> a small step along the loop, the circulation is Γ = ∮ <b>u</b> · d<b>l</b>. Take the loop to be a circle of radius r around a whirlpool: the water runs along it at a steady speed v, so the sum is just v times the length, Γ = v · 2πr. Turned around, that gives the swirl a whirlpool makes around itself:</p>
+    <p class="eq key"><span class="lbl">the swirl of one whirlpool</span>v = Γ / 2πr</p>
+    <p>It falls off as one over the distance, and it is the seed of everything below. (The spin per unit area is called the <b>vorticity</b>, ω; the circulation is the total vorticity inside the loop, Γ = ∫ω dA. That is why only loops around the core pick it up.)</p>
 
     <h2><span class="n">3</span>Spin lives on lines</h2>
     <p>From above, a whirlpool looks like a point. But the water is three-dimensional, and what spins is a line, the whirlpool's axis, carrying on down into the water. Thicken the line into a tube: its circulation is the same at every depth. The dimple is just where the line meets the surface. A line (one dimension) and a plane (two) in space (three) meet in 1 + 2 − 3 = 0 dimensions, a point. That's why the surface shows whirlpools as points.</p>
@@ -126,11 +131,15 @@
 
     <h2><span class="n">4</span>A vortex line can't just stop</h2>
     <p>Helmholtz noticed in 1858 that vortex lines behave like the field lines of a magnet: they cannot end in the middle of the water. The argument takes a single loop. Suppose a tube of spin did stop somewhere. Put a loop around it: circulation Γ. Slide the loop along the tube and past its end. The circulation around a loop can only change when the loop sweeps across spin, and no spin crosses the side of a tube, so it is still Γ. But now the loop surrounds water that isn't spinning at all, and it can be shrunk to a point, where the circulation is plainly zero. So Γ = 0, a contradiction. (Press <b>Ends in the water?</b> above.)</p>
+    <p>In symbols, the spin is the curl of the velocity, ω = ∇ × <b>u</b>, and a curl never has sources or sinks: ∇ · ω = 0. It is the same rule, ∇ · <b>B</b> = 0, that keeps a magnet's field lines from ending.</p>
     <p>A vortex line therefore has three options: close into a ring, like a smoke ring; end on the riverbed; or end on the surface. The last two are the ones we see.</p>
 
     <h2><span class="n">5</span>Why whirlpools come in pairs</h2>
     <p>Take an arch, a tube with both feet on the surface. Follow the spin along it, down one leg and up the other. The same spin looks <span class="ccw">counterclockwise</span> from above at one foot and <span class="cw">clockwise</span> at the other. One arch, two dimples, opposite spins.</p>
-    <p>Kelvin found a second reason in 1869. In water without friction, the circulation around any loop that moves with the water never changes. Draw a big loop in still water: its circulation is zero, and it stays zero while you stir inside it, as long as the loop never touches the paddle. So whatever spin a paddle makes, it makes equal amounts both ways. Drag a paddle through a pool and you see exactly this: two dimples, spinning opposite ways, sailing off together. Each is carried along by the other's swirl, so the pair moves in a straight line, crosswise to the line joining them. Drag across the water in the simulation to make a paddle stroke: it leaves a pair that sails off the way you pushed, and the <i>total spin</i> readout doesn't move. Two pairs travelling together take turns passing through each other (press <b>Leapfrog</b>).</p>
+    <p>Kelvin found a second reason in 1869. In water without friction, the circulation around any loop that moves with the water never changes: dΓ/dt = 0. Draw a big loop in still water: its circulation is zero, and it stays zero while you stir inside it, as long as the loop never touches the paddle. So whatever spin a paddle makes, it makes equal amounts both ways. Drag a paddle through a pool and you see exactly this: two dimples, spinning opposite ways, sailing off together. Each is carried along by the other's swirl, so the pair moves in a straight line, crosswise to the line joining them, and section 2 says how fast: at distance d, each feels the other's swirl v = Γ/2πd, so the pair travels at</p>
+    <p class="eq">V = Γ / 2πd</p>
+    <p>That is the whole law of motion for whirlpools: <i>each one is carried by the swirl of all the others</i>. It sounds too simple to be deep. Section 10 shows it is Hamilton's mechanics in disguise.</p>
+    <p>Drag across the water in the simulation to make a paddle stroke: it leaves a pair that sails off the way you pushed, and the <i>total spin</i> readout doesn't move. Two pairs travelling together take turns passing through each other (press <b>Leapfrog</b>).</p>
 
     <h2><span class="n">6</span>Where the Rhine's dimples come from</h2>
     <p>The dimples that started this page were almost certainly not made by paddles: there were hardly any boats about, and they showed up beside and ahead of the boat more than behind it. The river makes them itself.</p>
@@ -145,6 +154,8 @@
     <h2><span class="n">7</span>Why they live so long: the surface makes the flow flat</h2>
     <p>The surface does two things to a whirlpool. First, it stands it upright. Air is far too thin to drag on water, so right at the surface there is no sideways pull, and that forces vortex lines to meet the surface at right angles: sideways spin can't survive there, only upright whirlpools can. Second, water near the surface can't move up through it, so the flow there is nearly flat, <b>two-dimensional</b>.</p>
     <p>That matters because of stretching. Turbulence in three dimensions runs on stretched vortex tubes: a stretched tube gets thinner and spins faster, like a skater pulling in their arms. (Its circulation can't change, so as its cross-section shrinks its spin must grow.) Stretch, spin up, break into smaller eddies, and within seconds friction eats the smallest ones. In two dimensions there is no third direction to stretch into, and each drop of water simply keeps its spin as it is carried along.</p>
+    <p>In symbols, the spin of a drop changes as Dω/Dt = (ω · ∇)<b>u</b>, where D/Dt means "following the drop" and the right side measures how the flow stretches the drop along its spin axis. In flat flow the spin points straight up and nothing changes in that direction, so the right side vanishes:</p>
+    <p class="eq key"><span class="lbl">flat flow</span>Dω / Dt = 0</p>
     <figure class="fig">
       <canvas id="figStretch" class="short" aria-label="A vortex tube being stretched in 3D beside a patch of spin being reshaped in 2D"></canvas>
       <figcaption>In 3D, squeeze a vortex tube from the sides and it stretches along its length, thins and spins faster. In a flat flow, a patch of spin is only reshaped: its area and its spin stay the same.</figcaption>
@@ -154,15 +165,31 @@
       <canvas id="figFade" class="short" aria-label="Plot of dimple depth against time for three core sizes"></canvas>
     </figure>
 
-    <h2><span class="n">8</span>The river surface is a phase space</h2>
-    <p>Flatness pays off once more. Surface water can't be squashed, so every patch keeps its area as it flows, and in the plane, keeping area is exactly what mathematicians call <b>symplectic</b> (it is the camel of episode 1). As a result the whole flow is described by one landscape, the stream function ψ: water moves along ψ's contour lines, like a hiker keeping to one height, and faster where the contours crowd.</p>
-    <p class="eq">dx/dt = ∂ψ/∂y, &nbsp;&nbsp; dy/dt = −∂ψ/∂x</p>
-    <p>These are Hamilton's equations with x as position and y as momentum: the river's surface is its own phase space. Phase spaces come as position–momentum pairs, so they always have an even number of dimensions; a plane qualifies, and the three-dimensional inside of a river doesn't. Toggle <b>Stream function</b> above to see the landscape, then drop the <b>Camel dye</b>: it is stretched into filaments and its outline grows longer and longer, but its area stays at 100%.</p>
+    <h2><span class="n">8</span>Hamilton's rule, from scratch</h2>
+    <p>To see what flatness buys, we need one idea from mechanics. Describe a pendulum by two numbers, its angle q and its momentum p. Each moment of its life is then a point in a plane, the pendulum's <b>phase space</b>, and as time runs the point moves. Hamilton saw that a single landscape tells it how to move: the energy H(q, p). The point walks along the contour lines of H, faster where they crowd together:</p>
+    <p class="eq key"><span class="lbl">Hamilton's rule</span>dq/dt = ∂H/∂p, &nbsp;&nbsp; dp/dt = −∂H/∂q</p>
+    <p>Read it as a recipe: the speed across is the slope up the page, and the speed up the page is minus the slope across. In the figure the white dot's velocity is split into those two parts. Two consequences come for free. Walking along a contour keeps H fixed, so energy is conserved. And the flow never squeezes: a patch of starting points can be stretched thin, but its area stays exactly the same. (That is Liouville's theorem; the non-squeezing camel of episode 1 is its sharper cousin in higher dimensions.)</p>
+    <figure class="fig">
+      <canvas id="figHam" aria-label="Phase-space flow along the contours of a landscape, for a pendulum and for a pair of whirlpools"></canvas>
+      <div class="figbar"><div class="seg" role="group" aria-label="Landscape"><button data-ham="pend">Pendulum</button><button data-ham="river">Two whirlpools</button></div><span class="val" id="hamOut"></span></div>
+      <figcaption id="hamCap"></figcaption>
+    </figure>
 
-    <h2><span class="n">9</span>The whirlpools obey it too</h2>
-    <p>Kirchhoff showed in 1876 that the whirlpools themselves obey Hamilton's equations. Each is carried by the others' swirl, and whirlpool k's x and y are a position–momentum pair, weighted by its spin:</p>
-    <p class="eq">Γ<sub>k</sub> dx<sub>k</sub>/dt = ∂H/∂y<sub>k</sub>, &nbsp; Γ<sub>k</sub> dy<sub>k</sub>/dt = −∂H/∂x<sub>k</sub>, &nbsp; H = −(1/4π) Σ Γ<sub>j</sub>Γ<sub>k</sub> log|z<sub>j</sub> − z<sub>k</sub>|²</p>
-    <p>So N whirlpools make a 2N-dimensional phase space. The energy H, the centre of spin (two numbers) and the angular impulse are conserved; the readout under the simulation tracks them. That is just enough to keep three whirlpools regular (press <b>Three</b>) and not enough for four (press <b>Four</b>): their dance is chaotic, and nudging one by a micron changes the whole pattern within seconds. These all spin the same way, so their other ends must be on the riverbed; the <b>Single whirlpool</b> tool makes such bed-anchored whirlpools one at a time, and it is the only thing that changes the total spin.</p>
+    <h2><span class="n">9</span>The river surface is a phase space</h2>
+    <p>Now the payoff. Surface water can't be squashed, so the flow keeps areas, just as Hamilton's flow does. That is no coincidence. In two dimensions, any flow that keeps areas comes with a landscape of its own, the <b>stream function</b> ψ, and the water walks its contour lines by exactly Hamilton's rule:</p>
+    <p class="eq key"><span class="lbl">every drop on the surface</span>dx/dt = ∂ψ/∂y, &nbsp;&nbsp; dy/dt = −∂ψ/∂x</p>
+    <p>Line it up with the pendulum: x plays the angle, y plays the momentum, ψ plays the energy. Every drop on the surface moves like a point in phase space; the river's surface is its own phase space. (Press <b>Two whirlpools</b> in the figure above: same rule, new landscape.) For a single whirlpool the landscape is a funnel,</p>
+    <p class="eq">ψ = −(Γ/2π) log r</p>
+    <p>whose contours are circles and whose steepness is Γ/2πr: the swirl of section 2, back again. Phase spaces come as position–momentum pairs, so they always have an even number of dimensions. A plane qualifies; the three-dimensional inside of a river doesn't, and there a flow that keeps volumes has no such landscape. Toggle <b>Stream function</b> in the simulation to see ψ for the whirlpools on the water, then drop the <b>Camel dye</b>: it is stretched into filaments and its outline grows longer and longer, but its area stays at 100%.</p>
+
+    <h2><span class="n">10</span>The whirlpools obey it too</h2>
+    <p>One step remains. By section 5, each whirlpool is carried by the swirl of the others, so whirlpool k moves by the others' stream function, taken where it sits (write z = (x, y) for a point on the water):</p>
+    <p class="eq">dx<sub>k</sub>/dt = ∂ψ<sub>others</sub>/∂y, &nbsp; dy<sub>k</sub>/dt = −∂ψ<sub>others</sub>/∂x, &nbsp; ψ<sub>others</sub> = −Σ<sub>j≠k</sub> (Γ<sub>j</sub>/2π) log|z − z<sub>j</sub>|</p>
+    <p>Kirchhoff noticed in 1876 that these N separate recipes are really one. Collect the whole system's energy, one term for each pair of whirlpools:</p>
+    <p class="eq">H = −(1/2π) Σ<sub>pairs j&lt;k</sub> Γ<sub>j</sub>Γ<sub>k</sub> log|z<sub>j</sub> − z<sub>k</sub>|</p>
+    <p>Differentiating H by y<sub>k</sub> keeps only the terms that involve whirlpool k, and what is left is Γ<sub>k</sub> times the others' ∂ψ/∂y. The same goes for x<sub>k</sub>. So, multiplying through by Γ<sub>k</sub>:</p>
+    <p class="eq key"><span class="lbl">Kirchhoff's equations</span>Γ<sub>k</sub> dx<sub>k</sub>/dt = ∂H/∂y<sub>k</sub>, &nbsp;&nbsp; Γ<sub>k</sub> dy<sub>k</sub>/dt = −∂H/∂x<sub>k</sub></p>
+    <p>That is Hamilton's rule once more, with position x<sub>k</sub> and momentum Γ<sub>k</sub>y<sub>k</sub>: each whirlpool's own spot on the river is a position–momentum pair, and N whirlpools make a 2N-dimensional phase space. The rule hands us conserved quantities, each from a symmetry: the energy H (walking along contours), the centre of spin ΣΓ<sub>k</sub>z<sub>k</sub>/ΣΓ<sub>k</sub> (the river looks the same if everything slides), and the angular impulse ΣΓ<sub>k</sub>|z<sub>k</sub>|² (it looks the same if everything turns). The readout under the simulation tracks them. That is just enough to keep three whirlpools regular (press <b>Three</b>) and not enough for four (press <b>Four</b>): their dance is chaotic, and nudging one by a micron changes the whole pattern within seconds. These all spin the same way, so their other ends must be on the riverbed; the <b>Single whirlpool</b> tool makes such bed-anchored whirlpools one at a time, and it is the only thing that changes the total spin. (The simulation smooths each whirlpool's core over a few millimetres, which keeps every formula here but tames the log at zero distance.)</p>
   </article>
 
   <footer>Simulation: point vortices with a smooth core, moved by the symplectic implicit-midpoint rule; the camel dye is about 250,000 tracer particles, and its area is measured from a separately tracked outline. Light: sunrays traced through the surface onto the bed, with their brightness added up where they land. Built with Claude (Anthropic's Claude Opus 5.5) in Claude Code. Source: <a href="https://github.com/BenKnill/rhine-dimples">BenKnill/rhine-dimples</a>.</footer>

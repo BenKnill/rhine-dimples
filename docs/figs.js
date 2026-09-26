@@ -313,5 +313,80 @@
     });
   }
 
-  figDip(); figLoop(); figLines(); figRiver(); figStretch(); figFade();
+
+  // ---------------------------------------------------------------- 7. Hamilton's rule: one recipe, two landscapes
+  function figHam() {
+    const cv = $("figHam"); if (!cv) return; const btns = [...document.querySelectorAll("[data-ham]")], cap = $("hamCap"), out = $("hamOut");
+    const a2 = 0.04, V = 4 * Math.PI * 2 / (2 * Math.PI * (4 + a2));          // pair of whirlpools, Γ = 4π, 2 apart
+    const MODES = {
+      pend: { H: (q, p) => p * p / 2 - Math.cos(q), f: (q, p) => [p, -Math.sin(q)], lab: ["q  (angle)", "p  (momentum)"], parts: ["∂H/∂p", "−∂H/∂q"], lv: [-0.85, 3.6, 0.3], sep: 1,
+        blob: [-2.3, 0.75, 0.42], hiker: [0.0, 1.35],
+        cap: "A pendulum. Each moment of its life is a point: angle q across, momentum p up. The landscape is its energy, H = p²/2 − cos q. Every dot walks along a contour; the pink patch of starting states is sheared around the swinging and tumbling orbits, but its area never changes. The bright contour separates swinging from tumbling right over the top." },
+      river: { H: (x, y) => -Math.log(x * x + (y - 1) ** 2 + a2) + Math.log(x * x + (y + 1) ** 2 + a2) - V * y,
+        f: (x, y) => { const s1 = x * x + (y - 1) ** 2 + a2, s2 = x * x + (y + 1) ** 2 + a2; return [-2 * (y - 1) / s1 + 2 * (y + 1) / s2 - V, 2 * x / s1 - 2 * x / s2]; },
+        lab: ["x", "y"], parts: ["∂ψ/∂y", "−∂ψ/∂x"], lv: [-3.2, 3.2, 0.32], sep: 0, blob: [3.4, 0.22, 0.38], hiker: [0.0, 1.95], vort: true,
+        cap: "The same rule on a different landscape: the stream function ψ of a pair of whirlpools, seen riding along with them. Now the plane is the water surface itself. Drops inside the bright oval travel with the pair; the pink patch is dragged around it and stretched, and again keeps its area." },
+    };
+    let mode = "pend", M = MODES.pend, bg = null, bgKey = "", dots = [], blob = null, A0 = 1, hiker = null, clock = 0;
+    const rk4 = (x, y, h) => { const k1 = M.f(x, y), k2 = M.f(x + h / 2 * k1[0], y + h / 2 * k1[1]), k3 = M.f(x + h / 2 * k2[0], y + h / 2 * k2[1]), k4 = M.f(x + h * k3[0], y + h * k3[1]);
+      return [x + h / 6 * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0]), y + h / 6 * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1])]; };
+    const areaOf = P => { let s = 0; for (let i = 0; i < P.length; i++) { const a = P[i], b = P[(i + 1) % P.length]; s += a[0] * b[1] - b[0] * a[1]; } return Math.abs(s) / 2; };
+    function resetBlob() { const [cx, cy, r] = M.blob; blob = []; for (let i = 0; i < 180; i++) { const t = i / 180 * TAU; blob.push([cx + r * Math.cos(t), cy + r * Math.sin(t)]); } A0 = areaOf(blob); clock = 0; }
+    function reset() { dots = []; for (let i = 0; i < 110; i++) dots.push([Math.random() * 8.4 - 4.2, Math.random() * 5 - 2.5, Math.random() * 8]); hiker = M.hiker.slice(); resetBlob(); bg = null; bgKey = ""; }
+    function refine() { if (blob.length > 6000) return; const nb = [], n = blob.length;
+      for (let i = 0; i < n; i++) { const a = blob[i], b = blob[(i + 1) % n]; nb.push(a);
+        if (Math.hypot(b[0] - a[0], b[1] - a[1]) > 0.045) { const h = blob[(i - 1 + n) % n], k = blob[(i + 2) % n]; nb.push([(9 * (a[0] + b[0]) - h[0] - k[0]) / 16, (9 * (a[1] + b[1]) - h[1] - k[1]) / 16]); } }
+      blob = nb; }
+    reset();
+    const fig = makeFig(cv, (c, W, H, t, dt) => {
+      const XW = 4.2, YW = XW * H / W, S = W / (2 * XW), sx = x => W / 2 + x * S, sy = y => H / 2 - y * S;
+      if (!W || !H) return;
+      // landscape: shaded heights and contour lines, drawn once per size and mode
+      const key = `${mode}:${W}x${H}`;
+      if (bgKey !== key) {
+        bg = document.createElement("canvas"); bg.width = Math.round(W * 2); bg.height = Math.round(H * 2); const b = bg.getContext("2d"), GW = 240, GH = Math.round(240 * H / W);
+        const val = new Float64Array((GW + 1) * (GH + 1)); for (let j = 0; j <= GH; j++) for (let i = 0; i <= GW; i++) val[j * (GW + 1) + i] = M.H(-XW + 2 * XW * i / GW, YW - 2 * YW * j / GH);
+        const img = b.createImageData(GW, GH), [l0, l1] = M.lv;
+        for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const f = Math.max(0, Math.min(1, (val[j * (GW + 1) + i] - l0) / (l1 - l0))), o = 4 * (j * GW + i);
+          img.data[o] = 14 + 26 * f; img.data[o + 1] = 22 + 52 * f; img.data[o + 2] = 36 + 76 * f; img.data[o + 3] = 255; }
+        const tmp = document.createElement("canvas"); tmp.width = GW; tmp.height = GH; tmp.getContext("2d").putImageData(img, 0, 0);
+        b.imageSmoothingEnabled = true; b.drawImage(tmp, 0, 0, bg.width, bg.height); b.scale(bg.width / GW, bg.height / GH);
+        const seg = lvl => { b.beginPath();
+          for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) {
+            const A = val[j * (GW + 1) + i] - lvl, B = val[j * (GW + 1) + i + 1] - lvl, C = val[(j + 1) * (GW + 1) + i + 1] - lvl, D = val[(j + 1) * (GW + 1) + i] - lvl, P = [];
+            if ((A > 0) !== (B > 0)) P.push([i + A / (A - B), j]); if ((B > 0) !== (C > 0)) P.push([i + 1, j + B / (B - C)]);
+            if ((C > 0) !== (D > 0)) P.push([i + 1 - C / (C - D), j + 1]); if ((D > 0) !== (A > 0)) P.push([i, j + 1 - D / (D - A)]);
+            if (P.length >= 2) { b.moveTo(P[0][0], P[0][1]); b.lineTo(P[1][0], P[1][1]); } }
+          b.stroke(); };
+        b.lineWidth = 0.35; b.strokeStyle = "rgba(200,220,245,0.38)"; for (let lvl = M.lv[0]; lvl <= M.lv[1] + 1e-9; lvl += M.lv[2]) seg(lvl);
+        b.lineWidth = 0.6; b.strokeStyle = "rgba(255,255,255,0.8)"; b.setLineDash([2, 2]); seg(M.sep); b.setLineDash([]);
+        bgKey = key;
+      }
+      c.drawImage(bg, 0, 0, W, H);
+      // axes
+      c.strokeStyle = "rgba(220,226,236,0.35)"; c.lineWidth = 1; c.beginPath(); c.moveTo(0, sy(0)); c.lineTo(W, sy(0)); c.moveTo(sx(0), 0); c.lineTo(sx(0), H); c.stroke();
+      font(c, 12.5, 500, "IBM Plex Mono, monospace"); c.fillStyle = TEXT; c.textAlign = "right"; c.fillText(M.lab[0], W - 8, sy(0) - 7); c.textAlign = "left"; c.fillText(M.lab[1], sx(0) + 7, 16);
+      if (M.vort) for (const [y, ccw] of [[1, true], [-1, false]]) { const col = ccw ? TEAL : AMBER; c.fillStyle = col; c.beginPath(); c.arc(sx(0), sy(y), 4, 0, TAU); c.fill(); spinMark(c, sx(0), sy(y), 12, ccw, col, t * 2); }
+      // move everything by Hamilton's rule
+      const sub = 6, h = dt / sub;
+      if (dt) for (let k = 0; k < sub; k++) { for (const d of dots) { const n = rk4(d[0], d[1], h); d[0] = n[0]; d[1] = n[1]; } hiker = rk4(hiker[0], hiker[1], h); for (let i = 0; i < blob.length; i++) blob[i] = rk4(blob[i][0], blob[i][1], h); refine(); }
+      clock += dt; if (clock > 16 || blob.length > 6000) resetBlob();
+      for (const d of dots) { d[2] -= dt; if (d[2] < 0 || Math.abs(d[0]) > XW + 0.3 || Math.abs(d[1]) > YW + 0.3) { d[0] = Math.random() * 2 * XW - XW; d[1] = Math.random() * 2 * YW - YW; d[2] = 4 + 6 * Math.random(); }
+        c.fillStyle = "rgba(210,230,255,0.75)"; c.beginPath(); c.arc(sx(d[0]), sy(d[1]), 1.6, 0, TAU); c.fill(); }
+      c.fillStyle = "rgba(255,79,139,0.42)"; c.strokeStyle = "rgba(255,120,170,0.95)"; c.lineWidth = 1.2; c.beginPath(); blob.forEach((p, i) => i ? c.lineTo(sx(p[0]), sy(p[1])) : c.moveTo(sx(p[0]), sy(p[1]))); c.closePath(); c.fill(); c.stroke();
+      // the hiker, with its velocity split into the two parts of the rule
+      if (Math.abs(hiker[0]) > XW || Math.abs(hiker[1]) > YW) hiker = M.hiker.slice();
+      const [u, v] = M.f(hiker[0], hiker[1]), g = 0.55 * S / Math.max(1, Math.hypot(u, v) / 1.6), X = sx(hiker[0]), Y = sy(hiker[1]);
+      c.lineWidth = 2; c.strokeStyle = TEAL; c.fillStyle = TEAL; arrow(c, X, Y, X + u * g, Y, 6); c.strokeStyle = AMBER; c.fillStyle = AMBER; arrow(c, X, Y, X, Y - v * g, 6);
+      c.strokeStyle = "#FFFFFF"; c.fillStyle = "#FFFFFF"; arrow(c, X, Y, X + u * g, Y - v * g, 6);
+      c.beginPath(); c.arc(X, Y, 5, 0, TAU); c.fill();
+      font(c, 12.5, 600, "IBM Plex Mono, monospace"); c.textAlign = u >= 0 ? "left" : "right"; c.fillStyle = TEAL; c.fillText(M.parts[0], X + u * g + (u >= 0 ? 6 : -6), Y + 16);
+      c.textAlign = "left"; c.fillStyle = AMBER; c.fillText(M.parts[1], X + 8, Y - v * g + (v >= 0 ? -4 : 14));
+      out.innerHTML = `patch area <b>${(100 * areaOf(blob) / A0).toFixed(1)}%</b>`;
+    });
+    const set = m => { mode = m; M = MODES[m]; btns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.ham === m))); cap.textContent = M.cap; reset(); fig.redraw(); };
+    btns.forEach(b => b.onclick = () => set(b.dataset.ham)); set("pend");
+  }
+
+  figDip(); figLoop(); figLines(); figRiver(); figStretch(); figFade(); figHam();
 })();

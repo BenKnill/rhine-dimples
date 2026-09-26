@@ -13,17 +13,25 @@ live so long, and why their motion is Hamiltonian: the river surface is its own 
 
 - **Vortices.** Point vortices with a smooth (Scully) core: swirl speed Γr / 2π(r² + a²).
   Kirchhoff's equations Γₖ dxₖ/dt = ∂H/∂yₖ, Γₖ dyₖ/dt = −∂H/∂xₖ, with
-  H = −(1/4π) Σ ΓⱼΓₖ log(|zⱼ − zₖ|² + a²). A background current and a riverbank (mirror images)
-  are optional.
+  H = −(1/4π) Σ ΓⱼΓₖ log(|zⱼ − zₖ|² + a²), plus an optional background current.
 - **Integrator.** Implicit midpoint, which is symplectic and keeps the linear and angular
   impulse exactly.
 - **Surface.** Cyclostrophic balance gives the dip η(r) = −Γ² / 8π²g(r² + a²), about 1.3 mm
-  deep for Γ = 60 cm²/s and a = 0.6 cm.
-- **Light.** Sunlight refracts through the surface; brightness on the bed is
-  1 / |det(I + k·Hess η)| with k = depth · (1 − 1/n). The dimple spreads light (dark core) and
-  its rim focuses it (bright ring); where the determinant crosses zero the ring is a caustic.
-- **Dye.** A closed contour advected by the flow, with points inserted where it stretches;
-  its area is measured with the shoelace formula.
+  deep for Γ = 60 cm²/s and a = 0.6 cm, plus a spectrum of small capillary-gravity ripples.
+- **Views.** From the boat (perspective): each pixel's ray meets the water, the reflected ray
+  picks up sky, clouds and a wooded far bank, the refracted ray goes down into greenish water,
+  and Fresnel's law mixes the two, so dimples show by how they bend the reflections. From above:
+  clear shallows, where the shadows and caustics on the bed are the main thing.
+- **Light.** A fine grid of sunrays is refracted through the surface onto the bed (a ray lands
+  k·∇η away, k = depth · (1 − 1/n), plus an offset for the sun's angle). Each grid triangle is
+  drawn where it lands with brightness (area before) / (area after), and the results are added,
+  so folds in the light give sharp caustics; a small blur stands in for the sun's disk.
+- **Dye.** About 250,000 tracer particles carried on the GPU by the same velocity field; their
+  density tints the water. The area is measured separately, from a closed outline advected by
+  the flow with points inserted where it stretches (shoelace formula).
+- **Interaction.** A paddle stroke makes a pair of opposite spins (total spin stays zero), a tap
+  brings up a pair, and Boils lets the river bring up pairs on its own. Single whirlpools are a
+  separate tool, standing for whirlpools whose other end is on the bed.
 
 ## Checks (`node proto/check.mjs`)
 

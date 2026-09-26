@@ -12,10 +12,11 @@ for (const [name, w, h, dpr] of [['desk', 1280, 900, 1], ['phone', 390, 844, 2]]
   console.log(name, 'stats:', await p.$eval('#stats', e => e.innerText.replace(/\n/g, ' | ')));
   const st = await p.$('#stage'); await st.screenshot({ path: `${OUT}/${name}_stage.jpg`, type: 'jpeg', quality: 85 });
   const ctl = await p.$('.controls'); await ctl.screenshot({ path: `${OUT}/${name}_controls.jpg`, type: 'jpeg', quality: 85 });
-  for (const id of ['figDip', 'figLoop', 'figLines', 'figRiver', 'figStretch', 'figFade']) {
-    const el = await p.$(`#${id}`); await el.evaluate(e => e.scrollIntoView({ block: 'center' })); await wait(id === 'figRiver' ? 7500 : 1600);
+  for (const id of ['figDip', 'figLoop', 'figLines', 'figRiver', 'figStretch', 'figFade', 'figHam']) {
+    const el = await p.$(`#${id}`); await el.evaluate(e => e.scrollIntoView({ block: 'center' })); await wait(id === 'figRiver' ? 7500 : id === 'figHam' ? 6000 : 1600);
     const fig = await el.evaluateHandle(e => e.closest('figure')); await fig.screenshot({ path: `${OUT}/${name}_${id}.jpg`, type: 'jpeg', quality: 85 });
   }
+  if (name === 'desk') { await p.click('[data-ham="river"]'); const el = await p.$('#figHam'); await wait(6000); const fig = await el.evaluateHandle(e => e.closest('figure')); await fig.screenshot({ path: `${OUT}/${name}_ham_river.jpg`, type: 'jpeg', quality: 85 }); }
   if (name === 'desk') for (const m of ['arch', 'end']) {
     await p.click(`[data-line="${m}"]`); const el = await p.$('#figLines'); await wait(m === 'end' ? 6800 : 1500);
     const fig = await el.evaluateHandle(e => e.closest('figure')); await fig.screenshot({ path: `${OUT}/${name}_lines_${m}.jpg`, type: 'jpeg', quality: 85 });
