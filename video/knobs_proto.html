@@ -1,0 +1,119 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  html, body { margin: 0; background: #0A0D14; overflow: hidden; }
+  #c { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  #w { position: absolute; left: 1010px; top: 430px; width: 840px; height: 540px; border-radius: 10px; }
+</style></head>
+<body>
+<canvas id="w" width="840" height="540"></canvas>
+<canvas id="c" width="1920" height="1080"></canvas>
+<script src="../web/water.js"></script>
+<script>
+// Prototype of the live-parameter device: h = Γ² / 8π² g a², three sweeps.
+(() => {
+  const c = document.getElementById("c").getContext("2d"), wat = new WaterRenderer(document.getElementById("w"), { preserve: true, gridX: 700, gridY: 450, causticW: 1200, causticH: 780 });
+  const TEAL = "#4FD1C5", AMBER = "#FFB547", VIOLET = "#B28DFF", TEXT = "#DCE2EC", MUTED = "#8A95AA";
+  const ss = (t, a, b) => { const x = Math.max(0, Math.min(1, (t - a) / (b - a))); return x * x * (3 - 2 * x); };
+  const G0 = 60, g0 = 981, a0 = 0.6;
+  const state = t => {
+    const G = G0 * 2 ** (ss(t, 1.5, 4) - ss(t, 5, 6.2)), g = g0 * 6 ** -(ss(t, 6.8, 9.3) - ss(t, 10.3, 11.5)), a = a0 * 2 ** (ss(t, 12, 14.5) - ss(t, 15.5, 16.7));
+    return { G, g, a, h: G * G / (8 * Math.PI ** 2 * g * a * a) };
+  };
+  const SUBS = [[0, 1.4, "Its depth: gamma squared, over eight pi squared g a squared."], [1.4, 6.5, "Double the spin, gamma, and the dip gets four times deeper."],
+    [6.5, 11.8, "On the Moon, with a sixth of the gravity, the same whirlpool digs six times deeper."], [11.8, 17.2, "Widen the core, and it gets shallower, by the square again."]];
+
+  // ---- the equation, laid out on canvas so each symbol can be scaled and emphasised ----
+  const fmt = r => { const v = r >= 1 ? r : 1 / r, s = Math.abs(v - Math.round(v)) < 0.05 ? String(Math.round(v)) : v.toFixed(1); return (r >= 1 ? "×" : "÷") + s; };
+  function tok(text, o = {}) { return { text, ...o }; }
+  function measure(tk, fs) { const sc = tk.scale || 1; c.font = `${tk.italic ? "italic " : ""}${tk.bold ? 700 : 400} ${fs * sc}px "STIX Two Text"`; let w = c.measureText(tk.text).width;
+    if (tk.sup) { c.font = `400 ${fs * sc * 0.58}px "STIX Two Text"`; w += c.measureText(tk.sup).width + fs * 0.04; } return w + (tk.lane || 0); }
+  function drawTok(tk, x, y, fs) {
+    const sc = tk.scale || 1, e = tk.emph || 0, col = tk.color || TEXT;
+    c.save(); c.fillStyle = col; c.strokeStyle = col; c.lineJoin = "round";
+    if (e > 0) { c.shadowColor = col; c.shadowBlur = 26 * Math.min(1, e); }
+    c.font = `${tk.italic ? "italic " : ""}${e > 0.35 ? 700 : 400} ${fs * sc}px "STIX Two Text"`; c.fillText(tk.text, x, y);
+    if (e > 0) { c.lineWidth = 2.2 * Math.min(1.4, e); c.strokeText(tk.text, x, y); }
+    let w = c.measureText(tk.text).width;
+    if (tk.sup) { c.font = `${(tk.supEmph || 0) > 0.35 ? 700 : 400} ${fs * sc * 0.58}px "STIX Two Text"`; c.shadowBlur = 26 * Math.min(1, tk.supEmph || 0); c.fillText(tk.sup, x + w + fs * 0.04, y - fs * sc * 0.42); w += c.measureText(tk.sup).width + fs * 0.04; }
+    c.restore();
+    if (tk.ratio !== undefined) arrowFor(tk, x + w + 26, y - fs * 0.32, col);
+    return w + (tk.lane || 0);
+  }
+  function arrowFor(tk, x, ymid, col) {
+    const L = 56 * Math.log2(tk.ratio), a = Math.min(1, Math.abs(Math.log2(tk.ratio)) / 0.25); if (a < 0.02) return;
+    c.save(); c.globalAlpha = a; c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 8; c.lineCap = "round";
+    const dir = Math.sign(L), y0 = ymid + dir * 26, y1 = y0 - L;          // starts at the symbol, points away from it
+    c.beginPath(); c.moveTo(x, y0); c.lineTo(x, y1 + dir * 8); c.stroke();
+    c.beginPath(); c.moveTo(x, y1 - dir * 10); c.lineTo(x - 16, y1 + dir * 16); c.lineTo(x + 16, y1 + dir * 16); c.closePath(); c.fill();
+    c.font = `600 38px "IBM Plex Mono"`; c.textAlign = "left"; c.fillText(`${tk.name} ${fmt(tk.ratio)}`, x + 22, y1 + (dir > 0 ? 12 : 26));
+    if (tk.note) { c.font = `500 28px "IBM Plex Sans"`; c.globalAlpha = a * 0.85; c.fillText(tk.note, x + 22, y1 + (dir > 0 ? 46 : 60)); }
+    c.restore();
+  }
+  function drawEquation(s) {
+    const fs = 104, rG = s.G / G0, rg = s.g / g0, ra = s.a / a0, rh = s.h / (G0 * G0 / (8 * Math.PI ** 2 * g0 * a0 * a0));
+    const knob = (r, col, name) => { const e = Math.abs(Math.log2(r)), on = Math.min(1, e / 0.2); return { name, ratio: r, emph: 1.2 * on, scale: Math.max(0.72, Math.min(1.4, r ** 0.12)), color: e > 0.02 ? col : TEXT, lane: 190 * on }; };
+    const H = tok("h", { italic: true, ...knob(rh, "#FFFFFF", "h") }), eq = tok("="),
+      G = tok("Γ", { sup: "2", ...knob(rG, TEAL, "Γ") }), c8 = tok("8π"), c8s = { ...c8, sup: "2" }, g = tok("g", { italic: true, ...knob(rg, VIOLET, "g"), note: rg < 0.99 ? "the Moon" : "" }), a = tok("a", { italic: true, sup: "2", ...knob(ra, AMBER, "a") });
+    G.supEmph = G.emph; a.supEmph = a.emph;
+    const num = [G], den = [c8s, g, a], gap = 18;
+    const rowW = r => r.reduce((s, t) => s + measure(t, fs) + gap, -gap);
+    const wn = rowW(num), wd = rowW(den), wf = Math.max(wn, wd) + 30, wl = measure(H, fs) + gap * 2 + measure(eq, fs) + gap * 2;
+    let x = 960 - (wl + wf) / 2; const y = 250;
+    x += drawTok(H, x, y, fs) + gap * 2; x += drawTok(eq, x, y, fs) + gap * 2;
+    c.fillStyle = TEXT; c.fillRect(x, y - fs * 0.3, wf, 4);
+    let xn = x + (wf - wn) / 2; for (const t of num) xn += drawTok(t, xn, y - fs * 0.52, fs) + gap;
+    let xd = x + (wf - wd) / 2; for (const t of den) xd += drawTok(t, xd, y + fs * 0.62, fs) + gap;
+  }
+
+  // ---- cross-section: sunrays through the dip onto the bed (as in the page figure) ----
+  const D = 12, n = 1.333, sun = 0.22, X = 4.5;
+  function crossSection(s, t) {
+    const L = 70, R = 950, ys = 560, yb = 930, sx = x => L + (x + X) / (2 * X) * (R - L), E = 310, A = s.G * s.G / (8 * Math.PI ** 2 * s.g), a2 = s.a * s.a;
+    const eta = x => -A / (x * x + a2), slope = x => 2 * A * x / (x * x + a2) ** 2, sy = x => ys - eta(x) * E;
+    const land = x => { const d = [Math.sin(sun), -Math.cos(sun)], sl = slope(x), m = Math.hypot(sl, 1), N = [-sl / m, 1 / m], ci = -(N[0] * d[0] + N[1] * d[1]), r = 1 / n, k = 1 - r * r * (1 - ci * ci), tt = r * ci - Math.sqrt(k);
+      const Rr = [r * d[0] + tt * N[0], r * d[1] + tt * N[1]]; return x + (D + eta(x)) * Rr[0] / -Rr[1]; };
+    c.save(); c.beginPath(); c.rect(L, 400, R - L, 600); c.clip();
+    c.fillStyle = "rgba(60,120,160,0.20)"; c.beginPath(); c.moveTo(sx(-X), yb); for (let i = 0; i <= 300; i++) { const x = -X + 2 * X * i / 300; c.lineTo(sx(x), sy(x)); } c.lineTo(sx(X), yb); c.closePath(); c.fill();
+    const shift = D * Math.tan(Math.asin(Math.sin(sun) / n));
+    for (let i = 0; i <= 70; i++) { const x = -X - shift - 0.3 + (2 * X + 0.3) * i / 70, xb = land(x), xt = sx(x) - Math.tan(sun) * (sy(x) - 420) * 0.35;
+      c.strokeStyle = "rgba(255,228,160,0.30)"; c.lineWidth = 1.3; c.beginPath(); c.moveTo(xt, 420); c.lineTo(sx(x), sy(x)); c.stroke();
+      c.strokeStyle = "rgba(255,228,160,0.20)"; c.beginPath(); c.moveTo(sx(x), sy(x)); c.lineTo(sx(xb), yb); c.stroke(); }
+    const NB = 260, M = 30000, x0 = -X - shift - 3, x1 = X + 3, hist = new Float64Array(NB);
+    for (let i = 0; i < M; i++) { const x = x0 + (x1 - x0) * (i + 0.5) / M, b = Math.floor((land(x) + X) / (2 * X) * NB); if (b >= 0 && b < NB) hist[b]++; }
+    const flat = M / (x1 - x0) * 2 * X / NB;
+    for (let b = 0; b < NB; b++) { const v = hist[b] / flat, k = 0.25 + 0.75 * Math.min(v, 3.5) / 1.4; c.fillStyle = `rgb(${Math.min(255, 196 * k)},${Math.min(255, 178 * k)},${Math.min(255, 140 * k)})`; c.fillRect(sx(-X + b / NB * 2 * X) - 0.5, yb, (R - L) / NB + 1, 18); }
+    const A0 = G0 * G0 / (8 * Math.PI ** 2 * g0), sy0 = x => ys + A0 / (x * x + a0 * a0) * E;
+    c.strokeStyle = "rgba(111,168,255,0.45)"; c.lineWidth = 2; c.setLineDash([9, 7]); c.beginPath(); for (let i = 0; i <= 400; i++) { const x = -X + 2 * X * i / 400; i ? c.lineTo(sx(x), sy0(x)) : c.moveTo(sx(x), sy0(x)); } c.stroke(); c.setLineDash([]);
+    c.strokeStyle = "#6FA8FF"; c.lineWidth = 3; c.beginPath(); for (let i = 0; i <= 400; i++) { const x = -X + 2 * X * i / 400; i ? c.lineTo(sx(x), sy(x)) : c.moveTo(sx(x), sy(x)); } c.stroke();
+    c.restore();
+    const bx = sx(0) - 150, ytop = ys - A / (X * X + a2) * E * 0 - 0, ybot = sy(0);        // depth bracket h, from the far-field level to the bottom
+    c.strokeStyle = "#FFFFFF"; c.lineWidth = 2.5; c.beginPath(); c.moveTo(bx, ys); c.lineTo(bx, ybot); c.moveTo(bx - 10, ys); c.lineTo(bx + 10, ys); c.moveTo(bx - 10, ybot); c.lineTo(bx + 10, ybot); c.stroke();
+    c.setLineDash([4, 5]); c.strokeStyle = "rgba(255,255,255,0.5)"; c.lineWidth = 1.5; c.beginPath(); c.moveTo(bx + 10, ybot); c.lineTo(sx(0), ybot); c.stroke(); c.setLineDash([]);
+    c.font = `italic 600 34px "STIX Two Text"`; c.fillStyle = "#FFFFFF"; c.textAlign = "right"; c.fillText("h", bx - 16, (ys + ybot) / 2 + 12);
+    const cy = ys - 34;                                                         // core radius bracket a
+    c.strokeStyle = AMBER; c.lineWidth = 2.5; c.beginPath(); c.moveTo(sx(0), cy); c.lineTo(sx(s.a), cy); c.moveTo(sx(0), cy - 9); c.lineTo(sx(0), cy + 9); c.moveTo(sx(s.a), cy - 9); c.lineTo(sx(s.a), cy + 9); c.stroke();
+    c.font = `italic 600 32px "STIX Two Text"`; c.fillStyle = AMBER; c.textAlign = "center"; c.fillText("a", (sx(0) + sx(s.a)) / 2, cy - 14);
+    c.font = `500 26px "IBM Plex Sans"`; c.fillStyle = MUTED; c.textAlign = "left"; c.fillText("side view (dip drawn 3× deeper; dashed: where it started)", L, 1000);
+    c.font = `500 30px "IBM Plex Mono"`; c.fillStyle = "#FFFFFF"; c.textAlign = "left"; c.fillText(`h = ${(10 * s.h).toFixed(1)} mm`, sx(0) + 30, sy(0) + 10);
+  }
+  function subtitle(t) {
+    const sub = SUBS.find(([a, b]) => t >= a && t < b); if (!sub) return;
+    const al = Math.min(1, (t - sub[0]) / 0.25, (sub[1] - t) / 0.25);
+    c.save(); c.globalAlpha = al; c.font = `500 36px "IBM Plex Sans"`; c.textAlign = "center"; const w = c.measureText(sub[2]).width;
+    c.fillStyle = "rgba(6,9,14,0.78)"; c.beginPath(); c.roundRect(960 - w / 2 - 22, 1018, w + 44, 52, 10); c.fill(); c.fillStyle = "#F2F5F9"; c.fillText(sub[2], 960, 1056); c.restore();
+  }
+  window.renderAt = t => {
+    const s = state(t);
+    c.clearRect(0, 0, 1920, 1080);
+    drawEquation(s); crossSection(s, t);
+    c.font = `500 26px "IBM Plex Sans"`; c.fillStyle = MUTED; c.textAlign = "left"; c.fillText("from above: the shadow on the riverbed", 1010, 1000);
+    wat.render({ scale: 12 / 840, cx: 0, cy: 0, time: t, a: s.a, exaggerate: 981 / s.g, k: 6.2, ripple: 0.006, sunShift: [-2.0, -2.7], sunBlur: 0.06, glint: 0.2, vortices: [[1.2, 1.5, s.G]] });
+    subtitle(t);
+  };
+  window.DURATION = 17.2;
+  window.filmReady = Promise.all(['400 30px "IBM Plex Sans"', '500 30px "IBM Plex Sans"', '500 30px "IBM Plex Mono"', '600 30px "IBM Plex Mono"', '400 30px "STIX Two Text"', '700 30px "STIX Two Text"', 'italic 400 30px "STIX Two Text"', 'italic 700 30px "STIX Two Text"'].map(f => document.fonts.load(f))).then(() => document.fonts.ready).then(() => { window.renderAt(0); return true; });
+  const q = new URLSearchParams(location.search); if (q.has("t")) window.filmReady.then(() => { window.renderAt(+q.get("t")); window.done = true; });
+})();
+</script></body></html>

@@ -19,7 +19,7 @@ const page = await browser.newPage();
 await page.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 1 });
 page.on('console', m => console.log('[page]', m.text()));
 page.on('pageerror', e => console.log('[pageerror]', e.message));
-await page.goto('file://' + path.join(here, 'film.html') + (arg('query', '') ? '?' + arg('query', '') : ''), { waitUntil: 'networkidle0' });
+await page.goto('file://' + path.join(here, arg('page', 'film.html')) + (arg('query', '') ? '?' + arg('query', '') : ''), { waitUntil: 'networkidle0' });
 await page.evaluate(() => window.filmReady);
 const duration = await page.evaluate(() => window.DURATION);
 const to = +arg('to', duration);

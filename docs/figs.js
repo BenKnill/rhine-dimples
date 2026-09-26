@@ -187,7 +187,7 @@
       upright: "A whirlpool standing on the riverbed. Its circulation is the same at every depth: slide the loop and it doesn't change. One end, one dimple.",
       arch: "An arch with both feet on the surface. Going down one leg and up the other, the same spin looks counterclockwise from above at one foot and clockwise at the other: two dimples, opposite spins.",
       ring: "A closed ring, like a smoke ring. It has no ends, so it never touches the surface and makes no dimple.",
-      end: "Suppose a vortex line just stopped in the water. The loop keeps its circulation as it slides along the tube, and still has it just past the end. But there the water is still, and shrinking the loop to a point gives zero. Contradiction: vortex lines can't end in the water.",
+      end: "Suppose a vortex line just stopped in the water. The loop keeps its circulation as it slides along the tube, and still has it just past the end. But there the water isn't spinning, and shrinking the loop to a point gives zero. Contradiction: vortex lines can't end in the water.",
     };
     const curves = {
       upright: () => { const p = []; for (let i = 0; i <= 60; i++) { const z = -D + D * i / 60; p.push([0.35 * Math.sin(1.4 * z), 0.25 * Math.cos(1.1 * z) - 0.25, z]); } return p; },
@@ -309,7 +309,7 @@
         const k = [0.6, 1.0, 2.0].indexOf(a0), ly = T + 36 + 18 * k; c.strokeStyle = col; c.beginPath(); c.moveTo(R - 150, ly - 4); c.lineTo(R - 126, ly - 4); c.stroke();
         c.textAlign = "left"; font(c, 12, 500); c.fillText(lab, R - 118, ly);
       }
-      c.fillStyle = MUTED; c.textAlign = "right"; font(c, 11.5); c.fillText("dimple depth, relative to the start · dots: a quarter left", R - 6, T + 14);
+      c.fillStyle = MUTED; c.textAlign = "right"; font(c, 11.5); c.fillText("dimple depth (smooth Lamb–Oseen core), relative to the start · dots: a quarter left", R - 6, T + 14);
     });
   }
 

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dimples v2: prototype and script</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { color-scheme: dark; --bg: #0A0D14; --panel: #10151F; --line: #1F2736; --text: #DCE2EC; --muted: #8A95AA; --faint: #5A6479; --glass: #6FA8FF; --cool: #4FD1C5; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.55 "IBM Plex Sans", system-ui, sans-serif; padding-inline: 16px; }
+  .wrap { max-width: 980px; margin: 0 auto; padding-block: 28px 60px; }
+  h1 { font-family: "STIX Two Text", serif; font-size: 34px; margin: 0 0 4px; } h2 { font-family: "STIX Two Text", serif; font-size: 24px; margin: 34px 0 10px; }
+  p { color: #C8D0DC; } .muted { color: var(--muted); }
+  video { width: 100%; border-radius: 8px; border: 1px solid var(--line); background: #000; }
+  .beat { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; margin: 10px 0; }
+  .beat h3 { margin: 0 0 6px; font-size: 16px; display: flex; justify-content: space-between; gap: 12px; } .beat h3 .wc { color: var(--faint); font: 13px "IBM Plex Mono", monospace; }
+  .beat ol { margin: 6px 0 8px 18px; padding: 0; font-family: "STIX Two Text", serif; font-size: 18px; } .beat li { margin: 3px 0; }
+  .note { font-size: 13.5px; color: var(--muted); } .note b { color: var(--cool); font-weight: 500; }
+  textarea { width: 100%; box-sizing: border-box; height: 420px; background: #0C1119; color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 12px; font: 13px/1.5 "IBM Plex Mono", monospace; }
+  button { font: inherit; color: var(--text); background: #141A26; border: 1px solid #2C3649; border-radius: 6px; padding: 7px 14px; cursor: pointer; } button:hover { border-color: var(--faint); }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 8px 0; } #copied { color: var(--cool); font-size: 13px; }
+  .total { font: 14px "IBM Plex Mono", monospace; color: var(--muted); }
+</style></head>
+<body><div class="wrap">
+  <h1>Dimples on the Rhine: video v2</h1>
+  <p class="muted">Prototype of the live-parameter device, the script (merged after the GPT-6-Pro review), and a copy-ready brief for another review.</p>
+
+  <h2>Prototype: the dip, with three knobs</h2>
+  <video src="proto_knobs.mp4" controls loop playsinline></video>
+  <p class="muted">Spin Γ ×2 makes the dip ×4 (the exponent shows as a twice-as-long arrow); gravity ÷6 ("the Moon") makes it ×6; core a ×2 makes it ÷4. Side view (with depth and core brackets) and the top-view render respond live. Timing here is not yet set by narration.</p>
+
+  <h2>Script v2 (merged)</h2>
+  <div class="beat"><h3><span>What changed after the review</span></h3><ul class="note" style="margin:4px 0 0 18px;padding:0"><li>Opening saves the Hamiltonian reveal; ends on a question.</li><li>Physics: flat flow is now introduced as a model (a real surface can stretch vortices where water converges and sinks); fade uses the scaling a²/ν rather than the Lamb–Oseen law on a Scully core; Kelvin gives net-zero spin, the arch gives the pair; the river source is hedged; Γ is a weight, not a mass; "four can be chaotic"; tracer phase space vs 2N-dimensional vortex phase space. The website got the same corrections.</li><li>Narration names consequences; equations stay on screen and build up.</li><li>Kept from v1 on purpose: "a line meets the surface in a point" (dimensionality); an explicit bridge to Kirchhoff (one energy per pair; each whirlpool's motion is a slope of it) instead of announcing it; the measured micron-to-centimetre divergence, phrased as "in these two runs".</li><li>Prototype: chips name their variable (Γ ×2, h ×4), symbol size follows its value (g shrinks as gravity falls), glow marks the selected symbol, depth and core brackets, dashed starting surface.</li></ul></div>
+  <p class="total" id="total"></p>
+  <div id="beats"></div>
+
+  <h2>For review (GPT-6-Pro, Fable, or both)</h2>
+  <p class="muted">Brief, constraints, physics that must stay right, and the script, in one block. Paste the replies back and I'll merge them.</p>
+  <div class="row"><button id="copy">Copy brief + script</button><span id="copied"></span></div>
+  <textarea id="brief" readonly></textarea>
+</div>
+<script>
+const BEATS = [
+  { title: "1 · Open", picture: "From-the-boat view of the river; boils bring up pairs of dimples. Title card. Save the Hamiltonian reveal for later.", knobs: "",
+    lines: ["From a long wooden boat on the Rhine, a friend noticed small dimples beside and ahead of it. Some lingered surprisingly long.", "What makes them, and what keeps them alive?"] },
+  { title: "2 · The dip", picture: "Side view: sunrays through the dip onto the bed, a depth bracket h, a core-radius bracket a, and a faint dashed outline of the starting surface; top view of the shadow. Equation h = Γ² / 8π²g a² on screen (not read aloud). Reset visibly between sweeps.",
+    knobs: "Γ ×2 → h ×4; a ×2 → h ÷4; g ÷6 (the Moon) → h ×6. Chips name their variable; symbol size follows its value; glow marks the selected one.",
+    lines: ["Each dimple marks a whirlpool. Water turning in a circle needs an inward push, and here that push is lower pressure at the centre. So the surface dips.", "Call the whirlpool's strength gamma. Double it, and the dip gets four times deeper.", "Double the core's radius, and the depth falls to a quarter.", "With the Moon's gravity, the same whirlpool would dig six times deeper.", "The dip also bends sunlight: a dark shadow on the riverbed, with a bright rim."] },
+  { title: "3 · Circulation", picture: "Top view of a swirling core with tracer streaks; a loop well outside the core with velocity arrows and a circulation readout. On screen: Γ = ∮ u · dl, then v = Γ/2πr (labelled: outside the core).",
+    knobs: "loop radius r ×2 → water speed v ÷2, loop length 2πr ×2, Γ unchanged.",
+    lines: ["Gamma is the circulation: walk a loop and add up the water's push along the way.", "Well outside the core, double the loop's radius. The water is half as fast, but the walk is twice as long, so the circulation stays the same."] },
+  { title: "4 · Lines", picture: "3D: a vortex tube under the surface; the surface plane slices it in a point. Then the shrinking-loop argument (flow frozen): the loop slides past the end without crossing the tube, then shrinks to nothing. Outside the tube the water swirls but doesn't spin. On screen: ∇ · ω = 0.", knobs: "",
+    lines: ["From above, a whirlpool is a point. But what spins is really a line, running down into the water. A line meets the surface in a point: the dimple.", "Can a vortex line just stop? Slide a loop past its end, never crossing the spin, and its circulation can't change. Now shrink the loop to a point: zero. Contradiction.", "So a vortex line must close into a ring, or end on the riverbed or the surface."] },
+  { title: "5 · Pairs", picture: "The tube bends into an arch meeting the surface twice; arrows along it show the opposite rotations. A paddle stroke; afterwards a big material loop far from the paddle, circulation 0; total-spin readout 0. The pair sails off (V = Γ/2πd on screen). The hairpin rising from the riverbed and breaking the surface.",
+    knobs: "separation d ÷2 → pair speed V ×2 (optionally: both strengths ×2 → V ×2).",
+    lines: ["Bend one into an arch with both feet on the surface: two dimples, spinning opposite ways.", "Kelvin's theorem: away from friction, a loop carried by the water keeps its circulation. So in still water, a paddle's spin must cancel out.", "Each whirlpool rides the other's swirl. Halve their separation, and the pair moves twice as fast.", "Rivers need no paddle: friction at the bed shears the water, and rising arches can break the surface as pairs."] },
+  { title: "6 · Why they last", picture: "Vortex lines standing upright at the surface. A title-style transition to the model: 'flat flow: the same at every depth'. A 3D tube stretched (thinner, faster) beside a flat patch that is only reshaped (Dω/Dt = 0 on screen). A dimple fading, with the scaling 'fade time ∝ a² / ν'.",
+    knobs: "stretch ×3 → spin ×3 (3D) vs ×1 (flat); core a ×2 → fade time ×4; viscosity ν ×1000 → fade time ÷1000.",
+    lines: ["At the surface, spin can only stand upright. Now simplify: treat the water as flat flow, the same at every depth.", "In three dimensions, stretching a vortex spins it faster, until it frays. In flat flow there's nothing to stretch: each patch keeps its spin.", "Friction slowly spreads the core. Double the core, and it lasts four times as long; make the water a thousand times more viscous, and it fades a thousand times faster."] },
+  { title: "7 · Hamilton", picture: "Pendulum phase portrait (energy contours). Light up the two slope-to-speed relations one at a time, then the combined motion; a patch that stretches but keeps its area (readout 100%). The equations morph into the stream-function form; the landscape becomes a pair of whirlpools, and it moves when they move.",
+    knobs: "the two velocity components shown as live arrows.",
+    lines: ["Now a pendulum. Plot angle across and momentum up: its state is one moving point.", "Draw the contours of its energy. The slope up the page sets the speed across; the slope across sets the speed up, with the sign reversed.", "That's Hamilton's rule. The point follows a contour, rather than rolling downhill, and a patch of states stretches but keeps its area.", "A speck on our flat water follows the same rule, on a landscape called the stream function. The surface is the speck's phase space."] },
+  { title: "8 · Kirchhoff", picture: "Point whirlpools. Build the bridge on screen: each whirlpool's velocity from the others' stream function; the energy H drawn as links between every pair (thickness ∝ ΓjΓk); pick a whirlpool and only its links light up: its motion is a slope of H. Then the Kirchhoff equations with the pair (x_k, Γ_k y_k) labelled. Three same-sign whirlpools (freeze while changing a strength, then resume). Two runs of the chaotic four-vortex example started a micron apart. The camel dye, labelled as ideal (no diffusion), area 100%.",
+    knobs: "one strength ×3 → centre of spin slides toward it.",
+    lines: ["Now shrink the whirlpools to points. Each moves along the stream function the others make.", "Add up one energy for every pair, and each whirlpool's motion is a slope of that single landscape: Kirchhoff's equations, Hamilton's rule again, with each y weighted by its gamma.", "Triple one strength, and the centre of spin shifts toward it, like a centre of mass.", "Three whirlpools dance regularly. Four can be chaotic: in these two runs, a micron apart, the dances soon part ways.", "Ideal dye stretches into filaments, but keeps its area."] },
+  { title: "9 · Close", picture: "Back to the from-the-boat view; pull back; end card with the page link.", knobs: "",
+    lines: ["So a dimple drifting past on smooth water is the end of a vortex line, often half of a pair. In our simplified picture, it moves by a pendulum's rule."] },
+];
+const words = s => s.split(/\s+/).filter(Boolean).length;
+let total = 0; const host = document.getElementById("beats");
+for (const b of BEATS) {
+  const wc = b.lines.reduce((s, l) => s + words(l), 0); total += wc;
+  const d = document.createElement("div"); d.className = "beat";
+  d.innerHTML = `<h3><span>${b.title}</span><span class="wc">${wc} words</span></h3><ol>${b.lines.map(l => `<li>${l}</li>`).join("")}</ol>` +
+    `<div class="note">Picture: ${b.picture}</div>` + (b.knobs ? `<div class="note"><b>Knobs:</b> ${b.knobs}</div>` : "");
+  host.appendChild(d);
+}
+document.getElementById("total").textContent = `${total} words · at the first video's pace (126 words/min including pauses) ≈ ${(total / 126).toFixed(1)} min, plus held silences for the knob sweeps`;
+
+const BRIEF = `You are reviewing and revising the narration script for a short educational video, about 4.5 to 5 minutes, in the spirit of 3Blue1Brown.
+
+WHAT THE VIDEO IS
+"Dimples on the Rhine", episode 3 of a small series (episode 1: Gromov's non-squeezing theorem, "the symplectic camel"; episode 2: a reversible chaotic map run backwards). A friend, riding a long wooden boat on the Rhine, noticed small dimples on the water: there were few boats, the dimples appeared beside and ahead of the boat, were most visible when the water was smooth, and some lasted a long time. The video explains, from the ground up, what a dimple is, why vortex lines can't end in the water, why whirlpools come in pairs, where a river's own dimples come from, why a flat surface lets them live long, and builds up to Kirchhoff's equations: point vortices obey Hamilton's equations, so the river surface is its own phase space.
+
+THE SIGNATURE DEVICE
+Equations stay on screen. One parameter at a time is scaled up or down live: its symbol grows, glows, and gets an arrow with a factor chip (x2, /6); the quantity that responds gets its own arrow on the same log scale (so an exponent shows as a longer arrow); the animation next to it changes live. The narration for a knob line should name the change and its effect in plain words, and leave the picture room to breathe (short sentences; the edit adds 1-2 s silences around each sweep).
+
+CONSTRAINTS
+- This is already a merged revision after one outside review. Total narration about 560 words (the synthetic voice runs about 126 words per minute including pauses, and the knob sweeps add about 20 s of held silence; the video must stay under 5 minutes). Trim further only if nothing is lost.
+- Written for the ear: one idea per sentence, no parenthetical asides, no lists.
+- A text-to-speech voice reads it. Spell symbols as words: gamma, nu, pi, "a squared". Avoid a bare single letter where it could be misread (the core size "a" is fine inside "a squared"). Avoid abbreviations.
+- Keep the friend anonymous, and do not add details about the trip beyond those above.
+- Keep the beat structure (1 to 9) and the order of ideas; you may merge, split, reword, or cut lines. Each beat has a picture and knob notes: keep lines consistent with them, or say what picture change your revision needs.
+- Tone: warm, curious, precise; no hype words, no "mind-blowing", no rhetorical "What if I told you".
+
+PHYSICS THAT MUST STAY RIGHT (flag anything you think is wrong rather than silently changing it)
+- Dip depth at the centre h = Gamma^2 / (8 pi^2 g a^2) for a vortex of circulation Gamma with core radius a (cyclostrophic balance, Scully-type core). So Gamma x2 gives h x4; a x2 gives h /4; g /6 (the Moon) gives h x6.
+- The dip acts as a diverging lens in the middle and focuses light near its rim: a dark shadow with a bright caustic rim on the bed.
+- Circulation Gamma = loop integral of u . dl. Outside the core, v = Gamma / (2 pi r): doubling the loop radius halves the speed and doubles the length, so Gamma is unchanged.
+- Vortex lines cannot end inside the fluid (Helmholtz; div omega = 0): they close, or end on a boundary (bed or surface). The shrinking-loop argument is the intended proof sketch.
+- Kelvin: in inviscid flow, circulation around a material loop is constant. A big loop in still water that never touches the paddle keeps zero circulation, so the paddle's spin is net zero; it does not by itself fix the number of whirlpools. The arch (half vortex ring) is what gives two dimples of opposite sign.
+- A counter-rotating pair moves at V = Gamma / (2 pi d), perpendicular to the line joining them.
+- River dimples most likely come from hairpin vortices generated by shear at the bed that rise and connect to the surface (also boils, pier and groyne shedding); this is a plausible source, not a diagnosis of the particular dimples. No-slip at the bed is where vorticity is created (Kelvin's theorem fails there because of viscosity).
+- 3D: D omega / Dt = (omega . grad) u, stretching increases spin. At a flat stress-free surface vortex lines meet the surface at right angles (only upright spin survives there). The surface does NOT by itself make the flow two-dimensional: converging surface water with downwelling stretches and intensifies upright vortices. The script therefore introduces flat (2D) flow explicitly as a model, in which D omega / Dt = 0 (inviscid).
+- Viscous spreading: the fade time scales as a^2 / nu (water nu about 0.01 cm^2/s). The exact law a^2 -> a^2 + 4 nu t belongs to the Lamb-Oseen vortex and is not combined with the Scully depth formula as one solution; the script only uses the scaling.
+- Hamilton: dq/dt = dH/dp, dp/dt = -dH/dq; energy conserved; phase-space area conserved (Liouville).
+- 2D incompressible flow: dx/dt = d psi/dy, dy/dt = -d psi/dx (stream function psi as Hamiltonian, x as position, y as momentum).
+- Kirchhoff (1876): Gamma_k dx_k/dt = dH/dy_k, Gamma_k dy_k/dt = -dH/dx_k with H = -(1/2 pi) sum over pairs Gamma_j Gamma_k log|z_j - z_k|. Conjugate pair (x_k, Gamma_k y_k). Conserved: H, centre of spin (Gamma-weighted average position), angular impulse. Three vortices are integrable; four can be chaotic (the example used was measured: starts 1 micron apart separate to 1 cm in about 5.6 s). Gamma is a signed weight, not a mass; the centre-of-spin demo uses same-sign vortices. A tracer's phase space is the surface itself; N vortices have a 2N-dimensional phase space.
+- Dye in 2D incompressible flow keeps its area while being stretched.
+
+WHAT TO RETURN
+1. The revised script in the same format (beat headers, one line per sentence group), with a word count.
+2. A short list of your changes and why.
+3. Any physics or clarity concerns, and any line where the picture would need to change.
+
+THE SCRIPT
+`;
+const scriptText = BEATS.map(b => `${b.title}\n[Picture: ${b.picture}]${b.knobs ? `\n[Knobs: ${b.knobs}]` : ""}\n` + b.lines.map(l => "- " + l).join("\n")).join("\n\n") + `\n\n(Total: ${total} words.)`;
+const ta = document.getElementById("brief"); ta.value = BRIEF + "\n" + scriptText;
+document.getElementById("copy").onclick = async () => {
+  try { await navigator.clipboard.writeText(ta.value); } catch (e) { ta.select(); document.execCommand("copy"); }
+  document.getElementById("copied").textContent = "Copied."; setTimeout(() => document.getElementById("copied").textContent = "", 2500);
+};
+</script></body></html>
