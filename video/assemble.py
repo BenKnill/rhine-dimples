@@ -8,7 +8,9 @@ import numpy as np
 import soundfile as sf
 
 HERE = Path(__file__).resolve().parent
-script = json.loads((HERE / 'script.json').read_text())
+import os
+SCRIPT = os.environ.get('SCRIPT', 'script.json'); TAG = os.environ.get('TAG', '')
+script = json.loads((HERE / SCRIPT).read_text())
 sel_path = HERE / 'selection.json'
 selection = json.loads(sel_path.read_text()) if sel_path.exists() else {}
 GAP = {'clause': 0.2, 'sentence': 0.55, 'paragraph': 0.8}
@@ -45,17 +47,17 @@ for b in script['beats']:
     beats[b['id']] = dict(start=round(bstart, 3), end=round(t, 3), lines=blines)
 
 raw = np.concatenate(out)
-sf.write(HERE / 'narration-raw.wav', raw, sr, subtype='FLOAT')
-r = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(HERE / 'narration-raw.wav'), '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'],
+sf.write(HERE / f'narration{TAG}-raw.wav', raw, sr, subtype='FLOAT')
+r = subprocess.run(['ffmpeg', '-hide_banner', '-i', str(HERE / f'narration{TAG}-raw.wav'), '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'],
                    capture_output=True, text=True, check=True)
 loud = json.JSONDecoder().raw_decode(r.stderr[r.stderr.rfind('{'):])[0]
 gain = min(-16 - float(loud['input_i']), -1.5 - float(loud['input_tp']))
-subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', str(HERE / 'narration-raw.wav'), '-af', f'volume={gain}dB',
-                '-ar', '48000', '-c:a', 'pcm_s24le', str(HERE / 'narration.wav')], check=True)
+subprocess.run(['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', str(HERE / f'narration{TAG}-raw.wav'), '-af', f'volume={gain}dB',
+                '-ar', '48000', '-c:a', 'pcm_s24le', str(HERE / f'narration{TAG}.wav')], check=True)
 
 timing = dict(duration=round(t, 3), beats=beats, lines=lines)
-(HERE / 'timing.json').write_text(json.dumps(timing, indent=1, ensure_ascii=False))
-(HERE / 'timing.js').write_text('window.TIMING = ' + json.dumps(timing, ensure_ascii=False) + ';\n')
+(HERE / f'timing{TAG}.json').write_text(json.dumps(timing, indent=1, ensure_ascii=False))
+(HERE / f'timing{TAG}.js').write_text('window.TIMING = ' + json.dumps(timing, ensure_ascii=False) + ';\n')
 
 def ts(x):
     ms = round(x * 1000); return f'{ms//3600000:02d}:{ms//60000%60:02d}:{ms//1000%60:02d},{ms%1000:03d}'
@@ -64,5 +66,5 @@ for i, l in enumerate(lines):
     nxt = lines[i + 1]['start'] if i + 1 < len(lines) else l['end'] + 1
     until = nxt if nxt - l['end'] < 0.9 else l['end'] + 0.35
     srt.append(f'{i+1}\n{ts(l["start"] - 0.08)} --> {ts(until - 0.02)}\n{l["show"]}\n')
-(HERE / 'dimples-on-the-rhine.srt').write_text('\n'.join(srt))
+(HERE / (f'dimples-on-the-rhine{TAG}.srt')).write_text('\n'.join(srt))
 print(f'duration {t:.1f}s, {len(lines)} lines, gain {gain:.1f} dB')

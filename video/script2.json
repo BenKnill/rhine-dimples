@@ -1,0 +1,861 @@
+{
+ "title": "Dimples on the Rhine",
+ "beats": [
+  {
+   "id": "open",
+   "title": "Cold open",
+   "pad_before": 1.0,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "From a long wooden boat on the Rhine, a friend kept noticing small dimples on the water,",
+     "say": "From a long wooden boat on the Rhine, a friend kept noticing small dimples on the water,",
+     "b": "clause"
+    },
+    {
+     "show": "beside the boat and ahead of it, mostly when the water was smooth.",
+     "say": "beside the boat and ahead of it, mostly when the water was smooth.",
+     "b": "sentence"
+    },
+    {
+     "show": "Some lasted a surprisingly long time.",
+     "say": "Some lasted a surprisingly long time.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Each dimple sits on top of a whirlpool.",
+     "say": "Each dimple sits on top of a whirlpool.",
+     "b": "sentence"
+    },
+    {
+     "show": "Water going round in a circle needs an inward push, and that push is pressure, lower at the centre.",
+     "say": "Water going round in a circle needs an inward push, and that push is pressure, lower at the centre.",
+     "b": "sentence"
+    },
+    {
+     "show": "So above the spinning water, the surface sags into a small funnel.",
+     "say": "So above the spinning water, the surface sags into a small funnel.",
+     "b": "paragraph"
+    },
+    {
+     "show": "So what keeps a small whirlpool like that together, while everything around it keeps changing?",
+     "say": "So what keeps a small whirlpool like that together, while everything around it keeps changing?",
+     "b": "paragraph"
+    },
+    {
+     "show": "Finding out takes us through Victorian ships, smoke rings and Jupiter, and ends in a lab in Norway,",
+     "say": "Finding out takes us through Victorian ships, smoke rings and Jupiter, and ends in a lab in Norway,",
+     "b": "clause"
+    },
+    {
+     "show": "reading rivers from dimples like these.",
+     "say": "reading rivers from dimples like these.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "numbers",
+   "title": "1 · The numbers that rule natural flows",
+   "pad_before": 1.2,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "Physicists size up a flow in nature with a couple of numbers.",
+     "say": "Physicists size up a flow in nature with a couple of numbers.",
+     "b": "paragraph"
+    },
+    {
+     "show": "The first came from Osborne Reynolds, in Manchester, in 1883.",
+     "say": "The first came from Osborne Reynolds, in Manchester, in eighteen eighty-three.",
+     "b": "sentence"
+    },
+    {
+     "show": "He let a thin streak of dye into water flowing through a glass pipe.",
+     "say": "He let a thin streak of dye into water flowing through a glass pipe.",
+     "b": "sentence"
+    },
+    {
+     "show": "Slowly, the streak stayed a clean line.",
+     "say": "Slowly, the streak stayed a clean line.",
+     "b": "sentence"
+    },
+    {
+     "show": "Faster, it suddenly shivered, burst, and filled the pipe.",
+     "say": "Faster, it suddenly shivered, burst, and filled the pipe.",
+     "b": "paragraph"
+    },
+    {
+     "show": "What decides it is one ratio: how strongly the moving water carries itself along,",
+     "say": "What decides it is one ratio: how strongly the moving water carries itself along,",
+     "b": "clause"
+    },
+    {
+     "show": "compared with how strongly its own friction holds it back.",
+     "say": "compared with how strongly its own friction holds it back.",
+     "b": "sentence"
+    },
+    {
+     "show": "That's the Reynolds number: speed, times size, divided by viscosity.",
+     "say": "That's the Reynolds number: speed, times size, divided by viscosity.",
+     "b": "paragraph"
+    },
+    {
+     "show": "In Reynolds' pipe, the switch came at a few thousand.",
+     "say": "In Reynolds' pipe, the switch came at a few thousand.",
+     "b": "sentence"
+    },
+    {
+     "show": "A river a few metres deep, flowing at a metre or two per second,",
+     "say": "A river a few metres deep, flowing at a metre or two per second,",
+     "b": "clause"
+    },
+    {
+     "show": "has a Reynolds number in the millions.",
+     "say": "has a Reynolds number in the millions.",
+     "b": "sentence"
+    },
+    {
+     "show": "It's thoroughly turbulent.",
+     "say": "It's thoroughly turbulent.",
+     "b": "paragraph"
+    },
+    {
+     "show": "The second number came from ships.",
+     "say": "The second number came from ships.",
+     "b": "sentence"
+    },
+    {
+     "show": "In the eighteen-seventies, the engineer William Froude towed model hulls through a long tank at Torquay,",
+     "say": "In the eighteen-seventies, the engineer William Frood towed model hulls through a long tank at Tor-key,",
+     "b": "clause"
+    },
+    {
+     "show": "to predict the power a real ship would need.",
+     "say": "to predict the power a real ship would need.",
+     "b": "sentence"
+    },
+    {
+     "show": "To make the right waves, a model's speed, divided by the square root of gravity times its length,",
+     "say": "To make the right waves, a model's speed, divided by the square root of gravity times its length,",
+     "b": "clause"
+    },
+    {
+     "show": "has to match the real ship.",
+     "say": "has to match the real ship.",
+     "b": "paragraph"
+    },
+    {
+     "show": "That ratio is now called the Froude number, and there's a neat way to see it:",
+     "say": "That ratio is now called the Frood number, and there's a neat way to see it:",
+     "b": "clause"
+    },
+    {
+     "show": "it compares the current's speed with the speed of the surface's own long waves.",
+     "say": "it compares the current's speed with the speed of the surface's own long waves.",
+     "b": "paragraph"
+    },
+    {
+     "show": "At a low Froude number, a long wave can still creep upstream against the current.",
+     "say": "At a low Frood number, a long wave can still creep upstream against the current.",
+     "b": "sentence"
+    },
+    {
+     "show": "Turn the current up past a Froude number of one, and it outruns every such wave: nothing travels upstream.",
+     "say": "Turn the current up past a Frood number of one, and it outruns every such wave: nothing travels upstream.",
+     "b": "paragraph"
+    },
+    {
+     "show": "A river flowing a metre and a half per second over four metres of water, for example,",
+     "say": "A river flowing a metre and a half per second over four metres of water, for example,",
+     "b": "clause"
+    },
+    {
+     "show": "has a Froude number of about a quarter.",
+     "say": "has a Frood number of about a quarter.",
+     "b": "sentence"
+    },
+    {
+     "show": "Gravity wins, and the surface stays nearly level, like a lid.",
+     "say": "Gravity wins, and the surface stays nearly level, like a lid.",
+     "b": "paragraph"
+    },
+    {
+     "show": "That doesn't make the water beneath it flat.",
+     "say": "That doesn't make the water beneath it flat.",
+     "b": "sentence"
+    },
+    {
+     "show": "Water can still rise and sink under a level surface.",
+     "say": "Water can still rise and sink under a level surface.",
+     "b": "sentence"
+    },
+    {
+     "show": "But in the ocean and the atmosphere, layering and rotation really do squash vertical motion:",
+     "b": "clause",
+     "say": "But in the ocean and the atmosphere, layering and rotation really do squash vertical motion:"
+    },
+    {
+     "show": "G. I. Taylor found that in a rapidly spinning tank, a whole column of water can move as one.",
+     "b": "paragraph",
+     "say": "Geoffrey Taylor found that in a rapidly spinning tank, a whole column of water can move as one."
+    },
+    {
+     "show": "So physicists often reach for a model: flow that moves only sideways, the same at every depth.",
+     "say": "So physicists often reach for a model: flow that moves only sideways, the same at every depth.",
+     "b": "sentence"
+    },
+    {
+     "show": "It will turn out to be powerful, and incomplete.",
+     "say": "It will turn out to be powerful, and incomplete.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "flat",
+   "title": "2 · What flatness does to turbulence",
+   "pad_before": 1.2,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "In 1922, the meteorologist Lewis Fry Richardson summed up ordinary turbulence in a rhyme:",
+     "say": "In nineteen twenty-two, the meteorologist Lewis Fry Richardson summed up ordinary turbulence in a rhyme:",
+     "b": "clause"
+    },
+    {
+     "show": "big whorls have little whorls that feed on their velocity, and little whorls have lesser whorls,",
+     "say": "big whorls have little whorls that feed on their velocity, and little whorls have lesser whorls,",
+     "b": "clause"
+    },
+    {
+     "show": "and so on to viscosity.",
+     "say": "and so on to viscosity.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Energy tumbles from large eddies to smaller ones, until friction turns it into heat.",
+     "say": "Energy tumbles from large eddies to smaller ones, until friction turns it into heat.",
+     "b": "sentence"
+    },
+    {
+     "show": "Andrei Kolmogorov made that cascade precise in 1941.",
+     "say": "Andrei Kolmogorov made that cascade precise in nineteen forty-one.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Its engine is stretching.",
+     "say": "Its engine is stretching.",
+     "b": "sentence"
+    },
+    {
+     "show": "Stretch a spinning tube of fluid, and it gets thinner and spins faster,",
+     "say": "Stretch a spinning tube of fluid, and it gets thinner and spins faster,",
+     "b": "clause"
+    },
+    {
+     "show": "like a skater pulling in their arms.",
+     "say": "like a skater pulling in their arms.",
+     "b": "sentence"
+    },
+    {
+     "show": "Stretch it to three times its length, and it spins three times as fast.",
+     "say": "Stretch it to three times its length, and it spins three times as fast.",
+     "b": "paragraph"
+    },
+    {
+     "show": "In the sideways-only model, there's nothing to stretch: a whirl's spin is simply carried along.",
+     "say": "In the sideways-only model, there's nothing to stretch: a whirl's spin is simply carried along.",
+     "b": "sentence"
+    },
+    {
+     "show": "And the cascade changes character.",
+     "say": "And the cascade changes character.",
+     "b": "sentence"
+    },
+    {
+     "show": "Robert Kraichnan and others showed that energy now climbs to larger scales: small eddies merge into big ones,",
+     "say": "Robert Kraichnan and others showed that energy now climbs to larger scales: small eddies merge into big ones,",
+     "b": "clause"
+    },
+    {
+     "show": "while the spin gets drawn out into ever finer filaments.",
+     "say": "while the spin gets drawn out into ever finer filaments.",
+     "b": "paragraph"
+    },
+    {
+     "show": "You can see it in soap films, about the flattest fluid we can make, and on a planetary scale.",
+     "say": "You can see it in soap films, about the flattest fluid we can make, and on a planetary scale.",
+     "b": "sentence"
+    },
+    {
+     "show": "Jupiter's weather lives in a thin, fast-spinning, layered shell.",
+     "say": "Jupiter's weather lives in a thin, fast-spinning, layered shell.",
+     "b": "sentence"
+    },
+    {
+     "show": "Its Great Red Spot, still wider than the Earth and in the habit of swallowing smaller storms,",
+     "say": "Its Great Red Spot, still wider than the Earth and in the habit of swallowing smaller storms,",
+     "b": "clause"
+    },
+    {
+     "show": "has an observing record going back to 1831.",
+     "say": "has an observing record going back to eighteen thirty-one.",
+     "b": "paragraph"
+    },
+    {
+     "show": "In the ocean, lenses of salty Mediterranean water, called meddies, spin quietly for years.",
+     "say": "In the ocean, lenses of salty Mediterranean water, called meddies, spin quietly for years.",
+     "b": "paragraph"
+    },
+    {
+     "show": "So in the flat model, whirlpools last and grow.",
+     "say": "So in the flat model, whirlpools last and grow.",
+     "b": "sentence"
+    },
+    {
+     "show": "But what is a dimple, really, and why does it sit on a whirlpool at all?",
+     "say": "But what is a dimple, really, and why does it sit on a whirlpool at all?",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "rules",
+   "title": "3 · The rules of vortices",
+   "pad_before": 1.2,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "Back to the dimple.",
+     "say": "Back to the dimple.",
+     "b": "paragraph"
+    },
+    {
+     "show": "In a simple model of a whirlpool's core, its depth depends on two things that really vary.",
+     "say": "In a simple model of a whirlpool's core, its depth depends on two things that really vary.",
+     "b": "sentence"
+    },
+    {
+     "show": "Call the whirlpool's strength gamma.",
+     "say": "Call the whirlpool's strength gamma.",
+     "b": "sentence"
+    },
+    {
+     "show": "Double it, and the dip gets four times deeper.",
+     "say": "Double it, and the dip gets four times deeper.",
+     "b": "sentence"
+    },
+    {
+     "show": "Double the width of its core, as an ageing whirlpool slowly does, and the dip falls to a quarter.",
+     "say": "Double the width of its core, as an ageing whirlpool slowly does, and the dip falls to a quarter.",
+     "b": "paragraph"
+    },
+    {
+     "show": "That funnel is also a lens: in shallow water, it casts a dark shadow on the bed,",
+     "say": "That funnel is also a lens: in shallow water, it casts a dark shadow on the bed,",
+     "b": "clause"
+    },
+    {
+     "show": "with a bright edge.",
+     "say": "with a bright edge.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Gamma is the circulation.",
+     "say": "Gamma is the circulation.",
+     "b": "sentence"
+    },
+    {
+     "show": "Walk a loop in the water, adding up how fast the water flows along your path, step by step.",
+     "say": "Walk a loop in the water, adding up how fast the water flows along your path, step by step.",
+     "b": "sentence"
+    },
+    {
+     "show": "Well outside the core, double the loop's radius: the water is about half as fast,",
+     "say": "Well outside the core, double the loop's radius: the water is about half as fast,",
+     "b": "clause"
+    },
+    {
+     "show": "but the walk is twice as long, so the total barely changes.",
+     "say": "but the walk is twice as long, so the total barely changes.",
+     "b": "paragraph"
+    },
+    {
+     "show": "From above, a whirlpool looks like a point.",
+     "say": "From above, a whirlpool looks like a point.",
+     "b": "sentence"
+    },
+    {
+     "show": "But what spins is really a line, running down into the river.",
+     "say": "But what spins is really a line, running down into the river.",
+     "b": "sentence"
+    },
+    {
+     "show": "A line meets the surface in a single point, and that point is the dimple.",
+     "say": "A line meets the surface in a single point, and that point is the dimple.",
+     "b": "paragraph"
+    },
+    {
+     "show": "In 1858, Hermann von Helmholtz worked out the rules these vortex lines obey, and one is striking:",
+     "say": "In eighteen fifty-eight, Hermann von Helmholtz worked out the rules these vortex lines obey, and one is striking:",
+     "b": "clause"
+    },
+    {
+     "show": "a tube of spin can't just end inside the water.",
+     "say": "a tube of spin can't just end inside the water.",
+     "b": "sentence"
+    },
+    {
+     "show": "Suppose it did.",
+     "say": "Suppose it did.",
+     "b": "sentence"
+    },
+    {
+     "show": "Slide a loop past the end without crossing it, and its circulation can't change.",
+     "say": "Slide a loop past the end without crossing it, and its circulation can't change.",
+     "b": "sentence"
+    },
+    {
+     "show": "Now shrink the loop to a point: zero.",
+     "say": "Now shrink the loop to a point: zero.",
+     "b": "sentence"
+    },
+    {
+     "show": "So the tube must close into a ring, or end on the riverbed or the surface.",
+     "say": "So the tube must close into a ring, or end on the riverbed or the surface.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Helmholtz's work had an unexpected sequel.",
+     "say": "Helmholtz's work had an unexpected sequel.",
+     "b": "sentence"
+    },
+    {
+     "show": "In Edinburgh, Peter Guthrie Tait built a box that puffed out smoke rings,",
+     "say": "In Edinburgh, Peter Guthrie Tate built a box that puffed out smoke rings,",
+     "b": "clause"
+    },
+    {
+     "show": "and showed them to his friend William Thomson, later Lord Kelvin.",
+     "say": "and showed them to his friend William Thomson, later Lord Kelvin.",
+     "b": "sentence"
+    },
+    {
+     "show": "The rings bounced off each other, wobbled, and survived their collisions.",
+     "say": "The rings bounced off each other, wobbled, and survived their collisions.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Kelvin was captivated.",
+     "say": "Kelvin was captivated.",
+     "b": "sentence"
+    },
+    {
+     "show": "By Helmholtz's rules, a vortex in a perfect fluid can never be created or destroyed,",
+     "say": "By Helmholtz's rules, a vortex in a perfect fluid can never be created or destroyed,",
+     "b": "clause"
+    },
+    {
+     "show": "so a smoke ring there would last forever.",
+     "say": "so a smoke ring there would last forever.",
+     "b": "sentence"
+    },
+    {
+     "show": "Perhaps, Kelvin thought, atoms were knotted vortex rings in the ether, each kind of knot a different element.",
+     "say": "Perhaps, Kelvin thought, atoms were knotted vortex rings in the ether, each kind of knot a different element.",
+     "b": "paragraph"
+    },
+    {
+     "show": "The theory was wrong.",
+     "say": "The theory was wrong.",
+     "b": "sentence"
+    },
+    {
+     "show": "But Tait spent years drawing up tables of knots, hoping to match them to the elements,",
+     "say": "But Tate spent years drawing up tables of knots, hoping to match them to the elements,",
+     "b": "clause"
+    },
+    {
+     "show": "and those tables helped start the mathematics of knot theory.",
+     "say": "and those tables helped start the mathematics of knot theory.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Kelvin also gave the rule its cleanest form: in a perfect fluid,",
+     "say": "Kelvin also gave the rule its cleanest form: in a perfect fluid,",
+     "b": "clause"
+    },
+    {
+     "show": "circulation around a loop moving with the water never changes.",
+     "say": "circulation around a loop moving with the water never changes.",
+     "b": "sentence"
+    },
+    {
+     "show": "A big loop far from a paddle stays at zero,",
+     "say": "A big loop far from a paddle stays at zero,",
+     "b": "clause"
+    },
+    {
+     "show": "so the paddle's spin comes in equal amounts both ways.",
+     "say": "so the paddle's spin comes in equal amounts both ways.",
+     "b": "sentence"
+    },
+    {
+     "show": "Bend a tube into an arch with both feet on the surface, and you see it: two dimples,",
+     "say": "Bend a tube into an arch with both feet on the surface, and you see it: two dimples,",
+     "b": "clause"
+    },
+    {
+     "show": "spinning opposite ways.",
+     "say": "spinning opposite ways.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Each rides the other's swirl, so the pair sails off together.",
+     "say": "Each rides the other's swirl, so the pair sails off together.",
+     "b": "sentence"
+    },
+    {
+     "show": "Bring them closer, and they go faster.",
+     "say": "Bring them closer, and they go faster.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "river",
+   "title": "4 · The river's own dimples",
+   "pad_before": 1.2,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "So where do the dimples on the Rhine come from?",
+     "say": "So where do the dimples on the Rhine come from?",
+     "b": "sentence"
+    },
+    {
+     "show": "Probably not paddles: there were hardly any boats.",
+     "say": "Probably not paddles: there were hardly any boats.",
+     "b": "sentence"
+    },
+    {
+     "show": "The likeliest source is the riverbed.",
+     "say": "The likeliest source is the riverbed.",
+     "b": "sentence"
+    },
+    {
+     "show": "Water touching it is held still, while a little way above, the current races past.",
+     "say": "Water touching it is held still, while a little way above, the current races past.",
+     "b": "sentence"
+    },
+    {
+     "show": "That shear is spin: a paddle wheel lying on the bed would turn.",
+     "say": "That shear is spin: a paddle wheel lying on the bed would turn.",
+     "b": "paragraph"
+    },
+    {
+     "show": "River engineers have long described the results.",
+     "say": "River engineers have long described the results.",
+     "b": "sentence"
+    },
+    {
+     "show": "In 1947, Gerard Matthes wrote about kolks, violent upward surges from the beds of big rivers,",
+     "say": "In nineteen forty-seven, Gerard Matthes wrote about kolks, violent upward surges from the beds of big rivers,",
+     "b": "clause"
+    },
+    {
+     "show": "and the boils they raise at the surface: smooth, bulging patches of upwelling water.",
+     "say": "and the boils they raise at the surface: smooth, bulging patches of upwelling water.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Near a wall, researchers came to picture the spin rolling up into arches, called hairpin vortices,",
+     "say": "Near a wall, researchers came to picture the spin rolling up into arches, called hairpin vortices,",
+     "b": "clause"
+    },
+    {
+     "show": "lifting away from the bed in bursts.",
+     "say": "lifting away from the bed in bursts.",
+     "b": "paragraph"
+    },
+    {
+     "show": "When a rising arch reaches the surface, its head doesn't simply get sliced off.",
+     "say": "When a rising arch reaches the surface, its head doesn't simply get sliced off.",
+     "b": "sentence"
+    },
+    {
+     "show": "Friction lets the vortex reconnect to the surface, and its two legs become a pair of dimples.",
+     "say": "Friction lets the vortex reconnect to the surface, and its two legs become a pair of dimples.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Simulations since the nineteen-nineties show what those ends do.",
+     "say": "Simulations since the nineteen-nineties show what those ends do.",
+     "b": "sentence"
+    },
+    {
+     "show": "Right at the surface, they stand upright,",
+     "say": "Right at the surface, they stand upright,",
+     "b": "clause"
+    },
+    {
+     "show": "and they can wander across it while the tube below is twisted by the turbulence.",
+     "say": "and they can wander across it while the tube below is twisted by the turbulence.",
+     "b": "paragraph"
+    },
+    {
+     "show": "So a surface whirlpool is caught between two effects.",
+     "say": "So a surface whirlpool is caught between two effects.",
+     "b": "sentence"
+    },
+    {
+     "show": "Friction spreads its core and weakens it.",
+     "say": "Friction spreads its core and weakens it.",
+     "b": "sentence"
+    },
+    {
+     "show": "Water converging and sinking beneath it stretches it and spins it back up.",
+     "say": "Water converging and sinking beneath it stretches it and spins it back up.",
+     "b": "sentence"
+    },
+    {
+     "show": "Laboratory experiments on a nearly flat surface have watched both: vortices strengthening during downwellings, then spreading out after them.",
+     "say": "Laboratory experiments on a nearly flat surface have watched both: vortices strengthening during downwellings, then spreading out after them.",
+     "b": "paragraph"
+    },
+    {
+     "show": "How fast does friction work?",
+     "say": "How fast does friction work?",
+     "b": "sentence"
+    },
+    {
+     "show": "The spreading takes a time proportional to the core's width squared, divided by the viscosity: double the width,",
+     "say": "The spreading takes a time proportional to the core's width squared, divided by the viscosity: double the width,",
+     "b": "clause"
+    },
+    {
+     "show": "and spreading takes four times as long, though a wider core also starts out shallower.",
+     "say": "and spreading takes four times as long, though a wider core also starts out shallower.",
+     "b": "sentence"
+    },
+    {
+     "show": "Water at five degrees is about one and a half times as viscous as water at twenty,",
+     "say": "Water at five degrees is about one and a half times as viscous as water at twenty,",
+     "b": "clause"
+    },
+    {
+     "show": "so friction works that much faster in winter.",
+     "say": "so friction works that much faster in winter.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Seeing one is a separate question.",
+     "say": "Seeing one is a separate question.",
+     "b": "sentence"
+    },
+    {
+     "show": "A dimple is shallow, not much steeper than a small ripple,",
+     "say": "A dimple is shallow, not much steeper than a small ripple,",
+     "b": "clause"
+    },
+    {
+     "show": "so wind ripples can hide a whirlpool that is still there.",
+     "say": "so wind ripples can hide a whirlpool that is still there.",
+     "b": "sentence"
+    },
+    {
+     "show": "Behind a motorboat, its own wake roughens the water.",
+     "say": "Behind a motorboat, its own wake roughens the water.",
+     "b": "sentence"
+    },
+    {
+     "show": "Ahead and beside it, dimples show up best on smooth water.",
+     "say": "Ahead and beside it, dimples show up best on smooth water.",
+     "b": "paragraph"
+    },
+    {
+     "show": "So what keeps a small whirlpool together?",
+     "say": "So what keeps a small whirlpool together?",
+     "b": "sentence"
+    },
+    {
+     "show": "It is the end of a vortex line that can't just stop, standing upright at the surface,",
+     "say": "It is the end of a vortex line that can't just stop, standing upright at the surface,",
+     "b": "clause"
+    },
+    {
+     "show": "spun up now and then by sinking water, and fading only slowly by friction.",
+     "say": "spun up now and then by sinking water, and fading only slowly by friction.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "order",
+   "title": "5 · The hidden order",
+   "pad_before": 1.2,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "There's one more surprise, and it lives in the flat model.",
+     "say": "There's one more surprise, and it lives in the flat model.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Think of a pendulum.",
+     "say": "Think of a pendulum.",
+     "b": "sentence"
+    },
+    {
+     "show": "Plot its angle across and its momentum up, and its whole state becomes a single moving point.",
+     "say": "Plot its angle across and its momentum up, and its whole state becomes a single moving point.",
+     "b": "sentence"
+    },
+    {
+     "show": "Draw the contours of its energy, and the point follows a contour, rather than rolling downhill.",
+     "say": "Draw the contours of its energy, and the point follows a contour, rather than rolling downhill.",
+     "b": "sentence"
+    },
+    {
+     "show": "That's Hamilton's rule, the backbone of mechanics, and it has a famous consequence:",
+     "say": "That's Hamilton's rule, the backbone of mechanics, and it has a famous consequence:",
+     "b": "clause"
+    },
+    {
+     "show": "a patch of starting states can stretch, but never changes its area.",
+     "say": "a patch of starting states can stretch, but never changes its area.",
+     "b": "paragraph"
+    },
+    {
+     "show": "In the sideways-only model, water can't be squashed, so patches of it keep their area too.",
+     "say": "In the sideways-only model, water can't be squashed, so patches of it keep their area too.",
+     "b": "sentence"
+    },
+    {
+     "show": "That's no coincidence.",
+     "say": "That's no coincidence.",
+     "b": "sentence"
+    },
+    {
+     "show": "A speck of water follows exactly Hamilton's rule, on a landscape called the stream function.",
+     "say": "A speck of water follows exactly Hamilton's rule, on a landscape called the stream function.",
+     "b": "paragraph"
+    },
+    {
+     "show": "With one steady whirlpool, the speck follows a contour.",
+     "say": "With one steady whirlpool, the speck follows a contour.",
+     "b": "sentence"
+    },
+    {
+     "show": "When the whirlpools move, the landscape changes beneath it, but the same rule still sets its motion.",
+     "say": "When the whirlpools move, the landscape changes beneath it, but the same rule still sets its motion.",
+     "b": "sentence"
+    },
+    {
+     "show": "In this model, the surface is the speck's phase space.",
+     "say": "In this model, the surface is the speck's phase space.",
+     "b": "paragraph"
+    },
+    {
+     "show": "In 1876, Gustav Kirchhoff showed that the whirlpools themselves obey it: each is carried by the others' swirl,",
+     "say": "In eighteen seventy-six, Gustav Kirk-hoff showed that the whirlpools themselves obey it: each is carried by the others' swirl,",
+     "b": "clause"
+    },
+    {
+     "show": "and together they follow the slopes of one landscape, with each whirlpool's strength as a weight.",
+     "say": "and together they follow the slopes of one landscape, with each whirlpool's strength as a weight.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Three whirlpools dance regularly.",
+     "say": "Three whirlpools dance regularly.",
+     "b": "sentence"
+    },
+    {
+     "show": "Four can turn chaotic: in these particular runs, started a micron apart, they part ways within seconds.",
+     "say": "Four can turn chaotic: in these particular runs, started a micron apart, they part ways within seconds.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "reading",
+   "title": "6 · Reading the river",
+   "pad_before": 1.2,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "Now put back what the flat model left out: water rising and sinking underneath.",
+     "say": "Now put back what the flat model left out: water rising and sinking underneath.",
+     "b": "paragraph"
+    },
+    {
+     "show": "A real patch of surface water doesn't have to keep its area.",
+     "say": "A real patch of surface water doesn't have to keep its area.",
+     "b": "sentence"
+    },
+    {
+     "show": "It spreads where water wells up from below, and shrinks where water sinks away.",
+     "say": "It spreads where water wells up from below, and shrinks where water sinks away.",
+     "b": "sentence"
+    },
+    {
+     "show": "Incompressibility keeps volume; only in the flat model does it keep area.",
+     "say": "Incompressibility keeps volume; only in the flat model does it keep area.",
+     "b": "paragraph"
+    },
+    {
+     "show": "And that spreading and shrinking is what a group in Trondheim, Norway, around Omer Babiker and Simen Ellingsen,",
+     "say": "And that spreading and shrinking is what a group in Trondheim, Norway, around Omer Babiker and Simen Ellingsen,",
+     "b": "clause"
+    },
+    {
+     "show": "has been reading from dimples.",
+     "say": "has been reading from dimples.",
+     "b": "sentence"
+    },
+    {
+     "show": "In their simulations, the number of dimples in a region tracked how strongly its surface was spreading and converging,",
+     "say": "In their simulations, the number of dimples in a region tracked how strongly its surface was spreading and converging,",
+     "b": "clause"
+    },
+    {
+     "show": "closely, with a short delay.",
+     "say": "closely, with a short delay.",
+     "b": "sentence"
+    },
+    {
+     "show": "This year, a laboratory tank experiment, at much higher Reynolds numbers, found the same kind of link.",
+     "say": "This year, a laboratory tank experiment, at much higher Reynolds numbers, found the same kind of link.",
+     "b": "paragraph"
+    },
+    {
+     "show": "That matters, because the same stirring renews the skin of the water,",
+     "say": "That matters, because the same stirring renews the skin of the water,",
+     "b": "clause"
+    },
+    {
+     "show": "and that helps set how fast gases like oxygen and carbon dioxide cross between a river and the air.",
+     "say": "and that helps set how fast gases like oxygen and carbon dioxide cross between a river and the air.",
+     "b": "paragraph"
+    },
+    {
+     "show": "So those dimples beside the boat weren't only whirlpools that happened to last.",
+     "say": "So those dimples beside the boat weren't only whirlpools that happened to last.",
+     "b": "sentence"
+    },
+    {
+     "show": "Each was a small mark on the surface, connected to a hidden, three-dimensional flow underneath.",
+     "say": "Each was a small mark on the surface, connected to a hidden, three-dimensional flow underneath.",
+     "b": "sentence"
+    },
+    {
+     "show": "And a friend who noticed how long some of them lasted was already, in a way, reading it.",
+     "say": "And a friend who noticed how long some of them lasted was already, in a way, reading it.",
+     "b": "paragraph"
+    }
+   ]
+  }
+ ]
+}

@@ -16,7 +16,8 @@ preset = json.loads((CODEX / 'outputs/B-narrator-preset.json').read_text())
 settings = preset['generation_parameters'].copy()
 assert hashlib.sha256(Path(settings['ref_audio']).read_bytes()).hexdigest() == preset['reference_sha256']
 
-script = json.loads((HERE / 'script.json').read_text())
+import os
+script = json.loads((HERE / os.environ.get('SCRIPT', 'script.json')).read_text())
 lines = [dict(beat=b['id'], **l) for b in script['beats'] for l in b['lines']]
 for l in lines:
     assert len(l['say'].split()) <= 19, l['say']

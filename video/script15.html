@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Flat water remembers: 15-minute script</title>
+<title>Dimples on the Rhine: 15-minute script</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
   :root { color-scheme: dark; --bg: #0A0D14; --panel: #10151F; --line: #1F2736; --text: #DCE2EC; --muted: #8A95AA; --faint: #5A6479; --cool: #4FD1C5; --amber: #FFB547; }
@@ -18,11 +18,13 @@
   .total { font: 14px "IBM Plex Mono", monospace; color: var(--muted); }
 </style></head>
 <body><div class="wrap">
-  <h1>Flat water remembers</h1>
-  <p class="muted">Episode 3, story cut: about 15 minutes. Draft 2, revised after the first outside review: the flat, sideways-only picture is now a labelled model, and the last act puts back what it leaves out. The promise: a small mark on the surface connects us to a hidden three-dimensional flow.</p>
+  <h1>Dimples on the Rhine</h1>
+  <p class="muted">Episode 3, story cut: about 15 minutes. Draft 3, after two outside reviews: the flat, sideways-only picture is now a labelled model, and the last act puts back what it leaves out. The promise: a small mark on the surface connects us to a hidden three-dimensional flow.</p>
   <div class="row"><button id="copy">Copy review brief + full script</button><span id="copied"></span></div>
   <p class="total" id="total"></p>
   <div id="acts"></div>
+  <h2>Sources</h2>
+  <ol id="sources" class="note" style="font-size:13.5px;line-height:1.5"></ol>
   <h2>What gets copied</h2>
   <textarea id="brief" readonly></textarea>
 </div>
@@ -32,12 +34,12 @@ const ACTS = [
   "title": "Cold open",
   "time": "0:00",
   "names": "",
-  "picture": "The from-the-boat view: smooth river, wooded bank, dimples drifting. Then under the surface: the whirlpool each dimple sits on, reaching down. Quick flashes of each teased image. Title: Flat water remembers.",
+  "picture": "The from-the-boat view: smooth river, wooded bank, dimples drifting. Then the simplest cross-section: the surface sagging into a small funnel above a spinning column of water. Title: Dimples on the Rhine.",
   "lines": [
    "From a long wooden boat on the Rhine, a friend kept noticing small dimples on the water, beside the boat and ahead of it, mostly when the water was smooth. Some lasted a surprisingly long time.",
-   "Each dimple sits on top of a whirlpool, reaching down into the river. So what keeps a small whirlpool together, while everything around it keeps changing?",
-   "The answer runs through a Victorian towing tank, a box of smoke rings that convinced Lord Kelvin that atoms were knots, a storm on Jupiter with a record going back to 1831, and a Nobel laureate who showed that a crowd of whirlpools can have a negative temperature.",
-   "And it ends back on the river, where a small mark on the surface turns out to connect us to a hidden, three-dimensional flow underneath."
+   "Each dimple sits on top of a whirlpool. Water going round in a circle needs an inward push, and that push is pressure, lower at the centre. So above the spinning water, the surface sags into a small funnel.",
+   "So what keeps a small whirlpool like that together, while everything around it keeps changing?",
+   "Finding out takes us through Victorian ships, smoke rings and Jupiter, and ends in a lab in Norway, reading rivers from dimples like these."
   ]
  },
  {
@@ -62,8 +64,8 @@ const ACTS = [
  {
   "title": "2 · What flatness does to turbulence",
   "time": "3:45",
-  "names": "Lewis Fry Richardson (1922 rhyme); Andrei Kolmogorov (1941); in the caption: Ragnar Fjørtoft (1953), Robert Kraichnan (1967), Cecil Leith (1968), George Batchelor (1969); Lars Onsager (1949; Nobel Prize in Chemistry 1968, for other work); the Gauthier and Johnstone teams (2019)",
-  "picture": "A 3D vortex tube stretched thinner and faster. The sideways-only model: a live 2D simulation in which small vortices merge into big ones while the spin is drawn out into fine filaments. A forced soap film. A Jupiter-like band with a great spot swallowing small storms (dated caption for its size). A meddy drifting deep in the Atlantic. Onsager's same-sign vortices clustering; the 2019 superfluid images as diagrams.",
+  "names": "Lewis Fry Richardson (1922 rhyme); Andrei Kolmogorov (1941); in the caption: Ragnar Fjørtoft (1953), Robert Kraichnan (1967), Cecil Leith (1968), George Batchelor (1969)",
+  "picture": "A 3D vortex tube stretched thinner and faster. The sideways-only model: a live 2D simulation in which small vortices merge into big ones while the spin is drawn out into fine filaments. A forced soap film. A Jupiter-like band with a great spot swallowing small storms (dated caption for its size). A meddy drifting deep in the Atlantic.",
   "knobs": "stretch ×3 → local spin ×3 (3D); sideways-only model: nothing to stretch.",
   "lines": [
    "In 1922, the meteorologist Lewis Fry Richardson summed up ordinary turbulence in a rhyme: big whorls have little whorls that feed on their velocity, and little whorls have lesser whorls, and so on to viscosity.",
@@ -72,8 +74,6 @@ const ACTS = [
    "In the sideways-only model, there's nothing to stretch: a whirl's spin is simply carried along. And the cascade changes character. Robert Kraichnan and others showed that energy now climbs to larger scales: small eddies merge into big ones, while the spin gets drawn out into ever finer filaments.",
    "You can see it in soap films, about the flattest fluid we can make, and on a planetary scale. Jupiter's weather lives in a thin, fast-spinning, layered shell. Its Great Red Spot, still wider than the Earth and in the habit of swallowing smaller storms, has an observing record going back to 1831.",
    "In the ocean, lenses of salty Mediterranean water, called meddies, spin quietly for years.",
-   "There's even a statistical reason flat whirlpools clump. In 1949, Lars Onsager, who later won a Nobel Prize for other work, treated a crowd of whirlpools like a gas. When the crowd holds a lot of energy, it has a negative temperature, a property of how the whirlpools are arranged, not of the water, and at negative temperature, whirlpools spinning the same way huddle into giant clusters.",
-   "In 2019, two teams stirred a flat layer of superfluid and watched exactly those clusters form.",
    "So in the flat model, whirlpools last and grow. But what is a dimple, really, and why does it sit on a whirlpool at all?"
   ]
  },
@@ -84,8 +84,8 @@ const ACTS = [
   "picture": "Side view of the dip with sunrays bent into a shadow and a bright rim; the depth formula labelled as a simple core model. A loop well outside a swirling core with its circulation readout. A vortex tube in 3D, the surface cutting it in a point; the shrinking-loop argument with time frozen. Tait's smoke rings bouncing and wobbling; knotted rings; a page of knot tables. The arch with two feet on the surface; the pair sailing off.",
   "knobs": "strength Γ ×2 → dip ×4; core ×2 (ageing) → dip ÷4 (optional silent Moon easter egg). Loop radius ×2 → speed ÷2, length ×2, circulation about the same. Pair separation ÷2 → speed ×2.",
   "lines": [
-   "Start with the dimple. Water going round in a circle needs an inward push, and that push is pressure, lower at the centre. Lower pressure under the surface means less water on top: the surface dips.",
-   "In a simple model of a whirlpool's core, the depth depends on two things that really vary. Call the whirlpool's strength gamma. Double it, and the dip gets four times deeper. Double the width of its core, as an ageing whirlpool slowly does, and the dip falls to a quarter.",
+   "Back to the dimple.",
+   "In a simple model of a whirlpool's core, its depth depends on two things that really vary. Call the whirlpool's strength gamma. Double it, and the dip gets four times deeper. Double the width of its core, as an ageing whirlpool slowly does, and the dip falls to a quarter.",
    "That funnel is also a lens: in shallow water, it casts a dark shadow on the bed, with a bright edge.",
    "Gamma is the circulation. Walk a loop in the water, adding up how fast the water flows along your path, step by step. Well outside the core, double the loop's radius: the water is about half as fast, but the walk is twice as long, so the total barely changes.",
    "From above, a whirlpool looks like a point. But what spins is really a line, running down into the river. A line meets the surface in a single point, and that point is the dimple.",
@@ -100,29 +100,32 @@ const ACTS = [
  {
   "title": "4 · The river's own dimples",
   "time": "9:45",
-  "names": "Gerard Matthes (1947, kolks and boils); in the caption: Theodore Theodorsen (1952, hairpin model), Stephen Kline and colleagues (Stanford, 1967, bursting); free-surface turbulence simulations (Perot and Moin 1995; Pan and Banerjee 1995; Shen and colleagues 1999)",
-  "picture": "A slab of river: the current's profile, a paddle wheel turning on the bed, a hairpin rising. At the surface: the vortex reconnecting (not sliced), its two legs becoming a pair of dimples whose attachment points wander across the surface. Converging, sinking surface water spinning a dimple up. A dimple fading. The boat view: ripples turned up until the dimples disappear; a boat's wake; then smooth water again.",
+  "names": "Gerard Matthes (1947, kolks and boils); in the caption: Theodore Theodorsen (1952, hairpin model), Stephen Kline and colleagues (Stanford, 1967, bursting); free-surface turbulence simulations (Perot and Moin 1995; Pan and Banerjee 1995; Shen and colleagues 1999); laboratory measurements of surface-attached vortices strengthening in downwellings (Qi, Li and Coletti)",
+  "picture": "A slab of river: the current's profile, a paddle wheel turning on the bed, a hairpin rising. At the surface: the vortex reconnecting (not sliced), its two legs becoming a pair of dimples whose attachment points wander. The tug of war: friction spreading a core versus converging, sinking water spinning it up. A dimple fading. The boat view: ripples turned up until the dimples disappear (the whirlpools still there, shown as faint markers), a boat's wake, then smooth water again. A summary card for the answer.",
   "knobs": "core ×2 → spreading time ×4 (but starts shallower); water at 5 °C vs 20 °C: viscosity ×1.5 → spreading about 1.5 times faster. Ripple strength up → dimples hidden; smooth → visible.",
   "lines": [
-   "So where do the Rhine's dimples come from? Probably not paddles: there were hardly any boats. The likeliest source is the riverbed. Water touching it is held still, while a little way above, the current races past. That shear is spin: a paddle wheel lying on the bed would turn.",
+   "So where do the dimples on the Rhine come from? Probably not paddles: there were hardly any boats. The likeliest source is the riverbed. Water touching it is held still, while a little way above, the current races past. That shear is spin: a paddle wheel lying on the bed would turn.",
    "River engineers have long described the results. In 1947, Gerard Matthes wrote about kolks, violent upward surges from the beds of big rivers, and the boils they raise at the surface: smooth, bulging patches of upwelling water.",
    "Near a wall, researchers came to picture the spin rolling up into arches, called hairpin vortices, lifting away from the bed in bursts.",
    "When a rising arch reaches the surface, its head doesn't simply get sliced off. Friction lets the vortex reconnect to the surface, and its two legs become a pair of dimples.",
-   "Simulations since the nineteen-nineties show what those ends do. Right at the surface, they stand upright, and they can wander across it while the tube below is twisted by the turbulence. And where surface water converges and sinks, it stretches that upright end and spins it up.",
-   "Left alone, a whirlpool slowly fades as friction spreads its core. That takes a time proportional to the core's width squared, divided by the viscosity: double the width, and spreading takes four times as long, though a wider core also starts out shallower. Water at five degrees is about one and a half times as viscous as water at twenty, so friction works that much faster in winter.",
-   "A dimple is shallow, not much steeper than a small ripple, so wind ripples easily hide it. Behind a motorboat, its own wake roughens the water. Ahead and beside it, dimples show up best on smooth water."
+   "Simulations since the nineteen-nineties show what those ends do. Right at the surface, they stand upright, and they can wander across it while the tube below is twisted by the turbulence.",
+   "So a surface whirlpool is caught between two effects. Friction spreads its core and weakens it. Water converging and sinking beneath it stretches it and spins it back up. Laboratory experiments on a nearly flat surface have watched both: vortices strengthening during downwellings, then spreading out after them.",
+   "How fast does friction work? The spreading takes a time proportional to the core's width squared, divided by the viscosity: double the width, and spreading takes four times as long, though a wider core also starts out shallower. Water at five degrees is about one and a half times as viscous as water at twenty, so friction works that much faster in winter.",
+   "Seeing one is a separate question. A dimple is shallow, not much steeper than a small ripple, so wind ripples can hide a whirlpool that is still there. Behind a motorboat, its own wake roughens the water. Ahead and beside it, dimples show up best on smooth water.",
+   "So what keeps a small whirlpool together? It is the end of a vortex line that can't just stop, standing upright at the surface, spun up now and then by sinking water, and fading only slowly by friction."
   ]
  },
  {
   "title": "5 · The hidden order",
   "time": "12:00",
   "names": "William Rowan Hamilton (1830s); Joseph Liouville (area preservation); Gustav Kirchhoff (1876, point vortices); Hassan Aref and Neil Pomphrey (four vortices, early 1980s)",
-  "picture": "Back to the model, labelled. A pendulum's phase portrait: a point walking a contour, its velocity split into two arrows; a patch that stretches but keeps its area. The equations morph into the stream-function form; the landscape becomes a pair of whirlpools. Three whirlpools dancing regularly; two runs of four started a micron apart, with the scale and the separation shown; the camel-shaped dye (episode 1) at 100% area, labelled 'model'.",
+  "picture": "Back to the model, labelled. A pendulum's phase portrait: a point walking a contour, its velocity split into two arrows; a patch that stretches but keeps its area. The equations morph into the stream-function form. First one steady whirlpool with a speck following a contour; then moving whirlpools, the contours reshaping, the speck's arrows tied to the current landscape. Three whirlpools dancing regularly; two runs of four started a micron apart, with the scale and separation shown; the camel-shaped dye (episode 1) with 'area 100.0% in our simulation'.",
   "knobs": "the two velocity components as live arrows; one whirlpool's strength ×3 → centre of spin slides toward it (same-sign trio).",
   "lines": [
    "There's one more surprise, and it lives in the flat model.",
    "Think of a pendulum. Plot its angle across and its momentum up, and its whole state becomes a single moving point. Draw the contours of its energy, and the point follows a contour, rather than rolling downhill. That's Hamilton's rule, the backbone of mechanics, and it has a famous consequence: a patch of starting states can stretch, but never changes its area.",
-   "In the sideways-only model, water can't be squashed, so patches of it keep their area too. That's no coincidence. A speck of water follows exactly Hamilton's rule, on a landscape called the stream function. In this model, the surface is the speck's phase space.",
+   "In the sideways-only model, water can't be squashed, so patches of it keep their area too. That's no coincidence. A speck of water follows exactly Hamilton's rule, on a landscape called the stream function.",
+   "With one steady whirlpool, the speck follows a contour. When the whirlpools move, the landscape changes beneath it, but the same rule still sets its motion. In this model, the surface is the speck's phase space.",
    "In 1876, Gustav Kirchhoff showed that the whirlpools themselves obey it: each is carried by the others' swirl, and together they follow the slopes of one landscape, with each whirlpool's strength as a weight.",
    "Three whirlpools dance regularly. Four can turn chaotic: in these particular runs, started a micron apart, they part ways within seconds."
   ]
@@ -131,7 +134,7 @@ const ACTS = [
   "title": "6 · Reading the river",
   "time": "13:30",
   "names": "Omer Babiker, Simen Ellingsen and colleagues (Trondheim: J. Fluid Mech. 2023, simulations; Phys. Rev. Fluids 2026, laboratory tank); surface-renewal models of gas transfer",
-  "picture": "The real river again: under the surface, water rising and sinking; a patch of surface water spreading over an upwelling and shrinking over a downwelling (area no longer fixed). Two regional time traces, dimple count and mean-square surface divergence, tracking each other with a short lag (not a local map). The tank experiment as a diagram. Gases crossing the surface both ways. Back to the boat; pull back; end card (next episode: soap films).",
+  "picture": "The real river again: under the surface, water rising and sinking; a patch of surface water spreading over an upwelling and shrinking over a downwelling (area no longer fixed). An explicitly labelled schematic of two regional time traces (dimple count and surface spreading) tracking with a short lag, after Babiker et al. 2023, not measured data. The tank experiment as a diagram. Gases crossing the surface both ways. Back to the boat; pull back; end card (next episode: soap films).",
   "knobs": "",
   "lines": [
    "Now put back what the flat model left out: water rising and sinking underneath.",
@@ -141,6 +144,28 @@ const ACTS = [
    "So those dimples beside the boat weren't only whirlpools that happened to last. Each was a small mark on the surface, connected to a hidden, three-dimensional flow underneath. And a friend who noticed how long some of them lasted was already, in a way, reading it."
   ]
  }
+];
+const SOURCES = [
+ "O. Reynolds (1883), An experimental investigation of the circumstances which determine whether the motion of water shall be direct or sinuous, Phil. Trans. R. Soc. 174, 935–982.",
+ "W. Froude, towing-tank experiments at Torquay (1870s); R. Froude and W. Froude on the law of comparison (wave-making resistance).",
+ "G. I. Taylor (1923), Experiments on the motion of solid bodies in rotating fluids, Proc. R. Soc. A 104, 213–218.",
+ "L. F. Richardson (1922), Weather Prediction by Numerical Process (the 'big whorls' rhyme).",
+ "A. N. Kolmogorov (1941), local structure of turbulence (Dokl. Akad. Nauk SSSR).",
+ "R. Fjørtoft (1953) Tellus 5; R. H. Kraichnan (1967) Phys. Fluids 10, 1417; C. E. Leith (1968) Phys. Fluids 11, 671; G. K. Batchelor (1969) Phys. Fluids 12, II-233: two-dimensional turbulence and the inverse cascade.",
+ "M. A. Rutgers (1998), Forced 2D turbulence: experimental evidence of simultaneous inverse energy and forward enstrophy cascades, Phys. Rev. Lett. 81, 2244 (soap films).",
+ "Great Red Spot: observing record back to 1831; NASA/Hubble size measurements (still wider than Earth).",
+ "Meddies: Richardson, Bower and Zenk (2000), A census of Meddies tracked by floats, Prog. Oceanogr.; lifetimes of 1 to 5 years.",
+ "H. von Helmholtz (1858), Über Integrale der hydrodynamischen Gleichungen, welche den Wirbelbewegungen entsprechen, J. reine angew. Math. 55, 25–55.",
+ "W. Thomson (1867), On vortex atoms, Proc. R. Soc. Edinburgh 6, 94–105; W. Thomson, On vortex motion, Trans. R. Soc. Edinburgh 25 (read 1867, revised 1868, published 1869); P. G. Tait's knot tables (1876–1885).",
+ "G. Kirchhoff (1876), Vorlesungen über mathematische Physik: Mechanik (point-vortex equations).",
+ "H. Aref and N. Pomphrey (1982), Integrable and chaotic motions of four vortices, Proc. R. Soc. A 380, 359.",
+ "G. H. Matthes (1947), Macroturbulence in natural stream flow, Trans. Am. Geophys. Union 28, 255–265 (kolks and boils).",
+ "T. Theodorsen (1952), Mechanism of turbulence (hairpin vortex model); S. J. Kline, W. C. Reynolds, F. A. Schraub and P. W. Runstadler (1967), The structure of turbulent boundary layers, J. Fluid Mech. 30, 741.",
+ "B. Perot and P. Moin (1995), J. Fluid Mech. 295, 199; Y. Pan and S. Banerjee (1995), Phys. Fluids 7, 1649; L. Shen, X. Zhang, D. K. P. Yue and M. S. Triantafyllou (1999), The surface layer for free-surface turbulent flows, J. Fluid Mech. 386, 167.",
+ "Y. Qi, Y. Li and F. Coletti, Small-scale dynamics and structure of free-surface turbulence, arXiv:2412.04361 (surface-attached vortices strengthening during downwellings and diffusing afterwards).",
+ "O. M. Babiker, I. Bjerkebæk, A. Xuan, L. Shen and S. Å. Ellingsen (2023), Vortex imprints on a free surface as proxy for surface divergence, J. Fluid Mech. 964, R2.",
+ "O. M. Babiker, J. R. Aarnes, A. Semati, A. Ferran, Y. H. Tee, R. J. Hearst and S. Å. Ellingsen (2026), Experimental investigation relating free-surface features to subsurface turbulence, Phys. Rev. Fluids 11, 054802.",
+ "Water viscosity: about 1.52 mm²/s at 5 °C and 1.00 mm²/s at 20 °C (IAPWS)."
 ];
 const words = s => s.split(/\s+/).filter(Boolean).length;
 let total = 0; const host = document.getElementById("acts");
@@ -152,6 +177,7 @@ for (const a of ACTS) {
     `<div class="note">Picture: ${a.picture}</div>` + (a.knobs ? `<div class="note k"><b>Knobs:</b> ${a.knobs}</div>` : "");
   host.appendChild(d);
 }
+document.getElementById("sources").innerHTML = SOURCES.map(x => `<li>${x}</li>`).join("");
 document.getElementById("total").textContent = `${total} words · about ${(total / 147 + (ACTS.reduce((n, a) => n + a.lines.length, 0) * 0.9 + 80) / 60).toFixed(1)} minutes (voice at 147 words/min, pauses between lines, about a minute of dialled experiments and titles)`;
 
 const BRIEF = `You are reviewing and revising the full narration script for an educational video of about 15 minutes, in the spirit of Veritasium: story-driven, with people, history and real-world surprises, plus a few "dial a parameter and watch the flow change" visuals rendered from simulation.
@@ -160,7 +186,7 @@ PREMISE
 A friend, on a long wooden boat on the Rhine, noticed small dimples on the water: there were few boats and few paddlers (their own boat had an engine); the dimples appeared beside and ahead of the boat, rarely behind, were most visible on smooth water, and some lasted a long time. The question: in a turbulent river, how does a whirlpool the size of a coin outlive the chaos that made it? The promise: a small mark on the surface connects us to a hidden three-dimensional flow. A sideways-only (two-dimensional) model explains a lot (inverse cascade, Onsager clusters, Kirchhoff's Hamiltonian dynamics) and is labelled as a model; the last act puts back what it leaves out, water rising and sinking under a nearly level surface, which is exactly what current research reads from dimples. This is draft 2, already revised after one outside review. This is episode 3 of a small series; episode 1 was about Gromov's non-squeezing theorem ("the symplectic camel").
 
 PLEASE DO
-1. Fact-check every name, date, number and claim. Flag anything wrong, misattributed, oversimplified or contested, with a correction and a source where you can. Pay particular attention to: the Reynolds and Froude history; the Rhine's Reynolds and Froude numbers (depth a few metres, speed 1 to 2 m/s); Taylor columns; the 2D inverse cascade (Fjortoft, Kraichnan, Batchelor, Leith); soap-film experiments; the Great Red Spot (size, continuous observation since 1831, swallowing smaller storms); ocean eddies and meddies; Onsager's negative-temperature vortex clusters and the 2019 superfluid experiments; Helmholtz 1858; Tait's smoke-ring box and Kelvin's vortex atoms (1867) and circulation theorem (1869); Tait's knot tables; Matthes 1947 (kolks and boils); Theodorsen 1952; Kline et al. 1967; 1990s free-surface turbulence simulations; the NTNU dimple work (Babiker, Ellingsen and colleagues) and the link from surface divergence to gas transfer; winter water being about 1.5 times as viscous as summer water.
+1. Fact-check every name, date, number and claim. Flag anything wrong, misattributed, oversimplified or contested, with a correction and a source where you can. Pay particular attention to: the Reynolds and Froude history; the Rhine's Reynolds and Froude numbers (depth a few metres, speed 1 to 2 m/s); Taylor columns; the 2D inverse cascade (Fjortoft, Kraichnan, Batchelor, Leith); soap-film experiments; the Great Red Spot (size, continuous observation since 1831, swallowing smaller storms); ocean eddies and meddies; Helmholtz 1858; Tait's smoke-ring box and Kelvin's vortex atoms (1867) and circulation theorem (1869); Tait's knot tables; Matthes 1947 (kolks and boils); Theodorsen 1952; Kline et al. 1967; 1990s free-surface turbulence simulations; the NTNU dimple work (Babiker, Ellingsen and colleagues) and the link from surface divergence to gas transfer; winter water being about 1.5 times as viscous as summer water.
 2. Judge the story: is the thread clear, does each act earn its place, is anything missing that a curious viewer would want, and where does it sag? Suggest cuts or merges to land at 15 minutes.
 3. Improve the writing for the ear: warm, curious, precise, conversational; short sentences; no hype words; no rhetorical "what if I told you". Keep the friend anonymous and add no details about the trip beyond the premise.
 4. Keep it speakable by a text-to-speech voice: spell symbols as words (gamma), write years as a speaker would say them if that helps, avoid abbreviations and bare single letters.
@@ -185,7 +211,7 @@ WHAT TO RETURN
 
 THE SCRIPT
 `;
-const scriptText = ACTS.map(a => `${a.title} (starts about ${a.time}; ${a.wc} words)` + (a.names ? `\n[People: ${a.names}]` : "") + `\n[Picture: ${a.picture}]` + (a.knobs ? `\n[Dialled experiments: ${a.knobs}]` : "") + "\n" + a.lines.map(l => "- " + l).join("\n")).join("\n\n") + `\n\n(Total: ${total} words.)`;
+const scriptText = ACTS.map(a => `${a.title} (starts about ${a.time}; ${a.wc} words)` + (a.names ? `\n[People: ${a.names}]` : "") + `\n[Picture: ${a.picture}]` + (a.knobs ? `\n[Dialled experiments: ${a.knobs}]` : "") + "\n" + a.lines.map(l => "- " + l).join("\n")).join("\n\n") + `\n\n(Total: ${total} words.)\n\nSOURCES\n` + SOURCES.map((x, i) => `${i + 1}. ${x}`).join("\n");
 const ta = document.getElementById("brief"); ta.value = BRIEF + "\n" + scriptText;
 document.getElementById("copy").onclick = async () => {
   try { await navigator.clipboard.writeText(ta.value); } catch (e) { ta.select(); document.execCommand("copy"); }

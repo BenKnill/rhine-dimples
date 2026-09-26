@@ -6,7 +6,15 @@
   const $ = id => document.getElementById(id);
 
   // canvas that repaints while visible; draw(c, W, H, t, dt) in CSS pixels
+  // film mode: no observers or animation loop; the film drives each figure with fig.at(t)
+  window.FIGS = window.FIGS || {};
   function makeFig(canvas, draw) {
+    if (window.FILM_MODE) {
+      const c = canvas.getContext("2d"); let last = null, t = 0;
+      const paint = dt => { c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, canvas.width, canvas.height); draw(c, canvas.width, canvas.height, t, dt); };
+      const f = { redraw: () => paint(0), reset: () => { t = 0; last = null; }, at: T => { const dt = last === null ? 0 : Math.max(0, Math.min(0.1, T - last)); last = T; t += dt; paint(dt); }, canvas };
+      window.FIGS[canvas.id] = f; return f;
+    }
     const c = canvas.getContext("2d"); let W = 0, H = 0, dpr = 1, t = 0, last = 0, visible = false, running = false;
     const paint = dt => { c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, W, H); draw(c, W, H, t, dt); };
     const resize = () => { const r = canvas.getBoundingClientRect(); dpr = Math.min(2, window.devicePixelRatio || 1); W = r.width; H = r.height;
@@ -85,7 +93,7 @@
   function figLoop() {
     const cv = $("figLoop"); if (!cv) return; const out = $("loopOut"), pairBtn = $("loopPair");
     const a = 0.6; let pair = false, vort = [[0, 0, 60]];
-    const loop = { x: -0.5, y: 0.3, r: 1.6 }; let drag = null;
+    const loop = { x: -0.5, y: 0.3, r: 1.6 }; let drag = null; window.LOOP_STATE = loop;
     const vel = (x, y) => { let u = 0, v = 0; for (const [X, Y, G] of vort) { const dx = x - X, dy = y - Y, s = dx * dx + dy * dy + a * a; u -= G / TAU * dy / s; v += G / TAU * dx / s; } return [u, v]; };
     const vorticity = (x, y) => { let w = 0; for (const [X, Y, G] of vort) { const s = (x - X) ** 2 + (y - Y) ** 2 + a * a; w += G * a * a / (Math.PI * s * s); } return w; };
     const P = []; for (let i = 0; i < 520; i++) P.push([Math.random() * 14 - 7, Math.random() * 8 - 4, Math.random() * 3]);

@@ -1,0 +1,2929 @@
+{
+ "duration": 926.804,
+ "beats": {
+  "open": {
+   "start": 0.0,
+   "end": 53.68,
+   "lines": [
+    {
+     "index": 0,
+     "clip": "fd7fa65946cb",
+     "beat": "open",
+     "show": "From a long wooden boat on the Rhine, a friend kept noticing small dimples on the water,",
+     "say": "From a long wooden boat on the Rhine, a friend kept noticing small dimples on the water,",
+     "start": 1.06,
+     "end": 7.24
+    },
+    {
+     "index": 1,
+     "clip": "30ffd30e8d09",
+     "beat": "open",
+     "show": "beside the boat and ahead of it, mostly when the water was smooth.",
+     "say": "beside the boat and ahead of it, mostly when the water was smooth.",
+     "start": 7.6,
+     "end": 12.35
+    },
+    {
+     "index": 2,
+     "clip": "5c9c7e0663b2",
+     "beat": "open",
+     "show": "Some lasted a surprisingly long time.",
+     "say": "Some lasted a surprisingly long time.",
+     "start": 13.06,
+     "end": 16.1
+    },
+    {
+     "index": 3,
+     "clip": "c76b3529b1ca",
+     "beat": "open",
+     "show": "Each dimple sits on top of a whirlpool.",
+     "say": "Each dimple sits on top of a whirlpool.",
+     "start": 17.06,
+     "end": 20.02
+    },
+    {
+     "index": 4,
+     "clip": "684dc262c428",
+     "beat": "open",
+     "show": "Water going round in a circle needs an inward push, and that push is pressure, lower at the centre.",
+     "say": "Water going round in a circle needs an inward push, and that push is pressure, lower at the centre.",
+     "start": 20.73,
+     "end": 28.62
+    },
+    {
+     "index": 5,
+     "clip": "322b29a2e4a9",
+     "beat": "open",
+     "show": "So above the spinning water, the surface sags into a small funnel.",
+     "say": "So above the spinning water, the surface sags into a small funnel.",
+     "start": 29.33,
+     "end": 34.35
+    },
+    {
+     "index": 6,
+     "clip": "2ed6d0be5b6d",
+     "beat": "open",
+     "show": "So what keeps a small whirlpool like that together, while everything around it keeps changing?",
+     "say": "So what keeps a small whirlpool like that together, while everything around it keeps changing?",
+     "start": 35.31,
+     "end": 41.45
+    },
+    {
+     "index": 7,
+     "clip": "66ca803dfddf",
+     "beat": "open",
+     "show": "Finding out takes us through Victorian ships, smoke rings and Jupiter, and ends in a lab in Norway,",
+     "say": "Finding out takes us through Victorian ships, smoke rings and Jupiter, and ends in a lab in Norway,",
+     "start": 42.41,
+     "end": 49.35
+    },
+    {
+     "index": 8,
+     "clip": "918a13bfbcb9",
+     "beat": "open",
+     "show": "reading rivers from dimples like these.",
+     "say": "reading rivers from dimples like these.",
+     "start": 49.71,
+     "end": 52.58
+    }
+   ]
+  },
+  "numbers": {
+   "start": 53.68,
+   "end": 221.431,
+   "lines": [
+    {
+     "index": 9,
+     "clip": "14af7d0da9ff",
+     "beat": "numbers",
+     "show": "Physicists size up a flow in nature with a couple of numbers.",
+     "say": "Physicists size up a flow in nature with a couple of numbers.",
+     "start": 54.94,
+     "end": 59.34
+    },
+    {
+     "index": 10,
+     "clip": "3945478da2f5",
+     "beat": "numbers",
+     "show": "The first came from Osborne Reynolds, in Manchester, in 1883.",
+     "say": "The first came from Osborne Reynolds, in Manchester, in eighteen eighty-three.",
+     "start": 60.3,
+     "end": 66.07
+    },
+    {
+     "index": 11,
+     "clip": "79f54c4572e6",
+     "beat": "numbers",
+     "show": "He let a thin streak of dye into water flowing through a glass pipe.",
+     "say": "He let a thin streak of dye into water flowing through a glass pipe.",
+     "start": 66.78,
+     "end": 71.08
+    },
+    {
+     "index": 12,
+     "clip": "e2e0c0f1955f",
+     "beat": "numbers",
+     "show": "Slowly, the streak stayed a clean line.",
+     "say": "Slowly, the streak stayed a clean line.",
+     "start": 71.79,
+     "end": 75.05
+    },
+    {
+     "index": 13,
+     "clip": "d00be78b6f12",
+     "beat": "numbers",
+     "show": "Faster, it suddenly shivered, burst, and filled the pipe.",
+     "say": "Faster, it suddenly shivered, burst, and filled the pipe.",
+     "start": 75.76,
+     "end": 80.141
+    },
+    {
+     "index": 14,
+     "clip": "94934584ff2a",
+     "beat": "numbers",
+     "show": "What decides it is one ratio: how strongly the moving water carries itself along,",
+     "say": "What decides it is one ratio: how strongly the moving water carries itself along,",
+     "start": 81.101,
+     "end": 87.401
+    },
+    {
+     "index": 15,
+     "clip": "2902315b5bfc",
+     "beat": "numbers",
+     "show": "compared with how strongly its own friction holds it back.",
+     "say": "compared with how strongly its own friction holds it back.",
+     "start": 87.761,
+     "end": 92.081
+    },
+    {
+     "index": 16,
+     "clip": "6e0192186c64",
+     "beat": "numbers",
+     "show": "That's the Reynolds number: speed, times size, divided by viscosity.",
+     "say": "That's the Reynolds number: speed, times size, divided by viscosity.",
+     "start": 92.791,
+     "end": 98.931
+    },
+    {
+     "index": 17,
+     "clip": "4c0a4ad28ba5",
+     "beat": "numbers",
+     "show": "In Reynolds' pipe, the switch came at a few thousand.",
+     "say": "In Reynolds' pipe, the switch came at a few thousand.",
+     "start": 99.891,
+     "end": 103.671
+    },
+    {
+     "index": 18,
+     "clip": "ad07f76b32e0",
+     "beat": "numbers",
+     "show": "A river a few metres deep, flowing at a metre or two per second,",
+     "say": "A river a few metres deep, flowing at a metre or two per second,",
+     "start": 104.381,
+     "end": 109.381
+    },
+    {
+     "index": 19,
+     "clip": "a2603f56b56c",
+     "beat": "numbers",
+     "show": "has a Reynolds number in the millions.",
+     "say": "has a Reynolds number in the millions.",
+     "start": 109.741,
+     "end": 112.591
+    },
+    {
+     "index": 20,
+     "clip": "277dfa9b4944",
+     "beat": "numbers",
+     "show": "It's thoroughly turbulent.",
+     "say": "It's thoroughly turbulent.",
+     "start": 113.301,
+     "end": 115.161
+    },
+    {
+     "index": 21,
+     "clip": "26a29a0f65bf",
+     "beat": "numbers",
+     "show": "The second number came from ships.",
+     "say": "The second number came from ships.",
+     "start": 116.121,
+     "end": 118.681
+    },
+    {
+     "index": 22,
+     "clip": "fb3a3d711081",
+     "beat": "numbers",
+     "show": "In the eighteen-seventies, the engineer William Froude towed model hulls through a long tank at Torquay,",
+     "say": "In the eighteen-seventies, the engineer William Frood towed model hulls through a long tank at Tor-key,",
+     "start": 119.391,
+     "end": 127.131
+    },
+    {
+     "index": 23,
+     "clip": "cb060659d779",
+     "beat": "numbers",
+     "show": "to predict the power a real ship would need.",
+     "say": "to predict the power a real ship would need.",
+     "start": 127.491,
+     "end": 130.591
+    },
+    {
+     "index": 24,
+     "clip": "a2ba74942249",
+     "beat": "numbers",
+     "show": "To make the right waves, a model's speed, divided by the square root of gravity times its length,",
+     "say": "To make the right waves, a model's speed, divided by the square root of gravity times its length,",
+     "start": 131.301,
+     "end": 138.721
+    },
+    {
+     "index": 25,
+     "clip": "cde573efa230",
+     "beat": "numbers",
+     "show": "has to match the real ship.",
+     "say": "has to match the real ship.",
+     "start": 139.081,
+     "end": 141.211
+    },
+    {
+     "index": 26,
+     "clip": "abe4096bfeef",
+     "beat": "numbers",
+     "show": "That ratio is now called the Froude number, and there's a neat way to see it:",
+     "say": "That ratio is now called the Frood number, and there's a neat way to see it:",
+     "start": 142.171,
+     "end": 147.451
+    },
+    {
+     "index": 27,
+     "clip": "f21205fb8c07",
+     "beat": "numbers",
+     "show": "it compares the current's speed with the speed of the surface's own long waves.",
+     "say": "it compares the current's speed with the speed of the surface's own long waves.",
+     "start": 147.811,
+     "end": 152.691
+    },
+    {
+     "index": 28,
+     "clip": "6f90e75d1270",
+     "beat": "numbers",
+     "show": "At a low Froude number, a long wave can still creep upstream against the current.",
+     "say": "At a low Frood number, a long wave can still creep upstream against the current.",
+     "start": 153.651,
+     "end": 159.231
+    },
+    {
+     "index": 29,
+     "clip": "9339d5a8aea2",
+     "beat": "numbers",
+     "show": "Turn the current up past a Froude number of one, and it outruns every such wave: nothing travels upstream.",
+     "say": "Turn the current up past a Frood number of one, and it outruns every such wave: nothing travels upstream.",
+     "start": 159.941,
+     "end": 167.751
+    },
+    {
+     "index": 30,
+     "clip": "6e2aa56eeada",
+     "beat": "numbers",
+     "show": "A river flowing a metre and a half per second over four metres of water, for example,",
+     "say": "A river flowing a metre and a half per second over four metres of water, for example,",
+     "start": 168.711,
+     "end": 175.151
+    },
+    {
+     "index": 31,
+     "clip": "bf6bd87bc3bc",
+     "beat": "numbers",
+     "show": "has a Froude number of about a quarter.",
+     "say": "has a Frood number of about a quarter.",
+     "start": 175.511,
+     "end": 178.081
+    },
+    {
+     "index": 32,
+     "clip": "d89d8cb48b0b",
+     "beat": "numbers",
+     "show": "Gravity wins, and the surface stays nearly level, like a lid.",
+     "say": "Gravity wins, and the surface stays nearly level, like a lid.",
+     "start": 178.791,
+     "end": 183.841
+    },
+    {
+     "index": 33,
+     "clip": "8bbdf018aa5a",
+     "beat": "numbers",
+     "show": "That doesn't make the water beneath it flat.",
+     "say": "That doesn't make the water beneath it flat.",
+     "start": 184.801,
+     "end": 187.831
+    },
+    {
+     "index": 34,
+     "clip": "a14b02712dda",
+     "beat": "numbers",
+     "show": "Water can still rise and sink under a level surface.",
+     "say": "Water can still rise and sink under a level surface.",
+     "start": 188.541,
+     "end": 192.521
+    },
+    {
+     "index": 35,
+     "clip": "55d2e1510abc",
+     "beat": "numbers",
+     "show": "But in the ocean and the atmosphere, layering and rotation really do squash vertical motion:",
+     "say": "But in the ocean and the atmosphere, layering and rotation really do squash vertical motion:",
+     "start": 193.231,
+     "end": 200.791
+    },
+    {
+     "index": 36,
+     "clip": "04ebb611c097",
+     "beat": "numbers",
+     "show": "G. I. Taylor found that in a rapidly spinning tank, a whole column of water can move as one.",
+     "say": "Geoffrey Taylor found that in a rapidly spinning tank, a whole column of water can move as one.",
+     "start": 201.151,
+     "end": 207.811
+    },
+    {
+     "index": 37,
+     "clip": "9e118a56c947",
+     "beat": "numbers",
+     "show": "So physicists often reach for a model: flow that moves only sideways, the same at every depth.",
+     "say": "So physicists often reach for a model: flow that moves only sideways, the same at every depth.",
+     "start": 208.771,
+     "end": 216.241
+    },
+    {
+     "index": 38,
+     "clip": "ea7a3a0b74bb",
+     "beat": "numbers",
+     "show": "It will turn out to be powerful, and incomplete.",
+     "say": "It will turn out to be powerful, and incomplete.",
+     "start": 216.951,
+     "end": 220.331
+    }
+   ]
+  },
+  "flat": {
+   "start": 221.431,
+   "end": 342.202,
+   "lines": [
+    {
+     "index": 39,
+     "clip": "d580944817d2",
+     "beat": "flat",
+     "show": "In 1922, the meteorologist Lewis Fry Richardson summed up ordinary turbulence in a rhyme:",
+     "say": "In nineteen twenty-two, the meteorologist Lewis Fry Richardson summed up ordinary turbulence in a rhyme:",
+     "start": 222.691,
+     "end": 231.091
+    },
+    {
+     "index": 40,
+     "clip": "3f12d61b2def",
+     "beat": "flat",
+     "show": "big whorls have little whorls that feed on their velocity, and little whorls have lesser whorls,",
+     "say": "big whorls have little whorls that feed on their velocity, and little whorls have lesser whorls,",
+     "start": 231.451,
+     "end": 237.901
+    },
+    {
+     "index": 41,
+     "clip": "e5f7d28f009c",
+     "beat": "flat",
+     "show": "and so on to viscosity.",
+     "say": "and so on to viscosity.",
+     "start": 238.261,
+     "end": 240.451
+    },
+    {
+     "index": 42,
+     "clip": "e2729372c5aa",
+     "beat": "flat",
+     "show": "Energy tumbles from large eddies to smaller ones, until friction turns it into heat.",
+     "say": "Energy tumbles from large eddies to smaller ones, until friction turns it into heat.",
+     "start": 241.411,
+     "end": 247.511
+    },
+    {
+     "index": 43,
+     "clip": "f8774c02cd1a",
+     "beat": "flat",
+     "show": "Andrei Kolmogorov made that cascade precise in 1941.",
+     "say": "Andrei Kolmogorov made that cascade precise in nineteen forty-one.",
+     "start": 248.221,
+     "end": 253.611
+    },
+    {
+     "index": 44,
+     "clip": "8857ca857e7f",
+     "beat": "flat",
+     "show": "Its engine is stretching.",
+     "say": "Its engine is stretching.",
+     "start": 254.571,
+     "end": 256.751
+    },
+    {
+     "index": 45,
+     "clip": "3a51e5b847e9",
+     "beat": "flat",
+     "show": "Stretch a spinning tube of fluid, and it gets thinner and spins faster,",
+     "say": "Stretch a spinning tube of fluid, and it gets thinner and spins faster,",
+     "start": 257.461,
+     "end": 262.621
+    },
+    {
+     "index": 46,
+     "clip": "1ca2e859bb40",
+     "beat": "flat",
+     "show": "like a skater pulling in their arms.",
+     "say": "like a skater pulling in their arms.",
+     "start": 262.981,
+     "end": 265.671
+    },
+    {
+     "index": 47,
+     "clip": "580e28e70454",
+     "beat": "flat",
+     "show": "Stretch it to three times its length, and it spins three times as fast.",
+     "say": "Stretch it to three times its length, and it spins three times as fast.",
+     "start": 266.381,
+     "end": 271.621
+    },
+    {
+     "index": 48,
+     "clip": "d9bac1decb0d",
+     "beat": "flat",
+     "show": "In the sideways-only model, there's nothing to stretch: a whirl's spin is simply carried along.",
+     "say": "In the sideways-only model, there's nothing to stretch: a whirl's spin is simply carried along.",
+     "start": 272.581,
+     "end": 280.261
+    },
+    {
+     "index": 49,
+     "clip": "5b10e79b95b9",
+     "beat": "flat",
+     "show": "And the cascade changes character.",
+     "say": "And the cascade changes character.",
+     "start": 280.971,
+     "end": 283.541
+    },
+    {
+     "index": 50,
+     "clip": "40edfbf1eab3",
+     "beat": "flat",
+     "show": "Robert Kraichnan and others showed that energy now climbs to larger scales: small eddies merge into big ones,",
+     "say": "Robert Kraichnan and others showed that energy now climbs to larger scales: small eddies merge into big ones,",
+     "start": 284.251,
+     "end": 292.371
+    },
+    {
+     "index": 51,
+     "clip": "cc283b2c7d85",
+     "beat": "flat",
+     "show": "while the spin gets drawn out into ever finer filaments.",
+     "say": "while the spin gets drawn out into ever finer filaments.",
+     "start": 292.731,
+     "end": 296.721
+    },
+    {
+     "index": 52,
+     "clip": "f09d5765bbef",
+     "beat": "flat",
+     "show": "You can see it in soap films, about the flattest fluid we can make, and on a planetary scale.",
+     "say": "You can see it in soap films, about the flattest fluid we can make, and on a planetary scale.",
+     "start": 297.681,
+     "end": 304.301
+    },
+    {
+     "index": 53,
+     "clip": "89a668536b90",
+     "beat": "flat",
+     "show": "Jupiter's weather lives in a thin, fast-spinning, layered shell.",
+     "say": "Jupiter's weather lives in a thin, fast-spinning, layered shell.",
+     "start": 305.011,
+     "end": 309.771
+    },
+    {
+     "index": 54,
+     "clip": "5d57f59ee794",
+     "beat": "flat",
+     "show": "Its Great Red Spot, still wider than the Earth and in the habit of swallowing smaller storms,",
+     "say": "Its Great Red Spot, still wider than the Earth and in the habit of swallowing smaller storms,",
+     "start": 310.481,
+     "end": 317.101
+    },
+    {
+     "index": 55,
+     "clip": "ecc4cdb70f6a",
+     "beat": "flat",
+     "show": "has an observing record going back to 1831.",
+     "say": "has an observing record going back to eighteen thirty-one.",
+     "start": 317.462,
+     "end": 321.362
+    },
+    {
+     "index": 56,
+     "clip": "bdb70a0a6358",
+     "beat": "flat",
+     "show": "In the ocean, lenses of salty Mediterranean water, called meddies, spin quietly for years.",
+     "say": "In the ocean, lenses of salty Mediterranean water, called meddies, spin quietly for years.",
+     "start": 322.322,
+     "end": 330.132
+    },
+    {
+     "index": 57,
+     "clip": "76259665a9a9",
+     "beat": "flat",
+     "show": "So in the flat model, whirlpools last and grow.",
+     "say": "So in the flat model, whirlpools last and grow.",
+     "start": 331.092,
+     "end": 335.232
+    },
+    {
+     "index": 58,
+     "clip": "3a3e5d7fd3d4",
+     "beat": "flat",
+     "show": "But what is a dimple, really, and why does it sit on a whirlpool at all?",
+     "say": "But what is a dimple, really, and why does it sit on a whirlpool at all?",
+     "start": 335.942,
+     "end": 341.102
+    }
+   ]
+  },
+  "rules": {
+   "start": 342.202,
+   "end": 548.263,
+   "lines": [
+    {
+     "index": 59,
+     "clip": "db9a3f903eb8",
+     "beat": "rules",
+     "show": "Back to the dimple.",
+     "say": "Back to the dimple.",
+     "start": 343.462,
+     "end": 344.982
+    },
+    {
+     "index": 60,
+     "clip": "7694a62afa29",
+     "beat": "rules",
+     "show": "In a simple model of a whirlpool's core, its depth depends on two things that really vary.",
+     "say": "In a simple model of a whirlpool's core, its depth depends on two things that really vary.",
+     "start": 345.942,
+     "end": 352.562
+    },
+    {
+     "index": 61,
+     "clip": "fc7201f42adf",
+     "beat": "rules",
+     "show": "Call the whirlpool's strength gamma.",
+     "say": "Call the whirlpool's strength gamma.",
+     "start": 353.272,
+     "end": 356.002
+    },
+    {
+     "index": 62,
+     "clip": "cb366eb7e0bf",
+     "beat": "rules",
+     "show": "Double it, and the dip gets four times deeper.",
+     "say": "Double it, and the dip gets four times deeper.",
+     "start": 356.712,
+     "end": 360.252
+    },
+    {
+     "index": 63,
+     "clip": "d1f1ef6384d1",
+     "beat": "rules",
+     "show": "Double the width of its core, as an ageing whirlpool slowly does, and the dip falls to a quarter.",
+     "say": "Double the width of its core, as an ageing whirlpool slowly does, and the dip falls to a quarter.",
+     "start": 360.962,
+     "end": 368.382
+    },
+    {
+     "index": 64,
+     "clip": "d8e1f009b5a5",
+     "beat": "rules",
+     "show": "That funnel is also a lens: in shallow water, it casts a dark shadow on the bed,",
+     "say": "That funnel is also a lens: in shallow water, it casts a dark shadow on the bed,",
+     "start": 369.342,
+     "end": 376.122
+    },
+    {
+     "index": 65,
+     "clip": "fd948e825319",
+     "beat": "rules",
+     "show": "with a bright edge.",
+     "say": "with a bright edge.",
+     "start": 376.482,
+     "end": 377.982
+    },
+    {
+     "index": 66,
+     "clip": "80b626ad4c21",
+     "beat": "rules",
+     "show": "Gamma is the circulation.",
+     "say": "Gamma is the circulation.",
+     "start": 378.942,
+     "end": 381.122
+    },
+    {
+     "index": 67,
+     "clip": "94f50c09b679",
+     "beat": "rules",
+     "show": "Walk a loop in the water, adding up how fast the water flows along your path, step by step.",
+     "say": "Walk a loop in the water, adding up how fast the water flows along your path, step by step.",
+     "start": 381.832,
+     "end": 389.092
+    },
+    {
+     "index": 68,
+     "clip": "fa3ee56f95d4",
+     "beat": "rules",
+     "show": "Well outside the core, double the loop's radius: the water is about half as fast,",
+     "say": "Well outside the core, double the loop's radius: the water is about half as fast,",
+     "start": 389.802,
+     "end": 396.232
+    },
+    {
+     "index": 69,
+     "clip": "4d3074ff2081",
+     "beat": "rules",
+     "show": "but the walk is twice as long, so the total barely changes.",
+     "say": "but the walk is twice as long, so the total barely changes.",
+     "start": 396.592,
+     "end": 401.122
+    },
+    {
+     "index": 70,
+     "clip": "3b3c19f2274c",
+     "beat": "rules",
+     "show": "From above, a whirlpool looks like a point.",
+     "say": "From above, a whirlpool looks like a point.",
+     "start": 402.082,
+     "end": 405.342
+    },
+    {
+     "index": 71,
+     "clip": "500f2d5f0b41",
+     "beat": "rules",
+     "show": "But what spins is really a line, running down into the river.",
+     "say": "But what spins is really a line, running down into the river.",
+     "start": 406.052,
+     "end": 410.852
+    },
+    {
+     "index": 72,
+     "clip": "0f7b2cd0a27e",
+     "beat": "rules",
+     "show": "A line meets the surface in a single point, and that point is the dimple.",
+     "say": "A line meets the surface in a single point, and that point is the dimple.",
+     "start": 411.562,
+     "end": 416.362
+    },
+    {
+     "index": 73,
+     "clip": "ab7154bd0e67",
+     "beat": "rules",
+     "show": "In 1858, Hermann von Helmholtz worked out the rules these vortex lines obey, and one is striking:",
+     "say": "In eighteen fifty-eight, Hermann von Helmholtz worked out the rules these vortex lines obey, and one is striking:",
+     "start": 417.322,
+     "end": 425.882
+    },
+    {
+     "index": 74,
+     "clip": "da3dfa7ecbb1",
+     "beat": "rules",
+     "show": "a tube of spin can't just end inside the water.",
+     "say": "a tube of spin can't just end inside the water.",
+     "start": 426.242,
+     "end": 430.022
+    },
+    {
+     "index": 75,
+     "clip": "fa786bf34412",
+     "beat": "rules",
+     "show": "Suppose it did.",
+     "say": "Suppose it did.",
+     "start": 430.732,
+     "end": 432.342
+    },
+    {
+     "index": 76,
+     "clip": "49400609f20d",
+     "beat": "rules",
+     "show": "Slide a loop past the end without crossing it, and its circulation can't change.",
+     "say": "Slide a loop past the end without crossing it, and its circulation can't change.",
+     "start": 433.052,
+     "end": 438.622
+    },
+    {
+     "index": 77,
+     "clip": "02d645e403c6",
+     "beat": "rules",
+     "show": "Now shrink the loop to a point: zero.",
+     "say": "Now shrink the loop to a point: zero.",
+     "start": 439.332,
+     "end": 442.492
+    },
+    {
+     "index": 78,
+     "clip": "f6a518c4d41c",
+     "beat": "rules",
+     "show": "So the tube must close into a ring, or end on the riverbed or the surface.",
+     "say": "So the tube must close into a ring, or end on the riverbed or the surface.",
+     "start": 443.202,
+     "end": 448.962
+    },
+    {
+     "index": 79,
+     "clip": "56b088b002fb",
+     "beat": "rules",
+     "show": "Helmholtz's work had an unexpected sequel.",
+     "say": "Helmholtz's work had an unexpected sequel.",
+     "start": 449.922,
+     "end": 453.183
+    },
+    {
+     "index": 80,
+     "clip": "849b649f2973",
+     "beat": "rules",
+     "show": "In Edinburgh, Peter Guthrie Tait built a box that puffed out smoke rings,",
+     "say": "In Edinburgh, Peter Guthrie Tate built a box that puffed out smoke rings,",
+     "start": 453.893,
+     "end": 459.393
+    },
+    {
+     "index": 81,
+     "clip": "de75b7c5aa09",
+     "beat": "rules",
+     "show": "and showed them to his friend William Thomson, later Lord Kelvin.",
+     "say": "and showed them to his friend William Thomson, later Lord Kelvin.",
+     "start": 459.753,
+     "end": 464.323
+    },
+    {
+     "index": 82,
+     "clip": "f795385f3c90",
+     "beat": "rules",
+     "show": "The rings bounced off each other, wobbled, and survived their collisions.",
+     "say": "The rings bounced off each other, wobbled, and survived their collisions.",
+     "start": 465.033,
+     "end": 470.293
+    },
+    {
+     "index": 83,
+     "clip": "daf50ea129e0",
+     "beat": "rules",
+     "show": "Kelvin was captivated.",
+     "say": "Kelvin was captivated.",
+     "start": 471.253,
+     "end": 473.053
+    },
+    {
+     "index": 84,
+     "clip": "1c3320852606",
+     "beat": "rules",
+     "show": "By Helmholtz's rules, a vortex in a perfect fluid can never be created or destroyed,",
+     "say": "By Helmholtz's rules, a vortex in a perfect fluid can never be created or destroyed,",
+     "start": 473.763,
+     "end": 481.023
+    },
+    {
+     "index": 85,
+     "clip": "e11021bea55a",
+     "beat": "rules",
+     "show": "so a smoke ring there would last forever.",
+     "say": "so a smoke ring there would last forever.",
+     "start": 481.383,
+     "end": 484.613
+    },
+    {
+     "index": 86,
+     "clip": "2e35f7e6fcfb",
+     "beat": "rules",
+     "show": "Perhaps, Kelvin thought, atoms were knotted vortex rings in the ether, each kind of knot a different element.",
+     "say": "Perhaps, Kelvin thought, atoms were knotted vortex rings in the ether, each kind of knot a different element.",
+     "start": 485.323,
+     "end": 493.543
+    },
+    {
+     "index": 87,
+     "clip": "7741d77f3a56",
+     "beat": "rules",
+     "show": "The theory was wrong.",
+     "say": "The theory was wrong.",
+     "start": 494.503,
+     "end": 496.183
+    },
+    {
+     "index": 88,
+     "clip": "6a24fa0e5b21",
+     "beat": "rules",
+     "show": "But Tait spent years drawing up tables of knots, hoping to match them to the elements,",
+     "say": "But Tate spent years drawing up tables of knots, hoping to match them to the elements,",
+     "start": 496.893,
+     "end": 502.983
+    },
+    {
+     "index": 89,
+     "clip": "3e3e603d134d",
+     "beat": "rules",
+     "show": "and those tables helped start the mathematics of knot theory.",
+     "say": "and those tables helped start the mathematics of knot theory.",
+     "start": 503.343,
+     "end": 507.613
+    },
+    {
+     "index": 90,
+     "clip": "ad2e1d12df16",
+     "beat": "rules",
+     "show": "Kelvin also gave the rule its cleanest form: in a perfect fluid,",
+     "say": "Kelvin also gave the rule its cleanest form: in a perfect fluid,",
+     "start": 508.573,
+     "end": 513.373
+    },
+    {
+     "index": 91,
+     "clip": "986f327311f1",
+     "beat": "rules",
+     "show": "circulation around a loop moving with the water never changes.",
+     "say": "circulation around a loop moving with the water never changes.",
+     "start": 513.733,
+     "end": 518.413
+    },
+    {
+     "index": 92,
+     "clip": "ee0e23d1be6e",
+     "beat": "rules",
+     "show": "A big loop far from a paddle stays at zero,",
+     "say": "A big loop far from a paddle stays at zero,",
+     "start": 519.123,
+     "end": 522.633
+    },
+    {
+     "index": 93,
+     "clip": "6324a672acda",
+     "beat": "rules",
+     "show": "so the paddle's spin comes in equal amounts both ways.",
+     "say": "so the paddle's spin comes in equal amounts both ways.",
+     "start": 522.993,
+     "end": 527.533
+    },
+    {
+     "index": 94,
+     "clip": "e91d11ef2f6e",
+     "beat": "rules",
+     "show": "Bend a tube into an arch with both feet on the surface, and you see it: two dimples,",
+     "say": "Bend a tube into an arch with both feet on the surface, and you see it: two dimples,",
+     "start": 528.243,
+     "end": 535.123
+    },
+    {
+     "index": 95,
+     "clip": "d91fdf2e911e",
+     "beat": "rules",
+     "show": "spinning opposite ways.",
+     "say": "spinning opposite ways.",
+     "start": 535.483,
+     "end": 537.633
+    },
+    {
+     "index": 96,
+     "clip": "c9912cab9451",
+     "beat": "rules",
+     "show": "Each rides the other's swirl, so the pair sails off together.",
+     "say": "Each rides the other's swirl, so the pair sails off together.",
+     "start": 538.593,
+     "end": 543.293
+    },
+    {
+     "index": 97,
+     "clip": "442e2478dbc6",
+     "beat": "rules",
+     "show": "Bring them closer, and they go faster.",
+     "say": "Bring them closer, and they go faster.",
+     "start": 544.003,
+     "end": 547.163
+    }
+   ]
+  },
+  "river": {
+   "start": 548.263,
+   "end": 731.993,
+   "lines": [
+    {
+     "index": 98,
+     "clip": "bf1da819b26b",
+     "beat": "river",
+     "show": "So where do the dimples on the Rhine come from?",
+     "say": "So where do the dimples on the Rhine come from?",
+     "start": 549.523,
+     "end": 552.733
+    },
+    {
+     "index": 99,
+     "clip": "9f82d165adbe",
+     "beat": "river",
+     "show": "Probably not paddles: there were hardly any boats.",
+     "say": "Probably not paddles: there were hardly any boats.",
+     "start": 553.443,
+     "end": 557.513
+    },
+    {
+     "index": 100,
+     "clip": "beaffd4fd4ce",
+     "beat": "river",
+     "show": "The likeliest source is the riverbed.",
+     "say": "The likeliest source is the riverbed.",
+     "start": 558.223,
+     "end": 561.103
+    },
+    {
+     "index": 101,
+     "clip": "20b61dab145c",
+     "beat": "river",
+     "show": "Water touching it is held still, while a little way above, the current races past.",
+     "say": "Water touching it is held still, while a little way above, the current races past.",
+     "start": 561.813,
+     "end": 568.193
+    },
+    {
+     "index": 102,
+     "clip": "d5ca0ad95a1d",
+     "beat": "river",
+     "show": "That shear is spin: a paddle wheel lying on the bed would turn.",
+     "say": "That shear is spin: a paddle wheel lying on the bed would turn.",
+     "start": 568.903,
+     "end": 574.763
+    },
+    {
+     "index": 103,
+     "clip": "159c3a7c498f",
+     "beat": "river",
+     "show": "River engineers have long described the results.",
+     "say": "River engineers have long described the results.",
+     "start": 575.723,
+     "end": 579.293
+    },
+    {
+     "index": 104,
+     "clip": "c08f117c96ab",
+     "beat": "river",
+     "show": "In 1947, Gerard Matthes wrote about kolks, violent upward surges from the beds of big rivers,",
+     "say": "In nineteen forty-seven, Gerard Matthes wrote about kolks, violent upward surges from the beds of big rivers,",
+     "start": 580.003,
+     "end": 588.693
+    },
+    {
+     "index": 105,
+     "clip": "f02eaaaddd1f",
+     "beat": "river",
+     "show": "and the boils they raise at the surface: smooth, bulging patches of upwelling water.",
+     "say": "and the boils they raise at the surface: smooth, bulging patches of upwelling water.",
+     "start": 589.053,
+     "end": 595.603
+    },
+    {
+     "index": 106,
+     "clip": "ebedb403fb78",
+     "beat": "river",
+     "show": "Near a wall, researchers came to picture the spin rolling up into arches, called hairpin vortices,",
+     "say": "Near a wall, researchers came to picture the spin rolling up into arches, called hairpin vortices,",
+     "start": 596.563,
+     "end": 603.993
+    },
+    {
+     "index": 107,
+     "clip": "db7a7e87095d",
+     "beat": "river",
+     "show": "lifting away from the bed in bursts.",
+     "say": "lifting away from the bed in bursts.",
+     "start": 604.353,
+     "end": 607.333
+    },
+    {
+     "index": 108,
+     "clip": "b9e75948aa33",
+     "beat": "river",
+     "show": "When a rising arch reaches the surface, its head doesn't simply get sliced off.",
+     "say": "When a rising arch reaches the surface, its head doesn't simply get sliced off.",
+     "start": 608.293,
+     "end": 614.163
+    },
+    {
+     "index": 109,
+     "clip": "4d69fd2ed7b4",
+     "beat": "river",
+     "show": "Friction lets the vortex reconnect to the surface, and its two legs become a pair of dimples.",
+     "say": "Friction lets the vortex reconnect to the surface, and its two legs become a pair of dimples.",
+     "start": 614.873,
+     "end": 621.753
+    },
+    {
+     "index": 110,
+     "clip": "fd2265cd93a3",
+     "beat": "river",
+     "show": "Simulations since the nineteen-nineties show what those ends do.",
+     "say": "Simulations since the nineteen-nineties show what those ends do.",
+     "start": 622.713,
+     "end": 626.783
+    },
+    {
+     "index": 111,
+     "clip": "f435e0b2d968",
+     "beat": "river",
+     "show": "Right at the surface, they stand upright,",
+     "say": "Right at the surface, they stand upright,",
+     "start": 627.493,
+     "end": 630.543
+    },
+    {
+     "index": 112,
+     "clip": "f87fbadc4167",
+     "beat": "river",
+     "show": "and they can wander across it while the tube below is twisted by the turbulence.",
+     "say": "and they can wander across it while the tube below is twisted by the turbulence.",
+     "start": 630.903,
+     "end": 636.083
+    },
+    {
+     "index": 113,
+     "clip": "50fbb0a50462",
+     "beat": "river",
+     "show": "So a surface whirlpool is caught between two effects.",
+     "say": "So a surface whirlpool is caught between two effects.",
+     "start": 637.043,
+     "end": 640.713
+    },
+    {
+     "index": 114,
+     "clip": "5d050414ba04",
+     "beat": "river",
+     "show": "Friction spreads its core and weakens it.",
+     "say": "Friction spreads its core and weakens it.",
+     "start": 641.423,
+     "end": 644.633
+    },
+    {
+     "index": 115,
+     "clip": "a3fd06779aaa",
+     "beat": "river",
+     "show": "Water converging and sinking beneath it stretches it and spins it back up.",
+     "say": "Water converging and sinking beneath it stretches it and spins it back up.",
+     "start": 645.343,
+     "end": 650.833
+    },
+    {
+     "index": 116,
+     "clip": "194f3d71e88a",
+     "beat": "river",
+     "show": "Laboratory experiments on a nearly flat surface have watched both: vortices strengthening during downwellings, then spreading out after them.",
+     "say": "Laboratory experiments on a nearly flat surface have watched both: vortices strengthening during downwellings, then spreading out after them.",
+     "start": 651.543,
+     "end": 661.533
+    },
+    {
+     "index": 117,
+     "clip": "eba2ee64bfd5",
+     "beat": "river",
+     "show": "How fast does friction work?",
+     "say": "How fast does friction work?",
+     "start": 662.493,
+     "end": 664.973
+    },
+    {
+     "index": 118,
+     "clip": "34b30b023e11",
+     "beat": "river",
+     "show": "The spreading takes a time proportional to the core's width squared, divided by the viscosity: double the width,",
+     "say": "The spreading takes a time proportional to the core's width squared, divided by the viscosity: double the width,",
+     "start": 665.683,
+     "end": 673.403
+    },
+    {
+     "index": 119,
+     "clip": "4650e2638628",
+     "beat": "river",
+     "show": "and spreading takes four times as long, though a wider core also starts out shallower.",
+     "say": "and spreading takes four times as long, though a wider core also starts out shallower.",
+     "start": 673.763,
+     "end": 679.903
+    },
+    {
+     "index": 120,
+     "clip": "10be3511daa1",
+     "beat": "river",
+     "show": "Water at five degrees is about one and a half times as viscous as water at twenty,",
+     "say": "Water at five degrees is about one and a half times as viscous as water at twenty,",
+     "start": 680.613,
+     "end": 687.043
+    },
+    {
+     "index": 121,
+     "clip": "d2759e84465d",
+     "beat": "river",
+     "show": "so friction works that much faster in winter.",
+     "say": "so friction works that much faster in winter.",
+     "start": 687.403,
+     "end": 690.563
+    },
+    {
+     "index": 122,
+     "clip": "ea2449e3b9d0",
+     "beat": "river",
+     "show": "Seeing one is a separate question.",
+     "say": "Seeing one is a separate question.",
+     "start": 691.523,
+     "end": 694.093
+    },
+    {
+     "index": 123,
+     "clip": "5bf7503a2fe5",
+     "beat": "river",
+     "show": "A dimple is shallow, not much steeper than a small ripple,",
+     "say": "A dimple is shallow, not much steeper than a small ripple,",
+     "start": 694.803,
+     "end": 699.213
+    },
+    {
+     "index": 124,
+     "clip": "dcaf7fe283a0",
+     "beat": "river",
+     "show": "so wind ripples can hide a whirlpool that is still there.",
+     "say": "so wind ripples can hide a whirlpool that is still there.",
+     "start": 699.573,
+     "end": 703.583
+    },
+    {
+     "index": 125,
+     "clip": "be7919e44878",
+     "beat": "river",
+     "show": "Behind a motorboat, its own wake roughens the water.",
+     "say": "Behind a motorboat, its own wake roughens the water.",
+     "start": 704.293,
+     "end": 707.933
+    },
+    {
+     "index": 126,
+     "clip": "004579903308",
+     "beat": "river",
+     "show": "Ahead and beside it, dimples show up best on smooth water.",
+     "say": "Ahead and beside it, dimples show up best on smooth water.",
+     "start": 708.643,
+     "end": 713.713
+    },
+    {
+     "index": 127,
+     "clip": "b4c10cb71a06",
+     "beat": "river",
+     "show": "So what keeps a small whirlpool together?",
+     "say": "So what keeps a small whirlpool together?",
+     "start": 714.673,
+     "end": 717.233
+    },
+    {
+     "index": 128,
+     "clip": "1a614c087134",
+     "beat": "river",
+     "show": "It is the end of a vortex line that can't just stop, standing upright at the surface,",
+     "say": "It is the end of a vortex line that can't just stop, standing upright at the surface,",
+     "start": 717.943,
+     "end": 724.443
+    },
+    {
+     "index": 129,
+     "clip": "140e7bfa884e",
+     "beat": "river",
+     "show": "spun up now and then by sinking water, and fading only slowly by friction.",
+     "say": "spun up now and then by sinking water, and fading only slowly by friction.",
+     "start": 724.803,
+     "end": 730.893
+    }
+   ]
+  },
+  "order": {
+   "start": 731.993,
+   "end": 834.764,
+   "lines": [
+    {
+     "index": 130,
+     "clip": "0deeb68030ab",
+     "beat": "order",
+     "show": "There's one more surprise, and it lives in the flat model.",
+     "say": "There's one more surprise, and it lives in the flat model.",
+     "start": 733.253,
+     "end": 737.123
+    },
+    {
+     "index": 131,
+     "clip": "270a739c6cb0",
+     "beat": "order",
+     "show": "Think of a pendulum.",
+     "say": "Think of a pendulum.",
+     "start": 738.083,
+     "end": 739.603
+    },
+    {
+     "index": 132,
+     "clip": "11e8f38ad4dd",
+     "beat": "order",
+     "show": "Plot its angle across and its momentum up, and its whole state becomes a single moving point.",
+     "say": "Plot its angle across and its momentum up, and its whole state becomes a single moving point.",
+     "start": 740.313,
+     "end": 747.053
+    },
+    {
+     "index": 133,
+     "clip": "8b7548c7b807",
+     "beat": "order",
+     "show": "Draw the contours of its energy, and the point follows a contour, rather than rolling downhill.",
+     "say": "Draw the contours of its energy, and the point follows a contour, rather than rolling downhill.",
+     "start": 747.763,
+     "end": 754.593
+    },
+    {
+     "index": 134,
+     "clip": "28674827f308",
+     "beat": "order",
+     "show": "That's Hamilton's rule, the backbone of mechanics, and it has a famous consequence:",
+     "say": "That's Hamilton's rule, the backbone of mechanics, and it has a famous consequence:",
+     "start": 755.303,
+     "end": 761.933
+    },
+    {
+     "index": 135,
+     "clip": "4b89dac5633c",
+     "beat": "order",
+     "show": "a patch of starting states can stretch, but never changes its area.",
+     "say": "a patch of starting states can stretch, but never changes its area.",
+     "start": 762.293,
+     "end": 767.093
+    },
+    {
+     "index": 136,
+     "clip": "58e13ee1c272",
+     "beat": "order",
+     "show": "In the sideways-only model, water can't be squashed, so patches of it keep their area too.",
+     "say": "In the sideways-only model, water can't be squashed, so patches of it keep their area too.",
+     "start": 768.053,
+     "end": 775.314
+    },
+    {
+     "index": 137,
+     "clip": "4dbc7b829d92",
+     "beat": "order",
+     "show": "That's no coincidence.",
+     "say": "That's no coincidence.",
+     "start": 776.024,
+     "end": 777.884
+    },
+    {
+     "index": 138,
+     "clip": "e27f72b60548",
+     "beat": "order",
+     "show": "A speck of water follows exactly Hamilton's rule, on a landscape called the stream function.",
+     "say": "A speck of water follows exactly Hamilton's rule, on a landscape called the stream function.",
+     "start": 778.594,
+     "end": 785.334
+    },
+    {
+     "index": 139,
+     "clip": "158cb9c3d203",
+     "beat": "order",
+     "show": "With one steady whirlpool, the speck follows a contour.",
+     "say": "With one steady whirlpool, the speck follows a contour.",
+     "start": 786.294,
+     "end": 790.694
+    },
+    {
+     "index": 140,
+     "clip": "6c85b02d487e",
+     "beat": "order",
+     "show": "When the whirlpools move, the landscape changes beneath it, but the same rule still sets its motion.",
+     "say": "When the whirlpools move, the landscape changes beneath it, but the same rule still sets its motion.",
+     "start": 791.404,
+     "end": 798.924
+    },
+    {
+     "index": 141,
+     "clip": "c8e9dd0c3a4b",
+     "beat": "order",
+     "show": "In this model, the surface is the speck's phase space.",
+     "say": "In this model, the surface is the speck's phase space.",
+     "start": 799.634,
+     "end": 803.624
+    },
+    {
+     "index": 142,
+     "clip": "6df87b4f27f9",
+     "beat": "order",
+     "show": "In 1876, Gustav Kirchhoff showed that the whirlpools themselves obey it: each is carried by the others' swirl,",
+     "say": "In eighteen seventy-six, Gustav Kirk-hoff showed that the whirlpools themselves obey it: each is carried by the others' swirl,",
+     "start": 804.584,
+     "end": 813.824
+    },
+    {
+     "index": 143,
+     "clip": "1e26e910282d",
+     "beat": "order",
+     "show": "and together they follow the slopes of one landscape, with each whirlpool's strength as a weight.",
+     "say": "and together they follow the slopes of one landscape, with each whirlpool's strength as a weight.",
+     "start": 814.184,
+     "end": 820.814
+    },
+    {
+     "index": 144,
+     "clip": "ff36625945d2",
+     "beat": "order",
+     "show": "Three whirlpools dance regularly.",
+     "say": "Three whirlpools dance regularly.",
+     "start": 821.774,
+     "end": 824.354
+    },
+    {
+     "index": 145,
+     "clip": "078c00c5ad4c",
+     "beat": "order",
+     "show": "Four can turn chaotic: in these particular runs, started a micron apart, they part ways within seconds.",
+     "say": "Four can turn chaotic: in these particular runs, started a micron apart, they part ways within seconds.",
+     "start": 825.064,
+     "end": 833.664
+    }
+   ]
+  },
+  "reading": {
+   "start": 834.764,
+   "end": 926.804,
+   "lines": [
+    {
+     "index": 146,
+     "clip": "c7ffd8a945e3",
+     "beat": "reading",
+     "show": "Now put back what the flat model left out: water rising and sinking underneath.",
+     "say": "Now put back what the flat model left out: water rising and sinking underneath.",
+     "start": 836.024,
+     "end": 842.114
+    },
+    {
+     "index": 147,
+     "clip": "f164dd7ab0db",
+     "beat": "reading",
+     "show": "A real patch of surface water doesn't have to keep its area.",
+     "say": "A real patch of surface water doesn't have to keep its area.",
+     "start": 843.074,
+     "end": 847.464
+    },
+    {
+     "index": 148,
+     "clip": "0f7b2eb649b9",
+     "beat": "reading",
+     "show": "It spreads where water wells up from below, and shrinks where water sinks away.",
+     "say": "It spreads where water wells up from below, and shrinks where water sinks away.",
+     "start": 848.174,
+     "end": 853.354
+    },
+    {
+     "index": 149,
+     "clip": "59f6486ae56d",
+     "beat": "reading",
+     "show": "Incompressibility keeps volume; only in the flat model does it keep area.",
+     "say": "Incompressibility keeps volume; only in the flat model does it keep area.",
+     "start": 854.064,
+     "end": 860.114
+    },
+    {
+     "index": 150,
+     "clip": "e7cb3b44e54a",
+     "beat": "reading",
+     "show": "And that spreading and shrinking is what a group in Trondheim, Norway, around Omer Babiker and Simen Ellingsen,",
+     "say": "And that spreading and shrinking is what a group in Trondheim, Norway, around Omer Babiker and Simen Ellingsen,",
+     "start": 861.074,
+     "end": 869.754
+    },
+    {
+     "index": 151,
+     "clip": "5dd0d8876637",
+     "beat": "reading",
+     "show": "has been reading from dimples.",
+     "say": "has been reading from dimples.",
+     "start": 870.114,
+     "end": 872.254
+    },
+    {
+     "index": 152,
+     "clip": "a15c5375ee12",
+     "beat": "reading",
+     "show": "In their simulations, the number of dimples in a region tracked how strongly its surface was spreading and converging,",
+     "say": "In their simulations, the number of dimples in a region tracked how strongly its surface was spreading and converging,",
+     "start": 872.964,
+     "end": 880.704
+    },
+    {
+     "index": 153,
+     "clip": "3a5782d538cc",
+     "beat": "reading",
+     "show": "closely, with a short delay.",
+     "say": "closely, with a short delay.",
+     "start": 881.064,
+     "end": 883.634
+    },
+    {
+     "index": 154,
+     "clip": "f3c766ceb621",
+     "beat": "reading",
+     "show": "This year, a laboratory tank experiment, at much higher Reynolds numbers, found the same kind of link.",
+     "say": "This year, a laboratory tank experiment, at much higher Reynolds numbers, found the same kind of link.",
+     "start": 884.344,
+     "end": 891.744
+    },
+    {
+     "index": 155,
+     "clip": "767c8a5509d7",
+     "beat": "reading",
+     "show": "That matters, because the same stirring renews the skin of the water,",
+     "say": "That matters, because the same stirring renews the skin of the water,",
+     "start": 892.704,
+     "end": 897.594
+    },
+    {
+     "index": 156,
+     "clip": "f71776e8431f",
+     "beat": "reading",
+     "show": "and that helps set how fast gases like oxygen and carbon dioxide cross between a river and the air.",
+     "say": "and that helps set how fast gases like oxygen and carbon dioxide cross between a river and the air.",
+     "start": 897.954,
+     "end": 905.044
+    },
+    {
+     "index": 157,
+     "clip": "f419ad2d0cca",
+     "beat": "reading",
+     "show": "So those dimples beside the boat weren't only whirlpools that happened to last.",
+     "say": "So those dimples beside the boat weren't only whirlpools that happened to last.",
+     "start": 906.004,
+     "end": 910.884
+    },
+    {
+     "index": 158,
+     "clip": "589276548273",
+     "beat": "reading",
+     "show": "Each was a small mark on the surface, connected to a hidden, three-dimensional flow underneath.",
+     "say": "Each was a small mark on the surface, connected to a hidden, three-dimensional flow underneath.",
+     "start": 911.594,
+     "end": 918.324
+    },
+    {
+     "index": 159,
+     "clip": "8ff7583fcfe9",
+     "beat": "reading",
+     "show": "And a friend who noticed how long some of them lasted was already, in a way, reading it.",
+     "say": "And a friend who noticed how long some of them lasted was already, in a way, reading it.",
+     "start": 919.034,
+     "end": 925.704
+    }
+   ]
+  }
+ },
+ "lines": [
+  {
+   "index": 0,
+   "clip": "fd7fa65946cb",
+   "beat": "open",
+   "show": "From a long wooden boat on the Rhine, a friend kept noticing small dimples on the water,",
+   "say": "From a long wooden boat on the Rhine, a friend kept noticing small dimples on the water,",
+   "start": 1.06,
+   "end": 7.24
+  },
+  {
+   "index": 1,
+   "clip": "30ffd30e8d09",
+   "beat": "open",
+   "show": "beside the boat and ahead of it, mostly when the water was smooth.",
+   "say": "beside the boat and ahead of it, mostly when the water was smooth.",
+   "start": 7.6,
+   "end": 12.35
+  },
+  {
+   "index": 2,
+   "clip": "5c9c7e0663b2",
+   "beat": "open",
+   "show": "Some lasted a surprisingly long time.",
+   "say": "Some lasted a surprisingly long time.",
+   "start": 13.06,
+   "end": 16.1
+  },
+  {
+   "index": 3,
+   "clip": "c76b3529b1ca",
+   "beat": "open",
+   "show": "Each dimple sits on top of a whirlpool.",
+   "say": "Each dimple sits on top of a whirlpool.",
+   "start": 17.06,
+   "end": 20.02
+  },
+  {
+   "index": 4,
+   "clip": "684dc262c428",
+   "beat": "open",
+   "show": "Water going round in a circle needs an inward push, and that push is pressure, lower at the centre.",
+   "say": "Water going round in a circle needs an inward push, and that push is pressure, lower at the centre.",
+   "start": 20.73,
+   "end": 28.62
+  },
+  {
+   "index": 5,
+   "clip": "322b29a2e4a9",
+   "beat": "open",
+   "show": "So above the spinning water, the surface sags into a small funnel.",
+   "say": "So above the spinning water, the surface sags into a small funnel.",
+   "start": 29.33,
+   "end": 34.35
+  },
+  {
+   "index": 6,
+   "clip": "2ed6d0be5b6d",
+   "beat": "open",
+   "show": "So what keeps a small whirlpool like that together, while everything around it keeps changing?",
+   "say": "So what keeps a small whirlpool like that together, while everything around it keeps changing?",
+   "start": 35.31,
+   "end": 41.45
+  },
+  {
+   "index": 7,
+   "clip": "66ca803dfddf",
+   "beat": "open",
+   "show": "Finding out takes us through Victorian ships, smoke rings and Jupiter, and ends in a lab in Norway,",
+   "say": "Finding out takes us through Victorian ships, smoke rings and Jupiter, and ends in a lab in Norway,",
+   "start": 42.41,
+   "end": 49.35
+  },
+  {
+   "index": 8,
+   "clip": "918a13bfbcb9",
+   "beat": "open",
+   "show": "reading rivers from dimples like these.",
+   "say": "reading rivers from dimples like these.",
+   "start": 49.71,
+   "end": 52.58
+  },
+  {
+   "index": 9,
+   "clip": "14af7d0da9ff",
+   "beat": "numbers",
+   "show": "Physicists size up a flow in nature with a couple of numbers.",
+   "say": "Physicists size up a flow in nature with a couple of numbers.",
+   "start": 54.94,
+   "end": 59.34
+  },
+  {
+   "index": 10,
+   "clip": "3945478da2f5",
+   "beat": "numbers",
+   "show": "The first came from Osborne Reynolds, in Manchester, in 1883.",
+   "say": "The first came from Osborne Reynolds, in Manchester, in eighteen eighty-three.",
+   "start": 60.3,
+   "end": 66.07
+  },
+  {
+   "index": 11,
+   "clip": "79f54c4572e6",
+   "beat": "numbers",
+   "show": "He let a thin streak of dye into water flowing through a glass pipe.",
+   "say": "He let a thin streak of dye into water flowing through a glass pipe.",
+   "start": 66.78,
+   "end": 71.08
+  },
+  {
+   "index": 12,
+   "clip": "e2e0c0f1955f",
+   "beat": "numbers",
+   "show": "Slowly, the streak stayed a clean line.",
+   "say": "Slowly, the streak stayed a clean line.",
+   "start": 71.79,
+   "end": 75.05
+  },
+  {
+   "index": 13,
+   "clip": "d00be78b6f12",
+   "beat": "numbers",
+   "show": "Faster, it suddenly shivered, burst, and filled the pipe.",
+   "say": "Faster, it suddenly shivered, burst, and filled the pipe.",
+   "start": 75.76,
+   "end": 80.141
+  },
+  {
+   "index": 14,
+   "clip": "94934584ff2a",
+   "beat": "numbers",
+   "show": "What decides it is one ratio: how strongly the moving water carries itself along,",
+   "say": "What decides it is one ratio: how strongly the moving water carries itself along,",
+   "start": 81.101,
+   "end": 87.401
+  },
+  {
+   "index": 15,
+   "clip": "2902315b5bfc",
+   "beat": "numbers",
+   "show": "compared with how strongly its own friction holds it back.",
+   "say": "compared with how strongly its own friction holds it back.",
+   "start": 87.761,
+   "end": 92.081
+  },
+  {
+   "index": 16,
+   "clip": "6e0192186c64",
+   "beat": "numbers",
+   "show": "That's the Reynolds number: speed, times size, divided by viscosity.",
+   "say": "That's the Reynolds number: speed, times size, divided by viscosity.",
+   "start": 92.791,
+   "end": 98.931
+  },
+  {
+   "index": 17,
+   "clip": "4c0a4ad28ba5",
+   "beat": "numbers",
+   "show": "In Reynolds' pipe, the switch came at a few thousand.",
+   "say": "In Reynolds' pipe, the switch came at a few thousand.",
+   "start": 99.891,
+   "end": 103.671
+  },
+  {
+   "index": 18,
+   "clip": "ad07f76b32e0",
+   "beat": "numbers",
+   "show": "A river a few metres deep, flowing at a metre or two per second,",
+   "say": "A river a few metres deep, flowing at a metre or two per second,",
+   "start": 104.381,
+   "end": 109.381
+  },
+  {
+   "index": 19,
+   "clip": "a2603f56b56c",
+   "beat": "numbers",
+   "show": "has a Reynolds number in the millions.",
+   "say": "has a Reynolds number in the millions.",
+   "start": 109.741,
+   "end": 112.591
+  },
+  {
+   "index": 20,
+   "clip": "277dfa9b4944",
+   "beat": "numbers",
+   "show": "It's thoroughly turbulent.",
+   "say": "It's thoroughly turbulent.",
+   "start": 113.301,
+   "end": 115.161
+  },
+  {
+   "index": 21,
+   "clip": "26a29a0f65bf",
+   "beat": "numbers",
+   "show": "The second number came from ships.",
+   "say": "The second number came from ships.",
+   "start": 116.121,
+   "end": 118.681
+  },
+  {
+   "index": 22,
+   "clip": "fb3a3d711081",
+   "beat": "numbers",
+   "show": "In the eighteen-seventies, the engineer William Froude towed model hulls through a long tank at Torquay,",
+   "say": "In the eighteen-seventies, the engineer William Frood towed model hulls through a long tank at Tor-key,",
+   "start": 119.391,
+   "end": 127.131
+  },
+  {
+   "index": 23,
+   "clip": "cb060659d779",
+   "beat": "numbers",
+   "show": "to predict the power a real ship would need.",
+   "say": "to predict the power a real ship would need.",
+   "start": 127.491,
+   "end": 130.591
+  },
+  {
+   "index": 24,
+   "clip": "a2ba74942249",
+   "beat": "numbers",
+   "show": "To make the right waves, a model's speed, divided by the square root of gravity times its length,",
+   "say": "To make the right waves, a model's speed, divided by the square root of gravity times its length,",
+   "start": 131.301,
+   "end": 138.721
+  },
+  {
+   "index": 25,
+   "clip": "cde573efa230",
+   "beat": "numbers",
+   "show": "has to match the real ship.",
+   "say": "has to match the real ship.",
+   "start": 139.081,
+   "end": 141.211
+  },
+  {
+   "index": 26,
+   "clip": "abe4096bfeef",
+   "beat": "numbers",
+   "show": "That ratio is now called the Froude number, and there's a neat way to see it:",
+   "say": "That ratio is now called the Frood number, and there's a neat way to see it:",
+   "start": 142.171,
+   "end": 147.451
+  },
+  {
+   "index": 27,
+   "clip": "f21205fb8c07",
+   "beat": "numbers",
+   "show": "it compares the current's speed with the speed of the surface's own long waves.",
+   "say": "it compares the current's speed with the speed of the surface's own long waves.",
+   "start": 147.811,
+   "end": 152.691
+  },
+  {
+   "index": 28,
+   "clip": "6f90e75d1270",
+   "beat": "numbers",
+   "show": "At a low Froude number, a long wave can still creep upstream against the current.",
+   "say": "At a low Frood number, a long wave can still creep upstream against the current.",
+   "start": 153.651,
+   "end": 159.231
+  },
+  {
+   "index": 29,
+   "clip": "9339d5a8aea2",
+   "beat": "numbers",
+   "show": "Turn the current up past a Froude number of one, and it outruns every such wave: nothing travels upstream.",
+   "say": "Turn the current up past a Frood number of one, and it outruns every such wave: nothing travels upstream.",
+   "start": 159.941,
+   "end": 167.751
+  },
+  {
+   "index": 30,
+   "clip": "6e2aa56eeada",
+   "beat": "numbers",
+   "show": "A river flowing a metre and a half per second over four metres of water, for example,",
+   "say": "A river flowing a metre and a half per second over four metres of water, for example,",
+   "start": 168.711,
+   "end": 175.151
+  },
+  {
+   "index": 31,
+   "clip": "bf6bd87bc3bc",
+   "beat": "numbers",
+   "show": "has a Froude number of about a quarter.",
+   "say": "has a Frood number of about a quarter.",
+   "start": 175.511,
+   "end": 178.081
+  },
+  {
+   "index": 32,
+   "clip": "d89d8cb48b0b",
+   "beat": "numbers",
+   "show": "Gravity wins, and the surface stays nearly level, like a lid.",
+   "say": "Gravity wins, and the surface stays nearly level, like a lid.",
+   "start": 178.791,
+   "end": 183.841
+  },
+  {
+   "index": 33,
+   "clip": "8bbdf018aa5a",
+   "beat": "numbers",
+   "show": "That doesn't make the water beneath it flat.",
+   "say": "That doesn't make the water beneath it flat.",
+   "start": 184.801,
+   "end": 187.831
+  },
+  {
+   "index": 34,
+   "clip": "a14b02712dda",
+   "beat": "numbers",
+   "show": "Water can still rise and sink under a level surface.",
+   "say": "Water can still rise and sink under a level surface.",
+   "start": 188.541,
+   "end": 192.521
+  },
+  {
+   "index": 35,
+   "clip": "55d2e1510abc",
+   "beat": "numbers",
+   "show": "But in the ocean and the atmosphere, layering and rotation really do squash vertical motion:",
+   "say": "But in the ocean and the atmosphere, layering and rotation really do squash vertical motion:",
+   "start": 193.231,
+   "end": 200.791
+  },
+  {
+   "index": 36,
+   "clip": "04ebb611c097",
+   "beat": "numbers",
+   "show": "G. I. Taylor found that in a rapidly spinning tank, a whole column of water can move as one.",
+   "say": "Geoffrey Taylor found that in a rapidly spinning tank, a whole column of water can move as one.",
+   "start": 201.151,
+   "end": 207.811
+  },
+  {
+   "index": 37,
+   "clip": "9e118a56c947",
+   "beat": "numbers",
+   "show": "So physicists often reach for a model: flow that moves only sideways, the same at every depth.",
+   "say": "So physicists often reach for a model: flow that moves only sideways, the same at every depth.",
+   "start": 208.771,
+   "end": 216.241
+  },
+  {
+   "index": 38,
+   "clip": "ea7a3a0b74bb",
+   "beat": "numbers",
+   "show": "It will turn out to be powerful, and incomplete.",
+   "say": "It will turn out to be powerful, and incomplete.",
+   "start": 216.951,
+   "end": 220.331
+  },
+  {
+   "index": 39,
+   "clip": "d580944817d2",
+   "beat": "flat",
+   "show": "In 1922, the meteorologist Lewis Fry Richardson summed up ordinary turbulence in a rhyme:",
+   "say": "In nineteen twenty-two, the meteorologist Lewis Fry Richardson summed up ordinary turbulence in a rhyme:",
+   "start": 222.691,
+   "end": 231.091
+  },
+  {
+   "index": 40,
+   "clip": "3f12d61b2def",
+   "beat": "flat",
+   "show": "big whorls have little whorls that feed on their velocity, and little whorls have lesser whorls,",
+   "say": "big whorls have little whorls that feed on their velocity, and little whorls have lesser whorls,",
+   "start": 231.451,
+   "end": 237.901
+  },
+  {
+   "index": 41,
+   "clip": "e5f7d28f009c",
+   "beat": "flat",
+   "show": "and so on to viscosity.",
+   "say": "and so on to viscosity.",
+   "start": 238.261,
+   "end": 240.451
+  },
+  {
+   "index": 42,
+   "clip": "e2729372c5aa",
+   "beat": "flat",
+   "show": "Energy tumbles from large eddies to smaller ones, until friction turns it into heat.",
+   "say": "Energy tumbles from large eddies to smaller ones, until friction turns it into heat.",
+   "start": 241.411,
+   "end": 247.511
+  },
+  {
+   "index": 43,
+   "clip": "f8774c02cd1a",
+   "beat": "flat",
+   "show": "Andrei Kolmogorov made that cascade precise in 1941.",
+   "say": "Andrei Kolmogorov made that cascade precise in nineteen forty-one.",
+   "start": 248.221,
+   "end": 253.611
+  },
+  {
+   "index": 44,
+   "clip": "8857ca857e7f",
+   "beat": "flat",
+   "show": "Its engine is stretching.",
+   "say": "Its engine is stretching.",
+   "start": 254.571,
+   "end": 256.751
+  },
+  {
+   "index": 45,
+   "clip": "3a51e5b847e9",
+   "beat": "flat",
+   "show": "Stretch a spinning tube of fluid, and it gets thinner and spins faster,",
+   "say": "Stretch a spinning tube of fluid, and it gets thinner and spins faster,",
+   "start": 257.461,
+   "end": 262.621
+  },
+  {
+   "index": 46,
+   "clip": "1ca2e859bb40",
+   "beat": "flat",
+   "show": "like a skater pulling in their arms.",
+   "say": "like a skater pulling in their arms.",
+   "start": 262.981,
+   "end": 265.671
+  },
+  {
+   "index": 47,
+   "clip": "580e28e70454",
+   "beat": "flat",
+   "show": "Stretch it to three times its length, and it spins three times as fast.",
+   "say": "Stretch it to three times its length, and it spins three times as fast.",
+   "start": 266.381,
+   "end": 271.621
+  },
+  {
+   "index": 48,
+   "clip": "d9bac1decb0d",
+   "beat": "flat",
+   "show": "In the sideways-only model, there's nothing to stretch: a whirl's spin is simply carried along.",
+   "say": "In the sideways-only model, there's nothing to stretch: a whirl's spin is simply carried along.",
+   "start": 272.581,
+   "end": 280.261
+  },
+  {
+   "index": 49,
+   "clip": "5b10e79b95b9",
+   "beat": "flat",
+   "show": "And the cascade changes character.",
+   "say": "And the cascade changes character.",
+   "start": 280.971,
+   "end": 283.541
+  },
+  {
+   "index": 50,
+   "clip": "40edfbf1eab3",
+   "beat": "flat",
+   "show": "Robert Kraichnan and others showed that energy now climbs to larger scales: small eddies merge into big ones,",
+   "say": "Robert Kraichnan and others showed that energy now climbs to larger scales: small eddies merge into big ones,",
+   "start": 284.251,
+   "end": 292.371
+  },
+  {
+   "index": 51,
+   "clip": "cc283b2c7d85",
+   "beat": "flat",
+   "show": "while the spin gets drawn out into ever finer filaments.",
+   "say": "while the spin gets drawn out into ever finer filaments.",
+   "start": 292.731,
+   "end": 296.721
+  },
+  {
+   "index": 52,
+   "clip": "f09d5765bbef",
+   "beat": "flat",
+   "show": "You can see it in soap films, about the flattest fluid we can make, and on a planetary scale.",
+   "say": "You can see it in soap films, about the flattest fluid we can make, and on a planetary scale.",
+   "start": 297.681,
+   "end": 304.301
+  },
+  {
+   "index": 53,
+   "clip": "89a668536b90",
+   "beat": "flat",
+   "show": "Jupiter's weather lives in a thin, fast-spinning, layered shell.",
+   "say": "Jupiter's weather lives in a thin, fast-spinning, layered shell.",
+   "start": 305.011,
+   "end": 309.771
+  },
+  {
+   "index": 54,
+   "clip": "5d57f59ee794",
+   "beat": "flat",
+   "show": "Its Great Red Spot, still wider than the Earth and in the habit of swallowing smaller storms,",
+   "say": "Its Great Red Spot, still wider than the Earth and in the habit of swallowing smaller storms,",
+   "start": 310.481,
+   "end": 317.101
+  },
+  {
+   "index": 55,
+   "clip": "ecc4cdb70f6a",
+   "beat": "flat",
+   "show": "has an observing record going back to 1831.",
+   "say": "has an observing record going back to eighteen thirty-one.",
+   "start": 317.462,
+   "end": 321.362
+  },
+  {
+   "index": 56,
+   "clip": "bdb70a0a6358",
+   "beat": "flat",
+   "show": "In the ocean, lenses of salty Mediterranean water, called meddies, spin quietly for years.",
+   "say": "In the ocean, lenses of salty Mediterranean water, called meddies, spin quietly for years.",
+   "start": 322.322,
+   "end": 330.132
+  },
+  {
+   "index": 57,
+   "clip": "76259665a9a9",
+   "beat": "flat",
+   "show": "So in the flat model, whirlpools last and grow.",
+   "say": "So in the flat model, whirlpools last and grow.",
+   "start": 331.092,
+   "end": 335.232
+  },
+  {
+   "index": 58,
+   "clip": "3a3e5d7fd3d4",
+   "beat": "flat",
+   "show": "But what is a dimple, really, and why does it sit on a whirlpool at all?",
+   "say": "But what is a dimple, really, and why does it sit on a whirlpool at all?",
+   "start": 335.942,
+   "end": 341.102
+  },
+  {
+   "index": 59,
+   "clip": "db9a3f903eb8",
+   "beat": "rules",
+   "show": "Back to the dimple.",
+   "say": "Back to the dimple.",
+   "start": 343.462,
+   "end": 344.982
+  },
+  {
+   "index": 60,
+   "clip": "7694a62afa29",
+   "beat": "rules",
+   "show": "In a simple model of a whirlpool's core, its depth depends on two things that really vary.",
+   "say": "In a simple model of a whirlpool's core, its depth depends on two things that really vary.",
+   "start": 345.942,
+   "end": 352.562
+  },
+  {
+   "index": 61,
+   "clip": "fc7201f42adf",
+   "beat": "rules",
+   "show": "Call the whirlpool's strength gamma.",
+   "say": "Call the whirlpool's strength gamma.",
+   "start": 353.272,
+   "end": 356.002
+  },
+  {
+   "index": 62,
+   "clip": "cb366eb7e0bf",
+   "beat": "rules",
+   "show": "Double it, and the dip gets four times deeper.",
+   "say": "Double it, and the dip gets four times deeper.",
+   "start": 356.712,
+   "end": 360.252
+  },
+  {
+   "index": 63,
+   "clip": "d1f1ef6384d1",
+   "beat": "rules",
+   "show": "Double the width of its core, as an ageing whirlpool slowly does, and the dip falls to a quarter.",
+   "say": "Double the width of its core, as an ageing whirlpool slowly does, and the dip falls to a quarter.",
+   "start": 360.962,
+   "end": 368.382
+  },
+  {
+   "index": 64,
+   "clip": "d8e1f009b5a5",
+   "beat": "rules",
+   "show": "That funnel is also a lens: in shallow water, it casts a dark shadow on the bed,",
+   "say": "That funnel is also a lens: in shallow water, it casts a dark shadow on the bed,",
+   "start": 369.342,
+   "end": 376.122
+  },
+  {
+   "index": 65,
+   "clip": "fd948e825319",
+   "beat": "rules",
+   "show": "with a bright edge.",
+   "say": "with a bright edge.",
+   "start": 376.482,
+   "end": 377.982
+  },
+  {
+   "index": 66,
+   "clip": "80b626ad4c21",
+   "beat": "rules",
+   "show": "Gamma is the circulation.",
+   "say": "Gamma is the circulation.",
+   "start": 378.942,
+   "end": 381.122
+  },
+  {
+   "index": 67,
+   "clip": "94f50c09b679",
+   "beat": "rules",
+   "show": "Walk a loop in the water, adding up how fast the water flows along your path, step by step.",
+   "say": "Walk a loop in the water, adding up how fast the water flows along your path, step by step.",
+   "start": 381.832,
+   "end": 389.092
+  },
+  {
+   "index": 68,
+   "clip": "fa3ee56f95d4",
+   "beat": "rules",
+   "show": "Well outside the core, double the loop's radius: the water is about half as fast,",
+   "say": "Well outside the core, double the loop's radius: the water is about half as fast,",
+   "start": 389.802,
+   "end": 396.232
+  },
+  {
+   "index": 69,
+   "clip": "4d3074ff2081",
+   "beat": "rules",
+   "show": "but the walk is twice as long, so the total barely changes.",
+   "say": "but the walk is twice as long, so the total barely changes.",
+   "start": 396.592,
+   "end": 401.122
+  },
+  {
+   "index": 70,
+   "clip": "3b3c19f2274c",
+   "beat": "rules",
+   "show": "From above, a whirlpool looks like a point.",
+   "say": "From above, a whirlpool looks like a point.",
+   "start": 402.082,
+   "end": 405.342
+  },
+  {
+   "index": 71,
+   "clip": "500f2d5f0b41",
+   "beat": "rules",
+   "show": "But what spins is really a line, running down into the river.",
+   "say": "But what spins is really a line, running down into the river.",
+   "start": 406.052,
+   "end": 410.852
+  },
+  {
+   "index": 72,
+   "clip": "0f7b2cd0a27e",
+   "beat": "rules",
+   "show": "A line meets the surface in a single point, and that point is the dimple.",
+   "say": "A line meets the surface in a single point, and that point is the dimple.",
+   "start": 411.562,
+   "end": 416.362
+  },
+  {
+   "index": 73,
+   "clip": "ab7154bd0e67",
+   "beat": "rules",
+   "show": "In 1858, Hermann von Helmholtz worked out the rules these vortex lines obey, and one is striking:",
+   "say": "In eighteen fifty-eight, Hermann von Helmholtz worked out the rules these vortex lines obey, and one is striking:",
+   "start": 417.322,
+   "end": 425.882
+  },
+  {
+   "index": 74,
+   "clip": "da3dfa7ecbb1",
+   "beat": "rules",
+   "show": "a tube of spin can't just end inside the water.",
+   "say": "a tube of spin can't just end inside the water.",
+   "start": 426.242,
+   "end": 430.022
+  },
+  {
+   "index": 75,
+   "clip": "fa786bf34412",
+   "beat": "rules",
+   "show": "Suppose it did.",
+   "say": "Suppose it did.",
+   "start": 430.732,
+   "end": 432.342
+  },
+  {
+   "index": 76,
+   "clip": "49400609f20d",
+   "beat": "rules",
+   "show": "Slide a loop past the end without crossing it, and its circulation can't change.",
+   "say": "Slide a loop past the end without crossing it, and its circulation can't change.",
+   "start": 433.052,
+   "end": 438.622
+  },
+  {
+   "index": 77,
+   "clip": "02d645e403c6",
+   "beat": "rules",
+   "show": "Now shrink the loop to a point: zero.",
+   "say": "Now shrink the loop to a point: zero.",
+   "start": 439.332,
+   "end": 442.492
+  },
+  {
+   "index": 78,
+   "clip": "f6a518c4d41c",
+   "beat": "rules",
+   "show": "So the tube must close into a ring, or end on the riverbed or the surface.",
+   "say": "So the tube must close into a ring, or end on the riverbed or the surface.",
+   "start": 443.202,
+   "end": 448.962
+  },
+  {
+   "index": 79,
+   "clip": "56b088b002fb",
+   "beat": "rules",
+   "show": "Helmholtz's work had an unexpected sequel.",
+   "say": "Helmholtz's work had an unexpected sequel.",
+   "start": 449.922,
+   "end": 453.183
+  },
+  {
+   "index": 80,
+   "clip": "849b649f2973",
+   "beat": "rules",
+   "show": "In Edinburgh, Peter Guthrie Tait built a box that puffed out smoke rings,",
+   "say": "In Edinburgh, Peter Guthrie Tate built a box that puffed out smoke rings,",
+   "start": 453.893,
+   "end": 459.393
+  },
+  {
+   "index": 81,
+   "clip": "de75b7c5aa09",
+   "beat": "rules",
+   "show": "and showed them to his friend William Thomson, later Lord Kelvin.",
+   "say": "and showed them to his friend William Thomson, later Lord Kelvin.",
+   "start": 459.753,
+   "end": 464.323
+  },
+  {
+   "index": 82,
+   "clip": "f795385f3c90",
+   "beat": "rules",
+   "show": "The rings bounced off each other, wobbled, and survived their collisions.",
+   "say": "The rings bounced off each other, wobbled, and survived their collisions.",
+   "start": 465.033,
+   "end": 470.293
+  },
+  {
+   "index": 83,
+   "clip": "daf50ea129e0",
+   "beat": "rules",
+   "show": "Kelvin was captivated.",
+   "say": "Kelvin was captivated.",
+   "start": 471.253,
+   "end": 473.053
+  },
+  {
+   "index": 84,
+   "clip": "1c3320852606",
+   "beat": "rules",
+   "show": "By Helmholtz's rules, a vortex in a perfect fluid can never be created or destroyed,",
+   "say": "By Helmholtz's rules, a vortex in a perfect fluid can never be created or destroyed,",
+   "start": 473.763,
+   "end": 481.023
+  },
+  {
+   "index": 85,
+   "clip": "e11021bea55a",
+   "beat": "rules",
+   "show": "so a smoke ring there would last forever.",
+   "say": "so a smoke ring there would last forever.",
+   "start": 481.383,
+   "end": 484.613
+  },
+  {
+   "index": 86,
+   "clip": "2e35f7e6fcfb",
+   "beat": "rules",
+   "show": "Perhaps, Kelvin thought, atoms were knotted vortex rings in the ether, each kind of knot a different element.",
+   "say": "Perhaps, Kelvin thought, atoms were knotted vortex rings in the ether, each kind of knot a different element.",
+   "start": 485.323,
+   "end": 493.543
+  },
+  {
+   "index": 87,
+   "clip": "7741d77f3a56",
+   "beat": "rules",
+   "show": "The theory was wrong.",
+   "say": "The theory was wrong.",
+   "start": 494.503,
+   "end": 496.183
+  },
+  {
+   "index": 88,
+   "clip": "6a24fa0e5b21",
+   "beat": "rules",
+   "show": "But Tait spent years drawing up tables of knots, hoping to match them to the elements,",
+   "say": "But Tate spent years drawing up tables of knots, hoping to match them to the elements,",
+   "start": 496.893,
+   "end": 502.983
+  },
+  {
+   "index": 89,
+   "clip": "3e3e603d134d",
+   "beat": "rules",
+   "show": "and those tables helped start the mathematics of knot theory.",
+   "say": "and those tables helped start the mathematics of knot theory.",
+   "start": 503.343,
+   "end": 507.613
+  },
+  {
+   "index": 90,
+   "clip": "ad2e1d12df16",
+   "beat": "rules",
+   "show": "Kelvin also gave the rule its cleanest form: in a perfect fluid,",
+   "say": "Kelvin also gave the rule its cleanest form: in a perfect fluid,",
+   "start": 508.573,
+   "end": 513.373
+  },
+  {
+   "index": 91,
+   "clip": "986f327311f1",
+   "beat": "rules",
+   "show": "circulation around a loop moving with the water never changes.",
+   "say": "circulation around a loop moving with the water never changes.",
+   "start": 513.733,
+   "end": 518.413
+  },
+  {
+   "index": 92,
+   "clip": "ee0e23d1be6e",
+   "beat": "rules",
+   "show": "A big loop far from a paddle stays at zero,",
+   "say": "A big loop far from a paddle stays at zero,",
+   "start": 519.123,
+   "end": 522.633
+  },
+  {
+   "index": 93,
+   "clip": "6324a672acda",
+   "beat": "rules",
+   "show": "so the paddle's spin comes in equal amounts both ways.",
+   "say": "so the paddle's spin comes in equal amounts both ways.",
+   "start": 522.993,
+   "end": 527.533
+  },
+  {
+   "index": 94,
+   "clip": "e91d11ef2f6e",
+   "beat": "rules",
+   "show": "Bend a tube into an arch with both feet on the surface, and you see it: two dimples,",
+   "say": "Bend a tube into an arch with both feet on the surface, and you see it: two dimples,",
+   "start": 528.243,
+   "end": 535.123
+  },
+  {
+   "index": 95,
+   "clip": "d91fdf2e911e",
+   "beat": "rules",
+   "show": "spinning opposite ways.",
+   "say": "spinning opposite ways.",
+   "start": 535.483,
+   "end": 537.633
+  },
+  {
+   "index": 96,
+   "clip": "c9912cab9451",
+   "beat": "rules",
+   "show": "Each rides the other's swirl, so the pair sails off together.",
+   "say": "Each rides the other's swirl, so the pair sails off together.",
+   "start": 538.593,
+   "end": 543.293
+  },
+  {
+   "index": 97,
+   "clip": "442e2478dbc6",
+   "beat": "rules",
+   "show": "Bring them closer, and they go faster.",
+   "say": "Bring them closer, and they go faster.",
+   "start": 544.003,
+   "end": 547.163
+  },
+  {
+   "index": 98,
+   "clip": "bf1da819b26b",
+   "beat": "river",
+   "show": "So where do the dimples on the Rhine come from?",
+   "say": "So where do the dimples on the Rhine come from?",
+   "start": 549.523,
+   "end": 552.733
+  },
+  {
+   "index": 99,
+   "clip": "9f82d165adbe",
+   "beat": "river",
+   "show": "Probably not paddles: there were hardly any boats.",
+   "say": "Probably not paddles: there were hardly any boats.",
+   "start": 553.443,
+   "end": 557.513
+  },
+  {
+   "index": 100,
+   "clip": "beaffd4fd4ce",
+   "beat": "river",
+   "show": "The likeliest source is the riverbed.",
+   "say": "The likeliest source is the riverbed.",
+   "start": 558.223,
+   "end": 561.103
+  },
+  {
+   "index": 101,
+   "clip": "20b61dab145c",
+   "beat": "river",
+   "show": "Water touching it is held still, while a little way above, the current races past.",
+   "say": "Water touching it is held still, while a little way above, the current races past.",
+   "start": 561.813,
+   "end": 568.193
+  },
+  {
+   "index": 102,
+   "clip": "d5ca0ad95a1d",
+   "beat": "river",
+   "show": "That shear is spin: a paddle wheel lying on the bed would turn.",
+   "say": "That shear is spin: a paddle wheel lying on the bed would turn.",
+   "start": 568.903,
+   "end": 574.763
+  },
+  {
+   "index": 103,
+   "clip": "159c3a7c498f",
+   "beat": "river",
+   "show": "River engineers have long described the results.",
+   "say": "River engineers have long described the results.",
+   "start": 575.723,
+   "end": 579.293
+  },
+  {
+   "index": 104,
+   "clip": "c08f117c96ab",
+   "beat": "river",
+   "show": "In 1947, Gerard Matthes wrote about kolks, violent upward surges from the beds of big rivers,",
+   "say": "In nineteen forty-seven, Gerard Matthes wrote about kolks, violent upward surges from the beds of big rivers,",
+   "start": 580.003,
+   "end": 588.693
+  },
+  {
+   "index": 105,
+   "clip": "f02eaaaddd1f",
+   "beat": "river",
+   "show": "and the boils they raise at the surface: smooth, bulging patches of upwelling water.",
+   "say": "and the boils they raise at the surface: smooth, bulging patches of upwelling water.",
+   "start": 589.053,
+   "end": 595.603
+  },
+  {
+   "index": 106,
+   "clip": "ebedb403fb78",
+   "beat": "river",
+   "show": "Near a wall, researchers came to picture the spin rolling up into arches, called hairpin vortices,",
+   "say": "Near a wall, researchers came to picture the spin rolling up into arches, called hairpin vortices,",
+   "start": 596.563,
+   "end": 603.993
+  },
+  {
+   "index": 107,
+   "clip": "db7a7e87095d",
+   "beat": "river",
+   "show": "lifting away from the bed in bursts.",
+   "say": "lifting away from the bed in bursts.",
+   "start": 604.353,
+   "end": 607.333
+  },
+  {
+   "index": 108,
+   "clip": "b9e75948aa33",
+   "beat": "river",
+   "show": "When a rising arch reaches the surface, its head doesn't simply get sliced off.",
+   "say": "When a rising arch reaches the surface, its head doesn't simply get sliced off.",
+   "start": 608.293,
+   "end": 614.163
+  },
+  {
+   "index": 109,
+   "clip": "4d69fd2ed7b4",
+   "beat": "river",
+   "show": "Friction lets the vortex reconnect to the surface, and its two legs become a pair of dimples.",
+   "say": "Friction lets the vortex reconnect to the surface, and its two legs become a pair of dimples.",
+   "start": 614.873,
+   "end": 621.753
+  },
+  {
+   "index": 110,
+   "clip": "fd2265cd93a3",
+   "beat": "river",
+   "show": "Simulations since the nineteen-nineties show what those ends do.",
+   "say": "Simulations since the nineteen-nineties show what those ends do.",
+   "start": 622.713,
+   "end": 626.783
+  },
+  {
+   "index": 111,
+   "clip": "f435e0b2d968",
+   "beat": "river",
+   "show": "Right at the surface, they stand upright,",
+   "say": "Right at the surface, they stand upright,",
+   "start": 627.493,
+   "end": 630.543
+  },
+  {
+   "index": 112,
+   "clip": "f87fbadc4167",
+   "beat": "river",
+   "show": "and they can wander across it while the tube below is twisted by the turbulence.",
+   "say": "and they can wander across it while the tube below is twisted by the turbulence.",
+   "start": 630.903,
+   "end": 636.083
+  },
+  {
+   "index": 113,
+   "clip": "50fbb0a50462",
+   "beat": "river",
+   "show": "So a surface whirlpool is caught between two effects.",
+   "say": "So a surface whirlpool is caught between two effects.",
+   "start": 637.043,
+   "end": 640.713
+  },
+  {
+   "index": 114,
+   "clip": "5d050414ba04",
+   "beat": "river",
+   "show": "Friction spreads its core and weakens it.",
+   "say": "Friction spreads its core and weakens it.",
+   "start": 641.423,
+   "end": 644.633
+  },
+  {
+   "index": 115,
+   "clip": "a3fd06779aaa",
+   "beat": "river",
+   "show": "Water converging and sinking beneath it stretches it and spins it back up.",
+   "say": "Water converging and sinking beneath it stretches it and spins it back up.",
+   "start": 645.343,
+   "end": 650.833
+  },
+  {
+   "index": 116,
+   "clip": "194f3d71e88a",
+   "beat": "river",
+   "show": "Laboratory experiments on a nearly flat surface have watched both: vortices strengthening during downwellings, then spreading out after them.",
+   "say": "Laboratory experiments on a nearly flat surface have watched both: vortices strengthening during downwellings, then spreading out after them.",
+   "start": 651.543,
+   "end": 661.533
+  },
+  {
+   "index": 117,
+   "clip": "eba2ee64bfd5",
+   "beat": "river",
+   "show": "How fast does friction work?",
+   "say": "How fast does friction work?",
+   "start": 662.493,
+   "end": 664.973
+  },
+  {
+   "index": 118,
+   "clip": "34b30b023e11",
+   "beat": "river",
+   "show": "The spreading takes a time proportional to the core's width squared, divided by the viscosity: double the width,",
+   "say": "The spreading takes a time proportional to the core's width squared, divided by the viscosity: double the width,",
+   "start": 665.683,
+   "end": 673.403
+  },
+  {
+   "index": 119,
+   "clip": "4650e2638628",
+   "beat": "river",
+   "show": "and spreading takes four times as long, though a wider core also starts out shallower.",
+   "say": "and spreading takes four times as long, though a wider core also starts out shallower.",
+   "start": 673.763,
+   "end": 679.903
+  },
+  {
+   "index": 120,
+   "clip": "10be3511daa1",
+   "beat": "river",
+   "show": "Water at five degrees is about one and a half times as viscous as water at twenty,",
+   "say": "Water at five degrees is about one and a half times as viscous as water at twenty,",
+   "start": 680.613,
+   "end": 687.043
+  },
+  {
+   "index": 121,
+   "clip": "d2759e84465d",
+   "beat": "river",
+   "show": "so friction works that much faster in winter.",
+   "say": "so friction works that much faster in winter.",
+   "start": 687.403,
+   "end": 690.563
+  },
+  {
+   "index": 122,
+   "clip": "ea2449e3b9d0",
+   "beat": "river",
+   "show": "Seeing one is a separate question.",
+   "say": "Seeing one is a separate question.",
+   "start": 691.523,
+   "end": 694.093
+  },
+  {
+   "index": 123,
+   "clip": "5bf7503a2fe5",
+   "beat": "river",
+   "show": "A dimple is shallow, not much steeper than a small ripple,",
+   "say": "A dimple is shallow, not much steeper than a small ripple,",
+   "start": 694.803,
+   "end": 699.213
+  },
+  {
+   "index": 124,
+   "clip": "dcaf7fe283a0",
+   "beat": "river",
+   "show": "so wind ripples can hide a whirlpool that is still there.",
+   "say": "so wind ripples can hide a whirlpool that is still there.",
+   "start": 699.573,
+   "end": 703.583
+  },
+  {
+   "index": 125,
+   "clip": "be7919e44878",
+   "beat": "river",
+   "show": "Behind a motorboat, its own wake roughens the water.",
+   "say": "Behind a motorboat, its own wake roughens the water.",
+   "start": 704.293,
+   "end": 707.933
+  },
+  {
+   "index": 126,
+   "clip": "004579903308",
+   "beat": "river",
+   "show": "Ahead and beside it, dimples show up best on smooth water.",
+   "say": "Ahead and beside it, dimples show up best on smooth water.",
+   "start": 708.643,
+   "end": 713.713
+  },
+  {
+   "index": 127,
+   "clip": "b4c10cb71a06",
+   "beat": "river",
+   "show": "So what keeps a small whirlpool together?",
+   "say": "So what keeps a small whirlpool together?",
+   "start": 714.673,
+   "end": 717.233
+  },
+  {
+   "index": 128,
+   "clip": "1a614c087134",
+   "beat": "river",
+   "show": "It is the end of a vortex line that can't just stop, standing upright at the surface,",
+   "say": "It is the end of a vortex line that can't just stop, standing upright at the surface,",
+   "start": 717.943,
+   "end": 724.443
+  },
+  {
+   "index": 129,
+   "clip": "140e7bfa884e",
+   "beat": "river",
+   "show": "spun up now and then by sinking water, and fading only slowly by friction.",
+   "say": "spun up now and then by sinking water, and fading only slowly by friction.",
+   "start": 724.803,
+   "end": 730.893
+  },
+  {
+   "index": 130,
+   "clip": "0deeb68030ab",
+   "beat": "order",
+   "show": "There's one more surprise, and it lives in the flat model.",
+   "say": "There's one more surprise, and it lives in the flat model.",
+   "start": 733.253,
+   "end": 737.123
+  },
+  {
+   "index": 131,
+   "clip": "270a739c6cb0",
+   "beat": "order",
+   "show": "Think of a pendulum.",
+   "say": "Think of a pendulum.",
+   "start": 738.083,
+   "end": 739.603
+  },
+  {
+   "index": 132,
+   "clip": "11e8f38ad4dd",
+   "beat": "order",
+   "show": "Plot its angle across and its momentum up, and its whole state becomes a single moving point.",
+   "say": "Plot its angle across and its momentum up, and its whole state becomes a single moving point.",
+   "start": 740.313,
+   "end": 747.053
+  },
+  {
+   "index": 133,
+   "clip": "8b7548c7b807",
+   "beat": "order",
+   "show": "Draw the contours of its energy, and the point follows a contour, rather than rolling downhill.",
+   "say": "Draw the contours of its energy, and the point follows a contour, rather than rolling downhill.",
+   "start": 747.763,
+   "end": 754.593
+  },
+  {
+   "index": 134,
+   "clip": "28674827f308",
+   "beat": "order",
+   "show": "That's Hamilton's rule, the backbone of mechanics, and it has a famous consequence:",
+   "say": "That's Hamilton's rule, the backbone of mechanics, and it has a famous consequence:",
+   "start": 755.303,
+   "end": 761.933
+  },
+  {
+   "index": 135,
+   "clip": "4b89dac5633c",
+   "beat": "order",
+   "show": "a patch of starting states can stretch, but never changes its area.",
+   "say": "a patch of starting states can stretch, but never changes its area.",
+   "start": 762.293,
+   "end": 767.093
+  },
+  {
+   "index": 136,
+   "clip": "58e13ee1c272",
+   "beat": "order",
+   "show": "In the sideways-only model, water can't be squashed, so patches of it keep their area too.",
+   "say": "In the sideways-only model, water can't be squashed, so patches of it keep their area too.",
+   "start": 768.053,
+   "end": 775.314
+  },
+  {
+   "index": 137,
+   "clip": "4dbc7b829d92",
+   "beat": "order",
+   "show": "That's no coincidence.",
+   "say": "That's no coincidence.",
+   "start": 776.024,
+   "end": 777.884
+  },
+  {
+   "index": 138,
+   "clip": "e27f72b60548",
+   "beat": "order",
+   "show": "A speck of water follows exactly Hamilton's rule, on a landscape called the stream function.",
+   "say": "A speck of water follows exactly Hamilton's rule, on a landscape called the stream function.",
+   "start": 778.594,
+   "end": 785.334
+  },
+  {
+   "index": 139,
+   "clip": "158cb9c3d203",
+   "beat": "order",
+   "show": "With one steady whirlpool, the speck follows a contour.",
+   "say": "With one steady whirlpool, the speck follows a contour.",
+   "start": 786.294,
+   "end": 790.694
+  },
+  {
+   "index": 140,
+   "clip": "6c85b02d487e",
+   "beat": "order",
+   "show": "When the whirlpools move, the landscape changes beneath it, but the same rule still sets its motion.",
+   "say": "When the whirlpools move, the landscape changes beneath it, but the same rule still sets its motion.",
+   "start": 791.404,
+   "end": 798.924
+  },
+  {
+   "index": 141,
+   "clip": "c8e9dd0c3a4b",
+   "beat": "order",
+   "show": "In this model, the surface is the speck's phase space.",
+   "say": "In this model, the surface is the speck's phase space.",
+   "start": 799.634,
+   "end": 803.624
+  },
+  {
+   "index": 142,
+   "clip": "6df87b4f27f9",
+   "beat": "order",
+   "show": "In 1876, Gustav Kirchhoff showed that the whirlpools themselves obey it: each is carried by the others' swirl,",
+   "say": "In eighteen seventy-six, Gustav Kirk-hoff showed that the whirlpools themselves obey it: each is carried by the others' swirl,",
+   "start": 804.584,
+   "end": 813.824
+  },
+  {
+   "index": 143,
+   "clip": "1e26e910282d",
+   "beat": "order",
+   "show": "and together they follow the slopes of one landscape, with each whirlpool's strength as a weight.",
+   "say": "and together they follow the slopes of one landscape, with each whirlpool's strength as a weight.",
+   "start": 814.184,
+   "end": 820.814
+  },
+  {
+   "index": 144,
+   "clip": "ff36625945d2",
+   "beat": "order",
+   "show": "Three whirlpools dance regularly.",
+   "say": "Three whirlpools dance regularly.",
+   "start": 821.774,
+   "end": 824.354
+  },
+  {
+   "index": 145,
+   "clip": "078c00c5ad4c",
+   "beat": "order",
+   "show": "Four can turn chaotic: in these particular runs, started a micron apart, they part ways within seconds.",
+   "say": "Four can turn chaotic: in these particular runs, started a micron apart, they part ways within seconds.",
+   "start": 825.064,
+   "end": 833.664
+  },
+  {
+   "index": 146,
+   "clip": "c7ffd8a945e3",
+   "beat": "reading",
+   "show": "Now put back what the flat model left out: water rising and sinking underneath.",
+   "say": "Now put back what the flat model left out: water rising and sinking underneath.",
+   "start": 836.024,
+   "end": 842.114
+  },
+  {
+   "index": 147,
+   "clip": "f164dd7ab0db",
+   "beat": "reading",
+   "show": "A real patch of surface water doesn't have to keep its area.",
+   "say": "A real patch of surface water doesn't have to keep its area.",
+   "start": 843.074,
+   "end": 847.464
+  },
+  {
+   "index": 148,
+   "clip": "0f7b2eb649b9",
+   "beat": "reading",
+   "show": "It spreads where water wells up from below, and shrinks where water sinks away.",
+   "say": "It spreads where water wells up from below, and shrinks where water sinks away.",
+   "start": 848.174,
+   "end": 853.354
+  },
+  {
+   "index": 149,
+   "clip": "59f6486ae56d",
+   "beat": "reading",
+   "show": "Incompressibility keeps volume; only in the flat model does it keep area.",
+   "say": "Incompressibility keeps volume; only in the flat model does it keep area.",
+   "start": 854.064,
+   "end": 860.114
+  },
+  {
+   "index": 150,
+   "clip": "e7cb3b44e54a",
+   "beat": "reading",
+   "show": "And that spreading and shrinking is what a group in Trondheim, Norway, around Omer Babiker and Simen Ellingsen,",
+   "say": "And that spreading and shrinking is what a group in Trondheim, Norway, around Omer Babiker and Simen Ellingsen,",
+   "start": 861.074,
+   "end": 869.754
+  },
+  {
+   "index": 151,
+   "clip": "5dd0d8876637",
+   "beat": "reading",
+   "show": "has been reading from dimples.",
+   "say": "has been reading from dimples.",
+   "start": 870.114,
+   "end": 872.254
+  },
+  {
+   "index": 152,
+   "clip": "a15c5375ee12",
+   "beat": "reading",
+   "show": "In their simulations, the number of dimples in a region tracked how strongly its surface was spreading and converging,",
+   "say": "In their simulations, the number of dimples in a region tracked how strongly its surface was spreading and converging,",
+   "start": 872.964,
+   "end": 880.704
+  },
+  {
+   "index": 153,
+   "clip": "3a5782d538cc",
+   "beat": "reading",
+   "show": "closely, with a short delay.",
+   "say": "closely, with a short delay.",
+   "start": 881.064,
+   "end": 883.634
+  },
+  {
+   "index": 154,
+   "clip": "f3c766ceb621",
+   "beat": "reading",
+   "show": "This year, a laboratory tank experiment, at much higher Reynolds numbers, found the same kind of link.",
+   "say": "This year, a laboratory tank experiment, at much higher Reynolds numbers, found the same kind of link.",
+   "start": 884.344,
+   "end": 891.744
+  },
+  {
+   "index": 155,
+   "clip": "767c8a5509d7",
+   "beat": "reading",
+   "show": "That matters, because the same stirring renews the skin of the water,",
+   "say": "That matters, because the same stirring renews the skin of the water,",
+   "start": 892.704,
+   "end": 897.594
+  },
+  {
+   "index": 156,
+   "clip": "f71776e8431f",
+   "beat": "reading",
+   "show": "and that helps set how fast gases like oxygen and carbon dioxide cross between a river and the air.",
+   "say": "and that helps set how fast gases like oxygen and carbon dioxide cross between a river and the air.",
+   "start": 897.954,
+   "end": 905.044
+  },
+  {
+   "index": 157,
+   "clip": "f419ad2d0cca",
+   "beat": "reading",
+   "show": "So those dimples beside the boat weren't only whirlpools that happened to last.",
+   "say": "So those dimples beside the boat weren't only whirlpools that happened to last.",
+   "start": 906.004,
+   "end": 910.884
+  },
+  {
+   "index": 158,
+   "clip": "589276548273",
+   "beat": "reading",
+   "show": "Each was a small mark on the surface, connected to a hidden, three-dimensional flow underneath.",
+   "say": "Each was a small mark on the surface, connected to a hidden, three-dimensional flow underneath.",
+   "start": 911.594,
+   "end": 918.324
+  },
+  {
+   "index": 159,
+   "clip": "8ff7583fcfe9",
+   "beat": "reading",
+   "show": "And a friend who noticed how long some of them lasted was already, in a way, reading it.",
+   "say": "And a friend who noticed how long some of them lasted was already, in a way, reading it.",
+   "start": 919.034,
+   "end": 925.704
+  }
+ ]
+}

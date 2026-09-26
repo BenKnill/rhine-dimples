@@ -16,7 +16,7 @@ const browser = await puppeteer.launch({
   args: ['--use-angle=metal', '--enable-gpu-rasterization', '--ignore-gpu-blocklist', '--hide-scrollbars', '--force-color-profile=srgb', '--allow-file-access-from-files'],
 });
 const page = await browser.newPage();
-await page.setViewport({ width: 1920, height: 1080, deviceScaleFactor: 1 });
+await page.setViewport({ width: +arg('w', 1920), height: +arg('h', 1080), deviceScaleFactor: 1 });
 page.on('console', m => console.log('[page]', m.text()));
 page.on('pageerror', e => console.log('[pageerror]', e.message));
 await page.goto('file://' + path.join(here, arg('page', 'film.html')) + (arg('query', '') ? '?' + arg('query', '') : ''), { waitUntil: 'networkidle0' });

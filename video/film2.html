@@ -1,0 +1,465 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  html, body { margin: 0; background: #0A0D14; overflow: hidden; }
+  canvas.full { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; }
+  #glp { position: absolute; left: 676px; top: 272px; width: 560px; height: 360px; border-radius: 8px; }
+  #hidden { display: none; }
+</style></head>
+<body>
+<canvas id="gl" class="full" width="1280" height="720"></canvas>
+<canvas id="c" class="full" width="1280" height="720"></canvas>
+<canvas id="glp" width="560" height="360"></canvas>
+<div id="hidden">
+  <canvas id="figLoop" width="960" height="540"></canvas><button id="loopPair"></button><span id="loopOut"></span>
+  <canvas id="figLines" width="960" height="504"></canvas><button data-line="upright"></button><button data-line="arch"></button><button data-line="ring"></button><button data-line="end"></button><span id="linesCap"></span>
+  <canvas id="figRiver" width="960" height="504"></canvas>
+  <canvas id="figStretch" width="960" height="400"></canvas>
+  <canvas id="figFade" width="960" height="400"></canvas>
+  <canvas id="figHam" width="960" height="540"></canvas><button data-ham="pend"></button><button data-ham="river"></button><span id="hamCap"></span><span id="hamOut"></span>
+</div>
+<script>window.FILM_MODE = true;</script>
+<script src="../web/vortex.js"></script>
+<script src="../web/water.js"></script>
+<script src="../web/camel_outline.js"></script>
+<script src="../docs/figs.js"></script>
+<script src="timing2.js"></script>
+<script>
+(() => {
+  const V = window.Vortex, WR = window.WaterRenderer, T = window.TIMING, W = 1280, H = 720, TAU = 2 * Math.PI;
+  const c = document.getElementById("c").getContext("2d"), glCanvas = document.getElementById("gl"), glpCanvas = document.getElementById("glp");
+  const water = new WR(glCanvas, { preserve: true, gridX: 700, gridY: 434, causticW: 1280, causticH: 794, dyeW: 1536, dyeH: 1000 });
+  const waterP = new WR(glpCanvas, { preserve: true, gridX: 520, gridY: 334, causticW: 900, causticH: 578 });
+  const TEAL = "#4FD1C5", AMBER = "#FFB547", GLASS = "#6FA8FF", VIOLET = "#B28DFF", PINK = "#FF6FA0", TEXT = "#DCE2EC", MUTED = "#8A95AA", BG = "#0A0D14";
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x)), ss = (t, a, b) => { const x = clamp((t - a) / (b - a)); return x * x * (3 - 2 * x); };
+  const font = (px, w = 400, fam = "IBM Plex Sans") => { c.font = `${w} ${px}px "${fam}"`; };
+  const serif = (px, w = 400, it = false) => { c.font = `${it ? "italic " : ""}${w} ${px}px "STIX Two Text"`; };
+  function arrowHead(x, y, ang, s) { c.beginPath(); c.moveTo(x + s * Math.cos(ang), y + s * Math.sin(ang)); c.lineTo(x + s * Math.cos(ang + 2.5), y + s * Math.sin(ang + 2.5)); c.lineTo(x + s * Math.cos(ang - 2.5), y + s * Math.sin(ang - 2.5)); c.closePath(); c.fill(); }
+  function arrow(x0, y0, x1, y1, s = 8) { c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke(); arrowHead(x1, y1, Math.atan2(y1 - y0, x1 - x0), s); }
+  function spin(x, y, r, ccw, col, ph = 0, lw = 2.5) { c.strokeStyle = col; c.fillStyle = col; c.lineWidth = lw; c.beginPath(); const a0 = ph, a1 = ph + 4.4;
+    if (ccw) c.arc(x, y, r, -a0, -a1, true); else c.arc(x, y, r, a0, a1, false); c.stroke(); const ae = ccw ? -a1 : a1; arrowHead(x + r * Math.cos(ae), y + r * Math.sin(ae), ae + (ccw ? -Math.PI / 2 : Math.PI / 2), 7); }
+  function text(str, x, y, px = 26, col = TEXT, align = "center", w = 500, fam = "IBM Plex Sans") { c.font = `${w} ${px}px "${fam}"`; c.fillStyle = col; c.textAlign = align; c.fillText(str, x, y); }
+  function label(str, x, y, col = MUTED, px = 18, align = "left") { text(str, x, y, px, col, align, 500); }
+  function chip(str, x, y, col = GLASS) { font(16, 600); const w = c.measureText(str).width + 20; c.fillStyle = "rgba(10,14,22,0.8)"; c.strokeStyle = col; c.lineWidth = 1.5; c.beginPath(); c.roundRect(x, y - 20, w, 28, 6); c.fill(); c.stroke(); c.fillStyle = col; c.textAlign = "left"; c.fillText(str, x + 10, y); }
+  function panel(x, y, w, h) { c.fillStyle = "#10151F"; c.strokeStyle = "#1F2736"; c.lineWidth = 1; c.beginPath(); c.roundRect(x, y, w, h, 10); c.fill(); c.stroke(); }
+  function wrap(str, maxw) { const words = str.split(" "), out = []; let cur = ""; for (const w of words) { const t = cur ? cur + " " + w : w; if (c.measureText(t).width > maxw && cur) { out.push(cur); cur = w; } else cur = t; } if (cur) out.push(cur); return out; }
+  const rng = seed => { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); };
+
+  // ------------------------------------------------------------------ the live-parameter equation device
+  const fmt = r => { const v = r >= 1 ? r : 1 / r, s = Math.abs(v - Math.round(v)) < 0.05 ? String(Math.round(v)) : v.toFixed(1); return (r >= 1 ? "×" : "÷") + s; };
+  const K = (t, r, col, name, o = {}) => { const e = Math.abs(Math.log2(r)), on = clamp(e / 0.2); return { t, ...o, knob: true, name, ratio: r, emph: 1.2 * on, scale: clamp(r ** 0.12, 0.72, 1.4), color: e > 0.02 ? col : TEXT, lane: 150 * on }; };
+  const P = (t, o = {}) => ({ t, ...o });
+  function tokW(tk, fs) { const sc = tk.scale || 1; serif(fs * sc, 400, tk.it); let w = c.measureText(tk.t).width; if (tk.sup) { serif(fs * sc * 0.58); w += c.measureText(tk.sup).width + fs * 0.04; } return w + (tk.lane || 0); }
+  function tokDraw(tk, x, y, fs) {
+    const sc = tk.scale || 1, e = tk.emph || 0, col = tk.color || TEXT; c.save(); c.fillStyle = col; c.strokeStyle = col; c.lineJoin = "round";
+    if (e > 0) { c.shadowColor = col; c.shadowBlur = 20 * Math.min(1, e); }
+    serif(fs * sc, e > 0.35 ? 700 : 400, tk.it); c.textAlign = "left"; c.fillText(tk.t, x, y); if (e > 0) { c.lineWidth = 1.6 * Math.min(1.4, e); c.strokeText(tk.t, x, y); }
+    let w = c.measureText(tk.t).width;
+    if (tk.sup) { serif(fs * sc * 0.58, e > 0.35 ? 700 : 400); c.fillText(tk.sup, x + w + fs * 0.04, y - fs * sc * 0.42); w += c.measureText(tk.sup).width + fs * 0.04; }
+    c.restore();
+    if (tk.knob) { const L = 40 * Math.log2(tk.ratio), a = clamp(Math.abs(Math.log2(tk.ratio)) / 0.25); if (a > 0.02) {
+      const ax = x + w + 18, ym = y - fs * 0.32, dir = Math.sign(L), y0 = ym + dir * 18, y1 = y0 - L;
+      c.save(); c.globalAlpha = a; c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 6; c.lineCap = "round"; c.beginPath(); c.moveTo(ax, y0); c.lineTo(ax, y1 + dir * 7); c.stroke();
+      c.beginPath(); c.moveTo(ax, y1 - dir * 8); c.lineTo(ax - 12, y1 + dir * 12); c.lineTo(ax + 12, y1 + dir * 12); c.closePath(); c.fill();
+      font(26, 600, "IBM Plex Mono"); c.textAlign = "left"; c.fillText(`${tk.name} ${fmt(tk.ratio)}`, ax + 16, y1 + (dir > 0 ? 9 : 20));
+      if (tk.note) { font(19, 500); c.globalAlpha = a * 0.85; c.fillText(tk.note, ax + 16, y1 + (dir > 0 ? 32 : 44)); } c.restore(); } }
+    return w + (tk.lane || 0);
+  }
+  // items: tokens, or {num:[...], den:[...]}
+  function equation(items, cx, y, fs = 64) {
+    const gap = fs * 0.18, rowW = r => r.reduce((s, t) => s + tokW(t, fs) + gap, -gap);
+    const itemW = it => it.num ? Math.max(rowW(it.num), rowW(it.den)) + fs * 0.3 : tokW(it, fs);
+    const total = items.reduce((s, it) => s + itemW(it) + gap * 1.6, -gap * 1.6); let x = cx - total / 2;
+    for (const it of items) {
+      if (it.num) { const wf = itemW(it), wn = rowW(it.num), wd = rowW(it.den); c.fillStyle = TEXT; c.fillRect(x, y - fs * 0.3, wf, Math.max(2, fs * 0.04));
+        let xn = x + (wf - wn) / 2; for (const t of it.num) xn += tokDraw(t, xn, y - fs * 0.52, fs) + gap;
+        let xd = x + (wf - wd) / 2; for (const t of it.den) xd += tokDraw(t, xd, y + fs * 0.66, fs) + gap; x += wf + gap * 1.6; }
+      else x += tokDraw(it, x, y, fs) + gap * 1.6;
+    }
+  }
+
+  // ------------------------------------------------------------------ the river (vortices, boils, current)
+  const BOAT = { pos: [0, -26, 7.5], target: [0, 6, 0], fov: 32 };
+  function River(seed, o = {}) {
+    const r = { sys: V.makeSystem({ a: 0.6, U: o.U ?? 1.5 }), born: [], pid: [], next: 1, rnd: rng(seed), nextBoil: 0.5, boils: o.boils ?? true, t: 0 };
+    r.add = (x, y, G, b = r.t, p = 0) => { V.add(r.sys, x, y, G); r.born.push(b); r.pid.push(p); };
+    r.pair = (x, y, ang, G, d, b = r.t) => { const nx = -Math.sin(ang), ny = Math.cos(ang), p = r.next++; r.add(x + nx * d / 2, y + ny * d / 2, G, b, p); r.add(x - nx * d / 2, y - ny * d / 2, -G, b, p); };
+    const cut = i => { r.sys.x.splice(i, 1); r.sys.y.splice(i, 1); r.sys.G.splice(i, 1); r.born.splice(i, 1); r.pid.splice(i, 1); };
+    r.step = (dt, cam) => {
+      const n = Math.max(1, Math.ceil(dt / 0.02)); for (let k = 0; k < n; k++) r.last = V.step(r.sys, dt / n); r.t += dt;
+      if (r.boils && r.t > r.nextBoil) { r.nextBoil = r.t + 1.6 + 2.8 * r.rnd(); if (r.sys.x.length < 20) { const w = cam ? WR.unproject(cam, W, H, W * (0.1 + 0.6 * r.rnd()), H * (0.42 + 0.48 * r.rnd())) : [(r.rnd() - 0.6) * 40, (r.rnd() - 0.5) * 20]; if (w) r.pair(w[0], w[1], r.rnd() * TAU, 40 + 40 * r.rnd(), 2.5 + 2 * r.rnd()); } }
+      for (let i = r.sys.x.length - 1; i >= 0; i--) if (i < r.sys.x.length && (Math.abs(r.sys.x[i]) > 70 || r.sys.y[i] < -40 || r.sys.y[i] > 70)) { const p = r.pid[i]; cut(i); if (p) for (let j = r.pid.length - 1; j >= 0; j--) if (r.pid[j] === p) cut(j); }
+    };
+    r.vortices = () => r.sys.x.map((x, i) => [x, r.sys.y[i], r.sys.G[i], clamp((r.t - r.born[i]) / 0.8)]);
+    return r;
+  }
+  const boatOpts = (r, cam = BOAT, extra = {}) => ({ camera: cam, time: r.t, U: r.sys.U, k: 6.2, sunShift: [-2.0, -2.7], sunBlur: 0.06, ripple: 0.009, a: 0.35, exaggerate: 1.0, slopeVis: 1.3, murk: 0.13,
+    waterColor: [0.06, 0.10, 0.08], causticWin: [-45, -15, 45, 55], dyeWin: [-40, -25, 40, 55], vortices: r.vortices(), ...extra });
+  const topOpts = (r, scale, extra = {}) => ({ scale, cx: 0, cy: 0, time: r.t, U: r.sys.U, k: 6.2, sunShift: [-2.0, -2.7], sunBlur: 0.06, ripple: 0.009, a: 0.6, exaggerate: 1.15, glint: 0.2, vortices: r.vortices(), ...extra });
+
+  // ------------------------------------------------------------------ 2D turbulence (pseudo-spectral, vorticity form)
+  function Turb(N, seed) {
+    const n2 = N * N, R = () => new Float64Array(n2); let wr = R(), wi = R(); const tmp = Array.from({ length: 12 }, R);
+    const kx = new Float64Array(N); for (let i = 0; i < N; i++) kx[i] = i <= N / 2 ? i : i - N;
+    const rev = new Uint32Array(N), lg = Math.log2(N); for (let i = 0; i < N; i++) { let r = 0; for (let b = 0; b < lg; b++) r |= ((i >> b) & 1) << (lg - 1 - b); rev[i] = r; }
+    const cs = new Float64Array(N / 2), sn = new Float64Array(N / 2); for (let i = 0; i < N / 2; i++) { cs[i] = Math.cos(TAU * i / N); sn[i] = -Math.sin(TAU * i / N); }
+    const br = new Float64Array(N), bi = new Float64Array(N);
+    function fft1(re, im, inv) {
+      for (let i = 0; i < N; i++) { const j = rev[i]; if (j > i) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+      for (let size = 2; size <= N; size <<= 1) { const half = size >> 1, step = N / size;
+        for (let s = 0; s < N; s += size) for (let k = 0; k < half; k++) { const wr_ = cs[k * step], wi_ = inv ? -sn[k * step] : sn[k * step], a = s + k, b = a + half;
+          const tr = re[b] * wr_ - im[b] * wi_, ti = re[b] * wi_ + im[b] * wr_; re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti; } }
+      if (inv) for (let i = 0; i < N; i++) { re[i] /= N; im[i] /= N; }
+    }
+    function fft2(re, im, inv) {
+      for (let y = 0; y < N; y++) { for (let x = 0; x < N; x++) { br[x] = re[y * N + x]; bi[x] = im[y * N + x]; } fft1(br, bi, inv); for (let x = 0; x < N; x++) { re[y * N + x] = br[x]; im[y * N + x] = bi[x]; } }
+      for (let x = 0; x < N; x++) { for (let y = 0; y < N; y++) { br[y] = re[y * N + x]; bi[y] = im[y * N + x]; } fft1(br, bi, inv); for (let y = 0; y < N; y++) { re[y * N + x] = br[y]; im[y * N + x] = bi[y]; } }
+    }
+    // initial vortices
+    const rnd = rng(seed), w0 = R(), z = R();
+    for (let k = 0; k < 180; k++) { const cx = rnd() * N, cy = rnd() * N, sg = k % 2 ? 1 : -1, s2 = 2 * (1.6 + 1.4 * rnd()) ** 2, A = sg * (1.2 + 0.8 * rnd());
+      for (let dy = -9; dy <= 9; dy++) for (let dx = -9; dx <= 9; dx++) { const x = ((Math.floor(cx) + dx) % N + N) % N, y = ((Math.floor(cy) + dy) % N + N) % N, rx = Math.floor(cx) + dx - cx, ry = Math.floor(cy) + dy - cy; w0[y * N + x] += A * Math.exp(-(rx * rx + ry * ry) / s2); } }
+    wr.set(w0); wi.fill(0); fft2(wr, wi, false);
+    const kmax = N / 3, nuh = 2e-7 * 0;
+    function rhs(ar, ai, or, oi) {
+      const [ur, ui, vr, vi, xr, xi, yr, yi] = tmp;
+      for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) { const q = j * N + i, KX = kx[i], KY = kx[j], k2 = KX * KX + KY * KY || 1;
+        const pr = ar[q] / k2, pi = ai[q] / k2;                                // psi = w / k^2 (sign: w = -lap psi)
+        ur[q] = -KY * pi; ui[q] = KY * pr;                                      // u = d psi/dy
+        vr[q] = KX * pi; vi[q] = -KX * pr;                                      // v = -d psi/dx
+        xr[q] = -KX * ai[q]; xi[q] = KX * ar[q]; yr[q] = -KY * ai[q]; yi[q] = KY * ar[q]; }
+      for (const [a, b] of [[ur, ui], [vr, vi], [xr, xi], [yr, yi]]) fft2(a, b, true);
+      for (let q = 0; q < n2; q++) { or[q] = -(ur[q] * xr[q] + vr[q] * yr[q]); oi[q] = 0; }
+      fft2(or, oi, false);
+      for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) { const q = j * N + i; if (Math.abs(kx[i]) > kmax || Math.abs(kx[j]) > kmax) { or[q] = 0; oi[q] = 0; } }
+    }
+    const k1r = R(), k1i = R(), k2r = R(), k2i = R(), mr = R(), mi = R(), acr = R(), aci = R();
+    const T_ = { N, t: 0, field: R(),
+      step(dt) {                                                                  // classical RK4, then a hyperviscous filter
+        rhs(wr, wi, k1r, k1i); for (let q = 0; q < n2; q++) { mr[q] = wr[q] + 0.5 * dt * k1r[q]; mi[q] = wi[q] + 0.5 * dt * k1i[q]; acr[q] = k1r[q]; aci[q] = k1i[q]; }
+        rhs(mr, mi, k2r, k2i); for (let q = 0; q < n2; q++) { mr[q] = wr[q] + 0.5 * dt * k2r[q]; mi[q] = wi[q] + 0.5 * dt * k2i[q]; acr[q] += 2 * k2r[q]; aci[q] += 2 * k2i[q]; }
+        rhs(mr, mi, k2r, k2i); for (let q = 0; q < n2; q++) { mr[q] = wr[q] + dt * k2r[q]; mi[q] = wi[q] + dt * k2i[q]; acr[q] += 2 * k2r[q]; aci[q] += 2 * k2i[q]; }
+        rhs(mr, mi, k2r, k2i);
+        for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) { const q = j * N + i, k2 = kx[i] * kx[i] + kx[j] * kx[j], damp = Math.exp(-dt * 6e-6 * k2 * k2);
+          wr[q] = (wr[q] + dt / 6 * (acr[q] + k2r[q])) * damp; wi[q] = (wi[q] + dt / 6 * (aci[q] + k2i[q])) * damp; }
+        T_.t += dt;
+      },
+      physical() { const fr = T_.field, fi = tmp[8]; fr.set(wr); fi.set(wi); fft2(fr, fi, true); return fr; } };
+    return T_;
+  }
+  window._Turb = Turb;
+  const turbImg = document.createElement("canvas"), turbCtx = turbImg.getContext("2d");
+  function drawTurb(tb, x, y, w, h, palette) {
+    const N = tb.N; turbImg.width = N; turbImg.height = N; const img = turbCtx.createImageData(N, N), f = tb.physical(); let m = 0; for (let q = 0; q < N * N; q++) m = Math.max(m, Math.abs(f[q]));
+    for (let q = 0; q < N * N; q++) { const v = clamp(f[q] / (0.7 * m + 1e-9), -1, 1), [r, g, b] = palette(v); img.data[4 * q] = r; img.data[4 * q + 1] = g; img.data[4 * q + 2] = b; img.data[4 * q + 3] = 255; }
+    turbCtx.putImageData(img, 0, 0); c.imageSmoothingEnabled = true; c.imageSmoothingQuality = "high"; c.drawImage(turbImg, x, y, w, h);
+  }
+  const palSpin = v => v > 0 ? [10 + 69 * v, 13 + 196 * v, 20 + 177 * v] : [10 - 245 * v, 13 - 168 * v, 20 - 51 * v];
+  const palSoap = v => { const h = 0.5 + 0.5 * v; return [128 + 110 * Math.sin(TAU * (h * 1.6)), 128 + 110 * Math.sin(TAU * (h * 1.6 + 0.33)), 128 + 110 * Math.sin(TAU * (h * 1.6 + 0.66))]; };
+  const palJup = v => { const a = 0.5 + 0.5 * v; return [200 + 40 * a, 150 + 70 * a - 30 * (1 - a), 100 + 90 * a]; };
+
+  // ------------------------------------------------------------------ scenes
+  // cue: [beat id, line index within the beat]; a scene lasts until the next scene's cue
+  const figs = window.FIGS;
+  const FIG = (id, x, y, w, h, t) => { const f = figs[id]; f.at(t); c.drawImage(f.canvas, x, y, w, h); };
+  const setLines = m => document.querySelector(`[data-line="${m}"]`).click(), setHam = m => document.querySelector(`[data-ham="${m}"]`).click();
+  const SC = [];
+  const scene = (beat, line, o) => SC.push({ beat, line, ...o });
+
+  // ---- open
+  scene("open", 0, { id: "boat-open", gl: true, reset() { this.r = River(3); [[-9, 4, 0.4, 60], [7, 11, 2.6, 55], [1, -3, -1.2, 65], [13, -6, 1.9, 50]].forEach(([x, y, a, G]) => this.r.pair(x, y, a, G, 3, -99)); },
+    draw(S) { this.r.step(S.dt, BOAT); water.render(boatOpts(this.r)); } });
+  scene("open", 3, { id: "funnel", reset() {}, draw(S) {
+    const lt = S.lt, ys = 250, yb = 640, cx = 640, A = 64;
+    c.fillStyle = "#0E1622"; c.fillRect(0, 0, W, H);
+    const eta = x => -A / (1 + ((x - cx) / 70) ** 2) * ss(lt, 0.2, 2.2);
+    c.fillStyle = "rgba(60,120,160,0.25)"; c.beginPath(); c.moveTo(0, yb); for (let x = 0; x <= W; x += 8) c.lineTo(x, ys - eta(x)); c.lineTo(W, yb); c.closePath(); c.fill();
+    c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath(); for (let x = 0; x <= W; x += 4) x ? c.lineTo(x, ys - eta(x)) : c.moveTo(x, ys - eta(x)); c.stroke();
+    c.fillStyle = "rgba(111,168,255,0.18)"; c.fillRect(cx - 34, ys + 10, 68, yb - ys - 10);
+    for (let k = 0; k < 6; k++) { const y = ys + 60 + k * 58; c.save(); c.translate(cx, y); c.scale(1, 0.28); spin(0, 0, 70, true, "rgba(200,225,255,0.8)", lt * 3 + k, 3); c.restore(); }
+    if (S.after(4)) { const a = ss(S.T, S.L(4), S.L(4) + 1); c.globalAlpha = a; c.strokeStyle = AMBER; c.fillStyle = AMBER; c.lineWidth = 3; for (const s of [-1, 1]) arrow(cx + s * 230, ys + 110, cx + s * 90, ys + 110, 10);
+      label("pressure pushes inward", cx + 250, ys + 116, AMBER, 20); c.globalAlpha = 1; }
+    label("the surface sags into a funnel", cx + 120, ys - 40, TEXT, 22); label("a spinning column of water", cx + 60, yb - 30, MUTED, 20);
+    label("the river bed", 30, yb + 34, MUTED, 18); c.fillStyle = "#3A3326"; c.fillRect(0, yb, W, 12); } });
+  scene("open", 6, { id: "boat-q", gl: true, reset() { this.r = River(11); [[-6, 6, 0.9, 60], [8, 2, 2.2, 55], [0, 14, -0.8, 60]].forEach(([x, y, a, G]) => this.r.pair(x, y, a, G, 3, -99)); },
+    draw(S) { this.r.step(S.dt, BOAT); water.render(boatOpts(this.r));
+      const tt = S.beatEnd - S.T; if (tt < 3.2) { const a = clamp((3.2 - tt) / 0.6); c.fillStyle = `rgba(6,9,14,${0.55 * a})`; c.fillRect(0, 0, W, H); c.globalAlpha = a; text("Dimples on the Rhine", W / 2, H / 2, 72, "#F4F7FB", "center", 600, "STIX Two Text"); c.globalAlpha = 1; } } });
+
+  // ---- numbers
+  scene("numbers", 0, { id: "reynolds", reset() { this.names = [[1, "Osborne Reynolds", "Manchester, 1883"]]; }, draw(S) {
+    const ramp = ss(S.T, S.L(3), S.L(4) + 1.2), Uk = 1 + 3 * ramp, tau = clamp((Uk - 2) / 1.2), x0 = 120, x1 = 1160, yc = 430, ph = 58;
+    c.fillStyle = "#101826"; c.fillRect(x0, yc - ph, x1 - x0, 2 * ph); c.strokeStyle = "#8FB4E0"; c.lineWidth = 3; c.strokeRect(x0, yc - ph, x1 - x0, 2 * ph);
+    c.fillStyle = "#8FB4E0"; for (let k = 0; k < 6; k++) { const xx = x0 + 40 + ((S.lt * 90 * Uk + k * 180) % (x1 - x0 - 80)); arrowHead(xx, yc + ph - 14, 0, 6); }
+    c.strokeStyle = PINK; c.lineWidth = 3; const onset = x0 + (x1 - x0) * (1 - 0.8 * tau);
+    for (let strand = 0; strand < (tau > 0.05 ? 7 : 1); strand++) { c.globalAlpha = strand ? 0.45 : 1; c.beginPath();
+      for (let x = x0 + 10; x < x1; x += 4) { const g = clamp((x - onset) / 160), amp = g * tau * ph * 0.9, y = yc + amp * (Math.sin(x * 0.045 - S.lt * 7 * Uk + strand * 1.7) * 0.6 + Math.sin(x * 0.11 + S.lt * 5 + strand * 2.9) * 0.4);
+        x === x0 + 10 ? c.moveTo(x, y) : c.lineTo(x, clamp(y, yc - ph + 3, yc + ph - 3)); } c.stroke(); }
+    c.globalAlpha = 1; label(tau > 0.5 ? "turbulent" : "smooth (laminar)", x1, yc - ph - 14, tau > 0.5 ? PINK : MUTED, 20, "right");
+    equation([P("Re", { it: true }), P("="), { num: [K("U", Uk, TEAL, "U", { it: true }), P("L", { it: true })], den: [P("ν", { it: true })] }], 640, 200, 60);
+    if (S.after(8)) { const a = ss(S.T, S.L(9), S.L(9) + 0.8); c.globalAlpha = a; panel(300, 560, 680, 100); text("a river: U ≈ 1–2 m/s, depth a few metres, ν ≈ 10⁻⁶ m²/s", 640, 598, 22, TEXT); text("Re ≈ millions", 640, 634, 26, PINK, "center", 600, "IBM Plex Mono"); c.globalAlpha = 1; }
+    else if (S.after(7)) label("Reynolds' pipe: the switch came at a few thousand", 640, 600, MUTED, 22, "center"); } });
+  scene("numbers", 12, { id: "froude-tank", reset() { this.names = [[13, "William Froude", "towing tank, Torquay, 1870s"]]; }, draw(S) {
+    const y0 = 420, xh = 200 + (S.lt * 60) % 900;
+    c.fillStyle = "#101826"; c.fillRect(80, y0, 1120, 170); c.strokeStyle = "#5A6479"; c.lineWidth = 2; c.strokeRect(80, y0 - 60, 1120, 230);
+    c.strokeStyle = GLASS; c.lineWidth = 2.5; c.beginPath();
+    for (let x = 80; x <= 1200; x += 4) { const d = xh - x, y = y0 + (d > 0 ? 14 * Math.sin(d * 0.06) * Math.exp(-d / 320) : 0); x === 80 ? c.moveTo(x, y) : c.lineTo(x, y); } c.stroke();
+    c.fillStyle = "#C9CFD9"; c.beginPath(); c.moveTo(xh - 120, y0 - 18); c.lineTo(xh + 30, y0 - 18); c.quadraticCurveTo(xh + 60, y0 - 10, xh + 20, y0 + 22); c.lineTo(xh - 110, y0 + 22); c.closePath(); c.fill();
+    c.strokeStyle = MUTED; c.lineWidth = 1.5; c.beginPath(); c.moveTo(xh - 40, y0 - 18); c.lineTo(xh - 40, y0 - 60); c.stroke(); label("model hull, towed", xh - 40, y0 - 70, MUTED, 18, "center");
+    equation([P("Fr", { it: true }), P("="), { num: [P("U", { it: true })], den: [P("√"), P("g", { it: true }), P("L", { it: true })] }], 640, 200, 56);
+    label("waves come out the right size only if this matches the real ship", 640, 660, MUTED, 20, "center"); } });
+  scene("numbers", 17, { id: "froude-wave", reset() { this.xp = 640; this.lastEmit = -9; this.pulses = []; }, draw(S) {
+    const FR = S.after(21) ? 0.24 : 0.3 + 1.1 * ss(S.T, S.L(20), S.L(20) + 2.5);
+    const ys = 430, yb = 610, c0 = 110;                                          // wave speed on screen (px/s)
+    c.fillStyle = "#101826"; c.fillRect(60, ys, 1160, yb - ys); c.fillStyle = "#3A3326"; c.fillRect(60, yb, 1160, 10);
+    c.strokeStyle = "rgba(143,180,224,0.6)"; c.fillStyle = "rgba(143,180,224,0.6)"; c.lineWidth = 2;
+    for (let k = 0; k < 8; k++) { const xx = 80 + ((S.lt * c0 * FR + k * 150) % 1120), yy = ys + 60 + (k % 3) * 40; arrow(xx - 30 * FR - 10, yy, xx, yy, 6); }
+    if (S.lt - this.lastEmit > 2.4) { this.lastEmit = S.lt; this.pulses.push({ x: 640, born: S.lt }); }
+    for (const p of this.pulses) p.x += (FR * c0 - c0) * S.dt;                   // an upstream-going wave, carried by the current
+    this.pulses = this.pulses.filter(p => p.x > 40 && p.x < 1240 && S.lt - p.born < 9);
+    c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath();
+    for (let x = 60; x <= 1220; x += 3) { let y = ys; for (const p of this.pulses) y -= 22 * Math.exp(-(((x - p.x) / 38) ** 2)); x === 60 ? c.moveTo(x, y) : c.lineTo(x, y); } c.stroke();
+    c.fillStyle = TEXT; arrowHead(640, ys - 36, Math.PI / 2, 8); label("a wave starts here and tries to go upstream (left)", 640, ys - 50, MUTED, 18, "center");
+    label("current →", 1200, yb - 16, "rgba(143,180,224,0.9)", 18, "right");
+    equation([K("Fr", FR / 0.3, "#FFFFFF", "Fr", { it: true }), P("="), { num: [K("U", FR / 0.3, TEAL, "U", { it: true })], den: [P("√"), P("g", { it: true }), P("h", { it: true })] }], 560, 200, 56);
+    text(`Fr = ${FR.toFixed(2)}`, 1100, 150, 28, FR > 1 ? AMBER : TEXT, "center", 600, "IBM Plex Mono"); label(FR < 1 ? "the wave creeps upstream" : "the current outruns it", 1100, 184, FR < 1 ? TEAL : AMBER, 20, "center");
+    if (S.after(21)) { const a = ss(S.T, S.L(21), S.L(21) + 0.8); c.globalAlpha = a; panel(250, 640, 780, 62); text("for example: 1.5 m/s over 4 m of water → Fr ≈ 0.24: the surface stays nearly level", 640, 679, 20, TEXT); c.globalAlpha = 1; } } });
+  scene("numbers", 24, { id: "updown", reset() {}, draw(S) {
+    const ys = 250, yb = 610, x0 = 100, x1 = 1180, cw = 270, hh = yb - ys;
+    c.fillStyle = "#101826"; c.fillRect(x0, ys, x1 - x0, hh); c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath(); c.moveTo(x0, ys); c.lineTo(x1, ys); c.stroke();
+    for (let k = 0; k < 4; k++) { const cx = x0 + cw / 2 + k * cw, cy = ys + hh / 2, dir = k % 2 ? -1 : 1;
+      for (const f of [0.35, 0.6, 0.85]) { c.strokeStyle = "rgba(143,180,224,0.35)"; c.lineWidth = 1.5; c.beginPath(); c.ellipse(cx, cy, f * cw / 2, f * hh / 2, 0, 0, TAU); c.stroke();
+        for (let m = 0; m < 3; m++) { const a = dir * S.lt * 0.9 / f + m * TAU / 3, px = cx + f * cw / 2 * Math.cos(a), py = cy + f * hh / 2 * Math.sin(a); c.fillStyle = "rgba(210,230,255,0.9)"; c.beginPath(); c.arc(px, py, 3.5, 0, TAU); c.fill(); } } }
+    c.strokeStyle = TEAL; c.fillStyle = TEAL; c.lineWidth = 3; for (const k of [1, 3]) arrow(x0 + k * cw, yb - 40, x0 + k * cw, ys + 40, 9);
+    c.strokeStyle = AMBER; c.fillStyle = AMBER; for (const k of [2]) arrow(x0 + k * cw, ys + 40, x0 + k * cw, yb - 40, 9);
+    label("the surface stays level…", x0, ys - 20, TEXT, 22); label("…but underneath, water still rises and sinks", x0, yb + 40, MUTED, 20); } });
+  scene("numbers", 26, { id: "taylor", reset() { this.names = [[27, "G. I. Taylor", "rotating-tank experiments, 1923"]]; }, draw(S) {
+    const cx = 640, cy = 400, rx = 330, ry = 90, top = 150, rot = S.lt * 0.9;
+    c.strokeStyle = "#5A6479"; c.lineWidth = 2; c.beginPath(); c.ellipse(cx, top, rx, ry, 0, 0, TAU); c.stroke(); c.beginPath(); c.ellipse(cx, cy + 120, rx, ry, 0, 0, Math.PI); c.stroke();
+    c.beginPath(); c.moveTo(cx - rx, top); c.lineTo(cx - rx, cy + 120); c.moveTo(cx + rx, top); c.lineTo(cx + rx, cy + 120); c.stroke();
+    c.fillStyle = MUTED; for (let k = 0; k < 10; k++) { const a = rot + k * TAU / 10; c.beginPath(); c.arc(cx + rx * 0.92 * Math.cos(a), top + ry * 0.92 * Math.sin(a), 3.5, 0, TAU); c.fill(); }
+    const ox = cx + 150 * Math.cos(S.lt * 0.35), oy = cy + 90;
+    c.fillStyle = "rgba(111,168,255,0.22)"; c.fillRect(ox - 40, top + 20, 80, oy - top - 20); c.strokeStyle = GLASS; c.lineWidth = 1.5; c.strokeRect(ox - 40, top + 20, 80, oy - top - 20);
+    c.fillStyle = AMBER; c.beginPath(); c.ellipse(ox, oy, 40, 14, 0, 0, TAU); c.fill();
+    label("spinning tank", cx, top - ry - 16, MUTED, 18, "center"); label("an object moved slowly along the bottom…", cx, cy + 172, AMBER, 19, "center"); label("…and the whole column of water above it moves as one", cx, cy + 198, GLASS, 19, "center"); } });
+  scene("numbers", 29, { id: "to-model", reset() {}, draw(S) {
+    const p = ss(S.lt, 1.0, 4.0), cx = 640, cy = 390, hgt = 220 * (1 - p) + 6, w = 700, dpx = 160;
+    const box = (y, col) => { c.beginPath(); c.moveTo(cx - w / 2, y); c.lineTo(cx + w / 2, y); c.lineTo(cx + w / 2 + dpx, y - 90); c.lineTo(cx - w / 2 + dpx, y - 90); c.closePath(); c.fillStyle = col; c.fill(); c.strokeStyle = "#5A6479"; c.stroke(); };
+    box(cy + hgt / 2, "rgba(40,70,100,0.5)"); box(cy - hgt / 2, "rgba(90,150,230,0.25)");
+    for (let k = 0; k < 7; k++) { const x = cx - 280 + k * 95 + 40, y = cy - 20 + (k % 3) * 20, tilt = (1 - p) * (k % 2 ? 0.9 : -0.7); c.save(); c.translate(x, y); c.rotate(tilt); c.scale(1, 0.35 + 0.05 * p); spin(0, 0, 40, k % 2 === 0, k % 2 ? AMBER : TEAL, S.lt * 2 + k); c.restore(); }
+    chip("MODEL", 540, 150, GLASS); label("flow moves only sideways, the same at every depth", 640, 640, TEXT, 22, "center"); } });
+
+  // ---- flatness
+  scene("flat", 0, { id: "richardson", reset() { this.names = [[0, "Lewis Fry Richardson", "1922"], [4, "Andrei Kolmogorov", "1941"]]; }, draw(S) {
+    serif(30, 400, true); c.fillStyle = TEXT; c.textAlign = "left"; ["Big whorls have little whorls", "that feed on their velocity,", "and little whorls have lesser whorls,", "and so on to viscosity."].forEach((l, i) => { c.globalAlpha = ss(S.lt, 0.5 + i * 1.3, 1.2 + i * 1.3); c.fillText(l, 90, 220 + i * 50); }); c.globalAlpha = 1;
+    const drawE = (x, y, r, d) => { spin(x, y, r, d % 2 === 0, d % 2 ? AMBER : TEAL, S.lt * (1 + d) + x * 0.01, Math.max(1, 3 - d * 0.6)); if (d < 4 && S.lt > 1.5 + d * 1.5) for (let k = 0; k < 3; k++) { const a = k * TAU / 3 + d; drawE(x + r * 1.1 * Math.cos(a), y + r * 1.1 * Math.sin(a), r * 0.45, d + 1); } };
+    drawE(900, 380, 120, 0); label("energy flows to ever smaller eddies, then into heat", 900, 640, MUTED, 20, "center"); } });
+  scene("flat", 5, { id: "stretch", reset() { figs.figStretch.reset(); }, draw(S) { FIG("figStretch", 0, 150, 1280, 533, S.T); label("stretching: the engine of the 3D cascade", 640, 110, TEXT, 24, "center"); } });
+  scene("flat", 9, { id: "turb", reset() { this.tb = Turb(128, 7); for (let k = 0; k < 60; k++) this.tb.step(0.05); this.names = [[11, "Fjørtoft 1953 · Kraichnan 1967 · Leith 1968 · Batchelor 1969", "two-dimensional turbulence"]]; }, draw(S) {
+    this.tb.step(0.05); this.tb.step(0.05);
+    const soap = S.after(13); drawTurb(this.tb, 340, 90, 600, 600, soap ? palSoap : palSpin);
+    chip(soap ? "illustration: our simulation, in soap-film colours" : "simulation: flat (2D) turbulence", 20, 60, soap ? PINK : GLASS);
+    label("small eddies merge into big ones", 955, 300, TEXT, 18); label("spin is drawn into fine filaments", 955, 334, MUTED, 18); } });
+  scene("flat", 14, { id: "jupiter", reset() { this.tb = Turb(128, 23); for (let k = 0; k < 500; k++) this.tb.step(0.05); this.names = [[15, "Great Red Spot", "observing record back to 1831"]]; }, draw(S) {
+    this.tb.step(0.05); c.save(); c.beginPath(); c.roundRect(40, 200, 1200, 320, 20); c.clip(); drawTurb(this.tb, 40, 200, 1200, 320, palJup);
+    const gx = 700 + 20 * Math.sin(S.lt * 0.2); c.fillStyle = "rgba(190,90,60,0.85)"; c.beginPath(); c.ellipse(gx, 360, 150, 70, 0, 0, TAU); c.fill();
+    for (let k = 0; k < 4; k++) { c.save(); c.translate(gx, 360); c.scale(1, 0.47); spin(0, 0, 40 + k * 28, false, "rgba(255,220,190,0.6)", S.lt * 1.5 + k, 2); c.restore(); } c.restore();
+    chip("illustration", 40, 180, AMBER); label("a thin, fast-spinning, layered shell", 640, 580, TEXT, 22, "center"); label("the Great Red Spot: still wider than the Earth", 640, 614, MUTED, 20, "center"); } });
+  scene("flat", 17, { id: "meddy", reset() {}, draw(S) {
+    c.fillStyle = "#0C1A2A"; c.fillRect(0, 160, W, 520); c.strokeStyle = GLASS; c.lineWidth = 2; c.beginPath(); c.moveTo(0, 160); c.lineTo(W, 160); c.stroke();
+    c.fillStyle = "#2A2418"; c.beginPath(); c.moveTo(0, 680); c.lineTo(0, 300); c.lineTo(120, 330); c.lineTo(160, 680); c.closePath(); c.fill(); label("Strait of Gibraltar", 20, 290, MUTED, 16);
+    const mx = 420 + S.lt * 18; c.fillStyle = "rgba(255,181,71,0.25)"; c.beginPath(); c.ellipse(mx, 430, 150, 40, 0, 0, TAU); c.fill();
+    c.save(); c.translate(mx, 430); c.scale(1, 0.27); spin(0, 0, 120, true, AMBER, S.lt * 1.2, 3); c.restore();
+    label("a meddy: a lens of warm, salty Mediterranean water, about a kilometre down", mx - 150, 510, TEXT, 19); label("drifts across the Atlantic, spinning for years", mx - 150, 540, MUTED, 18); } });
+  scene("flat", 18, { id: "back-to-dimple", reset() {}, draw(S) { c.fillStyle = BG; c.fillRect(0, 0, W, H); text("in the flat model, whirlpools last and grow", 640, 320, 30, TEXT, "center", 500, "STIX Two Text"); text("…but what is a dimple, really?", 640, 380, 26, MUTED, "center"); } });
+
+  // ---- rules
+  scene("rules", 0, { id: "dip", reset() {}, draw(S) {
+    const G0 = 60, g0 = 981, a0 = 0.6, t = S.T, tG = S.L(3), tA = S.L(4);
+    const G = G0 * 2 ** (ss(t, tG, tG + 2) - ss(t, tA - 0.8, tA)), a = a0 * 2 ** (ss(t, tA, tA + 2.2) - ss(t, S.L(5) + 0.5, S.L(5) + 1.5));
+    const eggT = S.L(5) - 0.2, g = g0 * 6 ** -(0 * ss(t, eggT, eggT + 0.5));
+    const h = G * G / (8 * Math.PI ** 2 * g * a * a), h0 = G0 * G0 / (8 * Math.PI ** 2 * g0 * a0 * a0);
+    equation([K("h", h / h0, "#FFFFFF", "h", { it: true }), P("="), { num: [K("Γ", G / G0, TEAL, "Γ", { sup: "2" })], den: [P("8π", { sup: "2" }), P("g", { it: true }), K("a", a / a0, AMBER, "a", { it: true, sup: "2" })] }], 640, 150, 58);
+    label("a simple model of a whirlpool's core", 640, 230, MUTED, 17, "center");
+    // side view
+    const L = 50, R = 620, ys = 390, yb = 630, X = 4.5, sx = x => L + (x + X) / (2 * X) * (R - L), E = 200, A = G * G / (8 * Math.PI ** 2 * g), a2 = a * a, sy = x => ys + A / (x * x + a2) * E;
+    const A0 = G0 * G0 / (8 * Math.PI ** 2 * g0), sy0 = x => ys + A0 / (x * x + a0 * a0) * E;
+    c.fillStyle = "rgba(60,120,160,0.2)"; c.beginPath(); c.moveTo(sx(-X), yb); for (let i = 0; i <= 200; i++) { const x = -X + 2 * X * i / 200; c.lineTo(sx(x), sy(x)); } c.lineTo(sx(X), yb); c.closePath(); c.fill();
+    c.strokeStyle = "rgba(111,168,255,0.45)"; c.setLineDash([7, 6]); c.lineWidth = 2; c.beginPath(); for (let i = 0; i <= 200; i++) { const x = -X + 2 * X * i / 200; i ? c.lineTo(sx(x), sy0(x)) : c.moveTo(sx(x), sy0(x)); } c.stroke(); c.setLineDash([]);
+    c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath(); for (let i = 0; i <= 300; i++) { const x = -X + 2 * X * i / 300; i ? c.lineTo(sx(x), sy(x)) : c.moveTo(sx(x), sy(x)); } c.stroke();
+    c.fillStyle = "#3A3326"; c.fillRect(L, yb, R - L, 10);
+    const bx = sx(0) - 110; c.strokeStyle = "#FFFFFF"; c.lineWidth = 2; c.beginPath(); c.moveTo(bx, ys); c.lineTo(bx, sy(0)); c.moveTo(bx - 8, ys); c.lineTo(bx + 8, ys); c.moveTo(bx - 8, sy(0)); c.lineTo(bx + 8, sy(0)); c.stroke();
+    serif(28, 600, true); c.fillStyle = "#FFFFFF"; c.textAlign = "right"; c.fillText("h", bx - 10, (ys + sy(0)) / 2 + 9);
+    c.strokeStyle = AMBER; c.lineWidth = 2.5; c.beginPath(); c.moveTo(sx(0), ys - 26); c.lineTo(sx(a), ys - 26); c.stroke(); serif(26, 600, true); c.fillStyle = AMBER; c.textAlign = "center"; c.fillText("a", (sx(0) + sx(a)) / 2, ys - 34);
+    label("side view (dip drawn deeper; dashed: where it started)", L, 655, MUTED, 15);
+    waterP.render({ scale: 12 / 560, cx: 0, cy: 0, time: t, a, exaggerate: 981 / g, k: 6.2, ripple: 0.006, sunShift: [-2.0, -2.7], sunBlur: 0.06, glint: 0.2, vortices: [[1.2, 1.5, G]] });
+    label("from above: its shadow on the bed of shallow water", 676, 655, MUTED, 15);
+    if (S.after(5)) { const al = ss(t, S.L(5), S.L(5) + 0.6); c.globalAlpha = al; c.strokeStyle = "#FFE7A8"; c.lineWidth = 2; c.beginPath(); c.arc(676 + 280 - 40, 272 + 180 + 58, 70, 0, TAU); c.stroke(); label("shadow, with a bright edge", 676 + 380, 272 + 330, "#FFE7A8", 17); c.globalAlpha = 1; } } , glp: true });
+  scene("rules", 7, { id: "loop", reset() { figs.figLoop.reset(); Object.assign(window.LOOP_STATE, { x: 0, y: 0, r: 1.6 }); }, draw(S) {
+    const rr = 1.6 * 2 ** ss(S.T, S.L(9), S.L(9) + 2); window.LOOP_STATE.r = rr; FIG("figLoop", 160, 170, 960, 540, S.T);
+    equation([P("Γ"), P("="), P("∮"), P("u · dl", { it: true })], 460, 110, 48);
+    const k = rr / 1.6; chip(`loop radius ×${k.toFixed(1)}`, 760, 70, GLASS); chip(`speed ÷${k.toFixed(1)}`, 760, 108, TEAL); chip(`length ×${k.toFixed(1)}`, 940, 108, AMBER);
+    font(20, 500, "IBM Plex Mono"); c.fillStyle = TEXT; c.textAlign = "left"; c.fillText(document.getElementById("loopOut").textContent.replace("circulation around the loop", "circulation:"), 760, 150); } });
+  scene("rules", 11, { id: "line-point", reset() { setLines("upright"); }, draw(S) { FIG("figLines", 160, 110, 960, 504, S.T); label("a line meets the surface in a point: the dimple", 640, 660, TEXT, 22, "center"); } });
+  scene("rules", 14, { id: "line-end", reset() { setLines("end"); this.names = [[14, "Hermann von Helmholtz", "1858"]]; }, draw(S) {
+    if (S.after(19) && !this.switched) { setLines("ring"); this.switched = true; } FIG("figLines", 160, 110, 960, 504, S.T);
+    label(this.switched ? "so it must close into a ring, or end on a boundary" : "suppose a tube of spin just ended…", 640, 660, TEXT, 22, "center"); } });
+  scene("rules", 20, { id: "tait", reset() { this.names = [[21, "Peter Guthrie Tait", "Edinburgh, 1867"], [22, "William Thomson, later Lord Kelvin", ""]]; }, draw(S) {
+    const lt = S.lt; c.fillStyle = "#3A3326"; c.fillRect(60, 300, 150, 150); c.fillStyle = BG; c.beginPath(); c.arc(210, 375, 22, 0, TAU); c.fill(); label("smoke box", 70, 290, MUTED, 16);
+    const ring = (x, y, rs, al) => { c.save(); c.globalAlpha = al; c.strokeStyle = "rgba(230,230,235,0.9)"; c.lineWidth = 9; c.beginPath(); c.ellipse(x, y, 16, rs, 0, 0, TAU); c.stroke(); c.lineWidth = 2; c.strokeStyle = "rgba(255,255,255,0.5)"; c.beginPath(); c.ellipse(x - 3, y, 10, rs * 0.8, 0, 0, TAU); c.stroke(); c.restore(); };
+    for (let k = 0; k < 3; k++) { const age = (lt - k * 2.2) % 6.6; if (age < 0) continue; let x = 240 + age * 150, y = 375 + (k - 1) * 30 * Math.sin(age * 1.4), rs = 34 + 3 * Math.sin(age * 5);
+      if (x > 900) x = 900 - (x - 900) * 0.6; ring(x, y, rs, clamp(1.2 - age / 6.6)); }
+    if (S.after(27)) { const a = ss(S.T, S.L(27), S.L(27) + 1); c.globalAlpha = a; c.fillStyle = "rgba(10,13,20,0.85)"; c.fillRect(0, 0, W, H);
+      const knot = (cx, cy, s, p, q, col) => { c.strokeStyle = col; c.lineWidth = 7; c.lineJoin = "round"; c.beginPath(); for (let i = 0; i <= 400; i++) { const t = TAU * i / 400, r = 1 + 0.45 * Math.cos(q * t); const x = cx + s * r * Math.cos(p * t), y = cy + s * r * Math.sin(p * t); i ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke(); };
+      const tbl = S.after(29); if (!tbl) { knot(640, 380, 150, 2, 3, TEAL); label("atoms as knotted vortex rings?", 640, 600, TEXT, 24, "center"); }
+      else { [[2, 3], [2, 5], [3, 4], [2, 7], [3, 5], [2, 9]].forEach(([p, q], i) => { knot(240 + (i % 3) * 400, 250 + Math.floor(i / 3) * 250, 70, p, q, [TEAL, AMBER, GLASS, PINK, VIOLET, TEXT][i]); }); label("knot tables → knot theory", 640, 660, TEXT, 24, "center"); }
+      c.globalAlpha = 1; } } });
+  scene("rules", 31, { id: "kelvin", gl: true, reset() { this.r = River(21, { U: 0, boils: false }); this.done = false; }, draw(S) {
+    const sc = 60 / W, sx = x => W / 2 + x / sc, sy = y => H / 2 - y / sc, strokeT0 = S.L(33), strokeT1 = strokeT0 + 1.2;
+    if (!this.done && S.T > strokeT1) { this.r.pair(4, 0, 0, 70, 3.2); this.done = true; }
+    this.r.step(S.dt); water.render(topOpts(this.r, sc));
+    if (S.T > strokeT0 && S.T < strokeT1 + 0.4) { const f = ss(S.T, strokeT0, strokeT1), px = sx(-8 + 12 * f); c.fillStyle = "rgba(230,210,170,0.9)"; c.fillRect(px - 8, sy(1.8), 16, sy(-1.8) - sy(1.8)); label("paddle", px, sy(2.4), TEXT, 18, "center"); }
+    c.strokeStyle = "#FFFFFF"; c.lineWidth = 2; c.setLineDash([10, 8]); c.beginPath(); c.ellipse(sx(0), sy(0), 22 / sc, 12 / sc, 0, 0, TAU); c.stroke(); c.setLineDash([]);
+    chip("circulation around the big loop: 0", 40, 60, "#FFFFFF"); chip(`total spin: ${Math.round(this.r.sys.G.reduce((a, b) => a + b, 0))}`, 40, 100, TEAL);
+    if (S.after(35)) { const a = ss(S.T, S.L(35), S.L(35) + 0.6); c.globalAlpha = a; c.fillStyle = "rgba(10,13,20,0.9)"; c.fillRect(0, 0, W, H); if (!this.arch) { setLines("arch"); this.arch = true; } FIG("figLines", 160, 110, 960, 504, S.T); c.globalAlpha = 1; } } });
+  scene("rules", 37, { id: "pair-speed", gl: true, reset() { this.r = River(5, { U: 0, boils: false }); this.r.pair(-18, 0, 0, 60, 4, -99); }, draw(S) {
+    const sc = 60 / W, dNow = 4 / 2 ** ss(S.T, S.L(38), S.L(38) + 1.5);
+    const s = this.r.sys; if (s.x.length === 2) { const mx = (s.x[0] + s.x[1]) / 2, my = (s.y[0] + s.y[1]) / 2, dx = s.x[0] - s.x[1], dy = s.y[0] - s.y[1], d = Math.hypot(dx, dy) || 1; s.x[0] = mx + dx / d * dNow / 2; s.y[0] = my + dy / d * dNow / 2; s.x[1] = mx - dx / d * dNow / 2; s.y[1] = my - dy / d * dNow / 2; }
+    this.r.step(S.dt); water.render(topOpts(this.r, sc));
+    c.fillStyle = "rgba(10,13,20,0.7)"; c.fillRect(0, 0, W, 190);
+    equation([K("V", 4 / dNow, "#FFFFFF", "V", { it: true }), P("="), { num: [P("Γ")], den: [P("2π"), K("d", dNow / 4, GLASS, "d", { it: true })] }], 640, 110, 54); } });
+
+  // ---- river
+  scene("river", 0, { id: "hairpin", reset() { figs.figRiver.reset(); this.names = [[8, "Theodorsen 1952 (hairpin model) · Kline et al. 1967", "wall turbulence"]]; }, draw(S) {
+    if (S.after(5) && !S.after(8)) { if (!this.r) { this.r = River(31); } this.r.step(S.dt, BOAT); water.render(boatOpts(this.r)); glCanvas.style.visibility = "visible"; c.clearRect(0, 0, W, H); }
+    else { glCanvas.style.visibility = "hidden"; FIG("figRiver", 160, 120, 960, 504, S.T); }
+    if (S.after(5) && !S.after(8)) { const a = ss(S.T, S.L(6), S.L(6) + 0.6); c.globalAlpha = a; panel(40, 540, 520, 70); text("Gerard Matthes, 1947", 60, 572, 24, TEXT, "left", 600, "STIX Two Text"); label("kolks and boils in big rivers", 60, 598, MUTED, 17); c.globalAlpha = 1; } } });
+  scene("river", 12, { id: "attached", gl: true, reset() { this.r = River(41); [[-6, 4, 0.5, 60], [6, 10, 2.1, 55], [0, 0, -1, 60]].forEach(([x, y, a, G]) => this.r.pair(x, y, a, G, 3, -99)); this.names = [[12, "Perot & Moin 1995 · Pan & Banerjee 1995 · Shen et al. 1999", "free-surface turbulence simulations"]]; }, draw(S) {
+    this.r.step(S.dt, BOAT); water.render(boatOpts(this.r)); label("vortex ends stand upright at the surface, and wander", 640, 60, TEXT, 22, "center"); } });
+  scene("river", 15, { id: "tug", reset() { this.names = [[18, "Qi, Li & Coletti", "laboratory measurements (arXiv:2412.04361)"]]; }, draw(S) {
+    c.fillStyle = BG; c.fillRect(0, 0, W, H);
+    const col = (cx, wid, rate, title, sub, colr) => { const ys = 230, yb = 600; c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath(); c.moveTo(cx - 250, ys); c.lineTo(cx + 250, ys); c.stroke();
+      c.fillStyle = "rgba(111,168,255,0.18)"; c.fillRect(cx - wid / 2, ys, wid, yb - ys); for (let k = 0; k < 5; k++) { c.save(); c.translate(cx, ys + 50 + k * 70); c.scale(1, 0.3); spin(0, 0, wid * 0.6 + 16, true, "rgba(200,225,255,0.85)", S.lt * rate + k, 3); c.restore(); }
+      text(title, cx, 150, 26, colr, "center", 600, "STIX Two Text"); label(sub, cx, 180, MUTED, 17, "center"); };
+    const w1 = 60 + 50 * (0.5 + 0.5 * Math.sin(S.lt * 0.6)); col(330, w1, 2.5 * 60 / w1, "friction", "spreads the core and weakens it", AMBER);
+    c.strokeStyle = AMBER; c.fillStyle = AMBER; c.lineWidth = 2; arrow(330 + w1 / 2 + 10, 400, 330 + w1 / 2 + 60, 400, 7); arrow(330 - w1 / 2 - 10, 400, 330 - w1 / 2 - 60, 400, 7);
+    const w2 = 70 - 30 * (0.5 + 0.5 * Math.sin(S.lt * 0.6)); col(950, w2, 2.5 * 60 / w2, "sinking water", "stretches it and spins it up", TEAL);
+    c.strokeStyle = TEAL; c.fillStyle = TEAL; c.lineWidth = 2.5; arrow(950 - 220, 215, 950 - 60, 215, 8); arrow(950 + 220, 215, 950 + 60, 215, 8); arrow(950, 610, 950, 660, 8); label("converging at the surface, sinking below", 950, 690, TEAL, 16, "center"); } });
+  scene("river", 19, { id: "fade", reset() {}, draw(S) {
+    const kA = 2 ** ss(S.T, S.L(20), S.L(21) + 0.8), kN = 1.5 ** ss(S.T, S.L(22), S.L(22) + 1.5);
+    equation([K("τ", kA * kA / kN, "#FFFFFF", "τ", { it: true }), P("∝"), { num: [K("a", kA, AMBER, "a", { it: true, sup: "2" })], den: [K("ν", kN, PINK, "ν", { it: true, note: kN > 1.2 ? "5 °C vs 20 °C" : "" })] }], 640, 140, 58);
+    label("a spreading time, not a lifetime: a wider core also starts shallower", 640, 250, MUTED, 18, "center");
+    FIG("figFade", 160, 280, 960, 400, S.T); } });
+  scene("river", 24, { id: "ripples", gl: true, reset() { this.r = River(51); [[-6, 3, 0.4, 60], [5, 8, 2.2, 55], [0, -2, -1, 65], [10, 14, 0.9, 55]].forEach(([x, y, a, G]) => this.r.pair(x, y, a, G, 3, -99)); }, draw(S) {
+    const rip = 0.009 * 4 ** (ss(S.T, S.L(25), S.L(26)) - ss(S.T, S.L(28) - 0.5, S.L(28) + 0.8)); this.r.step(S.dt, BOAT); water.render(boatOpts(this.r, BOAT, { ripple: rip }));
+    const show = S.after(26) && !S.after(28); if (show) { c.globalAlpha = 0.8; for (let i = 0; i < this.r.sys.x.length; i++) { const p = WR.project(BOAT, W, H, this.r.sys.x[i], this.r.sys.y[i]); if (p) { c.strokeStyle = this.r.sys.G[i] > 0 ? TEAL : AMBER; c.lineWidth = 2; c.beginPath(); c.ellipse(p[0], p[1], 18, 6, 0, 0, TAU); c.stroke(); } } c.globalAlpha = 1; label("still there, just hidden", 640, 60, TEXT, 22, "center"); }
+    chip(`ripples ×${(rip / 0.009).toFixed(1)}`, 40, 60, GLASS); } });
+  scene("river", 29, { id: "answer", gl: true, reset() { this.r = River(61); [[-6, 6, 0.9, 60], [8, 2, 2.2, 55]].forEach(([x, y, a, G]) => this.r.pair(x, y, a, G, 3, -99)); }, draw(S) {
+    this.r.step(S.dt, BOAT); water.render(boatOpts(this.r)); c.fillStyle = "rgba(8,11,17,0.72)"; c.fillRect(0, 0, W, H);
+    text("What keeps a small whirlpool together?", 640, 190, 34, TEXT, "center", 600, "STIX Two Text");
+    ["the end of a vortex line that can't just stop", "standing upright at the surface", "spun up now and then by sinking water", "fading only slowly by friction"].forEach((l, i) => { c.globalAlpha = ss(S.T, S.L(30) + i * 1.3, S.L(30) + i * 1.3 + 0.5); text("· " + l, 640, 280 + i * 56, 26, i % 2 ? GLASS : TEAL, "center"); }); c.globalAlpha = 1; } });
+
+  // ---- order
+  scene("order", 0, { id: "ham-pend", reset() { setHam("pend"); this.names = [[4, "William Rowan Hamilton · Joseph Liouville", "the rule, and the area it keeps"]]; }, draw(S) {
+    chip("MODEL", 40, 60, GLASS); FIG("figHam", 160, 130, 960, 540, S.T);
+    equation([P("dq/dt = ∂H/∂p,", { it: true }), P("dp/dt = −∂H/∂q", { it: true })], 640, 95, 40);
+    font(20, 500, "IBM Plex Mono"); c.fillStyle = TEXT; c.textAlign = "right"; c.fillText(document.getElementById("hamOut").textContent, 1110, 700); } });
+  scene("order", 6, { id: "dye-area", gl: true, reset() { this.r = River(71, { U: 0, boils: false }); [[-14, 4, 60], [-6, -5, 55], [8, 3, 65], [-2, 8, -45], [16, -4.2, 70], [16, -7.8, -70]].forEach(([x, y, G]) => this.r.add(x, y, G, -99));
+      const poly = window.CAMEL_OUTLINE.map(([x, y]) => [x * 0.6, y * 0.6]); const f = WR.fillPolygon(poly, Math.floor(water.dyeCapacity * 0.97)); water.setDye(f.xs, f.ys, f.area); this.out = V.makeContour(poly, 0.12); this.out.maxPts = 20000; this.A0 = V.area(this.out); },
+    draw(S) { const n = Math.max(1, Math.ceil(S.dt / 0.02)); for (let k = 0; k < n; k++) { const h = S.dt / n, m = V.step(this.r.sys, h, this.out.x.length < 20000 ? [this.out] : null); water.stepDye(h, m.Xm.map((x, i) => [x, m.Ym[i], this.r.sys.G[i]]), { a: 0.6, U: 0 }); } this.r.t += S.dt;
+      water.render(topOpts(this.r, 60 / W)); chip("MODEL", 40, 60, GLASS); chip(`dye area in our simulation: ${(100 * V.area(this.out) / this.A0).toFixed(1)}%`, 40, 100, PINK);
+      if (S.after(8)) { const a = ss(S.T, S.L(8), S.L(8) + 0.6); c.globalAlpha = a; c.fillStyle = "rgba(10,13,20,0.8)"; c.fillRect(0, 560, W, 160); equation([P("dx/dt = ∂ψ/∂y,", { it: true }), P("dy/dt = −∂ψ/∂x", { it: true })], 640, 640, 40); c.globalAlpha = 1; } },
+    leave() { water.clearDye(); } });
+  scene("order", 9, { id: "psi", reset() { this.sys = V.makeSystem({ a: 0.6 }); V.add(this.sys, 0, 0, 60); this.tr = [[3.2, 0]]; this.moving = false; }, draw(S) {
+    if (S.after(10) && !this.moving) { this.moving = true; this.sys = V.makeSystem({ a: 0.6 }); [[3, 0, 70], [-2.5, 3, 55], [-1.5, -3.5, 60]].forEach(p => V.add(this.sys, ...p)); this.tr = [[4.5, 2]]; }
+    if (this.moving) { const n = Math.max(1, Math.ceil(S.dt / 0.02)); for (let k = 0; k < n; k++) V.step(this.sys, S.dt / n); }
+    const sc = 26 / W, sx = x => W / 2 + x / sc, sy = y => H / 2 + 20 - y / sc, GW = 128, GH = 72, val = new Float64Array((GW + 1) * (GH + 1));
+    let lo = 1e9, hi = -1e9; for (let j = 0; j <= GH; j++) for (let i = 0; i <= GW; i++) { const x = (i / GW - 0.5) * W * sc, y = -(j / GH - 0.5) * H * sc + 20 * sc, v = V.psi(this.sys, x, y); val[j * (GW + 1) + i] = v; lo = Math.min(lo, v); hi = Math.max(hi, v); }
+    c.fillStyle = "#0E1624"; c.fillRect(0, 0, W, H); c.strokeStyle = "rgba(200,220,245,0.45)"; c.lineWidth = 1.2; const px = W / GW, py = H / GH;
+    for (let L_ = 1; L_ < 22; L_++) { const cl = lo + (hi - lo) * L_ / 22; c.beginPath(); for (let j = 0; j < GH; j++) for (let i = 0; i < GW; i++) { const A = val[j * (GW + 1) + i] - cl, B = val[j * (GW + 1) + i + 1] - cl, C = val[(j + 1) * (GW + 1) + i + 1] - cl, D = val[(j + 1) * (GW + 1) + i] - cl, Q = [];
+      if ((A > 0) !== (B > 0)) Q.push([i + A / (A - B), j]); if ((B > 0) !== (C > 0)) Q.push([i + 1, j + B / (B - C)]); if ((C > 0) !== (D > 0)) Q.push([i + 1 - C / (C - D), j + 1]); if ((D > 0) !== (A > 0)) Q.push([i, j + 1 - D / (D - A)]);
+      if (Q.length >= 2) { c.moveTo(Q[0][0] * px, Q[0][1] * py + 20); c.lineTo(Q[1][0] * px, Q[1][1] * py + 20); } } c.stroke(); }
+    // the speck moves by the current landscape
+    const s = this.tr[0]; for (let k = 0; k < 4; k++) { const [u, v] = V.velAt(this.sys, this.sys.x, this.sys.y, s[0], s[1], -1), h = S.dt / 4; const [u2, v2] = V.velAt(this.sys, this.sys.x, this.sys.y, s[0] + h / 2 * u, s[1] + h / 2 * v, -1); s[0] += h * u2; s[1] += h * v2; }
+    for (let i = 0; i < this.sys.x.length; i++) { const G = this.sys.G[i]; c.fillStyle = G > 0 ? TEAL : AMBER; c.beginPath(); c.arc(sx(this.sys.x[i]), sy(this.sys.y[i]), 6, 0, TAU); c.fill(); }
+    const [u, v] = V.velAt(this.sys, this.sys.x, this.sys.y, s[0], s[1], -1), X = sx(s[0]), Y = sy(s[1]), gsc = 9;
+    c.lineWidth = 3; c.strokeStyle = TEAL; c.fillStyle = TEAL; arrow(X, Y, X + u * gsc, Y, 7); c.strokeStyle = AMBER; c.fillStyle = AMBER; arrow(X, Y, X, Y - v * gsc, 7); c.strokeStyle = "#fff"; c.fillStyle = "#fff"; arrow(X, Y, X + u * gsc, Y - v * gsc, 7); c.beginPath(); c.arc(X, Y, 6, 0, TAU); c.fill();
+    chip("MODEL", 40, 60, GLASS); label(this.moving ? "the whirlpools move: the landscape changes beneath the speck" : "one steady whirlpool: the speck follows a contour", 640, 60, TEXT, 22, "center"); } });
+  scene("order", 12, { id: "kirchhoff", reset() { this.sys = V.makeSystem({ a: 0.6 }); [[5, 0, 70], [-3, 4, 55], [-2, -5, 60]].forEach(p => V.add(this.sys, ...p)); this.g0 = 70; this.names = [[12, "Gustav Kirchhoff", "1876"]]; }, draw(S) {
+    const k = 3 ** ss(S.T, S.L(13) + 0.5, S.L(13) + 2.5), frozen = S.T > S.L(13) + 0.3 && S.T < S.L(13) + 2.7; this.sys.G[0] = this.g0 * k;
+    if (!frozen) { const n = Math.max(1, Math.ceil(S.dt / 0.02)); for (let q = 0; q < n; q++) V.step(this.sys, S.dt / n); }
+    c.fillStyle = BG; c.fillRect(0, 0, W, H); const sc = 26 / W, sx = x => W / 2 + x / sc, sy = y => H / 2 + 60 - y / sc;
+    for (let i = 0; i < 3; i++) { const G = this.sys.G[i], r = 7 * Math.sqrt(G / 60); c.fillStyle = i === 0 ? TEAL : GLASS; c.beginPath(); c.arc(sx(this.sys.x[i]), sy(this.sys.y[i]), r, 0, TAU); c.fill(); spin(sx(this.sys.x[i]), sy(this.sys.y[i]), r + 12, true, "rgba(220,230,245,0.6)", S.lt * 2 + i, 2); }
+    const Gs = this.sys.G.reduce((a, b) => a + b, 0), cxs = this.sys.G.reduce((a, g, i) => a + g * this.sys.x[i], 0) / Gs, cys = this.sys.G.reduce((a, g, i) => a + g * this.sys.y[i], 0) / Gs;
+    c.strokeStyle = "#fff"; c.lineWidth = 2; c.beginPath(); c.moveTo(sx(cxs) - 12, sy(cys)); c.lineTo(sx(cxs) + 12, sy(cys)); c.moveTo(sx(cxs), sy(cys) - 12); c.lineTo(sx(cxs), sy(cys) + 12); c.stroke(); label("centre of spin", sx(cxs) + 16, sy(cys) - 10, "#fff", 17);
+    equation([K("Γ", k, TEAL, "Γ₁", { sub: "" }), P("dx/dt = ∂H/∂y,", { it: true }), P("Γ"), P("dy/dt = −∂H/∂x", { it: true })], 640, 90, 36);
+    chip("MODEL: point whirlpools, all spinning the same way", 40, 150, GLASS); } });
+  scene("order", 14, { id: "chaos", reset() { const ic = [[-1.91, -2.07], [4.09, 2.04], [-4.25, -1.22], [0.16, -3.09]]; this.A = V.makeSystem({ a: 0.5 }); this.B = V.makeSystem({ a: 0.5 }); ic.forEach(([x, y], i) => { V.add(this.A, x, y, 60); V.add(this.B, x + (i === 0 ? 1e-4 : 0), y, 60); }); this.trA = []; this.trB = []; this.names = [[15, "Aref & Pomphrey", "four vortices, 1982"]]; }, draw(S) {
+    const n = Math.max(1, Math.ceil(S.dt / 0.01)); for (let q = 0; q < n; q++) { V.step(this.A, S.dt / n); V.step(this.B, S.dt / n); }
+    c.fillStyle = BG; c.fillRect(0, 0, W, H); const sc = 16 / W, sx = x => W / 2 + x / sc, sy = y => H / 2 + 30 - y / sc;
+    this.trA.push(this.A.x.map((x, i) => [x, this.A.y[i]])); this.trB.push(this.B.x.map((x, i) => [x, this.B.y[i]])); if (this.trA.length > 90) { this.trA.shift(); this.trB.shift(); }
+    for (const [tr, col] of [[this.trA, TEAL], [this.trB, AMBER]]) for (let i = 0; i < 4; i++) { c.strokeStyle = col; c.globalAlpha = 0.5; c.lineWidth = 2; c.beginPath(); tr.forEach((p, k) => k ? c.lineTo(sx(p[i][0]), sy(p[i][1])) : c.moveTo(sx(p[i][0]), sy(p[i][1]))); c.stroke(); c.globalAlpha = 1; c.fillStyle = col; const q = tr[tr.length - 1][i]; c.beginPath(); c.arc(sx(q[0]), sy(q[1]), 6, 0, TAU); c.fill(); }
+    let d = 0; for (let i = 0; i < 4; i++) d = Math.max(d, Math.hypot(this.A.x[i] - this.B.x[i], this.A.y[i] - this.B.y[i]));
+    chip("two runs of four whirlpools, started one micron apart", 40, 60, TEXT); chip(`largest separation: ${d < 0.1 ? (d * 1e4).toFixed(0) + " µm" : d.toFixed(2) + " cm"}`, 40, 100, AMBER); chip("MODEL", 40, 140, GLASS); } });
+
+  // ---- reading
+  scene("reading", 0, { id: "divergence", reset() { const N = 90; this.patch = Array.from({ length: N }, (_, i) => [2.2 + 1.2 * Math.cos(i / N * TAU), 1.0 + 1.2 * Math.sin(i / N * TAU)]); this.A0 = null; }, draw(S) {
+    c.fillStyle = "#0E1624"; c.fillRect(0, 0, W, H); const L = 6, sc = 14 / W, sx = x => W / 2 + x / sc, sy = y => H / 2 + 30 - y / sc;
+    const u = (x, y) => [0.6 * Math.cos(Math.PI * x / L * 2) * Math.sin(Math.PI * y / L * 2) * 0 + 0.5 * Math.sin(2 * Math.PI * x / L), 0.5 * Math.sin(2 * Math.PI * y / L)];   // a divergent surface flow
+    for (let j = -3; j <= 3; j++) for (let i = -6; i <= 6; i++) { const x = i * 0.9, y = j * 0.9, [a, b] = u(x, y); c.strokeStyle = "rgba(143,180,224,0.5)"; c.fillStyle = "rgba(143,180,224,0.5)"; c.lineWidth = 1.5; arrow(sx(x), sy(y), sx(x + a * 0.8), sy(y + b * 0.8), 5); }
+    for (const [x, y, t] of [[0, 0, "upwelling: surface spreads"], [3, 3, "downwelling: surface shrinks"]]) { label(t, sx(x), sy(y) - 16, x ? AMBER : TEAL, 17, "center"); }
+    for (const p of this.patch) { const [a, b] = u(p[0], p[1]); p[0] += a * S.dt * 0.6; p[1] += b * S.dt * 0.6; }
+    let ar = 0; for (let i = 0; i < this.patch.length; i++) { const a = this.patch[i], b = this.patch[(i + 1) % this.patch.length]; ar += a[0] * b[1] - b[0] * a[1]; } ar = Math.abs(ar) / 2; if (this.A0 === null) this.A0 = ar;
+    c.fillStyle = "rgba(255,111,160,0.45)"; c.strokeStyle = PINK; c.lineWidth = 2; c.beginPath(); this.patch.forEach((p, i) => i ? c.lineTo(sx(p[0]), sy(p[1])) : c.moveTo(sx(p[0]), sy(p[1]))); c.closePath(); c.fill(); c.stroke();
+    chip("REAL SURFACE: patches spread and shrink", 40, 60, AMBER); chip(`patch area: ${(100 * ar / this.A0).toFixed(0)}%`, 40, 100, PINK);
+    if (S.after(3)) label("incompressibility keeps volume; only the flat model keeps area", 640, 690, TEXT, 20, "center"); } });
+  scene("reading", 4, { id: "traces", reset() { this.names = [[4, "Omer Babiker, Simen Ellingsen and colleagues", "NTNU, Trondheim · J. Fluid Mech. 2023"]]; }, draw(S) {
+    c.fillStyle = BG; c.fillRect(0, 0, W, H); const x0 = 140, x1 = 1140, y0 = 470, h = 220, p = ss(S.lt, 0.5, 6);
+    c.strokeStyle = "#2C3649"; c.lineWidth = 1; c.strokeRect(x0, y0 - h, x1 - x0, h);
+    const f = t => 0.5 + 0.28 * Math.sin(t * 1.3) + 0.14 * Math.sin(t * 3.1 + 1) + 0.06 * Math.sin(t * 7.3 + 2);
+    for (const [lag, col, lab] of [[0, TEAL, "surface spreading and converging (mean square)"], [0.35, AMBER, "number of dimples"]]) { c.strokeStyle = col; c.lineWidth = 3; c.beginPath();
+      for (let i = 0; i <= 400 * p; i++) { const t = i / 400 * 8, y = y0 - h * f(t - lag); i ? c.lineTo(x0 + (x1 - x0) * i / 400, y) : c.moveTo(x0, y); } c.stroke(); label(lab, x0 + 10, lag ? y0 + 36 : y0 + 64, col, 18); }
+    chip("SCHEMATIC, after Babiker et al. 2023 — not measured data", 140, 150, "#FFFFFF"); label("time →", x1, y0 + 36, MUTED, 16, "right");
+    if (S.after(8)) { const a = ss(S.T, S.L(8), S.L(8) + 0.6); c.globalAlpha = a; panel(300, 560, 680, 110); text("2026: a laboratory tank experiment", 640, 600, 24, TEXT, "center", 600, "STIX Two Text"); label("jet-stirred tank, much higher Reynolds numbers: the same kind of link (Phys. Rev. Fluids 11, 054802)", 640, 634, MUTED, 15, "center"); c.globalAlpha = 1; } } });
+  scene("reading", 9, { id: "gas", reset() {}, draw(S) {
+    c.fillStyle = "#0E1624"; c.fillRect(0, 360, W, 360); c.fillStyle = "#16202F"; c.fillRect(0, 0, W, 360); c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath(); for (let x = 0; x <= W; x += 6) { const y = 360 + 4 * Math.sin(x * 0.03 + S.lt * 2); x ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke();
+    for (let k = 0; k < 10; k++) { const x = 100 + k * 110, down = k % 2 === 0, ph = ((S.lt * 0.5 + k * 0.17) % 1); c.fillStyle = down ? TEAL : AMBER; c.globalAlpha = Math.sin(ph * Math.PI); c.beginPath(); c.arc(x, down ? 250 + ph * 220 : 470 - ph * 220, 7, 0, TAU); c.fill(); c.globalAlpha = 1; }
+    label("oxygen", 90, 200, TEAL, 20); label("carbon dioxide", 1180, 560, AMBER, 20, "right"); label("gases cross both ways; stirring that renews the surface speeds it up", 640, 660, TEXT, 20, "center"); } });
+  scene("reading", 11, { id: "end", gl: true, reset() { this.r = River(81); [[-6, 6, 0.9, 60], [8, 2, 2.2, 55], [0, 14, -0.8, 60]].forEach(([x, y, a, G]) => this.r.pair(x, y, a, G, 3, -99)); }, draw(S) {
+    const p = ss(S.T, S.L(13), S.L(13) + 5), cam = { pos: [0, -26 - 30 * p, 7.5 + 20 * p], target: [0, 6 + 10 * p, 0], fov: 32 + 6 * p };
+    this.r.step(S.dt, cam); water.render(boatOpts(this.r, cam));
+    const tt = S.T - (S.L(13) + 3); if (tt > 0) { const a = clamp(tt / 1); c.fillStyle = `rgba(6,9,14,${0.6 * a})`; c.fillRect(0, 0, W, H); c.globalAlpha = a; text("Dimples on the Rhine", 640, 320, 60, "#F4F7FB", "center", 600, "STIX Two Text"); label("interactive page: benknill.github.io/rhine-dimples", 640, 380, TEXT, 22, "center"); label("next: soap films", 640, 420, MUTED, 20, "center"); c.globalAlpha = 1; } } });
+
+  // ------------------------------------------------------------------ timeline
+  const beatOf = id => T.beats[id];
+  for (const s of SC) { const b = beatOf(s.beat); s.start = s.line === 0 ? b.start : b.lines[s.line].start - 0.35; }
+  for (let i = 0; i < SC.length; i++) SC[i].end = i + 1 < SC.length ? SC[i + 1].start : T.duration + 6;
+  const DURATION = T.duration + 6;
+  let cur = null, lastT = null;
+  function subtitle(t) {
+    const L = T.lines.find(l => t >= l.start - 0.1 && t < l.end + 0.25); if (!L) return; font(26, 500); const lines = wrap(L.show, 1080);
+    lines.forEach((ln, i) => { const w = c.measureText(ln).width, y = 690 - (lines.length - 1 - i) * 36; c.fillStyle = "rgba(6,9,14,0.78)"; c.beginPath(); c.roundRect(640 - w / 2 - 16, y - 27, w + 32, 36, 8); c.fill(); c.fillStyle = "#F2F5F9"; c.textAlign = "center"; c.fillText(ln, 640, y); });
+  }
+  function nameCards(s, S) { for (const [li, name, sub] of (s.names || [])) { const t0 = T.beats[s.beat].lines[li].start, a = clamp(Math.min((S.T - t0) / 0.4, (t0 + 5.5 - S.T) / 0.5)); if (a <= 0) continue;
+    c.save(); c.globalAlpha = a; font(24, 600, "IBM Plex Sans"); const w = Math.max(c.measureText(name).width, (font(16, 500), c.measureText(sub).width)) + 36; c.fillStyle = "rgba(10,14,22,0.86)"; c.strokeStyle = "#2C3649"; c.lineWidth = 1; c.beginPath(); c.roundRect(40, 560, w, sub ? 70 : 46, 8); c.fill(); c.stroke();
+    serif(24, 600); c.fillStyle = "#F4F7FB"; c.textAlign = "left"; c.fillText(name, 58, 592); if (sub) { font(16, 500); c.fillStyle = MUTED; c.fillText(sub, 58, 616); } c.restore(); } }
+  window.renderAt = t => {
+    const s = SC.find(x => t >= x.start && t < x.end) || SC[SC.length - 1];
+    if (s !== cur || lastT === null || t < lastT) { if (cur && cur.leave) cur.leave(); cur = s; s.switched = false; s.arch = false; s.done = false; s.r = null; s.reset(); lastT = t; }
+    const dt = clamp(t - lastT, 0, 0.1); lastT = t;
+    const b = beatOf(s.beat);
+    const S = { T: t, dt, lt: t - s.start, L: k => b.lines[Math.min(k, b.lines.length - 1)].start, after: k => t >= b.lines[Math.min(k, b.lines.length - 1)].start - 0.1, beatEnd: b.end };
+    glCanvas.style.visibility = s.gl ? "visible" : "hidden"; glpCanvas.style.visibility = s.glp ? "visible" : "hidden";
+    c.clearRect(0, 0, W, H); if (!s.gl) { c.fillStyle = BG; c.fillRect(0, 0, W, H); }
+    s.draw(S);
+    const act = { open: "", numbers: "1 · The numbers that rule natural flows", flat: "2 · What flatness does to turbulence", rules: "3 · The rules of vortices", river: "4 · The river's own dimples", order: "5 · The hidden order", reading: "6 · Reading the river" }[s.beat];
+    if (act) { font(15, 500); c.fillStyle = "rgba(138,149,170,0.9)"; c.textAlign = "right"; c.fillText(act, 1260, 30); }
+    nameCards(s, S); subtitle(t);
+  };
+  window.DURATION = DURATION;
+  window.SCENES = SC.map(s => ({ id: s.id, start: s.start, end: s.end }));
+  window.filmReady = Promise.all(['400 30px "IBM Plex Sans"', '500 30px "IBM Plex Sans"', '600 30px "IBM Plex Sans"', '500 30px "IBM Plex Mono"', '600 30px "IBM Plex Mono"', '400 30px "STIX Two Text"', '600 30px "STIX Two Text"', '700 30px "STIX Two Text"', 'italic 400 30px "STIX Two Text"', 'italic 600 30px "STIX Two Text"', 'italic 700 30px "STIX Two Text"'].map(f => document.fonts.load(f)))
+    .then(() => document.fonts.ready).then(() => { window.renderAt(0); return true; });
+  const q = new URLSearchParams(location.search); if (q.has("t")) window.filmReady.then(() => { const t1 = +q.get("t"), s = SC.find(x => t1 >= x.start && t1 < x.end) || SC[0]; for (let t = Math.max(s.start, t1 - (+q.get("warm") || 3)); t < t1; t += 1 / 30) window.renderAt(t); window.renderAt(t1); window.done = true; });
+})();
+</script></body></html>
