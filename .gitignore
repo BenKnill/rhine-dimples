@@ -6,3 +6,4 @@ video/*.log
 video/stills/
 proto/*.jpg
 proto/*.png
+video/*.jpg
