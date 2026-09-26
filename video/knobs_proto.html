@@ -18,11 +18,11 @@
   const ss = (t, a, b) => { const x = Math.max(0, Math.min(1, (t - a) / (b - a))); return x * x * (3 - 2 * x); };
   const G0 = 60, g0 = 981, a0 = 0.6;
   const state = t => {
-    const G = G0 * 2 ** (ss(t, 1.5, 4) - ss(t, 5, 6.2)), g = g0 * 6 ** -(ss(t, 6.8, 9.3) - ss(t, 10.3, 11.5)), a = a0 * 2 ** (ss(t, 12, 14.5) - ss(t, 15.5, 16.7));
+    const G = G0 * 2 ** (ss(t, 1.5, 4) - ss(t, 5, 6.2)), a = a0 * 2 ** (ss(t, 6.8, 9.3) - ss(t, 10.3, 11.5)), g = g0 * 6 ** -(ss(t, 12.2, 13.0) - ss(t, 14.0, 14.8));
     return { G, g, a, h: G * G / (8 * Math.PI ** 2 * g * a * a) };
   };
-  const SUBS = [[0, 1.4, "Its depth: gamma squared, over eight pi squared g a squared."], [1.4, 6.5, "Double the spin, gamma, and the dip gets four times deeper."],
-    [6.5, 11.8, "On the Moon, with a sixth of the gravity, the same whirlpool digs six times deeper."], [11.8, 17.2, "Widen the core, and it gets shallower, by the square again."]];
+  const SUBS = [[0, 1.4, "Call the whirlpool's strength gamma."], [1.4, 6.5, "Double it, and the dip gets four times deeper."],
+    [6.5, 11.8, "Double the core's radius, as an ageing whirlpool slowly does, and the depth falls to a quarter."]];
 
   // ---- the equation, laid out on canvas so each symbol can be scaled and emphasised ----
   const fmt = r => { const v = r >= 1 ? r : 1 / r, s = Math.abs(v - Math.round(v)) < 0.05 ? String(Math.round(v)) : v.toFixed(1); return (r >= 1 ? "×" : "÷") + s; };
@@ -55,7 +55,7 @@
     const fs = 104, rG = s.G / G0, rg = s.g / g0, ra = s.a / a0, rh = s.h / (G0 * G0 / (8 * Math.PI ** 2 * g0 * a0 * a0));
     const knob = (r, col, name) => { const e = Math.abs(Math.log2(r)), on = Math.min(1, e / 0.2); return { name, ratio: r, emph: 1.2 * on, scale: Math.max(0.72, Math.min(1.4, r ** 0.12)), color: e > 0.02 ? col : TEXT, lane: 190 * on }; };
     const H = tok("h", { italic: true, ...knob(rh, "#FFFFFF", "h") }), eq = tok("="),
-      G = tok("Γ", { sup: "2", ...knob(rG, TEAL, "Γ") }), c8 = tok("8π"), c8s = { ...c8, sup: "2" }, g = tok("g", { italic: true, ...knob(rg, VIOLET, "g"), note: rg < 0.99 ? "the Moon" : "" }), a = tok("a", { italic: true, sup: "2", ...knob(ra, AMBER, "a") });
+      G = tok("Γ", { sup: "2", ...knob(rG, TEAL, "Γ") }), c8 = tok("8π"), c8s = { ...c8, sup: "2" }, g = tok("g", { italic: true, ...knob(rg, VIOLET, "g"), note: rg < 0.19 ? "the Moon" : "" }), a = tok("a", { italic: true, sup: "2", ...knob(ra, AMBER, "a") });
     G.supEmph = G.emph; a.supEmph = a.emph;
     const num = [G], den = [c8s, g, a], gap = 18;
     const rowW = r => r.reduce((s, t) => s + measure(t, fs) + gap, -gap);
@@ -112,7 +112,7 @@
     wat.render({ scale: 12 / 840, cx: 0, cy: 0, time: t, a: s.a, exaggerate: 981 / s.g, k: 6.2, ripple: 0.006, sunShift: [-2.0, -2.7], sunBlur: 0.06, glint: 0.2, vortices: [[1.2, 1.5, s.G]] });
     subtitle(t);
   };
-  window.DURATION = 17.2;
+  window.DURATION = 15.6;
   window.filmReady = Promise.all(['400 30px "IBM Plex Sans"', '500 30px "IBM Plex Sans"', '500 30px "IBM Plex Mono"', '600 30px "IBM Plex Mono"', '400 30px "STIX Two Text"', '700 30px "STIX Two Text"', 'italic 400 30px "STIX Two Text"', 'italic 700 30px "STIX Two Text"'].map(f => document.fonts.load(f))).then(() => document.fonts.ready).then(() => { window.renderAt(0); return true; });
   const q = new URLSearchParams(location.search); if (q.has("t")) window.filmReady.then(() => { window.renderAt(+q.get("t")); window.done = true; });
 })();
