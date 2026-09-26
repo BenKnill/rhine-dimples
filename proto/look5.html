@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000}canvas{display:block}</style></head>
+<body><canvas id="c" width="1920" height="1080"></canvas>
+<script src="../web/vortex.js"></script><script src="../web/water.js"></script><script src="../web/camel_outline.js"></script>
+<script>
+  const q = new URLSearchParams(location.search), V = Vortex, num = (k, d) => q.has(k) ? +q.get(k) : d;
+  const cv = document.getElementById('c'); cv.width = num('w', 1920); cv.height = num('h', 1080);
+  const R = new WaterRenderer(cv, { preserve: true, gridX: 1000, gridY: 730, causticW: 1800, causticH: 1310 });
+  const sys = V.makeSystem({ a: 0.6 });
+  [[-18, 6, 60], [-12, 5.2, -55], [4, -5, 70], [14, 8, 40], [20, -9, -35], [-4, 12, 25], [8, 2, 90], [-8, 22, 70], [-5, 22, -70], [12, 30, 60], [15, 30.5, -60], [-25, -12, 65], [-22, -14, -65], [0, -20, 70], [3, -19, -70]].forEach(v => V.add(sys, ...v));
+  const persp = !num('top', 0);
+  const cam = { pos: [num('cx', 0), num('cy', -30), num('cz', 9)], target: [0, num('ty', 8), 0], fov: num('fov', 34) };
+  const opt = { a: num('a', 0.6), k: 6.2, exaggerate: 1.15, ripple: num('rip', 0.009), sunShift: [-2.0, -2.7], sunBlur: 0.06, slopeVis: num('sv', 1.3), murk: num('murk', 0.025), waterColor: [num('wr', 0.07), num('wg', 0.12), num('wb', 0.10)], time: num('time', 3) };
+  if (persp) Object.assign(opt, { camera: cam, causticWin: [-45, -15, 45, 55], dyeWin: [-60, -35, 60, 50], caustics: !num('noc', 0) }); else Object.assign(opt, { scale: 60 / cv.width });
+  if (q.get('dye')) { const f = WaterRenderer.fillPolygon(CAMEL_OUTLINE.map(([x, y]) => [x * 0.6, y * 0.6]), 250000); R.setDye(f.xs, f.ys, f.area); }
+  const T = num('t', 0), dt = 0.02;
+  for (let t = 0; t < T; t += dt) { const m = V.step(sys, dt); R.stepDye(dt, m.Xm.map((x, i) => [x, m.Ym[i], sys.G[i]]), opt); }
+  const vs = sys.x.map((x, i) => [x, sys.y[i], sys.G[i]]);
+  const gl = cv.getContext('webgl2'); R.render({ ...opt, vortices: vs }); gl.finish();
+  const t0 = performance.now(); for (let i = 0; i < 10; i++) R.render({ ...opt, time: opt.time + i * 0.01, vortices: vs }); const px = new Uint8Array(4); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+  console.log('ms/frame', ((performance.now() - t0) / 10).toFixed(1));
+  R.render({ ...opt, vortices: vs }); window.done = true;
+</script></body></html>

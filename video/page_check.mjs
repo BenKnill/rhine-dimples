@@ -7,7 +7,8 @@ for (const [name, w, h, dpr] of [['desk', 1280, 900, 1], ['phone', 390, 844, 2]]
   const p = await b.newPage(); await p.setViewport({ width: w, height: h, deviceScaleFactor: dpr });
   p.on('pageerror', e => console.log(`[${name} pageerror]`, e.message)); p.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') console.log(`[${name} ${m.type()}]`, m.text()); });
   await p.goto(URL, { waitUntil: 'networkidle0' });
-  await wait(1500); await p.click('#dye'); await wait(5000);
+  await wait(4000); const st0 = await p.$('#stage'); await st0.screenshot({ path: `${OUT}/${name}_boat.jpg`, type: 'jpeg', quality: 85 });
+  await p.click('#vTop'); await wait(1500); await p.click('#dye'); await wait(5000);
   console.log(name, 'stats:', await p.$eval('#stats', e => e.innerText.replace(/\n/g, ' | ')));
   const st = await p.$('#stage'); await st.screenshot({ path: `${OUT}/${name}_stage.jpg`, type: 'jpeg', quality: 85 });
   const ctl = await p.$('.controls'); await ctl.screenshot({ path: `${OUT}/${name}_controls.jpg`, type: 'jpeg', quality: 85 });

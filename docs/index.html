@@ -32,6 +32,7 @@
   .stats { display: flex; flex-wrap: wrap; gap: 4px 22px; align-items: baseline; font-family: var(--mono); font-size: 13.5px; font-variant-numeric: tabular-nums; padding: 9px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; min-height: 40px; }
   .stats .k { font-family: var(--sans); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-right: 7px; }
   .stats .dye { color: #FF8FB1; }
+  .toolnote { margin: -4px 2px 0; font-size: 13.5px; color: var(--muted); min-height: 1.2em; }
   .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
   button { font: inherit; color: var(--text); background: var(--panel-2); border: 1px solid var(--line-2); border-radius: 6px; padding: 7px 13px; cursor: pointer; }
   button:hover { border-color: var(--faint); }
@@ -78,27 +79,28 @@
   <div class="stage" id="stage">
     <canvas id="gl" aria-label="Sunlit shallow river with whirlpool dimples and their shadows"></canvas>
     <canvas id="ov" aria-hidden="true"></canvas>
-    <div class="hint" id="hint">Click the water to drop a whirlpool · shift-click spins it the other way</div>
+    <div class="hint" id="hint">Drag across the water: a paddle stroke · tap: a pair surfaces</div>
   </div>
   <div class="stats" id="stats" aria-live="off"></div>
   <div class="controls" role="group" aria-label="Controls">
-    <div class="seg" role="group" aria-label="Spin of new whirlpools">
-      <button id="ccw" aria-pressed="true">Counterclockwise</button><button id="cw" aria-pressed="false">Clockwise</button>
-    </div>
-    <button id="pair">Drop a pair</button>
-    <div class="seg" role="group" aria-label="Start from"><button id="three">Three</button><button id="four">Four</button></div>
+    <div class="seg" role="group" aria-label="View"><button id="vBoat" aria-pressed="true">From the boat</button><button id="vTop" aria-pressed="false">From above</button></div>
+    <div class="seg" role="group" aria-label="What a click does"><button id="tPaddle" aria-pressed="true">Paddle</button><button id="tSingle" aria-pressed="false">Single whirlpool</button></div>
+    <div class="seg" role="group" aria-label="Spin of a single whirlpool" id="spinSeg" hidden><button id="ccw" aria-pressed="true" title="counterclockwise">↺</button><button id="cw" aria-pressed="false" title="clockwise">↻</button></div>
+    <button id="boils" aria-pressed="true">Boils</button>
+    <div class="seg" role="group" aria-label="Start from"><button id="leap">Leapfrog</button><button id="three">Three</button><button id="four">Four</button></div>
     <button id="dye">Camel dye</button>
     <button id="map" aria-pressed="false">Stream function</button>
-    <button id="marks" aria-pressed="true">Markers</button>
+    <button id="marks" aria-pressed="false">Markers</button>
     <button id="clear">Clear</button>
-    <label class="slider" for="cur">Current <input type="range" id="cur" min="0" max="3" step="0.1" value="0"><output id="curOut">0.0</output></label>
+    <label class="slider" for="cur">Current <input type="range" id="cur" min="0" max="3" step="0.1" value="1.5"><output id="curOut">1.5</output></label>
     <label class="slider" for="str">Strength <input type="range" id="str" min="20" max="100" step="5" value="60"><output id="strOut">60</output></label>
   </div>
+  <p class="toolnote" id="toolNote"></p>
 
   <article class="article">
     <h2><span class="n">1</span>A dimple is the top of a whirlpool</h2>
     <p>Water going round in a circle needs a push toward the centre, and the only thing inside water that can push is pressure. So the pressure must drop toward the middle of a whirlpool. At the surface the pressure is pinned by the air above, and the only way to lower it underneath is to have less water on top: the surface sags into a small funnel, a millimetre or two deep.</p>
-    <p>That funnel is a weak lens. It spreads the sunlight passing through its middle and gathers it toward the rim, so the riverbed shows a dark disk with a bright edge, a <b>caustic</b>. The sun isn't straight overhead, so the shadow lands a little to one side of its dimple. In the simulation above, each dimple is a small glassy lens (inside the ring marker), and its shadow sits just below and to the left.</p>
+    <p>That funnel is a weak lens. It spreads the sunlight passing through its middle and gathers it toward the rim, so the riverbed shows a dark disk with a bright edge, a <b>caustic</b>. The sun isn't straight overhead, so the shadow lands a little to one side of its dimple. Seen from the boat, the simulation's first view, a dimple shows up mostly by how it bends the reflections of the sky and the far bank, with its shadow faint on the bed below; switch to <b>From above</b> to look straight down through clear shallows at the shadows themselves.</p>
     <figure class="fig">
       <canvas id="figDip" class="short" aria-label="Cross-section: sunrays refracting through a dimple onto the riverbed"></canvas>
       <div class="figbar"><label class="slider" for="dipG">Spin <input type="range" id="dipG" min="0" max="100" step="5" value="60"></label><span class="val" id="dipGOut"></span></div>
@@ -128,7 +130,7 @@
 
     <h2><span class="n">5</span>Why whirlpools come in pairs</h2>
     <p>Take an arch, a tube with both feet on the surface. Follow the spin along it, down one leg and up the other. The same spin looks <span class="ccw">counterclockwise</span> from above at one foot and <span class="cw">clockwise</span> at the other. One arch, two dimples, opposite spins.</p>
-    <p>Kelvin found a second reason in 1869. In water without friction, the circulation around any loop that moves with the water never changes. Draw a big loop in still water: its circulation is zero, and it stays zero while you stir inside it, as long as the loop never touches the paddle. So whatever spin a paddle makes, it makes equal amounts both ways. Drag a paddle through a pool and you see exactly this: two dimples, spinning opposite ways, sailing off together. Each is carried along by the other's swirl, so the pair moves in a straight line, crosswise to the line joining them. Press <b>Drop a pair</b> in the simulation, and watch the <i>total spin</i> readout: pairs add nothing to it.</p>
+    <p>Kelvin found a second reason in 1869. In water without friction, the circulation around any loop that moves with the water never changes. Draw a big loop in still water: its circulation is zero, and it stays zero while you stir inside it, as long as the loop never touches the paddle. So whatever spin a paddle makes, it makes equal amounts both ways. Drag a paddle through a pool and you see exactly this: two dimples, spinning opposite ways, sailing off together. Each is carried along by the other's swirl, so the pair moves in a straight line, crosswise to the line joining them. Drag across the water in the simulation to make a paddle stroke: it leaves a pair that sails off the way you pushed, and the <i>total spin</i> readout doesn't move. Two pairs travelling together take turns passing through each other (press <b>Leapfrog</b>).</p>
 
     <h2><span class="n">6</span>Where the Rhine's dimples come from</h2>
     <p>The dimples that started this page were almost certainly not made by paddles: there were hardly any boats about, and they showed up beside and ahead of the boat more than behind it. The river makes them itself.</p>
@@ -138,7 +140,7 @@
       <figcaption>A hairpin vortex is born in the shear at the riverbed, rises, and is cut by the surface. Helmholtz's rule holds throughout: the tube never ends in the water, first arching back to the bed, then ending on the surface as a pair of dimples.</figcaption>
     </figure>
     <p>When an arch reaches the surface, the surface cuts through it and its two legs become a pair of dimples with opposite spins. A leg can also keep its other end on the bed, and then you see a single dimple, which Helmholtz allows. The rising water spreads out at the surface as a smooth, glassy patch that river people call a <b>boil</b>, and dimples gather at its edges, where surface water converges and sinks. Bridge piers shed whirlpools from alternate sides, and the shear between the main current and slow water along a bank or behind a groyne makes rows of whirlpools that all spin the same way.</p>
-    <p>The pattern seen from the boat makes sense too. A dimple is only a millimetre or two deep, about as steep as a small wind ripple, so ripples hide it: you need smooth water. Behind the boat the propeller's wash churns the surface; ahead and beside it, the river's own dimples float on undisturbed water.</p>
+    <p>The pattern seen from the boat makes sense too. A dimple is only a millimetre or two deep, about as steep as a small wind ripple, so ripples hide it: you need smooth water. Behind the boat the propeller's wash churns the surface; ahead and beside it, the river's own dimples float on undisturbed water. With <b>Boils</b> on, the simulation brings up a pair now and then, the way the river does, and the current carries them off.</p>
 
     <h2><span class="n">7</span>Why they live so long: the surface makes the flow flat</h2>
     <p>The surface does two things to a whirlpool. First, it stands it upright. Air is far too thin to drag on water, so right at the surface there is no sideways pull, and that forces vortex lines to meet the surface at right angles: sideways spin can't survive there, only upright whirlpools can. Second, water near the surface can't move up through it, so the flow there is nearly flat, <b>two-dimensional</b>.</p>
@@ -160,7 +162,7 @@
     <h2><span class="n">9</span>The whirlpools obey it too</h2>
     <p>Kirchhoff showed in 1876 that the whirlpools themselves obey Hamilton's equations. Each is carried by the others' swirl, and whirlpool k's x and y are a position–momentum pair, weighted by its spin:</p>
     <p class="eq">Γ<sub>k</sub> dx<sub>k</sub>/dt = ∂H/∂y<sub>k</sub>, &nbsp; Γ<sub>k</sub> dy<sub>k</sub>/dt = −∂H/∂x<sub>k</sub>, &nbsp; H = −(1/4π) Σ Γ<sub>j</sub>Γ<sub>k</sub> log|z<sub>j</sub> − z<sub>k</sub>|²</p>
-    <p>So N whirlpools make a 2N-dimensional phase space. The energy H, the centre of spin (two numbers) and the angular impulse are conserved; the readout under the simulation tracks them. That is just enough to keep three whirlpools regular (press <b>Three</b>) and not enough for four (press <b>Four</b>): their dance is chaotic, and nudging one by a micron changes the whole pattern within seconds.</p>
+    <p>So N whirlpools make a 2N-dimensional phase space. The energy H, the centre of spin (two numbers) and the angular impulse are conserved; the readout under the simulation tracks them. That is just enough to keep three whirlpools regular (press <b>Three</b>) and not enough for four (press <b>Four</b>): their dance is chaotic, and nudging one by a micron changes the whole pattern within seconds. These all spin the same way, so their other ends must be on the riverbed; the <b>Single whirlpool</b> tool makes such bed-anchored whirlpools one at a time, and it is the only thing that changes the total spin.</p>
   </article>
 
   <footer>Simulation: point vortices with a smooth core, moved by the symplectic implicit-midpoint rule; the camel dye is about 250,000 tracer particles, and its area is measured from a separately tracked outline. Light: sunrays traced through the surface onto the bed, with their brightness added up where they land. Built with Claude (Anthropic's Claude Opus 5.5) in Claude Code. Source: <a href="https://github.com/BenKnill/rhine-dimples">BenKnill/rhine-dimples</a>.</footer>
@@ -172,63 +174,98 @@
 <script src="figs.js"></script>
 <script>
 (() => {
-  const V = window.Vortex, $ = id => document.getElementById(id), stage = $("stage");
+  const V = window.Vortex, WR = window.WaterRenderer, $ = id => document.getElementById(id), stage = $("stage");
   const gl = $("gl"), ov = $("ov"), g = ov.getContext("2d");
-  const SUN_SHIFT = [-2.0, -2.7];
-  let W = 0, H = 0, DPR = 1, scale = 1, widthCm = 60, water = null;
+  const SUN_SHIFT = [-2.0, -2.7], A_DYN = 0.6, TAU = 2 * Math.PI;
+  let W = 0, H = 0, DPR = 1, narrow = false, view = "boat", tool = "paddle", water = null;
   function resize() {
     const r = stage.getBoundingClientRect(); DPR = Math.min(2, window.devicePixelRatio || 1);
-    W = Math.round(r.width * DPR); H = Math.round(r.height * DPR);
+    W = Math.round(r.width * DPR); H = Math.round(r.height * DPR); narrow = r.width < 600;
     for (const c of [gl, ov]) { c.width = W; c.height = H; }
-    widthCm = r.width < 600 ? 36 : 60; scale = widthCm / W;
   }
   new ResizeObserver(resize).observe(stage); resize();
   try {
-    const gx = Math.max(360, Math.min(1100, Math.round(W * 0.58)));
-    water = new WaterRenderer(gl, { gridX: gx, gridY: Math.round(gx * H / W), causticW: Math.min(1600, W), causticH: Math.round(Math.min(1600, W) * H / W) });
+    const gx = Math.max(360, Math.min(1000, Math.round(W * 0.55)));
+    water = new WR(gl, { gridX: gx, gridY: Math.round(gx * 0.62), causticW: Math.min(1600, W), causticH: Math.round(Math.min(1600, W) * 0.62) });
   } catch (e) { $("hint").textContent = "This page needs WebGL2."; }
-  const SX = x => W / 2 + x / scale, SY = y => H / 2 - y / scale, WX = px => (px - W / 2) * scale, WY = py => (H / 2 - py) * scale;
 
-  let sys = V.makeSystem({ a: 0.6 }), spin = 1, showMap = false, showMarks = true;
+  // --- the two views: from the boat (perspective) and straight down (a map) ---
+  const cam = () => narrow ? { pos: [0, -34, 9.5], target: [0, 6, 0], fov: 46 } : { pos: [0, -26, 7.5], target: [0, 6, 0], fov: 32 };
+  const topScale = () => (narrow ? 36 : 60) / W;
+  const viewY = () => view === "boat" ? 6 : 0;                     // where the middle of the view is
+  function toScreen(x, y) { if (view === "boat") return WR.project(cam(), W, H, x, y, 0); const s = topScale(); return [W / 2 + x / s, H / 2 - y / s, 1]; }
+  function toWorld(X, Y) { if (view === "boat") return WR.unproject(cam(), W, H, X, Y); const s = topScale(); return [(X - W / 2) * s, (H / 2 - Y) * s]; }
+
+  // --- whirlpools ---
+  let sys = V.makeSystem({ a: A_DYN }), born = [], pid = [], nextPid = 1, simT = 0, spin = 1, showMap = false, showMarks = false, boils = true, nextBoil = 1.5;
   let outline = null, dyeA0 = 1, dyeL0 = 1, dyeNote = null, dyeOn = false;
+  const rnd = (() => { let s = 7; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); })();
+  function addV(x, y, G, fadeIn = true, pair = 0) { V.add(sys, x, y, G); born.push(fadeIn ? simT : -99); pid.push(pair); }
+  function cut(i) { sys.x.splice(i, 1); sys.y.splice(i, 1); sys.G.splice(i, 1); born.splice(i, 1); pid.splice(i, 1); }
+  function removeAt(i) { const p = pid[i]; cut(i); if (p) for (let j = pid.length - 1; j >= 0; j--) if (pid[j] === p) cut(j); }   // a pair leaves together
+  // a pair that travels in direction ang: the counterclockwise one on its left
+  function pairAt(cx, cy, ang, G, d, fadeIn = true) { const nx = -Math.sin(ang), ny = Math.cos(ang), p = nextPid++; addV(cx + nx * d / 2, cy + ny * d / 2, G, fadeIn, p); addV(cx - nx * d / 2, cy - ny * d / 2, -G, fadeIn, p); }
   const perimeter = tr => { let s = 0; const n = tr.x.length; for (let i = 0; i < n; i++) { const j = (i + 1) % n; s += Math.hypot(tr.x[j] - tr.x[i], tr.y[j] - tr.y[i]); } return s; };
   function clearDye() { outline = null; dyeNote = null; dyeOn = false; if (water) water.clearDye(); }
-  function start(list, a = 0.6) { sys = V.makeSystem({ a, U: +$("cur").value }); list.forEach(p => V.add(sys, ...p)); clearDye(); }
-  const k0 = () => widthCm / 60;
-  start([[-14, 4, 60], [-6, -5, 55], [8, 3, 65], [-2, 8, -45], [16, -6 + 1.8, 70], [16, -6 - 1.8, -70]].map(([x, y, G]) => [x * k0(), y * k0(), G]));
+  function start(a = A_DYN) { sys = V.makeSystem({ a, U: +$("cur").value }); born = []; pid = []; clearDye(); }
+  start();
+  [[-9, 4, 0.4, 60], [7, 11, 2.6, 55], [1, -3, -1.2, 65], [13, -6, 1.9, 50]].forEach(([x, y, ang, G]) => pairAt(x, y, ang, G, 3, false));
 
-  // --- interaction ---
-  stage.addEventListener("pointerdown", e => {
-    const r = stage.getBoundingClientRect(), x = WX((e.clientX - r.left) * DPR), y = WY((e.clientY - r.top) * DPR);
-    V.add(sys, x, y, (e.shiftKey ? -spin : spin) * +$("str").value); $("hint").hidden = true;
-  });
-  const setSpin = s => { spin = s; $("ccw").setAttribute("aria-pressed", String(s > 0)); $("cw").setAttribute("aria-pressed", String(s < 0)); };
-  $("ccw").onclick = () => setSpin(1); $("cw").onclick = () => setSpin(-1);
-  $("pair").onclick = () => {
-    const ang = Math.random() * 2 * Math.PI, d = 3 + 2 * Math.random(), s = k0(), cx = (Math.random() - 0.5) * 30 * s, cy = (Math.random() - 0.5) * 14 * s, G = +$("str").value;
-    const nx = -Math.sin(ang), ny = Math.cos(ang);
-    V.add(sys, cx + nx * d / 2, cy + ny * d / 2, G); V.add(sys, cx - nx * d / 2, cy - ny * d / 2, -G);
+  // --- controls ---
+  const press = (id, on) => $(id).setAttribute("aria-pressed", String(on));
+  const setView = v => { view = v; press("vBoat", v === "boat"); press("vTop", v === "top"); if (v === "boat" && showMap) { showMap = false; press("map", false); } };
+  $("vBoat").onclick = () => setView("boat"); $("vTop").onclick = () => setView("top");
+  const NOTES = {
+    paddle: "Paddle: drag to push the water. Each stroke leaves two whirlpools of opposite spin, so the total spin stays zero.",
+    single: "Single whirlpool: one whose other end stands on the riverbed. It is the only thing here that changes the total spin (shift-click for the other spin).",
   };
-  $("three").onclick = () => start([[7.5, 0, 70], [-4.5, 6, 55], [-3, -7.5, 60]]);
-  $("four").onclick = () => start([[-1.91, -2.07, 60], [4.09, 2.04, 60], [-4.25, -1.22, 60], [0.16, -3.09, 60]], 0.5);
+  const setTool = t => { tool = t; press("tPaddle", t === "paddle"); press("tSingle", t === "single"); $("spinSeg").hidden = t !== "single"; $("toolNote").textContent = NOTES[t];
+    $("hint").textContent = t === "paddle" ? "Drag across the water: a paddle stroke · tap: a pair surfaces" : "Click to place a whirlpool anchored on the bed"; };
+  $("tPaddle").onclick = () => setTool("paddle"); $("tSingle").onclick = () => setTool("single"); setTool("paddle");
+  const setSpin = s => { spin = s; press("ccw", s > 0); press("cw", s < 0); };
+  $("ccw").onclick = () => setSpin(1); $("cw").onclick = () => setSpin(-1);
+  const setBoils = on => { boils = on; press("boils", on); nextBoil = simT + 1; };
+  $("boils").onclick = () => setBoils(!boils);
+  const setCurrent = u => { $("cur").value = u; sys.U = u; $("curOut").textContent = (+u).toFixed(1); };
+  $("cur").oninput = () => setCurrent(+$("cur").value);
+  $("str").oninput = () => { $("strOut").textContent = $("str").value; };
+  const stillWater = () => { setBoils(false); setCurrent(0); };
+  $("leap").onclick = () => { stillWater(); start(); const x0 = view === "boat" ? -13 : -22, y0 = viewY(); pairAt(x0, y0, 0, 45, 4.0, false); pairAt(x0 - 3, y0, 0, 45, 5.2, false); };
+  $("three").onclick = () => { stillWater(); start(); [[7.5, 0, 70], [-4.5, 6, 55], [-3, -7.5, 60]].forEach(([x, y, G]) => addV(x, y + viewY(), G, false)); };
+  $("four").onclick = () => { stillWater(); start(0.5); [[-1.91, -2.07], [4.09, 2.04], [-4.25, -1.22], [0.16, -3.09]].forEach(([x, y]) => addV(x, y + viewY(), 60, false)); };
+  $("clear").onclick = () => { start(sys.a); };
   $("dye").onclick = () => {
     if (!water || !water.dyeSupported) return;
-    const s = 0.6 * Math.min(1, k0() * 1.3), poly = window.CAMEL_OUTLINE.map(([x, y]) => [x * s, y * s]);
-    const f = WaterRenderer.fillPolygon(poly, Math.floor(water.dyeCapacity * 0.97));
+    const s = 0.6 * (narrow ? 0.8 : 1), y0 = viewY(), poly = window.CAMEL_OUTLINE.map(([x, y]) => [x * s, y * s + y0]);
+    const f = WR.fillPolygon(poly, Math.floor(water.dyeCapacity * 0.97));
     water.setDye(f.xs, f.ys, f.area); dyeOn = true;
     outline = V.makeContour(poly, 0.12); outline.maxPts = 20000; dyeA0 = V.area(outline); dyeL0 = perimeter(outline); dyeNote = null;
   };
-  const toggle = (id, fn) => $(id).onclick = () => { const on = $(id).getAttribute("aria-pressed") !== "true"; $(id).setAttribute("aria-pressed", String(on)); fn(on); };
-  toggle("map", on => showMap = on); toggle("marks", on => showMarks = on);
-  $("clear").onclick = () => start([], sys.a);
-  $("cur").oninput = () => { sys.U = +$("cur").value; $("curOut").textContent = (+$("cur").value).toFixed(1); };
-  $("str").oninput = () => { $("strOut").textContent = $("str").value; };
+  $("map").onclick = () => { showMap = !showMap; press("map", showMap); if (showMap) setView("top"); };
+  $("marks").onclick = () => { showMarks = !showMarks; press("marks", showMarks); };
 
-  // --- stream-function landscape ---
+  // --- pointer: a paddle stroke, a tap, or a single whirlpool ---
+  let stroke = null;
+  const pix = e => { const r = stage.getBoundingClientRect(); return [(e.clientX - r.left) * DPR, (e.clientY - r.top) * DPR]; };
+  stage.addEventListener("pointerdown", e => {
+    const P = pix(e), w = toWorld(P[0], P[1]); if (!w) return; $("hint").hidden = true;
+    if (tool === "single") { addV(w[0], w[1], (e.shiftKey ? -spin : spin) * +$("str").value); return; }
+    stroke = { p0: w, p1: w, s0: P, s1: P }; stage.setPointerCapture(e.pointerId);
+  });
+  stage.addEventListener("pointermove", e => { if (!stroke) return; const P = pix(e), w = toWorld(P[0], P[1]); if (w) { stroke.p1 = w; stroke.s1 = P; } });
+  const strokeG = s => Math.max(25, Math.min(110, 9 * Math.hypot(s.p1[0] - s.p0[0], s.p1[1] - s.p0[1])));
+  stage.addEventListener("pointerup", () => {
+    if (!stroke) return; const s = stroke; stroke = null;
+    if (Math.hypot(s.s1[0] - s.s0[0], s.s1[1] - s.s0[1]) < 10 * DPR) pairAt(s.p0[0], s.p0[1], rnd() * TAU, +$("str").value, 3);
+    else pairAt(s.p1[0], s.p1[1], Math.atan2(s.p1[1] - s.p0[1], s.p1[0] - s.p0[0]), strokeG(s), 3.2);
+  });
+  stage.addEventListener("pointercancel", () => { stroke = null; });
+
+  // --- stream-function landscape (map view only) ---
   const LW = 160, LH = 90, grid = new Float64Array((LW + 1) * (LH + 1)), shade = document.createElement("canvas");
   shade.width = LW; shade.height = LH; const sg = shade.getContext("2d"), simg = sg.createImageData(LW, LH);
   function psiMap() {
-    const x0 = WX(0), y1 = WY(0), dx = W * scale / LW, dy = H * scale / LH; let lo = 1e9, hi = -1e9;
+    const [x0, y1] = toWorld(0, 0), sc = topScale(), dx = W * sc / LW, dy = H * sc / LH; let lo = 1e9, hi = -1e9;
     for (let j = 0; j <= LH; j++) for (let i = 0; i <= LW; i++) { const v = V.psi(sys, x0 + i * dx, y1 - j * dy); grid[j * (LW + 1) + i] = v; if (v < lo) lo = v; if (v > hi) hi = v; }
     const d = simg.data; for (let j = 0; j < LH; j++) for (let i = 0; i < LW; i++) { const f = (grid[j * (LW + 1) + i] - lo) / (hi - lo + 1e-12), o = 4 * (j * LW + i); d[o] = 20 + 50 * f; d[o + 1] = 34 + 70 * f; d[o + 2] = 52 + 90 * f; d[o + 3] = 235; }
     sg.putImageData(simg, 0, 0); g.drawImage(shade, 0, 0, W, H);
@@ -242,15 +279,24 @@
       } }
     g.stroke();
   }
+  // a spin arrow drawn on the water around a whirlpool (so it foreshortens with the view)
   function marker(x, y, G) {
-    const X = SX(x), Y = SY(y), r = 15 * DPR, col = G > 0 ? "#4FD1C5" : "#FFB547";
-    g.strokeStyle = col; g.lineWidth = 2 * DPR; g.beginPath(); g.arc(X, Y, r, G > 0 ? -0.3 : -2.8, G > 0 ? -2.8 : -0.3, G > 0); g.stroke();
-    const ae = G > 0 ? -2.8 : -0.3, hx = X + r * Math.cos(ae), hy = Y + r * Math.sin(ae), dir = ae + (G > 0 ? -Math.PI / 2 : Math.PI / 2), s = 5 * DPR;
-    g.fillStyle = col; g.beginPath(); g.moveTo(hx + s * Math.cos(dir), hy + s * Math.sin(dir)); g.lineTo(hx + s * Math.cos(dir + 2.5), hy + s * Math.sin(dir + 2.5)); g.lineTo(hx + s * Math.cos(dir - 2.5), hy + s * Math.sin(dir - 2.5)); g.fill();
+    const col = G > 0 ? "#4FD1C5" : "#FFB547", R = 1.3, sgn = G > 0 ? 1 : -1, pts = [];
+    for (let k = 0; k <= 24; k++) { const a = 0.3 * sgn + sgn * 4.6 * k / 24, p = toScreen(x + R * Math.cos(a), y + R * Math.sin(a)); if (!p) return; pts.push(p); }
+    g.strokeStyle = col; g.fillStyle = col; g.lineWidth = 2 * DPR; g.beginPath(); pts.forEach((p, i) => i ? g.lineTo(p[0], p[1]) : g.moveTo(p[0], p[1])); g.stroke();
+    const [a, b] = [pts[pts.length - 2], pts[pts.length - 1]], ang = Math.atan2(b[1] - a[1], b[0] - a[0]), s = 5 * DPR;
+    g.beginPath(); g.moveTo(b[0] + s * Math.cos(ang), b[1] + s * Math.sin(ang)); g.lineTo(b[0] + s * Math.cos(ang + 2.5), b[1] + s * Math.sin(ang + 2.5)); g.lineTo(b[0] + s * Math.cos(ang - 2.5), b[1] + s * Math.sin(ang - 2.5)); g.fill();
+  }
+  function strokePreview() {
+    const s = stroke, a = s.s0, b = s.s1; if (Math.hypot(b[0] - a[0], b[1] - a[1]) < 10 * DPR) return;
+    g.strokeStyle = "rgba(255,255,255,0.85)"; g.fillStyle = "rgba(255,255,255,0.85)"; g.lineWidth = 2.5 * DPR; g.setLineDash([8 * DPR, 6 * DPR]);
+    g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke(); g.setLineDash([]);
+    const ang = Math.atan2(b[1] - a[1], b[0] - a[0]), h = 9 * DPR; g.beginPath(); g.moveTo(b[0] + h * Math.cos(ang), b[1] + h * Math.sin(ang)); g.lineTo(b[0] + h * Math.cos(ang + 2.5), b[1] + h * Math.sin(ang + 2.5)); g.lineTo(b[0] + h * Math.cos(ang - 2.5), b[1] + h * Math.sin(ang - 2.5)); g.fill();
+    g.font = `${13 * DPR}px IBM Plex Mono, monospace`; g.fillText(`±${Math.round(strokeG(s))}`, b[0] + 12 * DPR, b[1] - 10 * DPR);
   }
 
   // --- loop ---
-  let last = performance.now(), simT = 0, statsT = 0;
+  let last = performance.now(), statsT = 0;
   const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   function frame(now) {
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
@@ -260,12 +306,22 @@
       if (dyeOn && water) water.stepDye(h, m.Xm.map((x, i) => [x, m.Ym[i], sys.G[i]]), { a: sys.a, U: sys.U });
     }
     if (!reduce) simT += dt;
-    for (let i = sys.x.length - 1; i >= 0; i--) if (Math.abs(sys.x[i]) > 45 || Math.abs(sys.y[i]) > 30) { sys.x.splice(i, 1); sys.y.splice(i, 1); sys.G.splice(i, 1); }
+    if (boils && simT > nextBoil) {                                   // the river brings up a pair now and then
+      nextBoil = simT + 1.6 + 3 * rnd();
+      if (sys.x.length < 22) { const w = toWorld(W * (0.08 + 0.62 * rnd()), H * (view === "boat" ? 0.38 + 0.52 * rnd() : 0.1 + 0.8 * rnd()));
+        if (w) pairAt(w[0], w[1], rnd() * TAU, 40 + 40 * rnd(), 2.5 + 2 * rnd()); }
+    }
+    for (let i = sys.x.length - 1; i >= 0; i--) if (i < sys.x.length && (Math.abs(sys.x[i]) > 70 || sys.y[i] < -40 || sys.y[i] > 70)) removeAt(i);
     if (outline && outline.x.length > outline.maxPts) { dyeNote = `outline over ×${Math.floor(perimeter(outline) / dyeL0)}, too long to follow`; outline = null; }
-    if (water) water.render({ cx: 0, cy: 0, scale, time: simT, a: sys.a, U: sys.U, k: 6.2, exaggerate: 1.15, ripple: 0.009, sunShift: SUN_SHIFT, sunBlur: 0.06, vortices: sys.x.map((x, i) => [x, sys.y[i], sys.G[i]]) });
+    const vortices = sys.x.map((x, i) => [x, sys.y[i], sys.G[i], Math.min(1, Math.max(0, (simT - born[i]) / 0.8))]);
+    const base = { time: simT, U: sys.U, k: 6.2, sunShift: SUN_SHIFT, sunBlur: 0.06, ripple: 0.009, vortices };
+    if (water) water.render(view === "boat"
+      ? { ...base, camera: cam(), a: 0.35, exaggerate: 1.0, slopeVis: 1.3, murk: 0.13, waterColor: [0.06, 0.10, 0.08], causticWin: [-45, -15, 45, 55], dyeWin: [-40, -25, 40, 55] }
+      : { ...base, scale: topScale(), a: 0.6, exaggerate: 1.15, glint: 0.2 });
     g.clearRect(0, 0, W, H);
-    if (showMap) psiMap();
+    if (showMap && view === "top") psiMap();
     if (showMarks) for (let i = 0; i < sys.x.length; i++) marker(sys.x[i], sys.y[i], sys.G[i]);
+    if (stroke) strokePreview();
     if (now - statsT > 120) { statsT = now; stats(); }
     requestAnimationFrame(frame);
   }
@@ -273,7 +329,7 @@
     const I = V.invariants(sys), Gs = sys.G.reduce((p, c) => p + c, 0), n = sys.x.length;
     const item = (k, v, cls = "") => `<span class="${cls}"><span class="k">${k}</span>${v}</span>`;
     let h = item("whirlpools", n) + item("total spin", (Gs > 0.5 ? "+" : Gs < -0.5 ? "−" : "") + Math.abs(Gs).toFixed(0)) + item("energy", n > 1 ? I.H.toFixed(3) : "–");
-    if (Math.abs(Gs) > 1e-9 && !sys.U) h += item("centre of spin", `(${(I.Px / Gs).toFixed(2)}, ${(I.Py / Gs).toFixed(2)})`);
+    if (Math.abs(Gs) > 0.5 && !sys.U) h += item("centre of spin", `(${(I.Px / Gs).toFixed(2)}, ${(I.Py / Gs).toFixed(2)})`);
     if (outline) h += item("dye area", `${(100 * V.area(outline) / dyeA0).toFixed(1)}% · outline ×${(perimeter(outline) / dyeL0).toFixed(1)}`, "dye");
     else if (dyeNote) h += item("dye", dyeNote, "dye");
     $("stats").innerHTML = h;
