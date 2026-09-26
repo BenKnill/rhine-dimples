@@ -1,9 +1,10 @@
 # Dimples on the Rhine
 
 Small dimples on a river are the tops of whirlpools. Each one casts a shadow on the
-riverbed, a dark spot inside a bright caustic ring. This project renders them and explains
-why their motion is Hamiltonian: in the point-vortex model, the river surface is its own
-phase space.
+riverbed, a dark disk with a bright caustic rim. The page builds up, with small illustrations,
+why vortex lines can't end in the water (Helmholtz), why whirlpools come in pairs (Kelvin),
+where a river's own dimples come from (hairpin vortices from the bed), why flat flow lets them
+live so long, and why their motion is Hamiltonian: the river surface is its own phase space.
 
 - Interactive page: https://benknill.github.io/rhine-dimples/
 - Episode 1: [the symplectic camel](https://benknill.github.io/symplectic-camel/) · Episode 2: [running chaos backwards](https://benknill.github.io/lattice-echo/)
@@ -37,7 +38,7 @@ phase space.
 ## Layout
 
 - `web/`: the model (`vortex.js`), the WebGL water renderer (`water.js`), the camel outline
-- `docs/`: the published interactive page
+- `docs/`: the published page (`index.html`, illustrations in `figs.js`)
 - `video/`: narration script, voice and render pipeline, film page
 - `proto/`: checks and prototypes
 

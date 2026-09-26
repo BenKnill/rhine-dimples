@@ -52,6 +52,7 @@
       if (tr.contour) refine(tr, sys, Xm, Ym);
     }
     sys.x = X1; sys.y = Y1;
+    return { Xm, Ym };                                     // vortex positions at mid-step (for GPU tracers)
   }
 
   // closed dye contour: insert points where the boundary stretches, so the outline stays faithful
@@ -65,6 +66,7 @@
     return { x, y, contour: true, maxSeg };
   }
   function refine(tr) {
+    if (tr.maxPts && tr.x.length > tr.maxPts) return;
     const X = tr.x, Y = tr.y, nx = [], ny = [];
     for (let i = 0; i < X.length; i++) {
       const j = (i + 1) % X.length; nx.push(X[i]); ny.push(Y[i]);

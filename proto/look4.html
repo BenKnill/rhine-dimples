@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000}canvas{display:block}</style></head>
+<body><canvas id="c" width="1920" height="1080"></canvas>
+<script src="../web/vortex.js"></script><script src="../web/water.js"></script><script src="../web/camel_outline.js"></script>
+<script>
+  const q = new URLSearchParams(location.search), V = Vortex, num = (k, d) => q.has(k) ? +q.get(k) : d;
+  const R = new WaterRenderer(document.getElementById('c'), { preserve: true, gridX: num('gx', 1100), gridY: num('gy', 620) });
+  const sys = V.makeSystem({ a: 0.6 });
+  (q.get('one') ? [[8, 2, 90]] : [[-18, 6, 60], [-12, 5.2, -55], [4, -5, 70], [14, 8, 40], [20, -9, -35], [-4, 12, 25], [8, 2, 90]]).forEach(v => V.add(sys, ...v));
+  const zoom = num('zoom', 1), opt = { cx: num('cx', 0), cy: num('cy', 0), scale: 60 / 1920 / zoom, a: 0.6, k: num('k', 6.2), exaggerate: num('ex', 1.15), ripple: num('rip', 0.009), dispersion: num('disp', 0), sunBlur: num('sun', 0.07), sunShift: [num('shx', -2.0), num('shy', -2.7)], debug: num('dbg', 0), caustics: !num('old', 0) };
+  const T = num('t', 0), dt = 0.02;
+  if (q.get('dye')) { const f = WaterRenderer.fillPolygon(CAMEL_OUTLINE.map(([x, y]) => [x * 0.6 - 4, y * 0.6 + 2]), 250000); R.setDye(f.xs, f.ys, f.area); }
+  for (let t = 0; t < T; t += dt) { const m = V.step(sys, dt); R.stepDye(dt, m.Xm.map((x, i) => [x, m.Ym[i], sys.G[i]]), opt); }
+  const vs = sys.x.map((x, i) => [x, sys.y[i], sys.G[i]]);
+  const gl = document.getElementById('c').getContext('webgl2');
+  R.render({ ...opt, time: 1.2 + T, vortices: vs }); gl.finish();
+  const t0 = performance.now(); for (let i = 0; i < 20; i++) R.render({ ...opt, time: 1.2 + T + i * 0.01, vortices: vs }); const px = new Uint8Array(4); gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px);
+  console.log('ms/frame', ((performance.now() - t0) / 20).toFixed(1));
+  R.render({ ...opt, time: 1.2 + T, vortices: vs });
+  window.done = true;
+</script></body></html>
