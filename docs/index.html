@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dimples on the Rhine</title>
+<meta name="description" content="Drop whirlpools on a sunlit river and watch them dance. Point vortices follow Kirchhoff's Hamiltonian equations: the river surface is its own phase space.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0A0D14; --panel: #10151F; --panel-2: #141A26; --line: #1F2736; --line-2: #2C3649;
+    --text: #DCE2EC; --muted: #8A95AA; --faint: #5A6479;
+    --cool: #4FD1C5; --amber: #FFB547; --glass: #6FA8FF; --good: #5FD39A; --dye: #FF4F8B;
+    --serif: "STIX Two Text", "Times New Roman", serif;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.5; padding-inline: 16px; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-block: 24px 56px; display: flex; flex-direction: column; gap: 16px; }
+  header { display: flex; flex-direction: column; gap: 6px; }
+  .crumb { font-size: 13px; color: var(--faint); } .crumb a { color: var(--muted); }
+  h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(28px, 5vw, 42px); margin: 0; }
+  .lede { font-family: var(--serif); font-size: 19px; color: var(--muted); margin: 0; max-width: 70ch; }
+  .stage { position: relative; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; aspect-ratio: 16 / 9; background: #1a2418; touch-action: none; cursor: crosshair; }
+  .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .hint { position: absolute; left: 12px; bottom: 10px; font-size: 13px; color: #E6ECF2; background: rgba(8,12,18,.55); padding: 4px 10px; border-radius: 999px; pointer-events: none; }
+  .readout { position: absolute; right: 12px; top: 10px; font-family: var(--mono); font-size: 13px; color: #E6ECF2; background: rgba(8,12,18,.6); padding: 8px 12px; border-radius: 6px; pointer-events: none; text-align: right; font-variant-numeric: tabular-nums; line-height: 1.55; }
+  .readout span { font-family: var(--sans); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #AEB8C6; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+  button { font: inherit; color: var(--text); background: var(--panel-2); border: 1px solid var(--line-2); border-radius: 6px; padding: 7px 13px; cursor: pointer; }
+  button:hover { border-color: var(--faint); }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--glass); outline-offset: 2px; }
+  button[aria-pressed="true"] { border-color: var(--glass); color: #fff; background: #172238; }
+  .spin { display: flex; gap: 0; } .spin button { border-radius: 0; } .spin button:first-child { border-radius: 6px 0 0 6px; } .spin button:last-child { border-radius: 0 6px 6px 0; }
+  label.slider { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; }
+  label.slider input { width: 120px; accent-color: var(--glass); }
+  output { font-family: var(--mono); color: var(--text); min-width: 5ch; font-variant-numeric: tabular-nums; }
+  .explain { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .explain section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; }
+  .explain h2 { font-family: var(--serif); font-size: 21px; font-weight: 600; margin: 0 0 8px; }
+  .explain p { margin: 0 0 10px; color: #B9C2D2; } .explain p:last-child { margin-bottom: 0; }
+  .eq { font-family: var(--serif); font-size: 17px; color: var(--glass); }
+  a { color: var(--glass); }
+  footer { color: var(--faint); font-size: 13px; }
+  @media (max-width: 900px) { .explain { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 520px) { .stage { aspect-ratio: 4 / 5; } label.slider input { width: 90px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="crumb">Episode 3 · after <a href="https://benknill.github.io/symplectic-camel/">the symplectic camel</a> and <a href="https://benknill.github.io/lattice-echo/">running chaos backwards</a></div>
+    <h1>Dimples on the Rhine</h1>
+    <p class="lede">Each dimple on a river is the top of a small whirlpool, and its shadow on the riverbed is a dark spot inside a bright caustic ring. Drop some on the water and watch how they carry each other along.</p>
+  </header>
+
+  <div class="stage" id="stage">
+    <canvas id="gl" aria-label="Sunlit shallow river with whirlpool dimples"></canvas>
+    <canvas id="ov" aria-hidden="true"></canvas>
+    <div class="readout" id="readout"></div>
+    <div class="hint" id="hint">Click the water to drop a whirlpool</div>
+  </div>
+
+  <div class="controls" role="group" aria-label="Controls">
+    <div class="spin" role="group" aria-label="Spin of new whirlpools">
+      <button id="ccw" aria-pressed="true">Counterclockwise</button><button id="cw" aria-pressed="false">Clockwise</button>
+    </div>
+    <button id="oar">Oar stroke</button>
+    <button id="dye">Camel dye</button>
+    <button id="map" aria-pressed="false">Stream function</button>
+    <button id="marks" aria-pressed="true">Whirlpool markers</button>
+    <button id="bank" aria-pressed="false">Riverbank</button>
+    <button id="clear">Clear</button>
+    <label class="slider" for="cur">Current <input type="range" id="cur" min="0" max="3" step="0.1" value="0"><output id="curOut">0.0</output></label>
+    <label class="slider" for="str">Strength <input type="range" id="str" min="20" max="100" step="5" value="60"><output id="strOut">60</output></label>
+  </div>
+
+  <div class="explain">
+    <section>
+      <h2>What a dimple is</h2>
+      <p>Fast-spinning water has low pressure, so the surface above a whirlpool sags into a funnel a millimetre or two deep. That funnel is a lens: it spreads sunlight in the middle and gathers it at the rim, so the riverbed shows a dark spot inside a bright ring, a caustic.</p>
+      <p>An oar stroke leaves a half ring of spinning water; its two ends are a pair of dimples that spin opposite ways and sail off together.</p>
+    </section>
+    <section>
+      <h2>The river is a phase space</h2>
+      <p>Surface water can't be squashed, so every patch keeps its area, which in two dimensions is what symplectic means. Water flows along the contour lines of the stream function ψ, faster where they crowd together:</p>
+      <p class="eq">dx/dt = ∂ψ/∂y, &nbsp; dy/dt = −∂ψ/∂x</p>
+      <p>That is Hamilton's rule with x as position and y as momentum. Toggle <b>Stream function</b> to see the landscape.</p>
+    </section>
+    <section>
+      <h2>The whirlpools obey it too</h2>
+      <p>Kirchhoff (1876): each whirlpool is carried by the others' swirl, and its x and y are a position–momentum pair weighted by its spin Γ. Energy and the centre of spin are conserved; watch the readout.</p>
+      <p>Three whirlpools dance regularly; four can be chaotic; and dust among three moves chaotically. The camel dye is stretched into filaments but keeps its area.</p>
+    </section>
+  </div>
+
+  <footer>Simulation: point vortices with a smooth core, integrated with the symplectic implicit-midpoint rule. Built with Claude (Anthropic's Claude Opus 5.5) in Claude Code. Source: <a href="https://github.com/BenKnill/rhine-dimples">BenKnill/rhine-dimples</a>.</footer>
+</div>
+
+<script src="vortex.js"></script>
+<script src="water.js"></script>
+<script src="camel_outline.js"></script>
+<script>
+(() => {
+  const V = window.Vortex, $ = id => document.getElementById(id), stage = $("stage");
+  const gl = $("gl"), ov = $("ov"), g = ov.getContext("2d");
+  let water; try { water = new WaterRenderer(gl); } catch (e) { $("hint").textContent = "This page needs WebGL2."; }
+  let sys = V.makeSystem({ a: 0.6 }), dye = null, dyeA0 = 1, spin = 1, showMap = false, showMarks = true;
+  const WIDTH_CM = 60;
+  let W = 0, H = 0, DPR = 1, scale = 1;
+  function resize() {
+    const r = stage.getBoundingClientRect(); DPR = Math.min(2, window.devicePixelRatio || 1);
+    W = Math.round(r.width * DPR); H = Math.round(r.height * DPR);
+    for (const c of [gl, ov]) { c.width = W; c.height = H; }
+    scale = WIDTH_CM / W;
+  }
+  new ResizeObserver(resize).observe(stage); resize();
+  const SX = x => W / 2 + x / scale, SY = y => H / 2 - y / scale, WX = px => (px - W / 2) * scale, WY = py => (H / 2 - py) * scale;
+  const halfH = () => H / 2 * scale;
+
+  function seed() {
+    sys = V.makeSystem({ a: 0.6, U: +$("cur").value, wall: $("bank").getAttribute("aria-pressed") === "true" ? halfH() - 3 : null });
+    [[-14, 4, 60], [-6, -5, 55], [8, 3, 65], [-2, 8, -45]].forEach(p => V.add(sys, ...p));
+    V.add(sys, 12, -6 + 1.8, 70); V.add(sys, 12, -6 - 1.8, -70);
+    dye = null;
+  }
+  seed();
+
+  // --- interaction ---
+  stage.addEventListener("pointerdown", e => {
+    const r = stage.getBoundingClientRect(), x = WX((e.clientX - r.left) * DPR), y = WY((e.clientY - r.top) * DPR);
+    V.add(sys, x, y, (e.shiftKey ? -spin : spin) * +$("str").value); $("hint").hidden = true;
+  });
+  const setSpin = s => { spin = s; $("ccw").setAttribute("aria-pressed", String(s > 0)); $("cw").setAttribute("aria-pressed", String(s < 0)); };
+  $("ccw").onclick = () => setSpin(1); $("cw").onclick = () => setSpin(-1);
+  $("oar").onclick = () => {
+    const ang = Math.random() * 2 * Math.PI, d = 3 + 2 * Math.random(), cx = (Math.random() - 0.5) * 30, cy = (Math.random() - 0.5) * 14, G = +$("str").value;
+    const nx = -Math.sin(ang), ny = Math.cos(ang);                      // pair axis; it travels along (cos, sin)
+    V.add(sys, cx + nx * d / 2, cy + ny * d / 2, G); V.add(sys, cx - nx * d / 2, cy - ny * d / 2, -G);
+  };
+  $("dye").onclick = () => { dye = V.makeContour(window.CAMEL_OUTLINE.map(([x, y]) => [x * 0.6, y * 0.6]), 0.25); dyeA0 = V.area(dye); };
+  const toggle = (id, fn) => $(id).onclick = () => { const on = $(id).getAttribute("aria-pressed") !== "true"; $(id).setAttribute("aria-pressed", String(on)); fn(on); };
+  toggle("map", on => showMap = on); toggle("marks", on => showMarks = on);
+  toggle("bank", on => { sys.wall = on ? halfH() - 3 : null; });
+  $("clear").onclick = () => { sys = V.makeSystem({ a: 0.6, U: +$("cur").value, wall: sys.wall }); dye = null; };
+  $("cur").oninput = () => { sys.U = +$("cur").value; $("curOut").textContent = (+$("cur").value).toFixed(1); };
+  $("str").oninput = () => { $("strOut").textContent = $("str").value; };
+
+  // --- stream-function landscape ---
+  const LW = 160, LH = 90, grid = new Float64Array((LW + 1) * (LH + 1)), shade = document.createElement("canvas");
+  shade.width = LW; shade.height = LH; const sg = shade.getContext("2d"), simg = sg.createImageData(LW, LH);
+  function psiMap() {
+    const x0 = WX(0), y1 = WY(0), dx = W * scale / LW, dy = H * scale / LH; let lo = 1e9, hi = -1e9;
+    for (let j = 0; j <= LH; j++) for (let i = 0; i <= LW; i++) { const v = V.psi(sys, x0 + i * dx, y1 - j * dy); grid[j * (LW + 1) + i] = v; if (v < lo) lo = v; if (v > hi) hi = v; }
+    const d = simg.data; for (let j = 0; j < LH; j++) for (let i = 0; i < LW; i++) { const f = (grid[j * (LW + 1) + i] - lo) / (hi - lo + 1e-12), o = 4 * (j * LW + i); d[o] = 20 + 50 * f; d[o + 1] = 34 + 70 * f; d[o + 2] = 52 + 90 * f; d[o + 3] = 235; }
+    sg.putImageData(simg, 0, 0); g.drawImage(shade, 0, 0, W, H);
+    g.strokeStyle = "rgba(230,238,248,0.55)"; g.lineWidth = 1.2 * DPR; g.beginPath(); const px = W / LW, py = H / LH;
+    for (let Lv = 1; Lv < 24; Lv++) { const c = lo + (hi - lo) * Lv / 24;
+      for (let j = 0; j < LH; j++) for (let i = 0; i < LW; i++) {
+        const a = grid[j * (LW + 1) + i] - c, b = grid[j * (LW + 1) + i + 1] - c, cc = grid[(j + 1) * (LW + 1) + i + 1] - c, dd = grid[(j + 1) * (LW + 1) + i] - c, P = [];
+        if ((a > 0) !== (b > 0)) P.push([i + a / (a - b), j]); if ((b > 0) !== (cc > 0)) P.push([i + 1, j + b / (b - cc)]);
+        if ((cc > 0) !== (dd > 0)) P.push([i + 1 - cc / (cc - dd), j + 1]); if ((dd > 0) !== (a > 0)) P.push([i, j + 1 - dd / (dd - a)]);
+        if (P.length >= 2) { g.moveTo(P[0][0] * px, P[0][1] * py); g.lineTo(P[1][0] * px, P[1][1] * py); }
+      } }
+    g.stroke();
+  }
+  function marker(x, y, G) {
+    const X = SX(x), Y = SY(y), r = 16 * DPR, col = G > 0 ? "#4FD1C5" : "#FFB547";
+    g.strokeStyle = col; g.lineWidth = 2 * DPR; g.beginPath(); g.arc(X, Y, r, G > 0 ? -0.3 : -2.8, G > 0 ? -2.8 : -0.3, G > 0); g.stroke();
+    g.fillStyle = col; g.beginPath(); g.arc(X, Y, 3 * DPR, 0, 2 * Math.PI); g.fill();
+  }
+
+  // --- loop ---
+  let last = performance.now(), simT = 0;
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function frame(now) {
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    const steps = reduce ? 0 : Math.max(1, Math.round(dt / 0.01));
+    for (let k = 0; k < steps; k++) V.step(sys, dt / steps, dye ? [dye] : null);
+    simT += dt;
+    // drop whirlpools that drift far away, and keep the dye bounded
+    for (let i = sys.x.length - 1; i >= 0; i--) if (Math.abs(sys.x[i]) > 45 || Math.abs(sys.y[i]) > 30) { sys.x.splice(i, 1); sys.y.splice(i, 1); sys.G.splice(i, 1); }
+    if (dye && dye.x.length > 40000) dye.maxSeg = 1e9;
+    if (water) water.render({ cx: 0, cy: 0, scale, time: simT, a: sys.a, k: 6.2, exaggerate: 1.15, ripple: 0.006, vortices: sys.x.map((x, i) => [x, sys.y[i], sys.G[i]]) });
+    g.clearRect(0, 0, W, H);
+    if (showMap) psiMap();
+    if (sys.wall !== null) { const yb = SY(sys.wall); g.fillStyle = "rgba(70,78,52,0.95)"; g.fillRect(0, 0, W, yb); g.strokeStyle = "#C7D0B0"; g.lineWidth = 2 * DPR; g.beginPath(); g.moveTo(0, yb); g.lineTo(W, yb); g.stroke(); }
+    if (dye) { g.fillStyle = "rgba(255,79,139,0.8)"; g.beginPath(); for (let i = 0; i < dye.x.length; i++) { const X = SX(dye.x[i]), Y = SY(dye.y[i]); i ? g.lineTo(X, Y) : g.moveTo(X, Y); } g.closePath(); g.fill("evenodd"); }
+    if (showMarks) for (let i = 0; i < sys.x.length; i++) marker(sys.x[i], sys.y[i], sys.G[i]);
+    const I = V.invariants(sys), Gs = sys.G.reduce((p, c) => p + c, 0);
+    let html = `<span>whirlpools</span> ${sys.x.length}<br><span>energy</span> ${sys.x.length > 1 ? I.H.toFixed(3) : "–"}`;
+    if (Math.abs(Gs) > 1e-9 && !sys.U && sys.wall === null) html += `<br><span>centre of spin</span> (${(I.Px / Gs).toFixed(2)}, ${(I.Py / Gs).toFixed(2)})`;
+    if (dye) html += `<br><span>dye area</span> ${(100 * V.area(dye) / dyeA0).toFixed(1)}%`;
+    $("readout").innerHTML = html;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

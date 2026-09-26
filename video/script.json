@@ -1,0 +1,248 @@
+{
+ "title": "Dimples on the Rhine",
+ "beats": [
+  {
+   "id": "open",
+   "pad_before": 1.6,
+   "pad_after": 0.8,
+   "lines": [
+    {
+     "show": "On a long wooden boat on the Rhine, you can watch small dimples on the water.",
+     "say": "On a long wooden boat on the Rhine, you can watch small dimples on the water.",
+     "b": "sentence"
+    },
+    {
+     "show": "Some last surprisingly long, drifting beside the boat.",
+     "say": "Some last surprisingly long, drifting beside the boat.",
+     "b": "sentence"
+    },
+    {
+     "show": "Each one casts a shadow on the riverbed: a dark spot inside a bright ring.",
+     "say": "Each one casts a shadow on the riverbed: a dark spot inside a bright ring.",
+     "b": "sentence"
+    },
+    {
+     "show": "They are tiny whirlpools, and the rules they follow are the mathematics of the last two episodes.",
+     "say": "They are tiny whirlpools, and the rules they follow are the mathematics of the last two episodes.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "title",
+   "pad_before": 0.2,
+   "pad_after": 0.6,
+   "lines": [
+    {
+     "show": "Dimples on the Rhine.",
+     "say": "Dimples on the Rhine.",
+     "b": "sentence"
+    }
+   ]
+  },
+  {
+   "id": "dimple",
+   "pad_before": 0.4,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "A dimple is the top of a small whirlpool.",
+     "say": "A dimple is the top of a small whirlpool.",
+     "b": "sentence"
+    },
+    {
+     "show": "Water spinning fast has low pressure, so the surface sags into a funnel a millimetre or two deep.",
+     "say": "Water spinning fast has low pressure, so the surface sags into a funnel a millimetre or two deep.",
+     "b": "sentence"
+    },
+    {
+     "show": "The funnel is a lens. It spreads the sunlight in the middle and gathers it at the rim.",
+     "say": "The funnel is a lens. It spreads the sunlight in the middle, and gathers it at the rim.",
+     "b": "sentence"
+    },
+    {
+     "show": "The bright ring is a caustic, where the light rays pile up.",
+     "say": "The bright ring is a caustic, where the light rays pile up.",
+     "b": "sentence"
+    },
+    {
+     "show": "Spin in water is hard to destroy, so without friction a whirlpool would last forever.",
+     "say": "Spin in water is hard to destroy, so without friction a whirlpool would last forever.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "pair",
+   "pad_before": 0.3,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "They often come in pairs. An oar stroke leaves a half ring of spinning water below the surface,",
+     "say": "They often come in pairs. An oar stroke leaves a half ring of spinning water below the surface,",
+     "b": "clause"
+    },
+    {
+     "show": "and its two ends show up as dimples that spin opposite ways.",
+     "say": "and its two ends show up as dimples that spin opposite ways.",
+     "b": "sentence"
+    },
+    {
+     "show": "The pair sails off together, and the closer the two are, the faster they go.",
+     "say": "The pair sails off together, and the closer the two are, the faster they go.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "rules",
+   "pad_before": 0.3,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "The rule behind this is simple: each whirlpool is carried along by the swirl of all the others.",
+     "say": "The rule behind this is simple: each whirlpool is carried along by the swirl of all the others.",
+     "b": "sentence"
+    },
+    {
+     "show": "Two that spin the same way chase each other around a circle.",
+     "say": "Two that spin the same way chase each other around a circle.",
+     "b": "sentence"
+    },
+    {
+     "show": "Near a riverbank, a whirlpool slides along the bank, as if pushed by its mirror image.",
+     "say": "Near a riverbank, a whirlpool slides along the bank, as if pushed by its mirror image.",
+     "b": "sentence"
+    },
+    {
+     "show": "And two pairs, one behind the other, play leapfrog.",
+     "say": "And two pairs, one behind the other, play leapfrog.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "hamilton",
+   "pad_before": 0.3,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "Now the key idea. In the simplest model, surface water cannot be squashed,",
+     "say": "Now the key idea. In the simplest model, surface water cannot be squashed,",
+     "b": "clause"
+    },
+    {
+     "show": "so any patch of it keeps its area as it flows.",
+     "say": "so any patch of it keeps its area as it flows.",
+     "b": "sentence"
+    },
+    {
+     "show": "In two dimensions, keeping area is exactly what symplectic means.",
+     "say": "In two dimensions, keeping area is exactly what symplectic means.",
+     "b": "sentence"
+    },
+    {
+     "show": "Draw a contour map of the stream function. The water flows along the contour lines,",
+     "say": "Draw a contour map of the stream function. The water flows along the contour lines,",
+     "b": "clause"
+    },
+    {
+     "show": "like a hiker who never climbs or descends, walking faster where the contours crowd together.",
+     "say": "like a hiker who never climbs or descends, walking faster where the contours crowd together.",
+     "b": "sentence"
+    },
+    {
+     "show": "Written as equations, that is Hamilton's rule, with x as the position and y as the momentum.",
+     "say": "Written as equations, that is Hamilton's rule, with x as the position and y as the momentum.",
+     "b": "sentence"
+    },
+    {
+     "show": "So the surface of the river is a phase space.",
+     "say": "So the surface of the river is a phase space.",
+     "b": "sentence"
+    },
+    {
+     "show": "The picture of the water is its own phase portrait.",
+     "say": "The picture of the water is its own phase portrait.",
+     "b": "sentence"
+    },
+    {
+     "show": "Kirchhoff showed in 1876 that the whirlpools obey the same rule themselves,",
+     "say": "Kirk-hoff showed in eighteen seventy-six that the whirlpools obey the same rule themselves,",
+     "b": "clause"
+    },
+    {
+     "show": "with each one's x and y a position and momentum pair, weighted by its spin.",
+     "say": "with each one's x and y a position and momentum pair, weighted by its spin.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "chaos",
+   "pad_before": 0.3,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "That brings conservation laws: energy, and a centre of spin that never moves.",
+     "say": "That brings conservation laws: energy, and a centre of spin that never moves.",
+     "b": "sentence"
+    },
+    {
+     "show": "Three whirlpools have enough of them to keep their dance regular.",
+     "say": "Three whirlpools have enough of them to keep their dance regular.",
+     "b": "sentence"
+    },
+    {
+     "show": "Four are enough for chaos: two dances that start almost the same drift apart.",
+     "say": "Four are enough for chaos: two dances that start almost the same drift apart.",
+     "b": "sentence"
+    },
+    {
+     "show": "Even a speck of dust among three whirlpools moves chaotically, like a fourth whirlpool with no spin.",
+     "say": "Even a speck of dust among three whirlpools moves chaotically, like a fourth whirlpool with no spin.",
+     "b": "sentence"
+    },
+    {
+     "show": "Here is a patch of dye shaped like a camel. The whirlpools stretch it into long, thin filaments,",
+     "say": "Here is a patch of dye shaped like a camel. The whirlpools stretch it into long, thin filaments,",
+     "b": "clause"
+    },
+    {
+     "show": "but its area stays the same. A patch of river can be stretched, but never squeezed.",
+     "say": "but its area stays the same. A patch of river can be stretched, but never squeezed.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "close",
+   "pad_before": 0.3,
+   "pad_after": 1.0,
+   "lines": [
+    {
+     "show": "So the next time you see dimples drifting beside a boat,",
+     "say": "So the next time you see dimples drifting beside a boat,",
+     "b": "clause"
+    },
+    {
+     "show": "you are watching a Hamiltonian system, with the river as its phase space.",
+     "say": "you are watching a Hamiltonian system, with the river as its phase space.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "outro",
+   "pad_before": 0.3,
+   "pad_after": 3.0,
+   "lines": [
+    {
+     "show": "The interactive version is linked below: drop whirlpools on the water and watch them dance.",
+     "say": "The interactive version is linked below: drop whirlpools on the water and watch them dance.",
+     "b": "sentence"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+import puppeteer from 'puppeteer-core';
+const b = await puppeteer.launch({ executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless:'new', args:['--use-angle=metal','--ignore-gpu-blocklist','--hide-scrollbars'] });
+const p = await b.newPage(); await p.setViewport({width:1280,height:1400});
+p.on('pageerror', e => console.log('[pageerror]', e.message));
+await p.goto('file:///Users/boxer/ben-advice/rhine-dimples/docs/index.html', {waitUntil:'networkidle0'});
+await p.click('#dye'); await new Promise(r => setTimeout(r, 6000));
+console.log('readout:', (await p.$eval('#readout', e => e.innerText)).replace(/\n/g, ' | '));
+await p.screenshot({path:'/Users/boxer/ben-advice/rhine-dimples/proto/page_dye.jpg', type:'jpeg', quality:80});
+await p.click('#map'); await new Promise(r => setTimeout(r, 800));
+await p.screenshot({path:'/Users/boxer/ben-advice/rhine-dimples/proto/page_map.jpg', type:'jpeg', quality:80, clip:{x:0,y:0,width:1280,height:900}});
+await b.close();

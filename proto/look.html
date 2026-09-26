@@ -1,0 +1,10 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#000}canvas{display:block}</style></head>
+<body><canvas id="c" width="1920" height="1080"></canvas>
+<script src="../web/water.js"></script>
+<script>
+  const q = new URLSearchParams(location.search);
+  const W = new WaterRenderer(document.getElementById('c'), { preserve: true });
+  const vortices = [[-18, 6, 60], [-12, 5.2, -55], [4, -5, 70], [14, 8, 40], [20, -9, -35], [-4, 12, 25], [8, 2, 90]];
+  W.render({ cx: 0, cy: 0, scale: 60 / 1920, time: 1.2, a: 0.6, k: +(q.get('k') || 6.2), exaggerate: +(q.get('ex') || 1), ripple: +(q.get('rip') || 0.004), vortices });
+  window.done = true;
+</script></body></html>

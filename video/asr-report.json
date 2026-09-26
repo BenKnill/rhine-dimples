@@ -1,0 +1,218 @@
+[
+ {
+  "i": 0,
+  "ratio": 1.0,
+  "say": "On a long wooden boat on the Rhine, you can watch small dimples on the water.",
+  "heard": "On a long wooden boat on the Rhine, you can watch small dimples on the water."
+ },
+ {
+  "i": 1,
+  "ratio": 1.0,
+  "say": "Some last surprisingly long, drifting beside the boat.",
+  "heard": "Some last surprisingly long, drifting beside the boat."
+ },
+ {
+  "i": 2,
+  "ratio": 1.0,
+  "say": "Each one casts a shadow on the riverbed: a dark spot inside a bright ring.",
+  "heard": "Each one casts a shadow on the riverbed, a dark spot inside a bright ring."
+ },
+ {
+  "i": 3,
+  "ratio": 1.0,
+  "say": "They are tiny whirlpools, and the rules they follow are the mathematics of the last two episodes.",
+  "heard": "They are tiny whirlpools, and the rules they follow are the mathematics of the last two episodes."
+ },
+ {
+  "i": 4,
+  "ratio": 1.0,
+  "say": "Dimples on the Rhine.",
+  "heard": "Dimples on the Rhine."
+ },
+ {
+  "i": 5,
+  "ratio": 1.0,
+  "say": "A dimple is the top of a small whirlpool.",
+  "heard": "A dimple is the top of a small whirlpool."
+ },
+ {
+  "i": 6,
+  "ratio": 0.944,
+  "say": "Water spinning fast has low pressure, so the surface sags into a funnel a millimetre or two deep.",
+  "heard": "Water spinning fast has low pressure, so the surface sags into a funnel a millimeter or two deep."
+ },
+ {
+  "i": 7,
+  "ratio": 1.0,
+  "say": "The funnel is a lens. It spreads the sunlight in the middle, and gathers it at the rim.",
+  "heard": "The funnel is a lens. It spreads the sunlight in the middle and gathers it at the rim."
+ },
+ {
+  "i": 8,
+  "ratio": 1.0,
+  "say": "The bright ring is a caustic, where the light rays pile up.",
+  "heard": "The bright ring is a caustic, where the light rays pile up."
+ },
+ {
+  "i": 9,
+  "ratio": 1.0,
+  "say": "Spin in water is hard to destroy, so without friction a whirlpool would last forever.",
+  "heard": "Spin in water is hard to destroy, so without friction a whirlpool would last forever."
+ },
+ {
+  "i": 10,
+  "ratio": 0.944,
+  "say": "They often come in pairs. An oar stroke leaves a half ring of spinning water below the surface,",
+  "heard": "They often come in pairs. An ore stroke leaves a half ring of spinning water below the surface."
+ },
+ {
+  "i": 11,
+  "ratio": 1.0,
+  "say": "and its two ends show up as dimples that spin opposite ways.",
+  "heard": "and its two ends show up as dimples that spin opposite ways."
+ },
+ {
+  "i": 12,
+  "ratio": 1.0,
+  "say": "The pair sails off together, and the closer the two are, the faster they go.",
+  "heard": "The pair sails off together, and the closer the two are, the faster they go."
+ },
+ {
+  "i": 13,
+  "ratio": 1.0,
+  "say": "The rule behind this is simple: each whirlpool is carried along by the swirl of all the others.",
+  "heard": "The rule behind this is simple. Each whirlpool is carried along by the swirl of all the others."
+ },
+ {
+  "i": 14,
+  "ratio": 1.0,
+  "say": "Two that spin the same way chase each other around a circle.",
+  "heard": "Two that spin the same way chase each other around a circle."
+ },
+ {
+  "i": 15,
+  "ratio": 1.0,
+  "say": "Near a riverbank, a whirlpool slides along the bank, as if pushed by its mirror image.",
+  "heard": "Near a riverbank, a whirlpool slides along the bank, as if pushed by its mirror image."
+ },
+ {
+  "i": 16,
+  "ratio": 1.0,
+  "say": "And two pairs, one behind the other, play leapfrog.",
+  "heard": "And two pairs, one behind the other, play leapfrog."
+ },
+ {
+  "i": 17,
+  "ratio": 1.0,
+  "say": "Now the key idea. In the simplest model, surface water cannot be squashed,",
+  "heard": "Now the key idea, in the simplest model, surface water cannot be squashed."
+ },
+ {
+  "i": 18,
+  "ratio": 1.0,
+  "say": "so any patch of it keeps its area as it flows.",
+  "heard": "so any patch of it keeps its area as it flows."
+ },
+ {
+  "i": 19,
+  "ratio": 1.0,
+  "say": "In two dimensions, keeping area is exactly what symplectic means.",
+  "heard": "In two dimensions, keeping area is exactly what symplectic means."
+ },
+ {
+  "i": 20,
+  "ratio": 1.0,
+  "say": "Draw a contour map of the stream function. The water flows along the contour lines,",
+  "heard": "Draw a contour map of the stream function. The water flows along the contour lines."
+ },
+ {
+  "i": 21,
+  "ratio": 1.0,
+  "say": "like a hiker who never climbs or descends, walking faster where the contours crowd together.",
+  "heard": "Like a hiker who never climbs or descends, walking faster where the contours crowd together."
+ },
+ {
+  "i": 22,
+  "ratio": 1.0,
+  "say": "Written as equations, that is Hamilton's rule, with x as the position and y as the momentum.",
+  "heard": "Written as equations, that is Hamilton's rule, with x as the position and y as the momentum."
+ },
+ {
+  "i": 23,
+  "ratio": 1.0,
+  "say": "So the surface of the river is a phase space.",
+  "heard": "So the surface of the river is a phase space."
+ },
+ {
+  "i": 24,
+  "ratio": 1.0,
+  "say": "The picture of the water is its own phase portrait.",
+  "heard": "The picture of the water is its own phase portrait."
+ },
+ {
+  "i": 25,
+  "ratio": 0.741,
+  "say": "Kirk-hoff showed in eighteen seventy-six that the whirlpools obey the same rule themselves,",
+  "heard": "Kirchhoff showed in 1876 that the whirlpools obey the same rule themselves."
+ },
+ {
+  "i": 26,
+  "ratio": 1.0,
+  "say": "with each one's x and y a position and momentum pair, weighted by its spin.",
+  "heard": "with each one's X and Y, A position and momentum pair weighted by its spin."
+ },
+ {
+  "i": 27,
+  "ratio": 0.923,
+  "say": "That brings conservation laws: energy, and a centre of spin that never moves.",
+  "heard": "That brings conservation laws, energy, and a center of spin that never moves."
+ },
+ {
+  "i": 28,
+  "ratio": 1.0,
+  "say": "Three whirlpools have enough of them to keep their dance regular.",
+  "heard": "Three whirlpools have enough of them to keep their dance regular."
+ },
+ {
+  "i": 29,
+  "ratio": 1.0,
+  "say": "Four are enough for chaos: two dances that start almost the same drift apart.",
+  "heard": "Four are enough for chaos, two dances that start almost the same drift apart."
+ },
+ {
+  "i": 30,
+  "ratio": 1.0,
+  "say": "Even a speck of dust among three whirlpools moves chaotically, like a fourth whirlpool with no spin.",
+  "heard": "Even a speck of dust among three whirlpools moves chaotically, like a fourth whirlpool with no spin."
+ },
+ {
+  "i": 31,
+  "ratio": 1.0,
+  "say": "Here is a patch of dye shaped like a camel. The whirlpools stretch it into long, thin filaments,",
+  "heard": "Here is a patch of dye shaped like a camel. The whirlpools stretch it into long, thin filaments."
+ },
+ {
+  "i": 32,
+  "ratio": 1.0,
+  "say": "but its area stays the same. A patch of river can be stretched, but never squeezed.",
+  "heard": "But its area stays the same. A patch of river can be stretched, but never squeezed."
+ },
+ {
+  "i": 33,
+  "ratio": 1.0,
+  "say": "So the next time you see dimples drifting beside a boat,",
+  "heard": "So the next time you see dimples drifting beside a boat,"
+ },
+ {
+  "i": 34,
+  "ratio": 1.0,
+  "say": "you are watching a Hamiltonian system, with the river as its phase space.",
+  "heard": "You are watching a Hamiltonian system with the river as its phase space."
+ },
+ {
+  "i": 35,
+  "ratio": 1.0,
+  "say": "The interactive version is linked below: drop whirlpools on the water and watch them dance.",
+  "heard": "The interactive version is linked below. Drop whirlpools on the water and watch them dance."
+ }
+]

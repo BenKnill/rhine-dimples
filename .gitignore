@@ -1,0 +1,8 @@
+video/node_modules/
+video/clips/
+video/*.wav
+video/*.mp4
+video/*.log
+video/stills/
+proto/*.jpg
+proto/*.png
