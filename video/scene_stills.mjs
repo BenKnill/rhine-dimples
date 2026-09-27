@@ -4,7 +4,7 @@ const OUT = process.argv[2], only = process.argv[3];
 const b = await puppeteer.launch({ executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless:'new', args:['--use-angle=metal','--ignore-gpu-blocklist','--hide-scrollbars','--allow-file-access-from-files'] });
 const p = await b.newPage(); await p.setViewport({ width: 1280, height: 720 });
 p.on('pageerror', e => console.log('[pageerror]', e.message)); p.on('console', m => { if (m.type() === 'error') console.log('[err]', m.text()); });
-await p.goto('file:///Users/boxer/ben-advice/rhine-dimples/video/film2.html', { waitUntil: 'networkidle0' });
+await p.goto('file:///Users/boxer/ben-advice/rhine-dimples/video/' + (process.env.FILM || 'film2.html'), { waitUntil: 'networkidle0' });
 await p.evaluate(() => window.filmReady);
 const scenes = await p.evaluate(() => window.SCENES); console.log(scenes.length, 'scenes; duration', await p.evaluate(() => window.DURATION));
 for (const s of scenes) {

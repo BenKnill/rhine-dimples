@@ -42,7 +42,7 @@ for b in script['beats']:
         rec = dict(index=idx, clip=h, beat=b['id'], show=l['show'], say=l['say'], start=round(start + 0.06, 3), end=round(t - 0.1, 3))
         blines.append(rec); lines.append(rec); idx += 1
         if k < len(b['lines']) - 1:
-            silence(GAP[l['b']])
+            silence(GAP[l['b']] + l.get('hold', 0))
     silence(b.get('pad_after', 0.8))
     beats[b['id']] = dict(start=round(bstart, 3), end=round(t, 3), lines=blines)
 

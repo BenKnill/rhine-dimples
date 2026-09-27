@@ -1,0 +1,267 @@
+1
+00:00:01,180 --> 00:00:08,030
+On a quiet stretch of the Rhine, a friend kept seeing them: small dimples on the water,
+
+2
+00:00:07,970 --> 00:00:10,520
+drifting beside the boat.
+
+3
+00:00:10,460 --> 00:00:13,910
+Some lasted a surprisingly long time.
+
+4
+00:00:14,460 --> 00:00:17,720
+Each one is the top of a whirlpool.
+
+5
+00:00:18,270 --> 00:00:26,040
+Water spinning in a circle needs something pushing it inward, and in water, that push is pressure,
+
+6
+00:00:25,980 --> 00:00:28,430
+lower at the centre.
+
+7
+00:00:28,370 --> 00:00:31,560
+So the surface sags into a shallow funnel.
+
+8
+00:00:32,110 --> 00:00:35,040
+But a river is chaos.
+
+9
+00:00:34,980 --> 00:00:38,790
+Everything in it gets sheared and torn.
+
+10
+00:00:38,730 --> 00:00:42,890
+So how does one tiny whirlpool hold itself together?
+
+11
+00:00:44,040 --> 00:00:48,270
+Dive under one, and it's not a point at all.
+
+12
+00:00:48,210 --> 00:00:53,140
+It's a line: a thread of spinning water running down into the river.
+
+13
+00:00:55,690 --> 00:00:59,500
+A line meets the surface in a single point.
+
+14
+00:00:59,440 --> 00:01:01,640
+That point is the dimple.
+
+15
+00:01:03,690 --> 00:01:07,500
+And these lines obey a strange rule.
+
+16
+00:01:07,440 --> 00:01:15,430
+In 1858, Hermann von Helmholtz proved that a vortex line can't just stop inside the water.
+
+17
+00:01:15,980 --> 00:01:17,620
+Try it.
+
+18
+00:01:17,560 --> 00:01:21,860
+Put a loop around the line and slide it off the end.
+
+19
+00:01:21,800 --> 00:01:28,140
+The loop never crosses any spin, so its total swirl can't change.
+
+20
+00:01:28,080 --> 00:01:34,280
+But past the end, the loop can shrink to nothing, and nothing has no swirl.
+
+21
+00:01:34,830 --> 00:01:42,720
+So a vortex line has to close into a loop, or end on something: the riverbed, or the surface.
+
+22
+00:01:44,270 --> 00:01:50,770
+Which is exactly what a smoke ring is: a vortex line, closed into a loop.
+
+23
+00:01:53,520 --> 00:02:01,210
+In 1867, in Edinburgh, Peter Guthrie Tait built a box that fired smoke rings,
+
+24
+00:02:01,150 --> 00:02:05,990
+and showed it to his friend William Thomson, later Lord Kelvin.
+
+25
+00:02:08,540 --> 00:02:14,570
+The rings bounced off each other, wobbled, and survived their collisions.
+
+26
+00:02:14,510 --> 00:02:21,890
+Helmholtz had even predicted that two rings travelling together would take turns passing through each other.
+
+27
+00:02:25,440 --> 00:02:28,010
+Kelvin was captivated.
+
+28
+00:02:27,950 --> 00:02:36,180
+By Helmholtz's rules, a vortex in a perfect fluid could never be created or destroyed.
+
+29
+00:02:36,120 --> 00:02:41,790
+So maybe atoms were smoke rings in the ether, and each element a different knot.
+
+30
+00:02:44,340 --> 00:02:47,240
+He was wrong about atoms.
+
+31
+00:02:47,180 --> 00:02:54,850
+But Tait spent years cataloguing knots to test the idea, and helped start the mathematics of knot theory.
+
+32
+00:02:57,400 --> 00:03:01,040
+And a smoke ring explains the Rhine.
+
+33
+00:03:00,980 --> 00:03:06,150
+Push a ring up into the surface, and since it can't end in the water,
+
+34
+00:03:06,090 --> 00:03:09,470
+it joins onto the surface instead.
+
+35
+00:03:09,410 --> 00:03:17,100
+The ring opens into an arch with two ends: two dimples, spinning opposite ways.
+
+36
+00:03:20,150 --> 00:03:24,191
+That's why dimples so often come in pairs.
+
+37
+00:03:24,131 --> 00:03:29,241
+Each rides the other's swirl, and the pair sails off together.
+
+38
+00:03:31,591 --> 00:03:37,021
+But there are no smoke boxes on the Rhine, and hardly any paddles.
+
+39
+00:03:36,961 --> 00:03:39,051
+So what's making them?
+
+40
+00:03:39,601 --> 00:03:41,571
+The riverbed.
+
+41
+00:03:41,511 --> 00:03:48,691
+Water touching the bottom is held still, while the current races past just above.
+
+42
+00:03:48,631 --> 00:03:54,801
+That shear rolls up into arches, like half smoke rings, lifting off the bed.
+
+43
+00:03:55,351 --> 00:04:02,191
+When one reaches the surface, it joins on, and its two legs become a pair of dimples.
+
+44
+00:04:04,741 --> 00:04:08,151
+From then on, it's a tug of war.
+
+45
+00:04:08,091 --> 00:04:12,241
+Friction slowly spreads a whirlpool out.
+
+46
+00:04:12,181 --> 00:04:19,201
+But where surface water converges and sinks, it stretches the whirlpool and spins it back up.
+
+47
+00:04:19,751 --> 00:04:24,101
+And the dimples you notice are only the lucky ones.
+
+48
+00:04:24,041 --> 00:04:31,281
+A dimple is barely steeper than a ripple, so on a breezy day they're still there, just hidden.
+
+49
+00:04:32,431 --> 00:04:37,371
+There's one more reason they can last, and it's about dimensions.
+
+50
+00:04:37,921 --> 00:04:42,531
+In three dimensions, turbulence works by stretching.
+
+51
+00:04:42,471 --> 00:04:49,421
+Pull a spinning tube longer, and it spins faster and thinner, until it frays apart.
+
+52
+00:04:49,971 --> 00:04:57,571
+Right at the surface, water can hardly move up or down, so the flow there is nearly flat.
+
+53
+00:04:57,511 --> 00:05:01,381
+And a flat flow has nothing to stretch.
+
+54
+00:05:01,321 --> 00:05:06,731
+Instead of tearing apart, whirlpools tend to merge into bigger ones.
+
+55
+00:05:09,281 --> 00:05:17,821
+It's part of why storms in Jupiter's thin, flattened atmosphere can merge into giants like the Great Red Spot.
+
+56
+00:05:18,371 --> 00:05:25,241
+Take that flatness all the way, as a model, and the whirlpools obey Hamilton's rule,
+
+57
+00:05:25,181 --> 00:05:29,121
+the same mathematics as a swinging pendulum.
+
+58
+00:05:29,061 --> 00:05:33,011
+The river's surface becomes its own phase space.
+
+59
+00:05:34,161 --> 00:05:38,661
+But real rivers aren't perfectly flat underneath.
+
+60
+00:05:38,601 --> 00:05:43,411
+Water wells up and sinks, and that's where it gets interesting.
+
+61
+00:05:43,961 --> 00:05:50,821
+A team in Trondheim, Norway, led by Omer Babiker and Simen Ellingsen,
+
+62
+00:05:50,761 --> 00:05:54,671
+found that the number of dimples on a patch of water
+
+63
+00:05:54,611 --> 00:05:58,751
+tracks how much its surface is spreading and converging:
+
+64
+00:05:58,691 --> 00:06:03,501
+first in simulations, and this year in a laboratory tank.
+
+65
+00:06:04,051 --> 00:06:12,521
+And that churning helps set how fast a river breathes, trading oxygen and carbon dioxide with the air.
+
+66
+00:06:13,071 --> 00:06:21,421
+So the dimples beside the boat were the ends of vortex lines, half smoke rings risen from the riverbed.
+
+67
+00:06:21,361 --> 00:06:28,101
+And a friend who noticed how long they lasted was already, in a way, reading the river.

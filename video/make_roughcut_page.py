@@ -1,12 +1,13 @@
 """Write roughcut.html: the playable rough cut, its measured runtime, and the current script (from script2.json)."""
-import json, subprocess, html
+import json, os, subprocess, html
 from pathlib import Path
 HERE = Path(__file__).resolve().parent
-video = HERE / 'dimples-roughcut.mp4'
+TAG = os.environ.get('TAG', '')
+video = HERE / f'dimples-roughcut{TAG}.mp4'
 dur = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', str(video)], capture_output=True, text=True).stdout)
 size = video.stat().st_size / 1e6
-T = json.loads((HERE / 'timing2.json').read_text())
-script = json.loads((HERE / 'script2.json').read_text())
+T = json.loads((HERE / f'timing{TAG or 2}.json').read_text())
+script = json.loads((HERE / f'script{TAG or 2}.json').read_text())
 speech = sum(l['end'] - l['start'] for l in T['lines'])
 words = sum(len(l['show'].split()) for b in script['beats'] for l in b['lines'])
 rows = []
@@ -21,9 +22,9 @@ video{{width:100%;border:1px solid #1F2736;border-radius:8px;background:#000}}a{
 <h1>Dimples on the Rhine: rough cut</h1>
 <p class="m">Measured runtime <b>{int(dur // 60)}:{dur % 60:04.1f}</b> ({dur:.1f} s) · narration speech {speech / 60:.1f} min of it · {words} words · 1280×720, 30 fps · {size:.0f} MB.
 Low-resolution rough cut: several shots are plain diagrams or labelled illustrations; subtitles are burned in.</p>
-<video src="dimples-roughcut.mp4" controls playsinline></video>
-<p class="m">Script with picture and knob notes, sources, and the copy-for-review button: <a href="script15.html">script15.html</a> · subtitles: <a href="dimples-on-the-rhine2.srt">dimples-on-the-rhine2.srt</a></p>
+<video src="dimples-roughcut{TAG}.mp4" controls playsinline></video>
+<p class="m">Script with picture and knob notes, sources, and the copy-for-review button: <a href="{os.environ.get('SCRIPTPAGE', 'script15.html')}">{os.environ.get('SCRIPTPAGE', 'script15.html')}</a> · subtitles: <a href="dimples-on-the-rhine{TAG or 2}.srt">dimples-on-the-rhine{TAG or 2}.srt</a></p>
 <h2 style="font-family:Georgia,serif">Narration as recorded</h2>{''.join(rows)}
 </div></body></html>"""
-(HERE / 'roughcut.html').write_text(page)
+(HERE / f'roughcut{TAG}.html').write_text(page)
 print(f'runtime {dur:.1f}s ({int(dur // 60)}:{dur % 60:04.1f}), speech {speech:.1f}s, {words} words, {size:.0f} MB')

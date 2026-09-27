@@ -1,0 +1,74 @@
+[
+ {
+  "title": "Cold open",
+  "names": "",
+  "picture": "Boat view, slow dolly forward and down; a low, close grazing shot of one dimple; the side-view funnel with pressure arrows; rough water full of swirls; title.",
+  "lines": [
+   "On a quiet stretch of the Rhine, a friend kept seeing them: small dimples on the water, drifting beside the boat. Some lasted a surprisingly long time.",
+   "Each one is the top of a whirlpool.",
+   "Water spinning in a circle needs something pushing it inward, and in water, that push is pressure, lower at the centre. So the surface sags into a shallow funnel.",
+   "But a river is chaos. Everything in it gets sheared and torn. So how does one tiny whirlpool hold itself together?"
+  ]
+ },
+ {
+  "title": "1 · Under the dimple",
+  "names": "Hermann von Helmholtz (1858)",
+  "picture": "A dive through the waterline: looking up at the bright underside of the surface, a thread of spinning water running down from the dimple. The 3D vortex line meeting the surface in a point. The shrinking-loop argument. The line closing into a ring, or standing on the bed.",
+  "lines": [
+   "Dive under one, and it's not a point at all. It's a line: a thread of spinning water running down into the river.",
+   "A line meets the surface in a single point. That point is the dimple.",
+   "And these lines obey a strange rule. In 1858, Hermann von Helmholtz proved that a vortex line can't just stop inside the water.",
+   "Try it. Put a loop around the line and slide it off the end. The loop never crosses any spin, so its total swirl can't change. But past the end, the loop can shrink to nothing, and nothing has no swirl.",
+   "So a vortex line has to close into a loop, or end on something: the riverbed, or the surface."
+  ]
+ },
+ {
+  "title": "2 · Smoke rings",
+  "names": "Peter Guthrie Tait and William Thomson, later Lord Kelvin (Edinburgh, 1867); Helmholtz predicted leapfrogging rings (1858); Tait's knot tables; Bernal and Kwon (1989), vortex rings reconnecting with a free surface",
+  "picture": "Tait's box firing smoke rings toward the camera, the smoke rolling around each ring's core. Two rings leapfrogging, driven by the vortex model. A knotted ring turning in 3D; a table of knots. A ring rising into the water surface and opening into an arch with two ends; crane up to the top view: two dimples spinning opposite ways, sailing off together.",
+  "lines": [
+   "Which is exactly what a smoke ring is: a vortex line, closed into a loop.",
+   "In 1867, in Edinburgh, Peter Guthrie Tait built a box that fired smoke rings, and showed it to his friend William Thomson, later Lord Kelvin.",
+   "The rings bounced off each other, wobbled, and survived their collisions. Helmholtz had even predicted that two rings travelling together would take turns passing through each other.",
+   "Kelvin was captivated. By Helmholtz's rules, a vortex in a perfect fluid could never be created or destroyed. So maybe atoms were smoke rings in the ether, and each element a different knot.",
+   "He was wrong about atoms. But Tait spent years cataloguing knots to test the idea, and helped start the mathematics of knot theory.",
+   "And a smoke ring explains the Rhine. Push a ring up into the surface, and since it can't end in the water, it joins onto the surface instead. The ring opens into an arch with two ends: two dimples, spinning opposite ways.",
+   "That's why dimples so often come in pairs. Each rides the other's swirl, and the pair sails off together."
+  ]
+ },
+ {
+  "title": "3 · The river's own smoke rings",
+  "names": "Hairpin vortices (Theodorsen 1952; Kline and colleagues 1967); laboratory observations of surface-attached vortices strengthening in downwellings (Qi, Li and Coletti)",
+  "picture": "The river slab: the current's profile, a paddle wheel turning on the bed, an arch lifting off the bed and reaching the surface as a pair. Boat view, low angle, pairs surfacing. The tug-of-war: friction spreading a core, sinking water spinning it up. Ripples turned up until dimples vanish, their markers showing they're still there.",
+  "lines": [
+   "But there are no smoke boxes on the Rhine, and hardly any paddles. So what's making them?",
+   "The riverbed. Water touching the bottom is held still, while the current races past just above. That shear rolls up into arches, like half smoke rings, lifting off the bed.",
+   "When one reaches the surface, it joins on, and its two legs become a pair of dimples.",
+   "From then on, it's a tug of war. Friction slowly spreads a whirlpool out. But where surface water converges and sinks, it stretches the whirlpool and spins it back up.",
+   "And the dimples you notice are only the lucky ones. A dimple is barely steeper than a ripple, so on a breezy day they're still there, just hidden."
+  ]
+ },
+ {
+  "title": "4 · Why flat is special",
+  "names": "Two-dimensional turbulence (Kraichnan 1967 and others); William Rowan Hamilton; Gustav Kirchhoff (1876)",
+  "picture": "A 3D tube stretched thinner and faster until it frays, beside a flat patch that is only reshaped. The flat-turbulence simulation: small whirls merging into big ones. A flash of a Jupiter-like band (labelled illustration). The pendulum's phase portrait morphing into the whirlpools' landscape, contours reshaping as they move (labelled model).",
+  "lines": [
+   "There's one more reason they can last, and it's about dimensions.",
+   "In three dimensions, turbulence works by stretching. Pull a spinning tube longer, and it spins faster and thinner, until it frays apart.",
+   "Right at the surface, water can hardly move up or down, so the flow there is nearly flat. And a flat flow has nothing to stretch. Instead of tearing apart, whirlpools tend to merge into bigger ones.",
+   "It's part of why storms in Jupiter's thin, flattened atmosphere can merge into giants like the Great Red Spot.",
+   "Take that flatness all the way, as a model, and the whirlpools obey Hamilton's rule, the same mathematics as a swinging pendulum. The river's surface becomes its own phase space."
+  ]
+ },
+ {
+  "title": "5 · Reading the river",
+  "names": "Omer Babiker, Simen Ellingsen and colleagues, NTNU, Trondheim (J. Fluid Mech. 2023; Phys. Rev. Fluids 2026)",
+  "picture": "Back to the real river: water welling up and sinking, a surface patch spreading and shrinking. A labelled schematic of dimple count and surface spreading tracking each other; the lab tank as a diagram. Gases crossing the surface both ways. The boat view pulling back; end card.",
+  "lines": [
+   "But real rivers aren't perfectly flat underneath. Water wells up and sinks, and that's where it gets interesting.",
+   "A team in Trondheim, Norway, led by Omer Babiker and Simen Ellingsen, found that the number of dimples on a patch of water tracks how much its surface is spreading and converging: first in simulations, and this year in a laboratory tank.",
+   "And that churning helps set how fast a river breathes, trading oxygen and carbon dioxide with the air.",
+   "So the dimples beside the boat were the ends of vortex lines, half smoke rings risen from the riverbed. And a friend who noticed how long they lasted was already, in a way, reading the river."
+  ]
+ }
+]
