@@ -8,8 +8,8 @@
    "pad_after": 0.6,
    "lines": [
     {
-     "show": "On a quiet stretch of the Rhine, a friend kept seeing them: small dimples on the water,",
-     "say": "On a quiet stretch of the Rhine, a friend kept seeing them: small dimples on the water,",
+     "show": "On a quiet stretch of the Rhine, we kept seeing them: small dimples on the water,",
+     "say": "On a quiet stretch of the Rhine, we kept seeing them: small dimples on the water,",
      "b": "clause"
     },
     {
@@ -251,8 +251,23 @@
      "b": "paragraph"
     },
     {
-     "show": "When one reaches the surface, it joins on, and its two legs become a pair of dimples.",
-     "say": "When one reaches the surface, it joins on, and its two legs become a pair of dimples.",
+     "show": "It happens all the time: the riverbed is a vortex factory.",
+     "say": "It happens all the time: the riverbed is a vortex factory.",
+     "b": "sentence"
+    },
+    {
+     "show": "But most arches are torn apart or smeared out long before they reach the top.",
+     "say": "But most arches are torn apart or smeared out long before they reach the top.",
+     "b": "paragraph"
+    },
+    {
+     "show": "When a strong one makes it to the surface, it joins on,",
+     "say": "When a strong one makes it to the surface, it joins on,",
+     "b": "clause"
+    },
+    {
+     "show": "and its two legs become a pair of dimples.",
+     "say": "and its two legs become a pair of dimples.",
      "b": "paragraph",
      "hold": 2.0
     },
@@ -389,8 +404,8 @@
      "b": "sentence"
     },
     {
-     "show": "And a friend who noticed how long they lasted was already, in a way, reading the river.",
-     "say": "And a friend who noticed how long they lasted was already, in a way, reading the river.",
+     "show": "Watch one long enough, and you're reading the river.",
+     "say": "Watch one long enough, and you're reading the river.",
      "b": "paragraph"
     }
    ]

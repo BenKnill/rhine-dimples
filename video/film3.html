@@ -241,10 +241,10 @@
       water.render(boatOpts(this.r, cam, { slopeVis: 1.5 }));
       c.save(); c.beginPath(); c.rect(0, yw, W, H - yw); c.clip(); underwater(S); c.restore();
       if (p < 1) { c.strokeStyle = "rgba(220,245,240,0.9)"; c.lineWidth = 4; c.beginPath(); c.moveTo(0, yw); c.lineTo(W, yw); c.stroke(); } } });
-  scene("under", 2, { id: "line-point", reset() { setLines("upright"); }, draw(S) { FIG("figLines", 160, 110, 960, 504, S.T); label("a line meets a plane in a point", 640, 660, TEXT, 22, "center"); } });
+  scene("under", 2, { id: "line-point", reset() { setLines("upright"); }, draw(S) { FIG("figLines", 160, 90, 960, 504, S.T); label("a line meets a plane in a point", 640, 626, TEXT, 22, "center"); } });
   scene("under", 4, { id: "helmholtz", reset() { setLines("end"); this.names = [[5, "Hermann von Helmholtz", "1858"]]; }, draw(S) { FIG("figLines", 160, 110, 960, 504, S.T); } });
   scene("under", 10, { id: "close-or-end", reset() { setLines("ring"); this.sw = false; }, draw(S) { if (!this.sw && S.T > S.L(10) + 2.6) { setLines("upright"); this.sw = true; } FIG("figLines", 160, 110, 960, 504, S.T);
-    label(this.sw ? "…or end on the riverbed or the surface" : "close into a loop…", 640, 660, TEXT, 22, "center"); } });
+    label(this.sw ? "…or end on the riverbed or the surface" : "close into a loop…", 640, 626, TEXT, 22, "center"); } });
 
   // ---- smoke rings
   scene("rings", 0, { id: "ring-hello", draw(S) { smokyBG(); const P = cam3([0, -14, 1.5], [0, 0, 0.3], 42), y = lerp(10, -4, ss(S.lt, 0, S.dur)); drawParticles(P, ringParticles([0.8 * Math.sin(S.lt * 0.5), y, 0.4], [0.15, -1, 0.05], 1.7, 0.45, S.lt), [235, 236, 240], 0.3, 0.05);
@@ -260,17 +260,17 @@
     drawParticles(P, all, [236, 236, 240], 0.3, 0.05); } });
   scene("rings", 3, { id: "bounce", draw(S) { smokyBG(); const t = S.lt, P = cam3([lerp(-6, 5, t / 7) + 8, -10, 3], [lerp(-6, 5, t / 7), 0, 0], 42), gap = 1.1 + 0.8 * Math.abs(Math.sin(t * 0.6)) * ss(t, 1.2, 2.2), x = lerp(-6, 5, t / 7);
     const tilt = 0.25 * ss(t, 1.3, 2.4); drawParticles(P, [...ringParticles([x, 0, gap + 0.6], [1, 0, tilt], 1.3, 0.36, t, { n: 800, wobble: 0.1 * Math.sin(t * 4) }), ...ringParticles([x, 0, -gap - 0.6], [1, 0, -tilt], 1.3, 0.36, t + 1, { n: 800, wobble: 0.1 * Math.sin(t * 4 + 1), wph: 1 })], [236, 236, 240], 0.3, 0.05);
-    label("bounce, wobble, survive", 640, 640, MUTED, 20, "center"); } });
+    label("bounce, wobble, survive", 640, 610, MUTED, 20, "center"); } });
   scene("rings", 4, { id: "leapfrog", reset() { this.sys = V.makeSystem({ a: 0.5 }); [[0, 2.0, 30], [0, -2.0, -30], [-3, 2.5, 30], [-3, -2.5, -30]].forEach(p => V.add(this.sys, ...p)); },
     draw(S) { const n = Math.max(1, Math.ceil(S.dt / 0.01)); for (let k = 0; k < n; k++) V.step(this.sys, S.dt / n); smokyBG();
       const s = this.sys, mx = (s.x[0] + s.x[1] + s.x[2] + s.x[3]) / 4, P = cam3([mx + 8, -8, 4], [mx, 0, 0], 44), all = [];
       for (const [i, j, off] of [[0, 1, 0], [2, 3, 2]]) { const x = (s.x[i] + s.x[j]) / 2, R = (s.y[i] - s.y[j]) / 2; all.push(...ringParticles([x, 0, 0], [1, 0, 0], R * 0.55, 0.3, S.lt + off, { n: 1000 })); }
       drawParticles(P, all, [236, 236, 240], 0.3, 0.05); chip("sketch: two rings from the vortex model, taking turns", 40, 60, GLASS); } });
   scene("rings", 5, { id: "knot", draw(S) { smokyBG(); const P = cam3([0, -14, 3], [0, 0, 0], 40); tube(P, knotPts("trefoil", S.lt * 0.35, 1.4), 0.55, [225, 228, 236]);
-    if (S.after(7)) { const a = ss(S.T, S.L(7), S.L(7) + 0.6); c.globalAlpha = a; label("atoms as knotted vortex rings?", 640, 640, TEXT, 24, "center"); c.globalAlpha = 1; } } });
+    if (S.after(7)) { const a = ss(S.T, S.L(7), S.L(7) + 0.6); c.globalAlpha = a; label("atoms as knotted vortex rings?", 640, 610, TEXT, 24, "center"); c.globalAlpha = 1; } } });
   scene("rings", 8, { id: "knot-table", draw(S) { smokyBG(); const kinds = ["trefoil", "eight", [2, 5], [3, 4], [2, 7], [3, 5]], cols = [[79, 209, 197], [255, 181, 71], [111, 168, 255], [255, 111, 160], [178, 141, 255], [220, 226, 236]];
     kinds.forEach((k, i) => { const cx = (i % 3 - 1) * 7.2, cz = (Math.floor(i / 3) === 0 ? 2.6 : -2.6), P = cam3([0, -22, 0], [0, 0, 0], 44); tube(P, knotPts(k, S.lt * 0.4 + i, k === "trefoil" ? 0.75 : 0.62, [cx, 0, cz]), 0.35, cols[i]); });
-    label("Tait's tables of knots → knot theory", 640, 670, TEXT, 22, "center"); } });
+    label("Tait's tables of knots → knot theory", 640, 612, TEXT, 22, "center"); } });
   scene("rings", 10, { id: "ring-surface", gl: true, reset() { this.r = River(29, { U: 0, boils: false }); this.made = false; }, draw(S) {
     const t0 = S.L(11), tc = S.L(13) - 0.6, crane = ss(S.T, S.L(13) + 1.0, S.L(13) + 3.4), rise = (S.T - t0) * 0.9;
     const tilt = 0.35, zc = Math.min(-4.2 + Math.max(0, rise) * 1.4, -0.08), ax = nrm([Math.sin(tilt), 0, Math.cos(tilt)]), R = 1.8;
@@ -292,26 +292,39 @@
     if (crane > 0.2) { if (!this.made) { this.r.pair(0, -2, Math.PI / 2, 65, 5.0, S.T - 0.8); this.made = true; } this.r.step(S.dt); water.render(topOpts(this.r, 24 / W, { exaggerate: 1.3 }));
       if (crane >= 1) { c.clearRect(0, 0, W, H); label("two dimples, spinning opposite ways", 640, 60, TEXT, 22, "center"); for (let i = 0; i < this.r.sys.x.length; i++) { const X = W / 2 + this.r.sys.x[i] / (24 / W), Y = H / 2 - this.r.sys.y[i] / (24 / W); spin(X, Y, 44, this.r.sys.G[i] > 0, this.r.sys.G[i] > 0 ? TEAL : AMBER, S.lt * 2, 3); } } } } });
   scene("rings", 14, { id: "pair-sails", gl: true, reset() { this.r = River(33, { U: 0, boils: false }); this.r.pair(-10, 2, 0.15, 65, 3.2, -99); this.r.pair(6, 9, 2.4, 55, 3, -99); },
-    draw(S) { const cam = { pos: [-2, -16, 3.2], target: [0, 4, 0], fov: 34 }; this.r.step(S.dt); water.render(boatOpts(this.r, cam)); } });
+    draw(S) { const cam = { pos: [-2 + S.lt * 0.3, -16 + S.lt * 0.15, 3.2], target: [S.lt * 0.2, 4, 0], fov: 34 }; this.r.step(S.dt); water.render(boatOpts(this.r, cam)); } });
 
   // ---- the river's own smoke rings
   scene("river", 0, { id: "no-boxes", gl: true, reset() { this.r = River(37, { boils: false }); },
-    draw(S) { const cam = { pos: [0, -34, 16], target: [0, 10, 0], fov: 38 }; this.r.step(S.dt, cam); water.render(boatOpts(this.r, cam)); label("no smoke boxes, hardly any paddles", 640, 60, TEXT, 22, "center"); } });
-  scene("river", 2, { id: "hairpin", reset() { figs.figRiver.reset(); this.names = [[4, "hairpin vortices", "Theodorsen 1952 · Kline and colleagues 1967"]]; }, draw(S) { FIG("figRiver", 100, 110, 1080, 567, S.T); } });
-  scene("river", 6, { id: "tug", reset() { this.names = [[8, "Qi, Li & Coletti", "laboratory measurements (arXiv:2412.04361)"]]; }, draw(S) {
+    draw(S) { const cam = { pos: [0, -34 + S.lt * 0.5, 16 - S.lt * 0.25], target: [0, 10, 0], fov: 38 }; this.r.step(S.dt, cam); water.render(boatOpts(this.r, cam)); label("no smoke boxes, hardly any paddles", 640, 60, TEXT, 22, "center"); } });
+  scene("river", 2, { id: "hairpin", reset() { figs.figRiver.reset(); this.names = [[4, "hairpin vortices", "Theodorsen 1952 · Kline and colleagues 1967"]]; }, draw(S) { FIG("figRiver", 160, 90, 960, 504, S.T); } });
+  scene("river", 5, { id: "factory", draw(S) {
+    const ys = 180, yb = 600, x0 = 60, x1 = 1220; c.fillStyle = "#0E1622"; c.fillRect(0, 0, W, H); c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath(); c.moveTo(x0, ys); c.lineTo(x1, ys); c.stroke();
+    c.fillStyle = "#3A3326"; c.fillRect(x0, yb, x1 - x0, 12);
+    for (let k = 0; k < 7; k++) { const y = yb - 30 - k * 55, L = 30 + 120 * Math.log(1 + k * 0.8); c.strokeStyle = "rgba(143,180,224,0.45)"; c.fillStyle = "rgba(143,180,224,0.45)"; c.lineWidth = 1.5; arrow(x0 + 20, y, x0 + 20 + L, y, 5); }
+    const r = rng(11), rise = 110, top = yb - ys, luckyBorn = (S.L(7) - 0.3) - (S.T - S.lt) - top / rise;
+    for (let i = 0; i < 44; i++) { const lucky = i === 43, born = lucky ? luckyBorn : i * 0.55 - 1.5, xb = lucky ? 560 : x0 + 160 + r() * 960, life = S.lt - born, fr = r(); if (life < 0) continue;
+      const maxH = lucky ? top : (0.2 + 0.55 * fr) * top, h = Math.min(maxH, life * rise), shred = lucky ? 0 : clamp((life * rise - maxH) / 80), x = lucky ? xb + Math.min(life, top / rise) * 30 : xb + life * 35, w = lucky ? 34 : 18 + 12 * r();
+      if (shred >= 1) continue; c.globalAlpha = 1 - shred;
+      if (shred > 0) { c.fillStyle = "rgba(200,225,255,0.7)"; for (let k = 0; k < 14; k++) { const q = k / 14 * Math.PI, jx = (r() - 0.5) * 60 * shred, jy = (r() - 0.5) * 60 * shred; c.beginPath(); c.arc(x - w * Math.cos(q) + jx, yb - h * Math.sin(q) + jy, 2.5, 0, TAU); c.fill(); } }
+      else { c.strokeStyle = lucky ? "rgba(235,242,255,0.98)" : "rgba(111,168,255,0.75)"; c.lineWidth = lucky ? 6 : 3; c.beginPath(); c.moveTo(x - w, yb); c.bezierCurveTo(x - w, yb - h * 1.33, x + w, yb - h * 1.33, x + w, yb); c.stroke(); }
+      if (lucky && h >= maxH - 1) { c.fillStyle = "rgba(10,14,22,0.6)"; c.fillRect(x - w - 30, ys - 3, 2 * w + 60, 6); spin(x - w, ys, 18, true, TEAL, S.lt * 3); spin(x + w, ys, 18, false, AMBER, S.lt * 3); label("a pair of dimples", x, ys - 30, TEXT, 20, "center"); }
+      c.globalAlpha = 1; }
+    label("the riverbed: a vortex factory", x0 + 10, yb + 40, MUTED, 20); label("most arches never make it", x1 - 10, ys + 40, MUTED, 18, "right"); } });
+  scene("river", 9, { id: "tug", reset() { this.names = [[11, "Qi, Li & Coletti", "laboratory measurements (arXiv:2412.04361)"]]; }, draw(S) {
     const col = (cx, wid, rate, title, sub, colr) => { const ys = 230, yb = 600; c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath(); c.moveTo(cx - 250, ys); c.lineTo(cx + 250, ys); c.stroke();
       c.fillStyle = "rgba(111,168,255,0.18)"; c.fillRect(cx - wid / 2, ys, wid, yb - ys); for (let k = 0; k < 5; k++) { c.save(); c.translate(cx, ys + 50 + k * 70); c.scale(1, 0.3); spin(0, 0, wid * 0.6 + 16, true, "rgba(200,225,255,0.85)", S.lt * rate + k, 3); c.restore(); }
       text(title, cx, 150, 26, colr, "center", 600, "STIX Two Text"); label(sub, cx, 180, MUTED, 17, "center"); };
-    const on2 = S.after(8) ? 1 : 0.25; const w1 = 60 + 50 * (0.5 + 0.5 * Math.sin(S.lt * 0.6)); col(330, w1, 2.5 * 60 / w1, "friction", "spreads a whirlpool out", AMBER);
+    const on2 = S.after(11) ? 1 : 0.25; const w1 = 60 + 50 * (0.5 + 0.5 * Math.sin(S.lt * 0.6)); col(330, w1, 2.5 * 60 / w1, "friction", "spreads a whirlpool out", AMBER);
     c.strokeStyle = AMBER; c.fillStyle = AMBER; c.lineWidth = 2; arrow(330 + w1 / 2 + 10, 400, 330 + w1 / 2 + 60, 400, 7); arrow(330 - w1 / 2 - 10, 400, 330 - w1 / 2 - 60, 400, 7);
     c.globalAlpha = on2; const w2 = 70 - 30 * (0.5 + 0.5 * Math.sin(S.lt * 0.6)); col(950, w2, 2.5 * 60 / w2, "sinking water", "stretches it and spins it up", TEAL);
     c.strokeStyle = TEAL; c.fillStyle = TEAL; c.lineWidth = 2.5; arrow(950 - 220, 215, 950 - 60, 215, 8); arrow(950 + 220, 215, 950 + 60, 215, 8); arrow(950, 610, 950, 650, 8); c.globalAlpha = 1; } });
-  scene("river", 9, { id: "ripples", gl: true, reset() { this.r = River(51); pairs(this.r, [[-6, 3, 0.4, 60], [5, 8, 2.2, 55], [0, -2, -1, 65], [10, 14, 0.9, 55]]); }, draw(S) {
-    const rip = 0.009 * 4 ** ss(S.T, S.L(10), S.L(10) + 2.2), cam = { pos: [3, -22, 5], target: [0, 6, 0], fov: 32 }; this.r.step(S.dt, cam); water.render(boatOpts(this.r, cam, { ripple: rip }));
-    if (S.T > S.L(10) + 2.4) { c.globalAlpha = 0.85; for (let i = 0; i < this.r.sys.x.length; i++) { const p = WR.project(cam, W, H, this.r.sys.x[i], this.r.sys.y[i]); if (p) { c.strokeStyle = this.r.sys.G[i] > 0 ? TEAL : AMBER; c.lineWidth = 2; c.beginPath(); c.ellipse(p[0], p[1], 18, 6, 0, 0, TAU); c.stroke(); } } c.globalAlpha = 1; label("still there, just hidden", 640, 60, TEXT, 22, "center"); } } });
+  scene("river", 12, { id: "ripples", gl: true, reset() { this.r = River(51); pairs(this.r, [[-6, 3, 0.4, 60], [5, 8, 2.2, 55], [0, -2, -1, 65], [10, 14, 0.9, 55]]); }, draw(S) {
+    const rip = 0.009 * 4 ** ss(S.T, S.L(13), S.L(13) + 2.2), cam = { pos: [3 - S.lt * 0.25, -22 + S.lt * 0.2, 5], target: [0, 6, 0], fov: 32 }; this.r.step(S.dt, cam); water.render(boatOpts(this.r, cam, { ripple: rip }));
+    if (S.T > S.L(13) + 2.4) { c.globalAlpha = 0.85; for (let i = 0; i < this.r.sys.x.length; i++) { const p = WR.project(cam, W, H, this.r.sys.x[i], this.r.sys.y[i]); if (p) { c.strokeStyle = this.r.sys.G[i] > 0 ? TEAL : AMBER; c.lineWidth = 2; c.beginPath(); c.ellipse(p[0], p[1], 18, 6, 0, 0, TAU); c.stroke(); } } c.globalAlpha = 1; label("still there, just hidden", 640, 60, TEXT, 22, "center"); } } });
 
   // ---- why flat is special
-  scene("flat", 0, { id: "stretch", reset() { figs.figStretch.reset(); }, draw(S) { FIG("figStretch", 0, 150, 1280, 533, S.T); } });
+  scene("flat", 0, { id: "stretch", reset() { figs.figStretch.reset(); }, draw(S) { FIG("figStretch", 120, 80, 1040, 433, S.T); } });
   scene("flat", 3, { id: "turb", reset() { this.tb = Turb(128, 7); for (let k = 0; k < 60; k++) this.tb.step(0.05); this.names = [[5, "two-dimensional turbulence", "Kraichnan 1967 and others"]]; }, draw(S) {
     this.tb.step(0.05); this.tb.step(0.05); drawTurb(this.tb, 290, 60, 700, 600, palSpin); chip("simulation: flat (2D) turbulence", 20, 60, GLASS); label("whirls merge into bigger ones", 1000, 330, TEXT, 18); } });
   scene("flat", 6, { id: "jupiter", reset() { this.tb = Turb(128, 23); for (let k = 0; k < 500; k++) this.tb.step(0.05); }, draw(S) {
@@ -377,7 +390,11 @@
     const S = { T: t, dt, lt: t - s.start, dur: s.end - s.start, L: k => b.lines[Math.min(k, b.lines.length - 1)].start, after: k => t >= b.lines[Math.min(k, b.lines.length - 1)].start - 0.1, beatEnd: b.end };
     glCanvas.style.visibility = s.gl ? "visible" : "hidden"; glpCanvas.style.visibility = s.glp ? "visible" : "hidden";
     c.clearRect(0, 0, W, H); if (!s.gl) { c.fillStyle = BG; c.fillRect(0, 0, W, H); }
+    const kb = !s.gl, si = SC.indexOf(s);
+    if (kb) { const p = clamp(S.lt / Math.max(1, S.dur)), zin = si % 2 === 0, z = 1 + 0.07 * (zin ? p : 1 - p), dx = (si % 3 - 1) * 18 * p, dy = ((si + 1) % 3 - 1) * 10 * p;
+      c.save(); c.setTransform(z, 0, 0, z, W / 2 - z * (W / 2 + dx), H / 2 - z * (H / 2 + dy)); }
     s.draw(S);
+    if (kb) c.restore();
     const act = { open: "", under: "Under the dimple", rings: "Smoke rings", river: "The river's own smoke rings", flat: "Why flat is special", reading: "Reading the river" }[s.beat];
     if (act) { font(15, 500); c.fillStyle = "rgba(138,149,170,0.9)"; c.textAlign = "right"; c.fillText(act, 1260, 30); }
     nameCards(s, S); subtitle(t);
