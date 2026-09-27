@@ -7,3 +7,5 @@ video/stills/
 proto/*.jpg
 proto/*.png
 video/*.jpg
+field/
+assets/

@@ -71,7 +71,7 @@
   const MAIN_FS = `#version 300 es
   precision highp float;
   uniform vec2 uRes, uCenter, uCMin, uCMax, uDMin, uDMax;
-  uniform float uScale, uPersp, uTanH, uDepth, uK, uGlint, uCausticOn, uDyeOn, uDebug, uSlopeVis, uMurk, uSky;
+  uniform float uScale, uPersp, uTanH, uDepth, uK, uGlint, uCausticOn, uDyeOn, uDebug, uSlopeVis, uMurk, uSky, uOvercast;
   uniform vec3 uCamPos, uCamF, uCamR, uCamU, uSunDir, uDyeT, uWaterCol;
   uniform sampler2D uCaustic, uDens; ${COMMON}
   out vec4 frag;
@@ -123,13 +123,14 @@
                           : mix(vec3(0.80, 0.86, 0.92), vec3(0.33, 0.53, 0.83), pow(clamp(el, 0.0, 1.0), 0.55));
     float sd = max(dot(r, uSunDir), 0.0);
     sky += vec3(1.0, 0.95, 0.86) * (pow(sd, 900.0) * 60.0 * uGlint + pow(sd, 10.0) * 0.18);
+    sky = mix(sky, vec3(0.74, 0.76, 0.78) * (0.92 + 0.08 * clamp(el * 3.0, 0.0, 1.0)), uOvercast);
     if (full < 0.5) return sky;
     vec2 cp = r.xy / (max(el, 0.0) + 0.14) * 0.9 + vec2(uTime * 0.004, 0.0);
     if (uSky > 0.5) {                                          // cumulus: bright crisp tops, greyer bases
       float f = fbm(cp * 0.55 + vec2(3.1, 0.7)), f2 = fbm(cp * 0.55 + vec2(3.1, 0.7) + vec2(0.0, 0.06));
       float cov = smoothstep(0.46, 0.53, f) * smoothstep(0.015, 0.10, el);
       vec3 cc = mix(vec3(0.66, 0.70, 0.76), vec3(1.0, 1.0, 1.0), smoothstep(0.50, 0.70, f2) * 0.8 + 0.2);
-      sky = mix(sky, cc, cov);
+      sky = mix(sky, cc, cov * (1.0 - uOvercast));
     } else {
     float cl = smoothstep(0.50, 0.78, fbm(cp)) * smoothstep(0.02, 0.2, el);
     sky = mix(sky, vec3(0.96, 0.96, 0.97), cl * 0.8); }
@@ -145,6 +146,7 @@
       if (uSky > 0.5) { c *= vec3(1.1, 1.35, 1.0);
         float hz = emb + (0.006 + 0.004 * vnoise(vec2(az * 55.0, 9.0))) * s;                                            // houses: pale walls, dark roofs
         if (house > 0.5 && el > emb && el < hz) c = el > hz - 0.0025 * s ? vec3(0.34, 0.22, 0.18) : vec3(0.80, 0.77, 0.70) * (0.85 + 0.15 * vnoise(vec2(az * 90.0, 1.0))); }
+      c = mix(c, vec3(0.30, 0.33, 0.31), 0.75 * uOvercast);
       return mix(c, vec3(0.70, 0.76, 0.80), 0.22 * (1.0 - s));
     }
     return sky; }
@@ -327,7 +329,7 @@
       else gl.uniform1f(U(pMain, "uPersp"), 0);
       const sd = norm3(o.sunDir || [0.106, 0.141, 1]); gl.uniform3f(U(pMain, "uSunDir"), sd[0], sd[1], sd[2]);
       gl.uniform1f(U(pMain, "uDepth"), depth); gl.uniform1f(U(pMain, "uMurk"), o.murk ?? 0.025); const wc = o.waterColor || [0.07, 0.12, 0.10]; gl.uniform3f(U(pMain, "uWaterCol"), wc[0], wc[1], wc[2]); gl.uniform1f(U(pMain, "uK"), k);
-      gl.uniform1f(U(pMain, "uGlint"), o.glint ?? 1); gl.uniform1f(U(pMain, "uSky"), o.sky === "june" ? 1 : 0); gl.uniform1f(U(pMain, "uDebug"), o.debug ? 1 : 0); gl.uniform1f(U(pMain, "uSlopeVis"), o.slopeVis ?? (o.camera ? 1.3 : 3));
+      gl.uniform1f(U(pMain, "uGlint"), o.glint ?? 1); gl.uniform1f(U(pMain, "uSky"), o.sky === "june" ? 1 : 0); gl.uniform1f(U(pMain, "uOvercast"), o.overcast ?? 0); gl.uniform1f(U(pMain, "uDebug"), o.debug ? 1 : 0); gl.uniform1f(U(pMain, "uSlopeVis"), o.slopeVis ?? (o.camera ? 1.3 : 3));
       gl.uniform2f(U(pMain, "uCMin"), cwin[0], cwin[1]); gl.uniform2f(U(pMain, "uCMax"), cwin[2], cwin[3]);
       gl.uniform2f(U(pMain, "uDMin"), dwin[0], dwin[1]); gl.uniform2f(U(pMain, "uDMax"), dwin[2], dwin[3]);
       gl.uniform1f(U(pMain, "uCausticOn"), floatOK && o.caustics !== false ? 1 : 0);

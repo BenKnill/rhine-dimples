@@ -1,0 +1,599 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  html, body { margin: 0; background: #0A0D14; overflow: hidden; }
+  canvas.full { position: absolute; left: 0; top: 0; width: 1280px; height: 720px; }
+  #glp { position: absolute; left: 676px; top: 272px; width: 560px; height: 360px; border-radius: 8px; }
+  #hidden { display: none; }
+</style></head>
+<body>
+<canvas id="gl" class="full" width="1280" height="720"></canvas>
+<canvas id="c" class="full" width="1280" height="720"></canvas>
+<canvas id="glp" width="560" height="360"></canvas>
+<div id="hidden">
+  <canvas id="figLoop" width="960" height="540"></canvas><button id="loopPair"></button><span id="loopOut"></span>
+  <canvas id="figLines" width="960" height="504"></canvas><button data-line="upright"></button><button data-line="arch"></button><button data-line="ring"></button><button data-line="end"></button><span id="linesCap"></span>
+  <canvas id="figRiver" width="960" height="504"></canvas>
+  <canvas id="figStretch" width="960" height="400"></canvas>
+  <canvas id="figFade" width="960" height="400"></canvas>
+  <canvas id="figHam" width="960" height="540"></canvas><button data-ham="pend"></button><button data-ham="river"></button><span id="hamCap"></span><span id="hamOut"></span>
+</div>
+<script>window.FILM_MODE = true;</script>
+<script src="../web/vortex.js"></script>
+<script src="../web/water.js"></script>
+<script src="../web/camel_outline.js"></script>
+<script src="../docs/figs.js"></script>
+<script src="../assets/film/geo.js"></script>
+<script src="timing6.js"></script>
+<script>
+(() => {
+  const V = window.Vortex, WR = window.WaterRenderer, T = window.TIMING, W = 1280, H = 720, TAU = 2 * Math.PI;
+  const c = document.getElementById("c").getContext("2d"), glCanvas = document.getElementById("gl"), glpCanvas = document.getElementById("glp");
+  const water = new WR(glCanvas, { preserve: true, gridX: 700, gridY: 434, causticW: 1280, causticH: 794, dyeW: 1536, dyeH: 1000 });
+  const waterP = new WR(glpCanvas, { preserve: true, gridX: 520, gridY: 334, causticW: 900, causticH: 578 });
+  const TEAL = "#4FD1C5", AMBER = "#FFB547", GLASS = "#6FA8FF", VIOLET = "#B28DFF", PINK = "#FF6FA0", TEXT = "#DCE2EC", MUTED = "#8A95AA", BG = "#0A0D14";
+  const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x)), ss = (t, a, b) => { const x = clamp((t - a) / (b - a)); return x * x * (3 - 2 * x); };
+  const font = (px, w = 400, fam = "IBM Plex Sans") => { c.font = `${w} ${px}px "${fam}"`; };
+  const serif = (px, w = 400, it = false) => { c.font = `${it ? "italic " : ""}${w} ${px}px "STIX Two Text"`; };
+  function arrowHead(x, y, ang, s) { c.beginPath(); c.moveTo(x + s * Math.cos(ang), y + s * Math.sin(ang)); c.lineTo(x + s * Math.cos(ang + 2.5), y + s * Math.sin(ang + 2.5)); c.lineTo(x + s * Math.cos(ang - 2.5), y + s * Math.sin(ang - 2.5)); c.closePath(); c.fill(); }
+  function arrow(x0, y0, x1, y1, s = 8) { c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke(); arrowHead(x1, y1, Math.atan2(y1 - y0, x1 - x0), s); }
+  function spin(x, y, r, ccw, col, ph = 0, lw = 2.5) { c.strokeStyle = col; c.fillStyle = col; c.lineWidth = lw; c.beginPath(); const a0 = ph, a1 = ph + 4.4;
+    if (ccw) c.arc(x, y, r, -a0, -a1, true); else c.arc(x, y, r, a0, a1, false); c.stroke(); const ae = ccw ? -a1 : a1; arrowHead(x + r * Math.cos(ae), y + r * Math.sin(ae), ae + (ccw ? -Math.PI / 2 : Math.PI / 2), 7); }
+  function text(str, x, y, px = 26, col = TEXT, align = "center", w = 500, fam = "IBM Plex Sans") { c.font = `${w} ${px}px "${fam}"`; c.fillStyle = col; c.textAlign = align; c.fillText(str, x, y); }
+  function label(str, x, y, col = MUTED, px = 18, align = "left") { text(str, x, y, px, col, align, 500); }
+  function chip(str, x, y, col = GLASS) { font(16, 600); const w = c.measureText(str).width + 20; c.fillStyle = "rgba(10,14,22,0.8)"; c.strokeStyle = col; c.lineWidth = 1.5; c.beginPath(); c.roundRect(x, y - 20, w, 28, 6); c.fill(); c.stroke(); c.fillStyle = col; c.textAlign = "left"; c.fillText(str, x + 10, y); }
+  function panel(x, y, w, h) { c.fillStyle = "#10151F"; c.strokeStyle = "#1F2736"; c.lineWidth = 1; c.beginPath(); c.roundRect(x, y, w, h, 10); c.fill(); c.stroke(); }
+  function wrap(str, maxw) { const words = str.split(" "), out = []; let cur = ""; for (const w of words) { const t = cur ? cur + " " + w : w; if (c.measureText(t).width > maxw && cur) { out.push(cur); cur = w; } else cur = t; } if (cur) out.push(cur); return out; }
+  const rng = seed => { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); };
+
+  // ------------------------------------------------------------------ the live-parameter equation device
+  const fmt = r => { const v = r >= 1 ? r : 1 / r, s = Math.abs(v - Math.round(v)) < 0.05 ? String(Math.round(v)) : v.toFixed(1); return (r >= 1 ? "×" : "÷") + s; };
+  const K = (t, r, col, name, o = {}) => { const e = Math.abs(Math.log2(r)), on = clamp(e / 0.2); return { t, ...o, knob: true, name, ratio: r, emph: 1.2 * on, scale: clamp(r ** 0.12, 0.72, 1.4), color: e > 0.02 ? col : TEXT, lane: 150 * on }; };
+  const P = (t, o = {}) => ({ t, ...o });
+  function tokW(tk, fs) { const sc = tk.scale || 1; serif(fs * sc, 400, tk.it); let w = c.measureText(tk.t).width; if (tk.sup) { serif(fs * sc * 0.58); w += c.measureText(tk.sup).width + fs * 0.04; } return w + (tk.lane || 0); }
+  function tokDraw(tk, x, y, fs) {
+    const sc = tk.scale || 1, e = tk.emph || 0, col = tk.color || TEXT; c.save(); c.fillStyle = col; c.strokeStyle = col; c.lineJoin = "round";
+    if (e > 0) { c.shadowColor = col; c.shadowBlur = 20 * Math.min(1, e); }
+    serif(fs * sc, e > 0.35 ? 700 : 400, tk.it); c.textAlign = "left"; c.fillText(tk.t, x, y); if (e > 0) { c.lineWidth = 1.6 * Math.min(1.4, e); c.strokeText(tk.t, x, y); }
+    let w = c.measureText(tk.t).width;
+    if (tk.sup) { serif(fs * sc * 0.58, e > 0.35 ? 700 : 400); c.fillText(tk.sup, x + w + fs * 0.04, y - fs * sc * 0.42); w += c.measureText(tk.sup).width + fs * 0.04; }
+    c.restore();
+    if (tk.knob) { const L = 40 * Math.log2(tk.ratio), a = clamp(Math.abs(Math.log2(tk.ratio)) / 0.25); if (a > 0.02) {
+      const ax = x + w + 18, ym = y - fs * 0.32, dir = Math.sign(L), y0 = ym + dir * 18, y1 = y0 - L;
+      c.save(); c.globalAlpha = a; c.strokeStyle = col; c.fillStyle = col; c.lineWidth = 6; c.lineCap = "round"; c.beginPath(); c.moveTo(ax, y0); c.lineTo(ax, y1 + dir * 7); c.stroke();
+      c.beginPath(); c.moveTo(ax, y1 - dir * 8); c.lineTo(ax - 12, y1 + dir * 12); c.lineTo(ax + 12, y1 + dir * 12); c.closePath(); c.fill();
+      font(26, 600, "IBM Plex Mono"); c.textAlign = "left"; c.fillText(`${tk.name} ${fmt(tk.ratio)}`, ax + 16, y1 + (dir > 0 ? 9 : 20));
+      if (tk.note) { font(19, 500); c.globalAlpha = a * 0.85; c.fillText(tk.note, ax + 16, y1 + (dir > 0 ? 32 : 44)); } c.restore(); } }
+    return w + (tk.lane || 0);
+  }
+  // items: tokens, or {num:[...], den:[...]}
+  function equation(items, cx, y, fs = 64) {
+    const gap = fs * 0.18, rowW = r => r.reduce((s, t) => s + tokW(t, fs) + gap, -gap);
+    const itemW = it => it.num ? Math.max(rowW(it.num), rowW(it.den)) + fs * 0.3 : tokW(it, fs);
+    const total = items.reduce((s, it) => s + itemW(it) + gap * 1.6, -gap * 1.6); let x = cx - total / 2;
+    for (const it of items) {
+      if (it.num) { const wf = itemW(it), wn = rowW(it.num), wd = rowW(it.den); c.fillStyle = TEXT; c.fillRect(x, y - fs * 0.3, wf, Math.max(2, fs * 0.04));
+        let xn = x + (wf - wn) / 2; for (const t of it.num) xn += tokDraw(t, xn, y - fs * 0.52, fs) + gap;
+        let xd = x + (wf - wd) / 2; for (const t of it.den) xd += tokDraw(t, xd, y + fs * 0.66, fs) + gap; x += wf + gap * 1.6; }
+      else x += tokDraw(it, x, y, fs) + gap * 1.6;
+    }
+  }
+
+  // ------------------------------------------------------------------ the river (vortices, boils, current)
+  const SHALLOW = { murk: 0.11, waterColor: [0.05, 0.11, 0.10] };            // near the bank, where the bed shows
+  const BOAT = { pos: [0, -26, 7.5], target: [0, 6, 0], fov: 32 };
+  function River(seed, o = {}) {
+    const r = { sys: V.makeSystem({ a: 0.6, U: o.U ?? 1.5 }), born: [], pid: [], next: 1, rnd: rng(seed), nextBoil: 0.5, boils: o.boils ?? true, t: 0 };
+    r.add = (x, y, G, b = r.t, p = 0) => { V.add(r.sys, x, y, G); r.born.push(b); r.pid.push(p); };
+    r.pair = (x, y, ang, G, d, b = r.t) => { const nx = -Math.sin(ang), ny = Math.cos(ang), p = r.next++; r.add(x + nx * d / 2, y + ny * d / 2, G, b, p); r.add(x - nx * d / 2, y - ny * d / 2, -G, b, p); };
+    const cut = i => { r.sys.x.splice(i, 1); r.sys.y.splice(i, 1); r.sys.G.splice(i, 1); r.born.splice(i, 1); r.pid.splice(i, 1); };
+    r.step = (dt, cam) => {
+      const n = Math.max(1, Math.ceil(dt / 0.02)); for (let k = 0; k < n; k++) r.last = V.step(r.sys, dt / n); r.t += dt; shed();
+      if (r.boils && r.t > r.nextBoil) { r.nextBoil = r.t + 1.6 + 2.8 * r.rnd(); if (r.sys.x.length < 20) { const w = cam ? WR.unproject(cam, W, H, W * (0.1 + 0.6 * r.rnd()), H * (0.42 + 0.48 * r.rnd())) : [(r.rnd() - 0.6) * 40, (r.rnd() - 0.5) * 20]; if (w) r.pair(w[0], w[1], r.rnd() * TAU, 40 + 40 * r.rnd(), 2.5 + 2 * r.rnd()); } }
+      for (let i = r.sys.x.length - 1; i >= 0; i--) if (i < r.sys.x.length && (Math.abs(r.sys.x[i]) > 70 || r.sys.y[i] < -40 || r.sys.y[i] > 70)) { const p = r.pid[i]; cut(i); if (p > 0) for (let j = r.pid.length - 1; j >= 0; j--) if (r.pid[j] === p) cut(j); }
+    };
+    r.rocks = [];
+    r.addRock = (x, y, D, G, period) => r.rocks.push({ x, y, D, G, period, next: r.t, side: 1, last: -99 });
+    r.rockList = (height = 20, bump = 0.12) => r.rocks.map(k => [k.x, k.y, k.D / 2, bump, height]);            // default: top 5 cm under the 25 cm surface
+    const shed = () => { for (const k of r.rocks) while (r.t >= k.next) { r.add(k.x + 0.8 * k.D, k.y + k.side * 0.35 * k.D, -k.side * k.G, r.t, -1); k.side = -k.side; k.next += k.period / 2; k.last = r.t; } };
+    r.vortices = () => r.sys.x.map((x, i) => [x, r.sys.y[i], r.sys.G[i], clamp((r.t - r.born[i]) / 0.8)]);
+    return r;
+  }
+  const boatOpts = (r, cam = BOAT, extra = {}) => ({ sky: "june", camera: cam, time: r.t, U: r.sys.U, k: 6.2, sunShift: [-2.0, -2.7], sunBlur: 0.06, ripple: 0.009, a: 0.35, exaggerate: 1.0, slopeVis: 1.3, murk: 0.3,
+    waterColor: [0.025, 0.06, 0.065], causticWin: [-45, -15, 45, 55], dyeWin: [-40, -25, 40, 55], vortices: r.vortices(), ...extra });
+  const topOpts = (r, scale, extra = {}) => ({ scale, cx: 0, cy: 0, time: r.t, U: r.sys.U, k: 6.2, sunShift: [-2.0, -2.7], sunBlur: 0.06, ripple: 0.009, a: 0.6, exaggerate: 1.15, glint: 0.2, vortices: r.vortices(), ...extra });
+
+  // ------------------------------------------------------------------ 2D turbulence (pseudo-spectral, vorticity form)
+  function Turb(N, seed) {
+    const n2 = N * N, R = () => new Float64Array(n2); let wr = R(), wi = R(); const tmp = Array.from({ length: 12 }, R);
+    const kx = new Float64Array(N); for (let i = 0; i < N; i++) kx[i] = i <= N / 2 ? i : i - N;
+    const rev = new Uint32Array(N), lg = Math.log2(N); for (let i = 0; i < N; i++) { let r = 0; for (let b = 0; b < lg; b++) r |= ((i >> b) & 1) << (lg - 1 - b); rev[i] = r; }
+    const cs = new Float64Array(N / 2), sn = new Float64Array(N / 2); for (let i = 0; i < N / 2; i++) { cs[i] = Math.cos(TAU * i / N); sn[i] = -Math.sin(TAU * i / N); }
+    const br = new Float64Array(N), bi = new Float64Array(N);
+    function fft1(re, im, inv) {
+      for (let i = 0; i < N; i++) { const j = rev[i]; if (j > i) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+      for (let size = 2; size <= N; size <<= 1) { const half = size >> 1, step = N / size;
+        for (let s = 0; s < N; s += size) for (let k = 0; k < half; k++) { const wr_ = cs[k * step], wi_ = inv ? -sn[k * step] : sn[k * step], a = s + k, b = a + half;
+          const tr = re[b] * wr_ - im[b] * wi_, ti = re[b] * wi_ + im[b] * wr_; re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti; } }
+      if (inv) for (let i = 0; i < N; i++) { re[i] /= N; im[i] /= N; }
+    }
+    function fft2(re, im, inv) {
+      for (let y = 0; y < N; y++) { for (let x = 0; x < N; x++) { br[x] = re[y * N + x]; bi[x] = im[y * N + x]; } fft1(br, bi, inv); for (let x = 0; x < N; x++) { re[y * N + x] = br[x]; im[y * N + x] = bi[x]; } }
+      for (let x = 0; x < N; x++) { for (let y = 0; y < N; y++) { br[y] = re[y * N + x]; bi[y] = im[y * N + x]; } fft1(br, bi, inv); for (let y = 0; y < N; y++) { re[y * N + x] = br[y]; im[y * N + x] = bi[y]; } }
+    }
+    // initial vortices
+    const rnd = rng(seed), w0 = R(), z = R();
+    for (let k = 0; k < 180; k++) { const cx = rnd() * N, cy = rnd() * N, sg = k % 2 ? 1 : -1, s2 = 2 * (1.6 + 1.4 * rnd()) ** 2, A = sg * (1.2 + 0.8 * rnd());
+      for (let dy = -9; dy <= 9; dy++) for (let dx = -9; dx <= 9; dx++) { const x = ((Math.floor(cx) + dx) % N + N) % N, y = ((Math.floor(cy) + dy) % N + N) % N, rx = Math.floor(cx) + dx - cx, ry = Math.floor(cy) + dy - cy; w0[y * N + x] += A * Math.exp(-(rx * rx + ry * ry) / s2); } }
+    wr.set(w0); wi.fill(0); fft2(wr, wi, false);
+    const kmax = N / 3, nuh = 2e-7 * 0;
+    function rhs(ar, ai, or, oi) {
+      const [ur, ui, vr, vi, xr, xi, yr, yi] = tmp;
+      for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) { const q = j * N + i, KX = kx[i], KY = kx[j], k2 = KX * KX + KY * KY || 1;
+        const pr = ar[q] / k2, pi = ai[q] / k2;                                // psi = w / k^2 (sign: w = -lap psi)
+        ur[q] = -KY * pi; ui[q] = KY * pr;                                      // u = d psi/dy
+        vr[q] = KX * pi; vi[q] = -KX * pr;                                      // v = -d psi/dx
+        xr[q] = -KX * ai[q]; xi[q] = KX * ar[q]; yr[q] = -KY * ai[q]; yi[q] = KY * ar[q]; }
+      for (const [a, b] of [[ur, ui], [vr, vi], [xr, xi], [yr, yi]]) fft2(a, b, true);
+      for (let q = 0; q < n2; q++) { or[q] = -(ur[q] * xr[q] + vr[q] * yr[q]); oi[q] = 0; }
+      fft2(or, oi, false);
+      for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) { const q = j * N + i; if (Math.abs(kx[i]) > kmax || Math.abs(kx[j]) > kmax) { or[q] = 0; oi[q] = 0; } }
+    }
+    const k1r = R(), k1i = R(), k2r = R(), k2i = R(), mr = R(), mi = R(), acr = R(), aci = R();
+    const T_ = { N, t: 0, field: R(),
+      step(dt) {                                                                  // classical RK4, then a hyperviscous filter
+        rhs(wr, wi, k1r, k1i); for (let q = 0; q < n2; q++) { mr[q] = wr[q] + 0.5 * dt * k1r[q]; mi[q] = wi[q] + 0.5 * dt * k1i[q]; acr[q] = k1r[q]; aci[q] = k1i[q]; }
+        rhs(mr, mi, k2r, k2i); for (let q = 0; q < n2; q++) { mr[q] = wr[q] + 0.5 * dt * k2r[q]; mi[q] = wi[q] + 0.5 * dt * k2i[q]; acr[q] += 2 * k2r[q]; aci[q] += 2 * k2i[q]; }
+        rhs(mr, mi, k2r, k2i); for (let q = 0; q < n2; q++) { mr[q] = wr[q] + dt * k2r[q]; mi[q] = wi[q] + dt * k2i[q]; acr[q] += 2 * k2r[q]; aci[q] += 2 * k2i[q]; }
+        rhs(mr, mi, k2r, k2i);
+        for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) { const q = j * N + i, k2 = kx[i] * kx[i] + kx[j] * kx[j], damp = Math.exp(-dt * 6e-6 * k2 * k2);
+          wr[q] = (wr[q] + dt / 6 * (acr[q] + k2r[q])) * damp; wi[q] = (wi[q] + dt / 6 * (aci[q] + k2i[q])) * damp; }
+        T_.t += dt;
+      },
+      physical() { const fr = T_.field, fi = tmp[8]; fr.set(wr); fi.set(wi); fft2(fr, fi, true); return fr; } };
+    return T_;
+  }
+  window._Turb = Turb;
+  const turbImg = document.createElement("canvas"), turbCtx = turbImg.getContext("2d");
+  function drawTurb(tb, x, y, w, h, palette) {
+    const N = tb.N; turbImg.width = N; turbImg.height = N; const img = turbCtx.createImageData(N, N), f = tb.physical(); let m = 0; for (let q = 0; q < N * N; q++) m = Math.max(m, Math.abs(f[q]));
+    for (let q = 0; q < N * N; q++) { const v = clamp(f[q] / (0.7 * m + 1e-9), -1, 1), [r, g, b] = palette(v); img.data[4 * q] = r; img.data[4 * q + 1] = g; img.data[4 * q + 2] = b; img.data[4 * q + 3] = 255; }
+    turbCtx.putImageData(img, 0, 0); c.imageSmoothingEnabled = true; c.imageSmoothingQuality = "high"; c.drawImage(turbImg, x, y, w, h);
+  }
+  const palSpin = v => v > 0 ? [10 + 69 * v, 13 + 196 * v, 20 + 177 * v] : [10 - 245 * v, 13 - 168 * v, 20 - 51 * v];
+  const palSoap = v => { const h = 0.5 + 0.5 * v; return [128 + 110 * Math.sin(TAU * (h * 1.6)), 128 + 110 * Math.sin(TAU * (h * 1.6 + 0.33)), 128 + 110 * Math.sin(TAU * (h * 1.6 + 0.66))]; };
+  const palJup = v => { const a = 0.5 + 0.5 * v; return [200 + 40 * a, 150 + 70 * a - 30 * (1 - a), 100 + 90 * a]; };
+
+  // ------------------------------------------------------------------ 3D helpers (smoke rings, knots, underwater)
+  const lerp = (a, b, t) => a + (b - a) * t, lerp3 = (a, b, t) => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)];
+  const nrm = a => { const m = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / m, a[1] / m, a[2] / m]; }, crs = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+  function cam3(pos, target, fov = 40) {
+    const F = nrm([target[0] - pos[0], target[1] - pos[1], target[2] - pos[2]]), R = nrm(crs(F, [0, 0, 1])), U = crs(R, F), f = (H / 2) / Math.tan(fov * Math.PI / 360);
+    return (x, y, z) => { const d = [x - pos[0], y - pos[1], z - pos[2]], zc = d[0] * F[0] + d[1] * F[1] + d[2] * F[2]; if (zc < 0.05) return null;
+      return [W / 2 + f * (d[0] * R[0] + d[1] * R[1] + d[2] * R[2]) / zc, H / 2 - f * (d[0] * U[0] + d[1] * U[1] + d[2] * U[2]) / zc, zc, f / zc]; };
+  }
+  const basisFor = ax => { const a = nrm(ax), t = Math.abs(a[2]) < 0.9 ? [0, 0, 1] : [1, 0, 0], b1 = nrm(crs(a, t)), b2 = crs(a, b1); return [a, b1, b2]; };
+  const SMOKE = (() => { const r = rng(1234); return Array.from({ length: 1400 }, () => ({ th: r() * TAU, ph: r() * TAU, rho: Math.sqrt(r()), w: 0.7 + 0.6 * r(), s: 0.6 + 0.8 * r() })); })();
+  // a smoke ring: centre C, travel direction ax, ring radius R, core radius r; t drives the smoke rolling round the core
+  function ringParticles(C, ax, R, r, t, opt = {}) {
+    const [a, b1, b2] = basisFor(ax), out = [], wob = opt.wobble || 0, n = opt.n || SMOKE.length;
+    for (let i = 0; i < n; i++) { const p = SMOKE[i], th = p.th, Rw = R * (1 + wob * Math.cos(2 * th + (opt.wph || 0))), ph = p.ph - t * 2.2 * p.w, rho = r * p.rho;
+      const e = [Math.cos(th) * b1[0] + Math.sin(th) * b2[0], Math.cos(th) * b1[1] + Math.sin(th) * b2[1], Math.cos(th) * b1[2] + Math.sin(th) * b2[2]];
+      const q = [C[0] + (Rw + rho * Math.cos(ph)) * e[0] + rho * Math.sin(ph) * a[0], C[1] + (Rw + rho * Math.cos(ph)) * e[1] + rho * Math.sin(ph) * a[1], C[2] + (Rw + rho * Math.cos(ph)) * e[2] + rho * Math.sin(ph) * a[2]];
+      out.push({ q, s: p.s, th }); }
+    return out;
+  }
+  function drawParticles(P, list, col = [232, 234, 240], alpha = 0.35, size = 0.06) {
+    const pr = []; for (const p of list) { const s = P(...p.q); if (s) pr.push([s, p]); } pr.sort((u, v) => v[0][2] - u[0][2]);
+    for (const [s, p] of pr) { const rad = Math.max(0.8, size * s[3] * p.s), al = alpha * clamp(1.4 - s[2] / 60); c.fillStyle = `rgba(${col[0]},${col[1]},${col[2]},${al})`; c.beginPath(); c.arc(s[0], s[1], rad, 0, TAU); c.fill(); }
+  }
+  function tube(P, pts, width, col, glow = 0) {                                    // depth-sorted thick curve
+    const segs = []; for (let i = 0; i + 1 < pts.length; i++) { const a = P(...pts[i]), b = P(...pts[i + 1]); if (a && b) segs.push([a, b]); } segs.sort((u, v) => (v[0][2] + v[1][2]) - (u[0][2] + u[1][2]));
+    c.lineCap = "round"; const zmin = Math.min(...segs.map(s => s[0][2])), zmax = Math.max(...segs.map(s => s[0][2]));
+    for (const [a, b] of segs) { const k = 1 - (a[2] - zmin) / (zmax - zmin + 1e-9); c.strokeStyle = `rgba(${Math.round(col[0] * (0.45 + 0.55 * k))},${Math.round(col[1] * (0.45 + 0.55 * k))},${Math.round(col[2] * (0.45 + 0.55 * k))},1)`;
+      c.lineWidth = width * a[3]; c.beginPath(); c.moveTo(a[0], a[1]); c.lineTo(b[0], b[1]); c.stroke(); }
+  }
+  const knotPts = (kind, rot, s = 1, C = [0, 0, 0]) => { const pts = []; for (let i = 0; i <= 480; i++) { const t = TAU * i / 480; let x, y, z;
+      if (kind === "trefoil") { x = Math.sin(t) + 2 * Math.sin(2 * t); y = Math.cos(t) - 2 * Math.cos(2 * t); z = -Math.sin(3 * t); }
+      else if (kind === "eight") { x = (2 + Math.cos(2 * t)) * Math.cos(3 * t); y = (2 + Math.cos(2 * t)) * Math.sin(3 * t); z = Math.sin(4 * t); }
+      else { const [p, q] = kind; const r = 2 + Math.cos(q * t); x = r * Math.cos(p * t); y = r * Math.sin(p * t); z = -Math.sin(q * t); }
+      const cr = Math.cos(rot), sr = Math.sin(rot), cx2 = Math.cos(rot * 0.7), sx2 = Math.sin(rot * 0.7);
+      let X = x * cr - y * sr, Y = x * sr + y * cr, Z = z; const Y2 = Y * cx2 - Z * sx2, Z2 = Y * sx2 + Z * cx2; pts.push([C[0] + s * X, C[1] + s * Y2, C[2] + s * Z2]); } return pts; };
+  function smokyBG() { const g = c.createRadialGradient(W * 0.5, H * 0.45, 40, W * 0.5, H * 0.5, 760); g.addColorStop(0, "#1A1F2B"); g.addColorStop(1, "#06080C"); c.fillStyle = g; c.fillRect(0, 0, W, H); }
+
+  // ------------------------------------------------------------------ scenes
+  const figs = window.FIGS;
+  const FIG = (id, x, y, w, h, t) => { const f = figs[id]; f.at(t); c.drawImage(f.canvas, x, y, w, h); };
+  const setLines = m => document.querySelector(`[data-line="${m}"]`).click(), setHam = m => document.querySelector(`[data-ham="${m}"]`).click();
+  const SC = [];
+  const scene = (beat, line, o) => SC.push({ beat, line, ...o });
+  const pairs = (r, list) => list.forEach(([x, y, a, G]) => r.pair(x, y, a, G, 3, -99));
+
+  function underwater(S, reveal) {
+    const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#1C5A57"); g.addColorStop(0.35, "#0C2B2C"); g.addColorStop(1, "#030C0D"); c.fillStyle = g; c.fillRect(0, 0, W, H);
+    for (let k = 0; k < 6; k++) { const x = 200 + k * 190 + 40 * Math.sin(S.T * 0.3 + k); c.fillStyle = "rgba(170,230,215,0.05)"; c.beginPath(); c.moveTo(x - 30, 0); c.lineTo(x + 30, 0); c.lineTo(x + 160, H); c.lineTo(x + 40, H); c.closePath(); c.fill(); }
+    // the underside of the surface, bright and rippled, with the dimple's dent
+    const ys = 120, cx = 640; c.strokeStyle = "rgba(190,240,230,0.85)"; c.lineWidth = 3; c.beginPath();
+    for (let x = 0; x <= W; x += 4) { const y = ys + 6 * Math.sin(x * 0.02 + S.T * 1.4) + 4 * Math.sin(x * 0.047 - S.T) + 38 / (1 + ((x - cx) / 38) ** 2); x ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke();
+    c.fillStyle = "rgba(190,240,230,0.12)"; c.fillRect(0, 0, W, ys);
+    // the thread of spinning water, running down and away
+    for (let i = 0; i < 700; i++) { const u = i / 700, z = u, y = ys + 40 + z * 560, rr = 26 + 30 * z, th = i * 2.399 + S.T * (5 - 2 * z), x = cx + 40 * Math.sin(z * 2.2) + rr * Math.cos(th);
+      const front = Math.sin(th) > 0; c.fillStyle = `rgba(200,240,255,${(front ? 0.55 : 0.2) * (1 - 0.7 * z)})`; c.beginPath(); c.arc(x, y + 10 * Math.sin(th), front ? 2.3 : 1.5, 0, TAU); c.fill(); }
+    const r2 = rng(3); for (let i = 0; i < 90; i++) { const x = (r2() * W + S.T * 8 * (0.5 + r2())) % W, y = (r2() * H + S.T * 3) % H, s_ = 0.6 + 2.4 * r2(); c.fillStyle = `rgba(210,230,220,${0.1 + 0.2 * r2()})`; c.beginPath(); c.arc(x, y, s_, 0, TAU); c.fill(); }
+    label("the dimple", cx + 60, ys + 70, "#DDF6EF", 20); label("a narrow tube of spinning water", cx + 110, ys + 330, "#BFE3DA", 20);
+  }
+  // ---- grounding: the real place, the real day (swisstopo imagery, FOEN gauge data, our own footage)
+  const G6 = window.GEO, IMG = {}, R_E = 6378137;
+  const loadImg = src => new Promise(res => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = src; });
+  const clipFrames = (dir, n) => Array.from({ length: n }, (_, i) => `../assets/film/${dir}/${String(i + 1).padStart(3, "0")}.jpg`);
+  window.assetsReady = Promise.all([
+    ...["wide", "detail", "gps"].map(k => loadImg(G6[k].file).then(im => IMG[k] = im)),
+    Promise.all(clipFrames("clip1", 157).map(loadImg)).then(a => IMG.clip1 = a),
+    Promise.all(clipFrames("clip2", 302).map(loadImg)).then(a => IMG.clip2 = a)]);
+  const mx = lon => R_E * lon * Math.PI / 180, my = lat => R_E * Math.asinh(Math.tan(lat * Math.PI / 180));
+  // draw a mosaic so that Mercator point (cx, cy) sits at the screen centre, at `mpp` Mercator metres per screen pixel
+  function drawMosaic(key, cx, cy, mpp, alpha = 1) {
+    const o = G6[key], im = IMG[key]; if (!im || alpha <= 0) return;
+    const x0 = mx(o.west), x1 = mx(o.east), sxp = (x1 - x0) / o.W, syp = (o.ymax - o.ymin) / o.H;         // metres per source pixel
+    const vx0 = cx - W / 2 * mpp, vx1 = cx + W / 2 * mpp, vy1 = cy + H / 2 * mpp, vy0 = cy - H / 2 * mpp;
+    const sx = clamp((vx0 - x0) / sxp, 0, o.W), ex = clamp((vx1 - x0) / sxp, 0, o.W), sy = clamp((o.ymax - vy1) / syp, 0, o.H), ey = clamp((o.ymax - vy0) / syp, 0, o.H);
+    if (ex - sx < 1 || ey - sy < 1) return;
+    const dx = (x0 + sx * sxp - cx) / mpp + W / 2, dy = (cy - (o.ymax - sy * syp)) / mpp + H / 2;
+    c.save(); c.globalAlpha = alpha; c.imageSmoothingQuality = "high"; c.drawImage(im, sx, sy, ex - sx, ey - sy, dx, dy, (ex - sx) * sxp / mpp, (ey - sy) * syp / mpp); c.restore();
+  }
+  const toScreen = (lat, lon, cx, cy, mpp) => [(mx(lon) - cx) / mpp + W / 2, (cy - my(lat)) / mpp + H / 2];
+  const credit = s => { font(13, 500); c.fillStyle = "rgba(255,255,255,0.85)"; c.textAlign = "right"; c.fillText(s, W - 16, H - 14); };
+  function boatMark(p, t, heading = 0) { const r = 10 + 4 * Math.sin(t * 4); c.strokeStyle = "#FFFFFF"; c.lineWidth = 3; c.beginPath(); c.arc(p[0], p[1], r, 0, TAU); c.stroke();
+    c.fillStyle = AMBER; c.beginPath(); c.arc(p[0], p[1], 5, 0, TAU); c.fill(); c.strokeStyle = AMBER; c.fillStyle = AMBER; c.lineWidth = 3; arrow(p[0] + 16, p[1], p[0] + 60, p[1] - 6, 9); }
+  scene("open", 0, { id: "where", nokb: true, draw(S) {
+    c.fillStyle = "#0B1A12"; c.fillRect(0, 0, W, H);
+    const p = ss(S.lt, 0.4, S.dur - 0.4), mpp = Math.exp(lerp(Math.log(15), Math.log(0.29), p));                           // Mercator m per pixel: ~13 km across → ~250 m
+    const c0 = [mx(8.683), my(47.690)], c1 = [mx(8.6922), my(47.6949)], k = ss(p, 0.0, 0.8), cx = lerp(c0[0], c1[0], k), cy = lerp(c0[1], c1[1], k);
+    drawMosaic("wide", cx, cy, mpp); drawMosaic("detail", cx, cy, mpp, clamp((2.4 - mpp) / 1.0)); drawMosaic("gps", cx, cy, mpp, clamp((0.6 - mpp) / 0.25));
+    const la = clamp((mpp - 3.0) / 3);                                                                                   // town labels while zoomed out
+    if (la > 0) { c.save(); c.globalAlpha = la; for (const [name, lat, lon, dx] of [["Rhine Falls", 47.6779, 8.6153, 0], ["Schaffhausen", 47.6960, 8.6340, 0], ["Büsingen", 47.6990, 8.6905, 0], ["Diessenhofen", 47.6893, 8.7489, 0]]) {
+      const q = toScreen(lat, lon, cx, cy, mpp); c.fillStyle = "#FFFFFF"; c.beginPath(); c.arc(q[0], q[1], 4, 0, TAU); c.fill(); text(name, q[0] + dx, q[1] - 12, 20, "#FFFFFF", "center", 600); }
+      const e = toScreen(47.692, 8.766, cx, cy, mpp); text("Lake Constance →", Math.min(e[0], W - 110), e[1] - 40, 18, "#FFFFFF", "center", 500); c.restore(); }
+    boatMark(toScreen(47.6950, 8.6910, cx, cy, mpp), S.lt);
+    const ca = ss(S.lt, 1.0, 1.8); c.save(); c.globalAlpha = ca; panel(40, 40, 400, 78); text("1 June 2026 · 17:30", 60, 74, 24, "#F4F7FB", "left", 600, "STIX Two Text"); label("the High Rhine at Büsingen, from our boat", 60, 102, "#C8D0DC", 17); c.restore();
+    credit("aerial imagery © swisstopo"); } });
+  function drawClip(frames, t, note) { const i = clamp(Math.floor(t * 30), 0, frames.length - 1), im = frames[i]; if (im) c.drawImage(im, 0, 0, W, H); chip(note, 40, 60, "#FFFFFF"); }
+  const TRK_A = {26:[1374.8,1061.6],27:[1304.2,1057.5],28:[1234.0,1053.8],29:[1164.0,1050.0],30:[1105.4,1052.4],31:[1034.5,1048.9],32:[964.8,1044.9],33:[892.0,1041.0],34:[827.0,1037.0],35:[764.0,1033.0],36:[701.0,1029.0],37:[638.0,1025.0],38:[577.0,1022.0],39:[517.0,1019.0],40:[455.0,1016.0],41:[394.0,1013.0],42:[334.0,1010.0],43:[274.0,1007.0],44:[215.0,1004.0],45:[156.0,1001.0],46:[97.0,998.0],47:[38.0,995.0]}, TRK_B = {44:[1127.5,1083.1],45:[1051.3,1079.0],46:[976.5,1074.4],47:[901.0,1070.0],48:[829.1,1066.3],49:[749.0,1062.0],50:[684.0,1058.0],51:[617.0,1055.0],52:[553.0,1051.0],53:[490.0,1047.0],54:[428.0,1043.0],55:[365.0,1039.0],56:[301.0,1035.0],57:[239.0,1031.0],58:[176.0,1027.0],59:[114.0,1023.0],60:[52.0,1020.0],61:[-21.0,1015.2]};                    // tracked by eye-checked template matching (field/dimples/)
+  window.assetsReady = window.assetsReady.then(() => Promise.all(Array.from({ length: 49 }, (_, i) => loadImg(`../assets/film/clip1hd/${String(i + 19).padStart(3, "0")}.jpg`))).then(a => IMG.hd = a));
+  scene("open", 1, { id: "footage", nokb: true, subTop: true, draw(S) {
+    const t = S.lt, slow = 4, f0 = 24, fr = t < f0 / 30 ? t * 30 : f0 + (t - f0 / 30) * 30 / slow, f = Math.min(66, Math.floor(fr) + 1);   // 1-based frame
+    const z = 1 + 1.3 * ss(t, f0 / 30, f0 / 30 + 1.2), pts = [TRK_A[f], TRK_B[f]].filter(Boolean);
+    let tx = 700, ty = 1030; if (pts.length) { tx = pts.reduce((a, q) => a + q[0], 0) / pts.length; ty = pts.reduce((a, q) => a + q[1], 0) / pts.length; }
+    this.cx = this.cx === undefined ? tx : lerp(this.cx, tx, 0.12); const cx = clamp(this.cx, 960 / z, 1920 - 960 / z), cy = clamp(ty - 120, 540 / z, 1080 - 540 / z);
+    const im = f >= 19 && IMG.hd[f - 19] ? IMG.hd[f - 19] : IMG.clip1[Math.min(156, f - 1)], sc = (im && im.width > 1300 ? 1 : 1.5);                    // hd frames are 1920 wide
+    c.save(); c.translate(W / 2, H / 2); c.scale(z * 1280 / 1920, z * 1280 / 1920); c.translate(-cx, -cy); if (im) c.drawImage(im, 0, 0, im.width * sc, im.height * sc); c.restore();
+    const toS = q => [W / 2 + (q[0] - cx) * z * 1280 / 1920, H / 2 + (q[1] - cy) * z * 1280 / 1920];
+    if (fr > f0) { c.save(); c.globalAlpha = ss(t, f0 / 30 + 0.6, f0 / 30 + 1.2); [[TRK_A[f], "a dimple", 46, 0], [TRK_B[f], "and a pair", 92, 40]].forEach(([q, name, rx, ox]) => { if (!q) return; const p = toS(q);
+      c.strokeStyle = AMBER; c.lineWidth = 3; c.beginPath(); c.ellipse(p[0] + ox, p[1] - 4, rx, 24, 0, 0, TAU); c.stroke(); label(name, p[0] + ox, p[1] - 42, "#FFF4DD", 20, "center"); }); c.restore(); }
+    chip(fr > f0 + 4 ? "our footage · 1 June 2026, 17:29 · slowed 4×" : "our footage · 1 June 2026, 17:29", 40, 44, "#FFFFFF"); } });
+
+  // the gauge: 2026 daily flow against the 1991–2020 range for each calendar day (FOEN station 2288)
+  scene("river", 14, { id: "gauge", draw(S) {
+    c.fillStyle = "#0E141D"; c.fillRect(0, 0, W, H); const rows = G6.gauge.rows.filter(r => r[0] <= "2026-08-31"), n = rows.length;
+    const x0 = 110, x1 = 1180, y0 = 560, y1 = 150, qmax = 1200, X = i => x0 + (x1 - x0) * i / (n - 1), Y = q => y0 - (y0 - y1) * q / qmax;
+    c.strokeStyle = "#1F2736"; c.lineWidth = 1; font(14, 500); c.fillStyle = MUTED; c.textAlign = "right";
+    for (let q = 0; q <= qmax; q += 300) { c.beginPath(); c.moveTo(x0, Y(q)); c.lineTo(x1, Y(q)); c.stroke(); c.fillText(String(q), x0 - 10, Y(q) + 5); }
+    c.textAlign = "center"; ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"].forEach((m, k) => { const i = rows.findIndex(r => r[0].slice(5, 7) === String(k + 1).padStart(2, "0")); if (i >= 0) c.fillText(m, X(i) + 30, y0 + 24); });
+    const band = (lo, hi, col) => { c.fillStyle = col; c.beginPath(); rows.forEach((r, i) => i ? c.lineTo(X(i), Y(r[hi])) : c.moveTo(X(i), Y(r[hi]))); for (let i = n - 1; i >= 0; i--) c.lineTo(X(i), Y(rows[i][lo])); c.closePath(); c.fill(); };
+    band(6, 8, "rgba(111,168,255,0.22)"); band(3, 4, "rgba(111,168,255,0.10)");                                           // p05–p95 over min–max
+    c.strokeStyle = "rgba(143,180,224,0.9)"; c.lineWidth = 2; c.setLineDash([6, 5]); c.beginPath(); rows.forEach((r, i) => i ? c.lineTo(X(i), Y(r[2])) : c.moveTo(X(i), Y(r[2]))); c.stroke(); c.setLineDash([]);
+    const upto = Math.floor(n * ss(S.lt, 0.3, 3.2)); c.strokeStyle = AMBER; c.lineWidth = 3; c.beginPath(); for (let i = 0; i < Math.max(1, upto); i++) i ? c.lineTo(X(i), Y(rows[i][1])) : c.moveTo(X(i), Y(rows[i][1])); c.stroke();
+    const j = rows.findIndex(r => r[0] === "2026-06-01");
+    if (upto > j) { const px_ = X(j), py = Y(rows[j][1]), a = ss(S.lt, 3.0, 3.6); c.save(); c.globalAlpha = a; c.fillStyle = "#FFFFFF"; c.beginPath(); c.arc(px_, py, 7, 0, TAU); c.fill();
+      c.strokeStyle = "#FFFFFF"; c.lineWidth = 1.5; c.beginPath(); c.moveTo(px_, py - 10); c.lineTo(px_, y1 + 40); c.stroke(); text("1 June: 252 m³/s", px_, y1 + 30, 20, "#F4F7FB", "center", 600);
+      label(`usual for the date: ${Math.round(rows[j][2])}`, px_ - 12, Y(rows[j][2]) - 12, "#C8D0DC", 16, "right"); c.restore(); }
+    { const e = Math.max(1, Math.min(upto, n - 1)); label("2026", X(e) - 6, Y(rows[e][1]) - 14, AMBER, 17, X(e) > 1000 ? "right" : "left"); }
+    text("The Rhine at Neuhausen, below Schaffhausen", 110, 90, 26, "#F4F7FB", "left", 600, "STIX Two Text"); label("discharge, cubic metres per second · band: 1991–2020 range for each day, dashed: median", 110, 118, MUTED, 16);
+    credit("data: FOEN Hydrology Division, station 2288 (2026 values provisional)"); } });
+  scene("river", 16, { id: "calm", nokb: true, draw(S) { drawClip(IMG.clip2, S.lt + 1.0, "our footage · 1 June 2026, 17:32"); } });
+  // the riverbed at the boat, through clear water (10 cm swisstopo imagery)
+  scene("river", 17, { id: "bed", nokb: true, draw(S) {
+    c.fillStyle = "#0B1A12"; c.fillRect(0, 0, W, H); const p = ss(S.lt, 0, S.dur), mpp = lerp(0.62, 0.48, p), cx = mx(lerp(8.6925, 8.6945, p)), cy = my(47.6947);
+    drawMosaic("gps", cx, cy, mpp);
+    const b1 = toScreen(47.6950, 8.6910, cx, cy, mpp), b2 = toScreen(47.6947, 8.6969, cx, cy, mpp); c.strokeStyle = "rgba(255,181,71,0.9)"; c.setLineDash([8, 6]); c.lineWidth = 2.5; c.beginPath(); c.moveTo(b1[0], b1[1]); c.lineTo(b2[0], b2[1]); c.stroke(); c.setLineDash([]);
+    boatMark(b1, S.lt); const a = ss(S.lt, 1.0, 2.0); c.save(); c.globalAlpha = a;
+    const w1 = toScreen(47.6945, 8.6927, cx, cy, mpp); c.strokeStyle = "#9BE8A8"; c.lineWidth = 2; c.setLineDash([6, 6]); c.beginPath(); c.ellipse(w1[0], w1[1], 230, 46, -0.12, 0, TAU); c.stroke(); c.setLineDash([]); label("dark streaks along the flow: weed beds?", w1[0] - 120, w1[1] + 72, "#DFF7E3", 18);
+    const g1 = toScreen(47.6954, 8.6955, cx, cy, mpp); label("gravel shallows", g1[0], g1[1] - 24, "#F4F7FB", 18, "center"); c.restore();
+    chip("the riverbed seen through clear water, from the air (2025)", 40, 60, "#FFFFFF");
+    if (S.after(18)) { c.globalAlpha = ss(S.T, S.L(18) + 0.6, S.L(18) + 1.2); chip("published counts of dimples on the Rhine: none found", 40, 100, AMBER); c.globalAlpha = 1; }
+    credit("aerial imagery © swisstopo SWISSIMAGE"); } });
+
+  // why they are rarely seen: three dials on the June evening
+  function dial(x, y, name, v, lo, hi, col) { panel(x, y, 330, 64); label(name, x + 14, y + 24, "#F4F7FB", 17); c.fillStyle = "#2C3649"; c.fillRect(x + 14, y + 40, 300, 6);
+    c.fillStyle = col; c.fillRect(x + 14, y + 40, 300 * v, 6); c.beginPath(); c.arc(x + 14 + 300 * v, y + 43, 8, 0, TAU); c.fill(); font(14, 500); c.fillStyle = MUTED; c.textAlign = "left"; c.fillText(lo, x + 14, y + 60); c.textAlign = "right"; c.fillText(hi, x + 314, y + 60); }
+  scene("keep", 11, { id: "dials", gl: true, reset() { this.r = River(91, { U: 1.2, boils: false }); pairs(this.r, [[-8, 4, 0.4, 70], [6, 9, 2.4, 65], [1, -1, -1.1, 70], [12, -4, 1.8, 60], [-4, 14, 1.0, 70]]); },
+    draw(S) { const T3 = S.L(13), bump = (a, b) => ss(S.T, a, a + 0.9) - ss(S.T, b - 0.9, b);
+      const wind = bump(T3, T3 + 2.4), over = bump(T3 + 2.2, T3 + 4.6), eye = bump(T3 + 4.4, T3 + 6.8);
+      const cam = { pos: [0, lerp(-26, -14, eye), lerp(7.5, 70, eye)], target: [0, 6, 0], fov: 32 }; this.r.step(S.dt, cam);
+      water.render(boatOpts(this.r, cam, { ripple: 0.009 + 0.05 * wind, overcast: over, glint: (1 - over) * (1 - eye) }));
+      c.fillStyle = "rgba(8,11,17,0.55)"; c.fillRect(0, 0, W, 104);
+      dial(24, 20, "wind", wind, "calm", "breeze", GLASS); dial(474, 20, "sky", over, "clouds and trees to reflect", "overcast", GLASS); dial(924, 20, "eye height", eye, "low, from a boat", "high, from a bridge", GLASS);
+      if (S.after(12) && !S.after(13)) { const a = ss(S.T, S.L(12), S.L(12) + 0.6); c.save(); c.globalAlpha = a; panel(40, 140, 520, 150); label("true scale: a dip of half a millimetre, 2 cm across", 60, 168, "#F4F7FB", 17);
+        c.strokeStyle = GLASS; c.lineWidth = 2; c.beginPath(); for (let x = -240; x <= 240; x += 4) { const y = 210 + 0.05 / (1 + (x / 40) ** 2); x === -240 ? c.moveTo(300 + x, y) : c.lineTo(300 + x, y); } c.stroke();
+        label("×200 in depth:", 60, 246, MUTED, 15); c.beginPath(); for (let x = -240; x <= 240; x += 4) { const y = 250 + 22 / (1 + (x / 40) ** 2); x === -240 ? c.moveTo(300 + x, y) : c.lineTo(300 + x, y); } c.stroke(); c.restore(); }
+      if (S.after(14)) { c.globalAlpha = ss(S.T, S.L(14), S.L(14) + 0.6); chip("1 June 2026: calm, cumulus and poplars, and a low boat", 40, 140, AMBER); c.globalAlpha = 1; }
+      chip("illustration", W - 130, H - 90, "#FFFFFF"); } });
+
+  // ---- cold open
+    scene("open", 3, { id: "closeup", gl: true, reset() { this.r = River(7, { boils: false, U: 0.3 }); this.r.pair(0, 3, 0.3, 70, 3.2, -99); },
+    draw(S) { this.r.step(S.dt); const p = ss(S.lt, 0, S.dur), v = [this.r.sys.x[0], this.r.sys.y[0]], cam = { pos: [v[0] + lerp(2.2, 1.0, p), v[1] + lerp(-6.5, -5.0, p), lerp(1.8, 1.25, p)], target: [v[0], v[1], 0], fov: 30 }; water.render(boatOpts(this.r, cam, { slopeVis: 1.5, ...SHALLOW })); } });
+  scene("open", 4, { id: "funnel", draw(S) {
+    const lt = S.lt, ys = 250, yb = 640, cx = 640, A = 64; c.fillStyle = "#0E1622"; c.fillRect(0, 0, W, H);
+    const eta = x => -A / (1 + ((x - cx) / 70) ** 2) * ss(lt, 0.2, 2.2);
+    c.fillStyle = "rgba(60,120,160,0.25)"; c.beginPath(); c.moveTo(0, yb); for (let x = 0; x <= W; x += 8) c.lineTo(x, ys - eta(x)); c.lineTo(W, yb); c.closePath(); c.fill();
+    c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath(); for (let x = 0; x <= W; x += 4) x ? c.lineTo(x, ys - eta(x)) : c.moveTo(x, ys - eta(x)); c.stroke();
+    c.fillStyle = "rgba(111,168,255,0.18)"; c.fillRect(cx - 34, ys + 10, 68, yb - ys - 10);
+    for (let k = 0; k < 6; k++) { c.save(); c.translate(cx, ys + 60 + k * 58); c.scale(1, 0.28); spin(0, 0, 70, true, "rgba(200,225,255,0.8)", lt * 3 + k, 3); c.restore(); }
+    const a = ss(S.T, S.L(4), S.L(4) + 1); c.globalAlpha = a; c.strokeStyle = AMBER; c.fillStyle = AMBER; c.lineWidth = 3; for (const s_ of [-1, 1]) arrow(cx + s_ * 240, ys + 150, cx + s_ * 90, ys + 150, 10);
+    label("higher pressure outside", cx + 250, ys + 140, AMBER, 20); label("lower toward the centre", cx + 250, ys + 166, AMBER, 18); c.globalAlpha = 1;
+    if (S.after(5)) label("the surface dips", cx + 110, ys - 40, TEXT, 22); c.fillStyle = "#3A3326"; c.fillRect(0, yb, W, 12); } });
+  scene("open", 6, { id: "restless", gl: true, reset() { this.r = River(13, { U: 2.4 }); this.r.nextBoil = 0; pairs(this.r, [[-10, 4, 0.4, 70], [6, 10, 2.6, 65], [2, -2, -1.2, 70], [12, -6, 1.9, 60], [-4, 14, 1, 70], [16, 6, 2.2, 65]]); },
+    draw(S) { const cam = { pos: [-30 + S.lt * 0.6, -6, 7], target: [4, 8, 0], fov: 36 }; this.r.step(S.dt, cam); water.render(boatOpts(this.r, cam, { ripple: 0.016 }));
+      const tt = S.beatEnd - S.T; if (tt < 3.0) { const a = clamp((3.0 - tt) / 0.5); c.fillStyle = `rgba(6,9,14,${0.55 * a})`; c.fillRect(0, 0, W, H); c.globalAlpha = a; text("Dimples on the Rhine", W / 2, H / 2, 72, "#F4F7FB", "center", 600, "STIX Two Text"); c.globalAlpha = 1; } } });
+
+  // ---- under the dimple
+  scene("under", 0, { id: "dive", gl: true, reset() { this.r = River(17, { boils: false, U: 0.3 }); this.r.pair(0, 3, 0.3, 70, 3.2, -99); },
+    draw(S) { this.r.step(S.dt); const p = ss(S.lt, 0.2, 1.6), yw = H * (1 - p), v = [this.r.sys.x[0], this.r.sys.y[0]]; const cam = { pos: [v[0] + 1.0, v[1] - 5.0, lerp(1.25, 0.4, p)], target: [v[0], v[1], lerp(0, -1.5, p)], fov: 30 };
+      water.render(boatOpts(this.r, cam, { slopeVis: 1.5, ...SHALLOW }));
+      c.save(); c.beginPath(); c.rect(0, yw, W, H - yw); c.clip(); underwater(S); c.restore();
+      if (p < 1) { c.strokeStyle = "rgba(220,245,240,0.9)"; c.lineWidth = 4; c.beginPath(); c.moveTo(0, yw); c.lineTo(W, yw); c.stroke(); } } });
+  function spinTube(P, t, zTop, zBot, off = (z) => [0.35 * Math.sin(z * 0.6), 0]) {       // a translucent tube of spinning water, with rotation rings
+    const parts = []; for (let i = 0; i < 1100; i++) { const q = SMOKE[i], z = zTop + (zBot - zTop) * (i / 1100), th = q.th + t * 3.2, r = 0.32 + 0.3 * q.rho, o = off(z); parts.push({ q: [o[0] + r * Math.cos(th), o[1] + r * Math.sin(th), z], s: q.s }); }
+    drawParticles(P, parts, [190, 235, 245], 0.35, 0.045);
+    for (let k = 0; k < 4; k++) { const z = zTop + (zBot - zTop) * (0.15 + 0.23 * k), o = off(z), ring = []; for (let m = 0; m <= 40; m++) { const a = m / 40 * TAU; ring.push(P(o[0] + 0.95 * Math.cos(a), o[1] + 0.95 * Math.sin(a), z)); }
+      if (!ring.every(Boolean)) continue; c.strokeStyle = "rgba(255,181,71,0.75)"; c.lineWidth = 2; c.beginPath(); ring.forEach((p_, m) => m ? c.lineTo(p_[0], p_[1]) : c.moveTo(p_[0], p_[1])); c.stroke();
+      const a = t * 3.2 + k, h = P(o[0] + 0.95 * Math.cos(a), o[1] + 0.95 * Math.sin(a), z), h2 = P(o[0] + 0.95 * Math.cos(a + 0.25), o[1] + 0.95 * Math.sin(a + 0.25), z); if (h && h2) { c.fillStyle = AMBER; arrowHead(h2[0], h2[1], Math.atan2(h2[1] - h[1], h2[0] - h[0]), 7); } }
+  }
+  scene("under", 1, { id: "tube-axis", draw(S) {
+    const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#15403F"); g.addColorStop(1, "#040E0F"); c.fillStyle = g; c.fillRect(0, 0, W, H);
+    const P = cam3([7, -9, 1.5], [0, 0, -2.4], 42);
+    const quad = [[-5, -4, 0], [5, -4, 0], [5, 4, 0], [-5, 4, 0]].map(v => P(...v)); if (quad.every(Boolean)) { c.fillStyle = "rgba(170,230,215,0.10)"; c.strokeStyle = "rgba(190,240,230,0.6)"; c.lineWidth = 1.5; c.beginPath(); quad.forEach((q, i) => i ? c.lineTo(q[0], q[1]) : c.moveTo(q[0], q[1])); c.closePath(); c.fill(); c.stroke(); }
+    spinTube(P, S.lt, 0, -6);
+    const a = ss(S.T, S.L(1), S.L(1) + 0.8); if (a > 0) { const pts = []; for (let k = 0; k <= 40; k++) { const z = 0.4 - 6.8 * k / 40; pts.push(P(0.35 * Math.sin(z * 0.6), 0, z)); } c.save(); c.globalAlpha = a; c.shadowColor = "#FFFFFF"; c.shadowBlur = 12; c.strokeStyle = "#FFFFFF"; c.lineWidth = 3; c.beginPath(); pts.forEach((p_, i) => p_ && (i ? c.lineTo(p_[0], p_[1]) : c.moveTo(p_[0], p_[1]))); c.stroke(); c.restore();
+      c.globalAlpha = a; label("vortex line: how we draw the spin", 790, 250, "#FFFFFF", 20); c.globalAlpha = 1; }
+    label("a tube of spinning water", 790, 210, "#BFE3DA", 20); if (S.after(2)) label("the water turns around it", 790, 290, AMBER, 19); } });
+  scene("under", 3, { id: "line-point", reset() { setLines("upright"); }, draw(S) { FIG("figLines", 160, 90, 960, 504, S.T); label("a line meets a plane in a point", 640, 626, TEXT, 22, "center"); } });
+  scene("under", 5, { id: "helmholtz", reset() { setLines("end"); this.names = [[5, "Hermann von Helmholtz", "1858"]]; }, draw(S) { FIG("figLines", 160, 90, 960, 504, S.lt * 0.25); label("a tube of spin can't have a loose end inside the water", 640, 626, TEXT, 22, "center"); } });
+  scene("under", 7, { id: "circulation", reset() { figs.figLoop.reset(); Object.assign(window.LOOP_STATE, { x: 0, y: 0, r: 2.0 }); }, draw(S) {
+    const L = window.LOOP_STATE, w = ss(S.T, S.L(9) + 1.2, S.L(9) + 2.5); L.x = 0.6 * w * Math.sin((S.T - S.L(9)) * 0.9); L.y = 0.35 * w * Math.sin((S.T - S.L(9)) * 1.3);
+    FIG("figLoop", 160, 150, 960, 540, S.T); c.fillStyle = BG; c.fillRect(160, 664, 380, 26); const full = parseFloat(document.getElementById("loopOut").textContent.replace(/[^0-9.\-]/g, "")) || 0;
+    const th = TAU * ss(S.T, S.L(8), S.L(9) - 0.2), Sx = 960 / 13, cx = 640 + L.x * Sx, cy = 420 - L.y * Sx;       // the running sum, walked around the loop
+    if (th > 0 && w === 0) { c.strokeStyle = AMBER; c.lineWidth = 6; c.beginPath(); c.arc(cx, cy, L.r * Sx, 0, -th, true); c.stroke(); c.fillStyle = AMBER; c.beginPath(); c.arc(cx + L.r * Sx * Math.cos(th), cy - L.r * Sx * Math.sin(th), 8, 0, TAU); c.fill(); }
+    equation([P("Γ"), P("="), P("∮"), P("u · dl", { it: true })], 640, 96, 46);
+    const sum = S.after(9) ? full : full * th / TAU; font(22, 600, "IBM Plex Mono"); c.fillStyle = S.after(9) ? "#FFFFFF" : AMBER; c.textAlign = "center";
+    c.fillText(S.after(9) ? `circulation Γ = ${sum.toFixed(1)}` : `adding up the flow along the loop: ${sum.toFixed(1)}`, 640, 146);
+    if (w > 0.5) label("any loop around the same tube: same total", 640, 628, TEXT, 20, "center"); } });
+  scene("under", 10, { id: "frozen-proof", reset() { setLines("end"); }, draw(S) {           // the figure's loop cycle, re-timed to the words
+    const A = S.L(10), B = S.L(11), D = S.L(13), E = S.L(14), tau = 5.2 * ss(S.T, A + 0.8, B + 1.0) + 0.24 * ss(S.T, B + 1.0, D + 0.3) + 1.76 * ss(S.T, D + 0.3, D + 2.8) + 0.4 * ss(S.T, D + 2.8, E + 1);
+    FIG("figLines", 160, 90, 960, 504, tau); chip("flow frozen: only our measuring loop moves", 40, 60, GLASS); } });
+  scene("under", 15, { id: "close-or-end", reset() { setLines("ring"); this.sw = false; }, draw(S) { if (!this.sw && S.T > S.L(15) + 1.6) { setLines("upright"); this.sw = true; } FIG("figLines", 160, 90, 960, 504, S.T);
+    label(this.sw ? "…or end on the riverbed or the surface" : "close into a ring…", 640, 626, TEXT, 22, "center"); } });
+
+  // ---- smoke rings
+  scene("rings", 0, { id: "ring-hello", draw(S) { smokyBG(); const P = cam3([0, -14, 1.5], [0, 0, 0.3], 42), y = lerp(10, -4, ss(S.lt, 0, S.dur)); drawParticles(P, ringParticles([0.8 * Math.sin(S.lt * 0.5), y, 0.4], [0.15, -1, 0.05], 1.7, 0.45, S.lt), [235, 236, 240], 0.3, 0.05);
+    label("a tube of spinning air, closed on itself", 640, 620, TEXT, 22, "center"); } });
+  scene("rings", 2, { id: "tait-box", reset() { this.names = [[2, "Peter Guthrie Tait", "Edinburgh, 1867"], [3, "William Thomson, later Lord Kelvin", ""]]; }, draw(S) {
+    smokyBG(); const P = cam3([11, -9, 3.5], [0, 0, 0], 42);
+    const box = [[-8, -2, -2], [-4, -2, -2], [-4, 2, -2], [-8, 2, -2], [-8, -2, 2], [-4, -2, 2], [-4, 2, 2], [-8, 2, 2]].map(v => P(...v));
+    const face = (ids, col) => { c.fillStyle = col; c.beginPath(); ids.forEach((k, i) => i ? c.lineTo(box[k][0], box[k][1]) : c.moveTo(box[k][0], box[k][1])); c.closePath(); c.fill(); };
+    face([0, 1, 2, 3], "#2A241A"); face([0, 1, 5, 4], "#3A3124"); face([4, 5, 6, 7], "#4A3E2C"); face([1, 2, 6, 5], "#54462F");
+    const hole = []; for (let k = 0; k <= 30; k++) { const a = k / 30 * TAU; hole.push(P(-4, 0.9 * Math.cos(a), 0.9 * Math.sin(a))); } c.fillStyle = "#0A0806"; c.beginPath(); hole.forEach((h, i) => i ? c.lineTo(h[0], h[1]) : c.moveTo(h[0], h[1])); c.fill();
+    const all = []; for (let k = 0; k < 4; k++) { const age = S.lt - k * 2.1; if (age < 0) continue; const x = -3.6 + age * 2.4, R = 0.9 + 0.12 * age, fade = clamp(1.3 - age / 7);
+      if (fade > 0) all.push(...ringParticles([x, 0, 0.1 * Math.sin(age)], [1, 0, 0.05], R, 0.34 + 0.03 * age, S.lt, { n: 900, wobble: 0.04 * Math.sin(age * 3) }).map(p => (p.s *= fade, p))); }
+    drawParticles(P, all, [236, 236, 240], 0.3, 0.05); } });
+  scene("rings", 4, { id: "bounce", draw(S) { smokyBG(); const t = S.lt, P = cam3([lerp(-6, 5, t / 7) + 8, -10, 3], [lerp(-6, 5, t / 7), 0, 0], 42), gap = 1.1 + 0.8 * Math.abs(Math.sin(t * 0.6)) * ss(t, 1.2, 2.2), x = lerp(-6, 5, t / 7);
+    const tilt = 0.25 * ss(t, 1.3, 2.4); drawParticles(P, [...ringParticles([x, 0, gap + 0.6], [1, 0, tilt], 1.3, 0.36, t, { n: 800, wobble: 0.1 * Math.sin(t * 4) }), ...ringParticles([x, 0, -gap - 0.6], [1, 0, -tilt], 1.3, 0.36, t + 1, { n: 800, wobble: 0.1 * Math.sin(t * 4 + 1), wph: 1 })], [236, 236, 240], 0.3, 0.05); } });
+  scene("rings", 5, { id: "leapfrog", reset() { this.sys = V.makeSystem({ a: 0.5 }); [[0, 2.0, 22], [0, -2.0, -22], [-3, 2.5, 22], [-3, -2.5, -22]].forEach(p => V.add(this.sys, ...p)); },
+    draw(S) { const n = Math.max(1, Math.ceil(S.dt / 0.01)); for (let k = 0; k < n; k++) V.step(this.sys, S.dt / n); smokyBG();
+      const s = this.sys, mx = (s.x[0] + s.x[1] + s.x[2] + s.x[3]) / 4, P = cam3([mx + 8, -8, 4], [mx, 0, 0], 44), all = [];
+      for (const [i, j, off] of [[0, 1, 0], [2, 3, 2]]) { const x = (s.x[i] + s.x[j]) / 2, R = (s.y[i] - s.y[j]) / 2; all.push(...ringParticles([x, 0, 0], [1, 0, 0], R * 0.55, 0.3, S.lt + off, { n: 1000 })); }
+      drawParticles(P, all, [236, 236, 240], 0.3, 0.05); chip("sketch: two rings from the vortex model, taking turns", 40, 60, GLASS); } });
+  scene("rings", 6, { id: "knot", draw(S) { smokyBG(); const P = cam3([0, -14, 3], [0, 0, 0], 40); tube(P, knotPts("trefoil", S.lt * 0.35, 1.4), 0.55, [225, 228, 236]);
+    if (S.after(8)) { const a = ss(S.T, S.L(8), S.L(8) + 0.6) * (1 - 0.6 * ss(S.T, S.L(9), S.L(9) + 0.5)); c.globalAlpha = a; label("atoms as knotted vortex rings?", 640, 610, TEXT, 24, "center"); if (S.after(9)) { const m = c.measureText("atoms as knotted vortex rings?").width; c.strokeStyle = "#FF6B6B"; c.lineWidth = 3; c.beginPath(); c.moveTo(640 - m / 2 - 6, 602); c.lineTo(640 - m / 2 - 6 + (m + 12) * ss(S.T, S.L(9), S.L(9) + 0.6), 602); c.stroke(); } c.globalAlpha = 1; } } });
+  scene("rings", 10, { id: "knot-table", draw(S) { smokyBG(); const kinds = ["trefoil", "eight", [2, 5], [3, 4], [2, 7], [3, 5]], cols = [[79, 209, 197], [255, 181, 71], [111, 168, 255], [255, 111, 160], [178, 141, 255], [220, 226, 236]];
+    kinds.forEach((k, i) => { const cx = (i % 3 - 1) * 7.2, cz = (Math.floor(i / 3) === 0 ? 2.6 : -2.6), P = cam3([0, -22, 0], [0, 0, 0], 44); tube(P, knotPts(k, S.lt * 0.4 + i, k === "trefoil" ? 0.75 : 0.62, [cx, 0, cz]), 0.35, cols[i]); });
+    label("Tait's tables of knots → knot theory", 640, 612, TEXT, 22, "center"); } });
+  scene("rings", 11, { id: "reconnect", reset() { this.names = [[12, "vortex rings reconnecting with a free surface", "Bernal & Kwon 1989 · Terrington, Hourigan & Thompson 2022"]]; }, draw(S) {
+    const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#0E2230"); g.addColorStop(1, "#041016"); c.fillStyle = g; c.fillRect(0, 0, W, H);
+    const P = cam3([-6, -9, 7], [0, 0, -2], 44), R = 1.8, tilt = 0.35, ax = nrm([Math.sin(tilt), 0, Math.cos(tilt)]), zc = -4.2 + 4.12 * ss(S.T, S.L(11), S.L(13) + 0.5);
+    const quad = [[-8, -6, 0], [8, -6, 0], [8, 6, 0], [-8, 6, 0]].map(v => P(...v)); c.fillStyle = "rgba(90,150,230,0.16)"; c.strokeStyle = "rgba(140,190,255,0.6)"; c.lineWidth = 1.5; c.beginPath(); quad.forEach((q, i) => i ? c.lineTo(q[0], q[1]) : c.moveTo(q[0], q[1])); c.closePath(); c.fill(); c.stroke();
+    const topZ = zc + R * Math.sin(tilt), near = clamp(1 - Math.abs(topZ) / 0.6), joined = topZ > 0;
+    if (near > 0) { const [a0, b1, b2] = basisFor(ax), th = Math.atan2(b2[2], b1[2]), X = R * (Math.cos(th) * b1[0] + Math.sin(th) * b2[0]), Y = R * (Math.cos(th) * b1[1] + Math.sin(th) * b2[1]), q = P(X, Y, 0);
+      if (q) { const gr = c.createRadialGradient(q[0], q[1], 2, q[0], q[1], 90); gr.addColorStop(0, `rgba(255,231,168,${0.55 * near})`); gr.addColorStop(1, "rgba(255,231,168,0)"); c.fillStyle = gr; c.beginPath(); c.arc(q[0], q[1], 90, 0, TAU); c.fill(); if (!joined) label("reconnecting", q[0] - 40, q[1] - 70, "#FFE7A8", 18, "right"); } }
+    let parts = ringParticles([0, 0, zc], ax, R, 0.38, S.lt, { n: 1200 }); if (joined) parts = parts.filter(p => p.q[2] < -0.05); drawParticles(P, parts, [236, 236, 240], 0.32, 0.05);
+    if (joined) { const [a0, b1, b2] = basisFor(ax), A = b1[2], B = b2[2], M = Math.hypot(A, B), base = Math.atan2(B, A), d = Math.acos(clamp(-zc / (R * M), -1, 1));
+      [base + d, base - d].forEach((th, k) => { const X = R * (Math.cos(th) * b1[0] + Math.sin(th) * b2[0]), Y = R * (Math.cos(th) * b1[1] + Math.sin(th) * b2[1]), q = P(X, Y, 0); if (!q) return; c.save(); c.translate(q[0], q[1]); c.scale(1, 0.4); spin(0, 0, 26, k === 0, k === 0 ? TEAL : AMBER, S.lt * 3, 3); c.restore(); }); }
+    label(joined ? "a curved tube with two ends" : "a tilted ring rising toward the surface", 640, 60, TEXT, 22, "center"); } });
+  scene("rings", 14, { id: "reveal", draw(S) {                                           // from above, two dimples; from below, one tube
+    const p = ss(S.T, S.L(14) + 0.6, S.L(15) + 2.0), pos = [0, lerp(-0.01, -8.5, p), lerp(11, -2.4, p)], tgt = [0, 0, lerp(0, -1.0, p)], P = cam3(pos, tgt, 44), below = pos[2] < 0;
+    const g = c.createLinearGradient(0, 0, 0, H); if (below) { g.addColorStop(0, "#1C5A57"); g.addColorStop(1, "#030C0D"); } else { g.addColorStop(0, "#1A2B3A"); g.addColorStop(1, "#0E1A24"); } c.fillStyle = g; c.fillRect(0, 0, W, H);
+    const quad = [[-7, -5, 0], [7, -5, 0], [7, 5, 0], [-7, 5, 0]].map(v => P(...v)); if (quad.every(Boolean)) { c.fillStyle = below ? "rgba(190,240,230,0.10)" : "rgba(90,150,230,0.35)"; c.strokeStyle = "rgba(190,230,255,0.6)"; c.lineWidth = 1.5; c.beginPath(); quad.forEach((q, i) => i ? c.lineTo(q[0], q[1]) : c.moveTo(q[0], q[1])); c.closePath(); c.fill(); c.stroke(); }
+    const R = 1.9, zc = 0.35, show = ss(p, 0.25, 0.7); let parts = ringParticles([0, 0, zc], [0, 1, 0], R, 0.38, S.lt, { n: 1300 }).filter(q => q.q[2] < -0.04); parts.forEach(q => q.s *= show);
+    if (show > 0.01) drawParticles(P, parts, [236, 236, 240], 0.32 * show, 0.05);
+    const fx = Math.sqrt(R * R - zc * zc); [[-fx, true], [fx, false]].forEach(([x, ccw]) => { const q = P(x, 0, 0); if (!q) return; c.save(); c.translate(q[0], q[1]); c.scale(1, lerp(1, 0.35, p)); spin(0, 0, 30, ccw, ccw ? TEAL : AMBER, S.lt * 3, 3); c.restore(); });
+    label(S.after(15) ? "from below: one connected tube" : "from above: two dimples", 640, 60, TEXT, 24, "center"); } });
+  scene("rings", 16, { id: "spin-dirs", reset() { setLines("arch"); }, draw(S) { FIG("figLines", 160, 90, 960, 504, S.T); label("spin up at one end, down at the other: opposite turns from above", 640, 626, TEXT, 21, "center"); } });
+
+  // ---- the river's own smoke rings
+  scene("river", 0, { id: "no-boxes", gl: true, reset() { this.r = River(37, { boils: false }); },
+    draw(S) { const cam = { pos: [0, -34 + S.lt * 0.5, 16 - S.lt * 0.25], target: [0, 10, 0], fov: 38 }; this.r.step(S.dt, cam); water.render(boatOpts(this.r, cam)); } });
+  scene("river", 2, { id: "hairpin", reset() { figs.figRiver.reset(); this.names = [[4, "hairpin vortices", "Theodorsen 1952 · Kline and colleagues 1967 · Zhou and colleagues 1999"]]; }, draw(S) { FIG("figRiver", 160, 90, 960, 504, S.T); } });
+  scene("river", 5, { id: "factory", draw(S) {
+    const ys = 180, yb = 600, x0 = 60, x1 = 1220; c.fillStyle = "#0E1622"; c.fillRect(0, 0, W, H); c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath(); c.moveTo(x0, ys); c.lineTo(x1, ys); c.stroke();
+    c.fillStyle = "#3A3326"; c.fillRect(x0, yb, x1 - x0, 12);
+    for (let k = 0; k < 7; k++) { const y = yb - 30 - k * 55, L = 30 + 120 * Math.log(1 + k * 0.8); c.strokeStyle = "rgba(143,180,224,0.45)"; c.fillStyle = "rgba(143,180,224,0.45)"; c.lineWidth = 1.5; arrow(x0 + 20, y, x0 + 20 + L, y, 5); }
+    const r = rng(11), rise = 110, top = yb - ys, luckyBorn = (S.L(7) - 0.3) - (S.T - S.lt) - top / rise;
+    for (let i = 0; i < 44; i++) { const lucky = i === 43, born = lucky ? luckyBorn : i * 0.55 - 1.5, xb = lucky ? 560 : x0 + 160 + r() * 960, life = S.lt - born, fr = r(); if (life < 0) continue;
+      const maxH = lucky ? top : (0.2 + 0.55 * fr) * top, h = Math.min(maxH, life * rise), shred = lucky ? 0 : clamp((life * rise - maxH) / 80), x = lucky ? xb + Math.min(life, top / rise) * 30 : xb + life * 35, w = lucky ? 34 : 18 + 12 * r();
+      if (shred >= 1) continue; c.globalAlpha = 1 - shred;
+      if (shred > 0) { c.fillStyle = "rgba(200,225,255,0.7)"; for (let k = 0; k < 14; k++) { const q = k / 14 * Math.PI, jx = (r() - 0.5) * 60 * shred, jy = (r() - 0.5) * 60 * shred; c.beginPath(); c.arc(x - w * Math.cos(q) + jx, yb - h * Math.sin(q) + jy, 2.5, 0, TAU); c.fill(); } }
+      else { c.strokeStyle = lucky ? "rgba(235,242,255,0.98)" : "rgba(111,168,255,0.75)"; c.lineWidth = lucky ? 6 : 3; c.beginPath(); c.moveTo(x - w, yb); c.bezierCurveTo(x - w, yb - h * 1.33, x + w, yb - h * 1.33, x + w, yb); c.stroke(); }
+      if (lucky && h >= maxH - 1) { c.fillStyle = "rgba(10,14,22,0.6)"; c.fillRect(x - w - 30, ys - 3, 2 * w + 60, 6); spin(x - w, ys, 18, true, TEAL, S.lt * 3); spin(x + w, ys, 18, false, AMBER, S.lt * 3); label("a pair of dimples", x, ys - 30, TEXT, 20, "center"); }
+      c.globalAlpha = 1; }
+    label("the riverbed: a vortex factory", x0 + 10, yb + 40, MUTED, 20); label("most arches never make it", x1 - 10, ys + 40, MUTED, 18, "right"); } });
+  scene("river", 8, { id: "pair-speed", gl: true, reset() { this.r = River(5, { U: 0, boils: false }); this.r.pair(-18, 0, 0, 60, 4, -99); }, draw(S) {
+    const sc = 60 / W, dNow = 4 / 2 ** ss(S.T, S.L(9), S.L(9) + 1.5), s = this.r.sys;
+    if (s.x.length === 2) { const mx = (s.x[0] + s.x[1]) / 2, my = (s.y[0] + s.y[1]) / 2, dx = s.x[0] - s.x[1], dy = s.y[0] - s.y[1], d = Math.hypot(dx, dy) || 1; s.x[0] = mx + dx / d * dNow / 2; s.y[0] = my + dy / d * dNow / 2; s.x[1] = mx - dx / d * dNow / 2; s.y[1] = my - dy / d * dNow / 2; }
+    this.r.step(S.dt); water.render(topOpts(this.r, sc)); c.fillStyle = "rgba(10,13,20,0.72)"; c.fillRect(0, 0, W, 190);
+    equation([K("V", 4 / dNow, TEAL, "V", { it: true }), P("="), { num: [P("Γ")], den: [P("2π"), K("d", dNow / 4, GLASS, "d", { it: true })] }], 640, 110, 54); chip("ideal pair, strengths fixed", 40, 225, GLASS); } });
+
+  const P_ = P;
+  // ---- rocks: a steady, alternating train of whirlpools from one spot
+  const warm = (r, sec) => { for (let k = 0; k < sec / 0.05; k++) r.step(0.05); };
+  function shedMarks(r, cam, alpha, P2 = null) {                  // rings around the whirlpools a rock has shed, coloured by spin
+    c.save(); c.globalAlpha = alpha; for (let i = 0; i < r.sys.x.length; i++) { if (r.pid[i] !== -1) continue;
+      const p = P2 ? P2(r.sys.x[i], r.sys.y[i]) : WR.project(cam, W, H, r.sys.x[i], r.sys.y[i]); if (!p) continue; const ccw = r.sys.G[i] > 0;
+      c.strokeStyle = ccw ? TEAL : AMBER; c.lineWidth = 2; c.beginPath(); P2 ? c.arc(p[0], p[1], 22, 0, TAU) : c.ellipse(p[0], p[1], 20, 7, 0, 0, TAU); c.stroke(); }
+    c.restore();
+  }
+  scene("river", 10, { id: "rock-boat", gl: true, reset() { this.r = River(61, { U: 8, boils: false }); this.r.addRock(-4, 38, 16, 85, 5.0); pairs(this.r, [[18, 16, 1.0, 45], [-24, 22, 2.0, 40]]); warm(this.r, 14); },
+    draw(S) { const cam = { pos: [lerp(-16, -10, ss(S.lt, 0, S.dur)), -12, 30], target: [14, 30, 0], fov: 40 }; this.r.step(S.dt, cam);           // high, from the bank
+      water.render(boatOpts(this.r, cam, { rocks: this.r.rockList(14, 0.2), slopeVis: 1.4, a: 0.5, exaggerate: 1.4, murk: 0.05, waterColor: [0.07, 0.14, 0.12] }));   // clear water; the rock's top 11 cm down
+      if (S.after(11)) shedMarks(this.r, cam, ss(S.T, S.L(11), S.L(11) + 0.8));
+      const rp = WR.project(cam, W, H, -4, 30); if (rp) { c.globalAlpha = 1 - ss(S.T, S.L(11), S.L(11) + 0.6); label("a boulder below", rp[0], rp[1] - 60, "#EAF2F0", 18, "center"); c.globalAlpha = 1; } } });
+  scene("river", 12, { id: "pier", gl: true, reset() { this.r = River(63, { U: 7, boils: true }); this.r.addRock(-22, 0, 7, 80, 3.2); warm(this.r, 16);
+      this.names = [[12, "Aarnes, Babiker, Xuan, Shen & Ellingsen", "J. Fluid Mech. 2025 · a photo of the Nidelva, Trondheim"]]; },
+    draw(S) { const sc = 62 / W; this.r.step(S.dt); water.render(topOpts(this.r, sc, { rocks: [] }));
+      const P2 = (x, y) => [W / 2 + x / sc, H / 2 - y / sc];
+      const pc = P2(-22, 0); c.fillStyle = "#5E5A52"; c.strokeStyle = "#2B2924"; c.lineWidth = 3; c.beginPath(); c.arc(pc[0], pc[1], 3.5 / sc, 0, TAU); c.fill(); c.stroke();
+      c.strokeStyle = "rgba(235,245,255,0.7)"; c.lineWidth = 2; c.beginPath(); c.arc(pc[0], pc[1], 3.5 / sc + 6, Math.PI * 0.6, Math.PI * 1.4); c.stroke();
+      c.save(); c.globalAlpha = ss(S.lt, 0.8, 1.8); for (let i = 0; i < this.r.sys.x.length; i++) { const p = P2(this.r.sys.x[i], this.r.sys.y[i]), big = this.r.pid[i] === -1;
+        c.strokeStyle = big ? "#6BE37A" : "#6FA8FF"; c.lineWidth = big ? 3 : 2; c.beginPath(); c.arc(p[0], p[1], big ? 26 : 14, 0, TAU); c.stroke(); } c.restore();
+      chip("SCHEMATIC after a marked-up river photo (Aarnes et al. 2025, Fig. 1)", 40, 60, "#FFFFFF");
+      chip("green: shed by a bridge pillar · blue: other dimples", 40, 100, "#6BE37A"); label("bridge pillar", pc[0], pc[1] - 3.5 / sc - 14, "#F4F7FB", 18, "center"); } });
+
+  // the depth dial: the same rock under deep and shallow water
+  const hull = pts => { pts = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]); const cr = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+    const lo = [], up = []; for (const p of pts) { while (lo.length > 1 && cr(lo[lo.length - 2], lo[lo.length - 1], p) <= 0) lo.pop(); lo.push(p); }
+    for (const p of pts.slice().reverse()) { while (up.length > 1 && cr(up[up.length - 2], up[up.length - 1], p) <= 0) up.pop(); up.push(p); } return lo.slice(0, -1).concat(up.slice(0, -1)); };
+  function quad3(P, z, x0, x1, y0, y1, fill, stroke) { const q = [[x0, y0, z], [x1, y0, z], [x1, y1, z], [x0, y1, z]].map(v => P(...v)); if (!q.every(Boolean)) return;
+    c.fillStyle = fill; c.beginPath(); q.forEach((p, i) => i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1])); c.closePath(); c.fill(); if (stroke) { c.strokeStyle = stroke; c.lineWidth = 1.5; c.stroke(); } }
+  scene("river", 13, { id: "rock-depth", reset() { this.names = [[13, "Shamloo, Rajaratnam & Katopodis 2001 · Lloyd & Stansby 1997", "laboratory flumes: obstacles under shallow and deep water"]]; }, draw(S) {
+    const g = c.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#10202A"); g.addColorStop(1, "#050B10"); c.fillStyle = g; c.fillRect(0, 0, W, H);
+    const s = ss(S.T, S.L(13) + 2.6, S.L(13) + 4.8), h = lerp(4.2, 1.25, s), P = cam3([-2.5, -12.5, 6.8], [6, 0, 1.2], 42), t = S.T;
+    quad3(P, 0, -5, 17, -5, 5, "#3A3326", "#4A4234");                                                 // riverbed
+    for (let k = 0; k < 5; k++) { const y = -4 + 2 * k, a = P(-4.5, y, 0.25 + 0.5 * h * 0.3), b = P(-2.4, y, 0.25 + 0.5 * h * 0.3); if (a && b) { c.strokeStyle = "rgba(143,180,224,0.5)"; c.fillStyle = "rgba(143,180,224,0.5)"; c.lineWidth = 2; arrow(a[0], a[1], b[0], b[1], 6); } }
+    // the rock: a lumpy dome, radius 1, height 1
+    const dome = []; for (let i = 0; i < 16; i++) for (let j = 0; j <= 8; j++) { const th = i / 16 * TAU, ph = j / 8 * Math.PI / 2, rr = 1 + 0.08 * Math.sin(3 * th + 1); const p = P(rr * Math.cos(th) * Math.cos(ph), rr * Math.sin(th) * Math.cos(ph), Math.sin(ph)); if (p) dome.push(p); }
+    const hl = hull(dome), rg = c.createLinearGradient(0, hl.reduce((m, p) => Math.min(m, p[1]), 1e9), 0, hl.reduce((m, p) => Math.max(m, p[1]), -1e9)); rg.addColorStop(0, "#8C8578"); rg.addColorStop(1, "#4A463F");
+    c.fillStyle = rg; c.beginPath(); hl.forEach((p, i) => i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1])); c.closePath(); c.fill();
+    // deep water: arches peel off the rock's top and die on the way up
+    const wd = 1 - s, ws = s;
+    if (wd > 0.02) for (let k = 0; k < 8; k++) { const age = ((t * 0.8 + k * 0.85) % 6.8); const x = 0.9 + age * 1.9, top = 1.0 + age * 0.35, a = wd * Math.exp(-age / 1.6) * clamp(age / 0.4);
+      if (a < 0.03 || top > h - 0.2) continue; const pts = []; for (let m = 0; m <= 24; m++) { const q = Math.PI * m / 24; pts.push([x + 0.3 * Math.sin(q), -0.55 * Math.cos(q), 0.15 + (top - 0.15) * Math.sin(q)]); }
+      c.globalAlpha = a; tube(P, pts, 0.16, [150, 190, 245]); c.globalAlpha = 1; }
+    // shallow water: upright whirlpools, bed to surface, shed from alternate sides
+    const tops = [];
+    if (ws > 0.02) for (let k = 0; k < 9; k++) { const age = ((t * 0.7 + k * 0.75) % 6.75), side = (Math.floor((t * 0.7 + k * 0.75) / 6.75) + k) % 2 ? 1 : -1, x = 1.1 + age * 2.2, y = side * 0.5, a = ws * clamp(age / 0.4) * clamp((16.5 - x) / 1.5);
+      if (a < 0.03) continue; const parts = []; for (let i = 0; i < 260; i++) { const q = SMOKE[i], z = h * i / 260, th = q.th + t * 4 * side, r = 0.12 + 0.14 * q.rho; parts.push({ q: [x + r * Math.cos(th), y + r * Math.sin(th), z], s: q.s }); }
+      drawParticles(P, parts, [200, 235, 245], 0.35 * a, 0.035); tops.push([x, y, side, a]); }
+    quad3(P, h, -5, 17, -5, 5, "rgba(111,168,255,0.16)", "rgba(160,200,255,0.6)");                      // the surface
+    for (const [x, y, side, a] of tops) { const p = P(x, y, h); if (!p) continue; c.save(); c.globalAlpha = a; c.translate(p[0], p[1]); c.scale(1, 0.4); spin(0, 0, 18, side < 0, side < 0 ? TEAL : AMBER, t * 3, 2.5); c.restore(); }
+    equation([K("h", h / 4.2, GLASS, "h", { it: true }), P_("/"), P_("k", { it: true }), P_("="), P_((h / 1).toFixed(1))], 560, 90, 46);
+    label("h  water depth", 900, 70, GLASS, 18); label("k  rock height", 900, 96, TEXT, 18);
+    const msg = h > 3 ? "deep: the rock's wake mostly dies below the surface" : h < 1.6 ? "shallow: whirlpools run from bed to surface" : "";
+    if (msg) chip(msg, 40, 200, h > 3 ? GLASS : TEAL); } });
+
+  // the record-low lake
+      // ---- what keeps one going
+  function whirl(cx, core, rate, dip, title, sub, col, lt, conv = 0) {         // a side view: surface with its dip, and the spinning core below
+    const ys = 250, yb = 620; c.fillStyle = "rgba(60,120,160,0.16)"; c.beginPath(); c.moveTo(cx - 280, yb);
+    for (let x = cx - 280; x <= cx + 280; x += 4) c.lineTo(x, ys + dip / (1 + ((x - cx) / (core * 0.9)) ** 2)); c.lineTo(cx + 280, yb); c.closePath(); c.fill();
+    c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath(); for (let x = cx - 280; x <= cx + 280; x += 4) { const y = ys + dip / (1 + ((x - cx) / (core * 0.9)) ** 2); x === cx - 280 ? c.moveTo(x, y) : c.lineTo(x, y); } c.stroke();
+    c.fillStyle = "rgba(111,168,255,0.18)"; c.fillRect(cx - core / 2, ys + dip + 6, core, yb - ys - dip - 6);
+    for (let k = 0; k < 5; k++) { c.save(); c.translate(cx, ys + dip + 50 + k * 64); c.scale(1, 0.3); spin(0, 0, core * 0.6 + 14, true, "rgba(200,225,255,0.85)", lt * rate + k, 3); c.restore(); }
+    if (conv) { c.strokeStyle = TEAL; c.fillStyle = TEAL; c.lineWidth = 2.5; c.globalAlpha = conv; for (const s_ of [-1, 1]) arrow(cx + s_ * 240, ys - 16, cx + s_ * (core / 2 + 30), ys - 16, 8); arrow(cx, yb - 10, cx, yb + 34, 8); c.globalAlpha = 1; }
+    text(title, cx, 150, 26, col, "center", 600, "STIX Two Text"); label(sub, cx, 180, MUTED, 17, "center"); c.fillStyle = "#3A3326"; c.fillRect(cx - 280, yb, 560, 8);
+  }
+  scene("keep", 0, { id: "spread", draw(S) { const p = ss(S.T, S.L(1), S.L(2) + 2.5), core = lerp(60, 150, p); whirl(640, core, 180 / core, 70 * (60 / core) ** 2, "friction", "spreads the core; the dimple gets shallower", AMBER, S.lt);
+    c.strokeStyle = AMBER; c.fillStyle = AMBER; c.lineWidth = 2; arrow(640 + core / 2 + 8, 430, 640 + core / 2 + 60, 430, 7); arrow(640 - core / 2 - 8, 430, 640 - core / 2 - 60, 430, 7); } });
+  scene("keep", 3, { id: "stretch-up", reset() { this.names = [[4, "Qi, Li & Coletti", "J. Fluid Mech. 2025: laboratory measurements"]]; }, draw(S) { const p = ss(S.T, S.L(4), S.L(4) + 4), core = lerp(120, 55, p);
+    whirl(640, core, 180 / core, 70 * (60 / core) ** 2 * 0.7, "converging, sinking water", "stretches it and spins it faster", TEAL, S.lt, ss(S.T, S.L(4), S.L(4) + 1));
+    if (S.after(5)) { const a = ss(S.T, S.L(5), S.L(5) + 0.6); c.globalAlpha = a; label("the surface far away stays level", 1100, 300, TEXT, 18, "center"); label("…while water below moves up and down", 1100, 324, MUTED, 16, "center"); c.globalAlpha = 1; } } });
+  scene("keep", 7, { id: "both", draw(S) { const w1 = 60 + 50 * (0.5 + 0.5 * Math.sin(S.lt * 0.7)), w2 = 110 - 50 * (0.5 + 0.5 * Math.sin(S.lt * 0.7));
+    whirl(330, w1, 180 / w1, 70 * (60 / w1) ** 2 * 0.6, "wearing down", "friction", AMBER, S.lt); whirl(950, w2, 180 / w2, 70 * (60 / w2) ** 2 * 0.6, "keeping it going", "sinking water", TEAL, S.lt, 1); } });
+  scene("keep", 9, { id: "ripples", gl: true, reset() { this.r = River(51); pairs(this.r, [[-6, 3, 0.4, 60], [5, 8, 2.2, 55], [0, -2, -1, 65], [10, 14, 0.9, 55]]); }, draw(S) {
+    const rip = 0.009 * 4 ** (ss(S.T, S.L(10), S.L(10) + 2.0) - ss(S.T, S.L(10) + 4.2, S.L(10) + 5.4)), cam = { pos: [3 - S.lt * 0.25, -22 + S.lt * 0.2, 5], target: [0, 6, 0], fov: 32 }; this.r.step(S.dt, cam); water.render(boatOpts(this.r, cam, { ripple: rip }));
+    if (rip > 0.02) { c.globalAlpha = 0.85; for (let i = 0; i < this.r.sys.x.length; i++) { const p = WR.project(cam, W, H, this.r.sys.x[i], this.r.sys.y[i]); if (p) { c.strokeStyle = this.r.sys.G[i] > 0 ? TEAL : AMBER; c.lineWidth = 2; c.beginPath(); c.ellipse(p[0], p[1], 18, 6, 0, 0, TAU); c.stroke(); } } c.globalAlpha = 1; chip("hidden, not gone: the whirlpools are still there", 40, 60, TEAL); } } });
+
+  // ---- reading the river
+  function surfaceMarks(S, mode) {
+    c.fillStyle = "#0F2A33"; c.fillRect(0, 0, W, H); const r = rng(21), dims = [], scars = [];
+    for (let i = 0; i < 26; i++) { const x = 90 + r() * 1100, y = 120 + r() * 460, ph = r() * TAU, on = Math.sin(S.lt * 0.7 + ph) > -0.2; if (on) dims.push([x, y, 10 + 8 * r(), r() > 0.5]); }
+    for (let i = 0; i < 12; i++) { const x = 90 + r() * 1100, y = 120 + r() * 460, a = r() * Math.PI, L = 40 + 60 * r(), on = Math.sin(S.lt * 0.5 + i) > 0; if (on) scars.push([x, y, a, L]); }
+    if (mode === "area") { c.fillStyle = "rgba(255,181,71,0.35)"; for (const [x, y, rr] of dims) { c.beginPath(); c.arc(x, y, rr + 6, 0, TAU); c.fill(); } for (const [x, y, a, L] of scars) { c.save(); c.translate(x, y); c.rotate(a); c.beginPath(); c.ellipse(0, 0, L, 7, 0, 0, TAU); c.fill(); c.restore(); } }
+    for (const [x, y, a, L] of scars) { c.save(); c.translate(x, y); c.rotate(a); c.strokeStyle = "rgba(200,225,255,0.6)"; c.lineWidth = 2; c.beginPath(); c.ellipse(0, 0, L, 4, 0, 0, TAU); c.stroke(); c.restore(); }
+    for (const [x, y, rr, ccw] of dims) spin(x, y, rr, ccw, ccw ? TEAL : AMBER, S.lt * 2, 2);
+    chip("SCHEMATIC — not measured data", 40, 60, "#FFFFFF");
+    if (mode === "count") chip(`dimples counted: ${dims.length}   (simulations, 2023)`, 40, 100, TEAL);
+    else { let area = dims.reduce((s_, d) => s_ + Math.PI * (d[2] + 6) ** 2, 0) + scars.reduce((s_, sc) => s_ + Math.PI * sc[3] * 7, 0); chip(`area covered by dimples and scars: ${(100 * area / (1100 * 460)).toFixed(1)}%   (lab tank, 2026)`, 40, 100, AMBER); label("scars: elongated marks", 1180, 690 - 60, MUTED, 17, "right"); }
+  }
+  scene("reading", 0, { id: "count", reset() { this.names = [[1, "Omer Babiker, Simen Ellingsen and colleagues", "NTNU, Trondheim · J. Fluid Mech. 2023"]]; }, draw(S) { surfaceMarks(S, "count"); } });
+  scene("reading", 2, { id: "traces", draw(S) {
+    const x0 = 140, x1 = 1140, y0 = 470, h = 220, p = ss(S.lt, 0.3, 5); c.strokeStyle = "#2C3649"; c.lineWidth = 1; c.strokeRect(x0, y0 - h, x1 - x0, h);
+    const f = t => 0.5 + 0.28 * Math.sin(t * 1.3) + 0.14 * Math.sin(t * 3.1 + 1) + 0.06 * Math.sin(t * 7.3 + 2);
+    for (const [lag, col, lab] of [[0, TEAL, "how strongly the surface spreads and converges"], [0.35, AMBER, "number of dimples"]]) { c.strokeStyle = col; c.lineWidth = 3; c.beginPath();
+      for (let i = 0; i <= 400 * p; i++) { const t = i / 400 * 8, y = y0 - h * f(t - lag); i ? c.lineTo(x0 + (x1 - x0) * i / 400, y) : c.moveTo(x0, y); } c.stroke(); label(lab, x0 + 10, lag ? y0 + 36 : y0 + 64, col, 18); }
+    chip("SCHEMATIC, after Babiker et al. 2023 (simulations) — not measured data", 140, 150, "#FFFFFF"); } });
+  scene("reading", 3, { id: "area", reset() { this.names = [[3, "Babiker and colleagues", "Phys. Rev. Fluids 2026: laboratory tank"]]; }, draw(S) { surfaceMarks(S, "area"); } });
+  scene("reading", 5, { id: "gas", draw(S) {
+    c.fillStyle = "#0E1624"; c.fillRect(0, 360, W, 360); c.fillStyle = "#16202F"; c.fillRect(0, 0, W, 360); c.strokeStyle = GLASS; c.lineWidth = 3; c.beginPath(); for (let x = 0; x <= W; x += 6) { const y = 360 + 4 * Math.sin(x * 0.03 + S.lt * 2); x ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke();
+    for (let k = 0; k < 10; k++) { const x = 100 + k * 110, down = k % 2 === 0, ph = ((S.lt * 0.5 + k * 0.17) % 1); c.fillStyle = down ? TEAL : AMBER; c.globalAlpha = Math.sin(ph * Math.PI); c.beginPath(); c.arc(x, down ? 250 + ph * 220 : 470 - ph * 220, 7, 0, TAU); c.fill(); c.globalAlpha = 1; }
+    label("oxygen", 90, 200, TEAL, 20); label("carbon dioxide", 1180, 560, AMBER, 20, "right"); label("crossing both ways", 640, 200, MUTED, 18, "center"); } });
+    scene("reading", 7, { id: "bridge", gl: true, reset() { this.r = River(71, { U: 7, boils: false }); this.r.addRock(-24, 4, 9, 55, 3.6); warm(this.r, 18); },
+    draw(S) { const sc = 70 / W; this.r.step(S.dt); water.render(topOpts(this.r, sc, { rocks: this.r.rockList(), sky: "june" }));
+      const P2 = (x, y) => [W / 2 + x / sc, H / 2 - y / sc], rp = P2(-24, 4), since = this.r.t - this.r.rocks[0].last;
+      c.strokeStyle = `rgba(255,255,255,${0.8 * Math.exp(-since * 2.2)})`; c.lineWidth = 3; c.beginPath(); c.arc(rp[0], rp[1], 30 + 60 * since, 0, TAU); c.stroke();      // a pulse at each shedding
+      if (S.after(8)) shedMarks(this.r, null, ss(S.T, S.L(8), S.L(8) + 0.8), P2);
+      c.fillStyle = "#2A2622"; c.fillRect(0, H - 70, W, 70); c.fillStyle = "#3C3630"; c.fillRect(0, H - 86, W, 16); for (let x = 30; x < W; x += 90) c.fillRect(x, H - 86, 10, 80);    // the bridge railing
+      chip("from a bridge: shadows on the bed, a steady beat from one spot", 40, 60, "#FFFFFF"); } });
+  scene("reading", 9, { id: "end", gl: true, reset() { this.r = River(81); pairs(this.r, [[-6, 6, 0.9, 60], [8, 2, 2.2, 55], [0, 14, -0.8, 60]]); }, draw(S) {
+    const p = ss(S.T, S.L(10), S.L(10) + 6), cam = { pos: [0, -26 - 30 * p, 7.5 + 20 * p], target: [0, 6 + 10 * p, 0], fov: 32 + 6 * p };
+    this.r.step(S.dt, cam); water.render(boatOpts(this.r, cam));
+    const tt = S.T - (S.L(10) + 3.5); if (tt > 0) { const a = clamp(tt / 1); c.fillStyle = `rgba(6,9,14,${0.6 * a})`; c.fillRect(0, 0, W, H); c.globalAlpha = a; text("Dimples on the Rhine", 640, 320, 60, "#F4F7FB", "center", 600, "STIX Two Text"); label("interactive page: benknill.github.io/rhine-dimples", 640, 380, TEXT, 22, "center"); label("next: soap films", 640, 420, MUTED, 20, "center"); c.globalAlpha = 1; } } });
+
+
+  // ------------------------------------------------------------------ timeline
+  const beatOf = id => T.beats[id];
+  for (const s of SC) { const b = beatOf(s.beat); s.start = s.line === 0 ? b.start : b.lines[s.line].start - 0.35; }
+  SC.sort((a, b) => a.start - b.start);                                        // scenes are declared out of order (grounding shots first)
+  for (let i = 0; i < SC.length; i++) SC[i].end = i + 1 < SC.length ? SC[i + 1].start : T.duration + 6;
+  const DURATION = T.duration + 6;
+  let cur = null, lastT = null;
+  function subtitle(t, top = false) {
+    const L = T.lines.find(l => t >= l.start - 0.1 && t < l.end + 0.25); if (!L) return; font(26, 500); const lines = wrap(L.show, 1080);
+    lines.forEach((ln, i) => { const w = c.measureText(ln).width, y = top ? 110 + i * 36 : 690 - (lines.length - 1 - i) * 36; c.fillStyle = "rgba(6,9,14,0.78)"; c.beginPath(); c.roundRect(640 - w / 2 - 16, y - 27, w + 32, 36, 8); c.fill(); c.fillStyle = "#F2F5F9"; c.textAlign = "center"; c.fillText(ln, 640, y); });
+  }
+  function nameCards(s, S) { for (const [li, name, sub] of (s.names || [])) { const t0 = T.beats[s.beat].lines[li].start, a = clamp(Math.min((S.T - t0) / 0.4, (t0 + 5.5 - S.T) / 0.5)); if (a <= 0) continue;
+    c.save(); c.globalAlpha = a; font(24, 600, "IBM Plex Sans"); const w = Math.max(c.measureText(name).width, (font(16, 500), c.measureText(sub).width)) + 36; c.fillStyle = "rgba(10,14,22,0.86)"; c.strokeStyle = "#2C3649"; c.lineWidth = 1; c.beginPath(); c.roundRect(40, 560, w, sub ? 70 : 46, 8); c.fill(); c.stroke();
+    serif(24, 600); c.fillStyle = "#F4F7FB"; c.textAlign = "left"; c.fillText(name, 58, 592); if (sub) { font(16, 500); c.fillStyle = MUTED; c.fillText(sub, 58, 616); } c.restore(); } }
+  window.renderAt = t => {
+    const s = SC.find(x => t >= x.start && t < x.end) || SC[SC.length - 1];
+    if (s !== cur || lastT === null || t < lastT) { if (cur && cur.leave) cur.leave(); cur = s; s.r = null; if (s.reset) s.reset(); lastT = t; }
+    const dt = clamp(t - lastT, 0, 0.1); lastT = t;
+    const b = beatOf(s.beat);
+    const S = { T: t, dt, lt: t - s.start, dur: s.end - s.start, L: k => b.lines[Math.min(k, b.lines.length - 1)].start, after: k => t >= b.lines[Math.min(k, b.lines.length - 1)].start - 0.1, beatEnd: b.end };
+    glCanvas.style.visibility = s.gl ? "visible" : "hidden"; glpCanvas.style.visibility = s.glp ? "visible" : "hidden";
+    c.clearRect(0, 0, W, H); if (!s.gl) { c.fillStyle = BG; c.fillRect(0, 0, W, H); }
+    const kb = !s.gl && !s.nokb, si = SC.indexOf(s);
+    if (kb) { const p = clamp(S.lt / Math.max(1, S.dur)), zin = si % 2 === 0, z = 1 + 0.07 * (zin ? p : 1 - p), dx = (si % 3 - 1) * 18 * p, dy = ((si + 1) % 3 - 1) * 10 * p;
+      c.save(); c.setTransform(z, 0, 0, z, W / 2 - z * (W / 2 + dx), H / 2 - z * (H / 2 + dy)); }
+    s.draw(S);
+    if (kb) c.restore();
+    const act = { open: "", under: "Under the dimple", rings: "Smoke rings", river: "The river's own smoke rings", keep: "What keeps one going", reading: "Reading the river" }[s.beat];
+    if (act) { font(15, 500); c.fillStyle = "rgba(138,149,170,0.9)"; c.textAlign = "right"; c.fillText(act, 1260, 30); }
+    nameCards(s, S); subtitle(t, !!s.subTop);
+  };
+  window.DURATION = DURATION;
+  window.SCENES = SC.map(s => ({ id: s.id, start: s.start, end: s.end }));
+  window.filmReady = window.assetsReady.then(() => Promise.all(['400 30px "IBM Plex Sans"', '500 30px "IBM Plex Sans"', '600 30px "IBM Plex Sans"', '500 30px "IBM Plex Mono"', '600 30px "IBM Plex Mono"', '400 30px "STIX Two Text"', '600 30px "STIX Two Text"', '700 30px "STIX Two Text"', 'italic 400 30px "STIX Two Text"', 'italic 600 30px "STIX Two Text"', 'italic 700 30px "STIX Two Text"'].map(f => document.fonts.load(f))))
+    .then(() => document.fonts.ready).then(() => { window.renderAt(0); return true; });
+  const q = new URLSearchParams(location.search); if (q.has("t")) window.filmReady.then(() => { const t1 = +q.get("t"), s = SC.find(x => t1 >= x.start && t1 < x.end) || SC[0]; for (let t = Math.max(s.start, t1 - (+q.get("warm") || 3)); t < t1; t += 1 / 30) window.renderAt(t); window.renderAt(t1); window.done = true; });
+})();
+</script></body></html>
