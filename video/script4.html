@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dimples on the Rhine: script, draft 4</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { color-scheme: dark; --bg: #0A0D14; --panel: #10151F; --line: #1F2736; --text: #DCE2EC; --muted: #8A95AA; --faint: #5A6479; --cool: #4FD1C5; --amber: #FFB547; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.55 "IBM Plex Sans", system-ui, sans-serif; padding-inline: 16px; }
+  .wrap { max-width: 900px; margin: 0 auto; padding-block: 28px 60px; }
+  h1 { font-family: "STIX Two Text", serif; font-size: 34px; margin: 0 0 4px; } h2 { font-family: "STIX Two Text", serif; font-size: 23px; margin: 30px 0 8px; }
+  p { color: #C8D0DC; } .muted { color: var(--muted); }
+  .act { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; margin: 12px 0; }
+  .act h3 { margin: 0 0 6px; font-size: 17px; display: flex; justify-content: space-between; gap: 12px; } .act h3 .wc { color: var(--faint); font: 13px "IBM Plex Mono", monospace; white-space: nowrap; }
+  .act ol { margin: 6px 0 8px 20px; padding: 0; font-family: "STIX Two Text", serif; font-size: 18px; line-height: 1.55; } .act li { margin: 5px 0; }
+  .note { font-size: 13.5px; color: var(--muted); margin-top: 4px; } .note b { color: var(--cool); font-weight: 500; } .note.k b { color: var(--amber); }
+  textarea { width: 100%; box-sizing: border-box; height: 360px; background: #0C1119; color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 12px; font: 13px/1.5 "IBM Plex Mono", monospace; }
+  button { font: inherit; color: var(--text); background: #141A26; border: 1px solid #2C3649; border-radius: 6px; padding: 8px 16px; cursor: pointer; } button:hover { border-color: var(--faint); }
+  .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 10px 0; } #copied { color: var(--cool); font-size: 13px; }
+  .total { font: 14px "IBM Plex Mono", monospace; color: var(--muted); }
+</style></head>
+<body><div class="wrap">
+  <h1>Dimples on the Rhine</h1>
+  <p class="muted">Episode 3, draft 4: narration measured at 6:25.8 with pauses. The story runs dimples → vortex tubes → smoke rings → the river's own mechanisms → what the surface tells us. "Why flat is special" is cut on purpose.</p>
+  <div class="row"><button id="copy">Copy review brief + full script</button><span id="copied"></span></div>
+  <p class="total" id="total"></p>
+  <div id="acts"></div>
+  <h2>Sources</h2>
+  <ol id="sources" class="note" style="font-size:13.5px;line-height:1.5"></ol>
+  <h2>What gets copied</h2>
+  <textarea id="brief" readonly></textarea>
+</div>
+<script>
+const ACTS = [
+ {
+  "title": "Cold open",
+  "names": "",
+  "picture": "Boat view, slow dolly; a low close-up of one dimple; a simple cross-section with pressure arrows at a common depth (higher outside, lower toward the centre); restless water; title.",
+  "lines": [
+   "On a quiet stretch of the Rhine, we kept seeing them: small dimples on the water, drifting beside the boat. Some lasted a surprisingly long time.",
+   "Each one is the top of a whirlpool.",
+   "Spinning water needs an inward push, and pressure provides it: higher outside, lower toward the centre. So above the low-pressure core, the surface dips.",
+   "But a river is restless. Everything in it gets sheared and stirred. So what keeps one tiny whirlpool going?"
+  ],
+  "time": "0:00"
+ },
+ {
+  "title": "1 · Under the dimple",
+  "names": "Hermann von Helmholtz (1858)",
+  "picture": "A dive through the waterline to a translucent tube of spinning water; its axis drawn as a line, with rotation arrows clearly different from the axis. The line meeting the surface in a point. A loop around a whirlpool measuring circulation. The frozen-flow proof: only the measuring loop moves; it keeps its circulation past the imagined end, then shrinks to nothing: contradiction. The tube closing into a ring, or standing on the bed.",
+  "lines": [
+   "Dive under one, and you find a narrow tube of spinning water, reaching down into the river.",
+   "Draw a line along its middle, and you have a vortex line. The water turns around it; the line is just how we draw the spin.",
+   "A line meets the surface in a single point. That point is the dimple.",
+   "In 1858, Hermann von Helmholtz found a strange rule: a tube of spin can't just have a loose end inside the water.",
+   "To see why, measure the spin with a loop. Go around it, adding up how fast the water flows along each little piece. That total is the circulation.",
+   "Now freeze the flow, and slide the loop along the tube and past its end, never crossing any spinning water. The circulation can't change. But past the end, the loop can shrink to nothing, and nothing has no circulation.",
+   "So the tube can't just stop. It has to close into a ring, or end on something: the riverbed, or the surface."
+  ],
+  "time": "0:41"
+ },
+ {
+  "title": "2 · Smoke rings",
+  "names": "Peter Guthrie Tait and William Thomson, later Lord Kelvin (Edinburgh, 1867); Tait's knot tables; vortex rings reconnecting with a free surface (Bernal and Kwon 1989; Terrington, Hourigan and Thompson 2022)",
+  "picture": "The tube matched to a smoke ring rolling toward the camera. Tait's box as a simple diagram firing rings. Rings bouncing; one clear leapfrog cycle from the vortex model. A knot turning; a table of knots. A tilted ring rising under the surface, its upper edge arriving first, a glowing reconnection region, leaving a curved tube with two ends. A continuous camera move from two dimples seen from above, down through the surface, to the one connected tube below; hold. The arch with its spin pointing up at one end and down at the other.",
+  "lines": [
+   "A smoke ring is that ring: a tube of spinning air, closed on itself. The smoke lets you see it roll.",
+   "In 1867, in Edinburgh, Peter Guthrie Tait showed his smoke rings to his friend William Thomson, later Lord Kelvin.",
+   "The rings bounced and wobbled without falling apart. Two rings travelling together can even take turns passing through each other.",
+   "Kelvin saw an answer to a much bigger question. In a perfect, frictionless fluid, a ring's circulation would never fade. So maybe atoms were vortex rings in the ether, and each element a different knot.",
+   "Kelvin was wrong about atoms. But Tait's attempts to catalogue the knots helped start knot theory.",
+   "Now bring a ring up under the water's surface. Tilted, its upper edge arrives first, and it can reconnect to the surface, leaving a curved tube with two ends.",
+   "From above, two dimples. From below, one connected tube.",
+   "Its spin points up at one end and down at the other, so from above, the two dimples turn opposite ways."
+  ],
+  "time": "2:06"
+ },
+ {
+  "title": "3 · The river's own smoke rings",
+  "names": "Hairpin vortices in wall turbulence (Theodorsen 1952; Kline and colleagues 1967; Zhou and colleagues 1999)",
+  "picture": "A schematic current profile over the bed with one illustrative hairpin rising. The vortex factory: many arches peeling off the bed, most shredded on the way up, one connecting to the surface as a pair. The ideal two-vortex model (labelled) with the pair-speed dial: strengths fixed, separation halved, speed doubled.",
+  "lines": [
+   "The Rhine doesn't need a smoke box. The current makes spinning structures for itself.",
+   "One source is the riverbed. Friction slows the water nearest the bottom, while the water above races past, and that shear rolls up into arches, like half smoke rings.",
+   "It happens all the time: the riverbed is a vortex factory. Most arches are torn apart long before they reach the top.",
+   "But some rise and connect to the surface, leaving a pair of dimples, turning opposite ways.",
+   "Each rides the other's swirl, carrying the pair along. Bring them closer, and they go faster."
+  ],
+  "time": "3:44"
+ },
+ {
+  "title": "4 · What keeps one going",
+  "names": "Laboratory measurements of surface-attached vortices strengthening in downwellings (Qi, Li and Coletti, J. Fluid Mech. 2025)",
+  "picture": "First a core spreading, its dimple getting shallower. Then surface water converging and sinking, stretching an upright whirlpool so it spins faster and its dimple deepens, under a surface that stays level. Then ripples added and removed over the same whirlpool, which stays unchanged underneath.",
+  "lines": [
+   "So what keeps a whirlpool going?",
+   "Left alone, friction spreads its spin into the water around it. The core widens, and the dimple gets shallower.",
+   "But the river can also work the other way. Where surface water converges and sinks, the downward flow stretches an upright whirlpool and spins it faster.",
+   "The surface can look perfectly flat while this happens. Flat-looking water isn't the same as water moving only sideways.",
+   "So turbulence doesn't only tear whirlpools down. It can also keep them going.",
+   "And a dimple can vanish from view before its whirlpool does. Ripples can hide a dimple without destroying the whirlpool underneath."
+  ],
+  "time": "4:34"
+ },
+ {
+  "title": "5 · Reading the river",
+  "names": "Omer Babiker, Simen Ellingsen and colleagues, NTNU, Trondheim (J. Fluid Mech. 964, R2, 2023; Phys. Rev. Fluids 11, 054802, 2026)",
+  "picture": "An overhead schematic: dimples counted for the simulation result; then the area covered by dimples and elongated scars highlighted for the laboratory result (labelled schematic, not data). Gases crossing the surface both ways. Back to the boat; pull back; end card.",
+  "lines": [
+   "Those hidden motions are exactly what researchers are learning to read from the surface.",
+   "A team in Trondheim, Norway, including Omer Babiker and Simen Ellingsen, found in simulations that the number of dimples tracked how strongly the surface was spreading and converging.",
+   "This year, laboratory experiments backed up the link, this time measuring the area covered by dimples and by longer marks called scars.",
+   "That churning renews the surface, and it helps set how fast gases like oxygen and carbon dioxide cross between water and air.",
+   "A dimple isn't a map of everything underneath. But watch one long enough, and you're reading a little of the river below."
+  ],
+  "time": "5:31"
+ }
+];
+const SOURCES = [
+ "H. von Helmholtz (1858), Über Integrale der hydrodynamischen Gleichungen, welche den Wirbelbewegungen entsprechen, J. reine angew. Math. 55, 25–55 (vortex lines cannot end inside the fluid).",
+ "W. Thomson (1867), On vortex atoms, Proc. R. Soc. Edinburgh 6, 94–105 (Tait's smoke-ring box; atoms as knotted vortex rings).",
+ "P. G. Tait, On knots I–III, Trans. R. Soc. Edinburgh (1876–1885) (knot tables).",
+ "L. P. Bernal and J. T. Kwon (1989), Vortex ring dynamics at a free surface, Phys. Fluids A 1, 449 (a vortex ring reconnecting with a free surface into surface-attached vortices).",
+ "S. J. Terrington, K. Hourigan and M. C. Thompson (2022), J. Fluid Mech., doi:10.1017/jfm.2022.529 (vortex rings connecting to a free surface; for an oblique ring the upper edge connects first).",
+ "T. Theodorsen (1952), Mechanism of turbulence (hairpin vortex model); S. J. Kline, W. C. Reynolds, F. A. Schraub and P. W. Runstadler (1967), The structure of turbulent boundary layers, J. Fluid Mech. 30, 741.",
+ "J. Zhou, R. J. Adrian, S. Balachandar and T. M. Kendall (1999), Mechanisms for generating coherent packets of hairpin vortices in channel flow, J. Fluid Mech. 387, 353–396.",
+ "Y. Qi, Y. Li and F. Coletti (2025), Small-scale dynamics and structure of free-surface turbulence, J. Fluid Mech., doi:10.1017/jfm.2025.139; arXiv:2412.04361 (surface-attached vortices strengthening during downwellings and diffusing afterwards).",
+ "O. M. Babiker, I. Bjerkebæk, A. Xuan, L. Shen and S. Å. Ellingsen (2023), Vortex imprints on a free surface as proxy for surface divergence, J. Fluid Mech. 964, R2, doi:10.1017/jfm.2023.370 (simulations: dimple count tracks mean-square surface divergence).",
+ "O. M. Babiker, J. R. Aarnes, A. Semati, A. Ferran, Y. H. Tee, R. J. Hearst and S. Å. Ellingsen (2026), Experimental investigation relating free-surface features to subsurface turbulence, Phys. Rev. Fluids 11, 054802, doi:10.1103/bmx7-2z3h (laboratory tank: area covered by dimples and scars).",
+ "Surface-renewal and surface-divergence models of air–water gas transfer (e.g. McCready, Vassiliadou and Hanratty 1986; Banerjee and colleagues)."
+];
+const words = s => s.split(/\s+/).filter(Boolean).length;
+let total = 0; const host = document.getElementById("acts");
+for (const a of ACTS) {
+  const wc = a.lines.reduce((s, l) => s + words(l), 0); total += wc; a.wc = wc;
+  const d = document.createElement("div"); d.className = "act";
+  d.innerHTML = `<h3><span>${a.title} <span class="muted" style="font-weight:400">· ${a.time}</span></span><span class="wc">${wc} words</span></h3>` +
+    (a.names ? `<div class="note"><b>People:</b> ${a.names}</div>` : "") + `<ol>${a.lines.map(l => `<li>${l}</li>`).join("")}</ol>` +
+    `<div class="note">Picture: ${a.picture}</div>` + (a.knobs ? `<div class="note k"><b>Knobs:</b> ${a.knobs}</div>` : "");
+  host.appendChild(d);
+}
+document.getElementById("sources").innerHTML = SOURCES.map(x => `<li>${x}</li>`).join("");
+document.getElementById("total").textContent = `${total} words · narration measured at 6:25.8 including pauses`;
+
+const BRIEF = `You are reviewing the narration script for an educational video of about 7 minutes, in the spirit of Veritasium: story-driven, with people, history and real-world surprises, plus a few simple "change one quantity and watch" visuals rendered from simulation.
+
+PREMISE
+We, on a boat on the Rhine, noticed small dimples on the water. There were few boats and few paddlers (our own boat had an engine); the dimples appeared beside and ahead of the boat, rarely behind, were most visible on smooth water, and some lasted a long time. The question: in a restless, turbulent river, what keeps one tiny whirlpool going?
+
+THE STORY, AS IT NOW STANDS
+Dimples -> the vortex tube under each one (Helmholtz: a tube of spin can't end inside the water, shown with circulation and a frozen-flow loop argument) -> smoke rings (Tait and Kelvin, vortex atoms, knot theory; a tilted ring reconnecting to the surface gives two dimples above and one connected tube below) -> the river's own mechanisms (hairpin arches from the bed, most shredded; the pair's self-propulsion; friction spreading a core versus sinking surface water strengthening it; ripples hiding dimples) -> what researchers read from the surface (dimple counts in simulations, dimple-and-scar area in a laboratory tank, gas exchange). The earlier "why flat is special" act (2D turbulence, Jupiter, Hamiltonian phase space) has been cut from this video on purpose.
+
+PLEASE DO
+1. Fact-check every name, date, number and claim. Flag anything wrong, misattributed, oversimplified or contested, with a correction and a source where you can.
+2. Judge the story and pace: where does it drag, where is it too fast, which lines could be punchier? Every beat should stay close to the dimples.
+3. Suggest shots or cuts only where a line and its picture don't yet support each other.
+4. Improve the writing for the ear: warm, curious, precise, conversational; short sentences; no hype words. Narration says "we"; add no trip details beyond the premise.
+5. Keep it speakable by a text-to-speech voice: spell symbols as words, avoid abbreviations and bare single letters.
+
+PHYSICS THAT MUST STAY RIGHT (flag rather than silently change)
+- Pressure supplies the inward (centripetal) force for the swirl: higher outside, lower toward the axis at a given depth, so the free surface dips above the core. Dip depth scales as Gamma^2 / (g a^2) for circulation Gamma and core radius a.
+- The vortex line is the axis we draw; the water rotates around it. Circulation is the loop integral of velocity, and equals the vorticity flux through the loop.
+- Helmholtz / div omega = 0: vortex tubes cannot end inside the fluid; they close, or end on a boundary (bed or surface). The proof sketch holds the flow fixed at one instant and moves only the measuring loop.
+- Kelvin: in an ideal fluid, circulation around a material loop is constant. Tait's rings, Kelvin's vortex-atom theory (1867), and the link to knot theory are history, told as such.
+- A ring approaching the surface obliquely reconnects first at its upper edge; the result can be a U-shaped tube with two surface-attached ends of opposite sense, i.e. two counter-rotating dimples.
+- Hairpin (arch) vortices form in the shear near the bed; most are destroyed or diffused before reaching the surface; this is the video's answer to "why aren't they everywhere": an instability threshold plus heavy attrition, not an energy barrier.
+- An ideal counter-rotating pair moves at Gamma / (2 pi d): halve d, double the speed (strengths held fixed; labelled as an ideal model).
+- Viscosity spreads a core (its size grows roughly as the square root of viscosity times time) and the dip gets shallower. Downwelling (convergent, sinking surface flow) stretches a surface-attached vortex and intensifies it (Qi, Li and Coletti, J. Fluid Mech. 2025). A surface can look level while water beneath moves up and down: low surface slope does not mean purely horizontal flow.
+- Babiker et al., J. Fluid Mech. 2023 (simulations): the number of dimples in a region correlates with regional mean-square surface divergence. Babiker et al., Phys. Rev. Fluids 2026 (laboratory): the measured quantity is the area covered by dimples and scars, chosen because counting scars is not robust.
+- Surface divergence (surface renewal) is linked to air-water gas transfer; the video says it "helps set" the rate, not that it alone determines it.
+
+WHAT TO RETURN
+1. The revised script in the same format, with a word count (target 700 to 800 words).
+2. A fact-check table: claim, verdict, correction, source.
+3. A short list of changes and why, including any line whose picture would need to change.
+
+THE SCRIPT
+`;
+const scriptText = ACTS.map(a => `${a.title} (starts about ${a.time}; ${a.wc} words)` + (a.names ? `\n[People: ${a.names}]` : "") + `\n[Picture: ${a.picture}]` + (a.knobs ? `\n[Dialled experiments: ${a.knobs}]` : "") + "\n" + a.lines.map(l => "- " + l).join("\n")).join("\n\n") + `\n\n(Total: ${total} words.)\n\nSOURCES\n` + SOURCES.map((x, i) => `${i + 1}. ${x}`).join("\n");
+const ta = document.getElementById("brief"); ta.value = BRIEF + "\n" + scriptText;
+document.getElementById("copy").onclick = async () => {
+  try { await navigator.clipboard.writeText(ta.value); } catch (e) { ta.select(); document.execCommand("copy"); }
+  document.getElementById("copied").textContent = "Copied."; setTimeout(() => document.getElementById("copied").textContent = "", 2500);
+};
+</script></body></html>

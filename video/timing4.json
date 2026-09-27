@@ -1,0 +1,1357 @@
+{
+ "duration": 385.831,
+ "beats": {
+  "open": {
+   "start": 0.0,
+   "end": 41.67,
+   "lines": [
+    {
+     "index": 0,
+     "clip": "2ad6b21fb8c2",
+     "beat": "open",
+     "show": "On a quiet stretch of the Rhine, we kept seeing them: small dimples on the water,",
+     "say": "On a quiet stretch of the Rhine, we kept seeing them: small dimples on the water,",
+     "start": 1.26,
+     "end": 6.92
+    },
+    {
+     "index": 1,
+     "clip": "f6b8564235ce",
+     "beat": "open",
+     "show": "drifting beside the boat.",
+     "say": "drifting beside the boat.",
+     "start": 7.28,
+     "end": 9.06
+    },
+    {
+     "index": 2,
+     "clip": "5c9c7e0663b2",
+     "beat": "open",
+     "show": "Some lasted a surprisingly long time.",
+     "say": "Some lasted a surprisingly long time.",
+     "start": 9.77,
+     "end": 12.81
+    },
+    {
+     "index": 3,
+     "clip": "0bf411477a8a",
+     "beat": "open",
+     "show": "Each one is the top of a whirlpool.",
+     "say": "Each one is the top of a whirlpool.",
+     "start": 13.77,
+     "end": 16.62
+    },
+    {
+     "index": 4,
+     "clip": "e3c1cc2db894",
+     "beat": "open",
+     "show": "Spinning water needs an inward push, and pressure provides it: higher outside, lower toward the centre.",
+     "say": "Spinning water needs an inward push, and pressure provides it: higher outside, lower toward the centre.",
+     "start": 17.58,
+     "end": 25.49
+    },
+    {
+     "index": 5,
+     "clip": "ba88925f9d52",
+     "beat": "open",
+     "show": "So above the low-pressure core, the surface dips.",
+     "say": "So above the low-pressure core, the surface dips.",
+     "start": 26.2,
+     "end": 30.01
+    },
+    {
+     "index": 6,
+     "clip": "68e5d2aa0d03",
+     "beat": "open",
+     "show": "But a river is restless.",
+     "say": "But a river is restless.",
+     "start": 30.97,
+     "end": 33.18
+    },
+    {
+     "index": 7,
+     "clip": "0148ddf406c6",
+     "beat": "open",
+     "show": "Everything in it gets sheared and stirred.",
+     "say": "Everything in it gets sheared and stirred.",
+     "start": 33.89,
+     "end": 36.86
+    },
+    {
+     "index": 8,
+     "clip": "928fb427d5e1",
+     "beat": "open",
+     "show": "So what keeps one tiny whirlpool going?",
+     "say": "So what keeps one tiny whirlpool going?",
+     "start": 37.57,
+     "end": 40.77
+    }
+   ]
+  },
+  "under": {
+   "start": 41.67,
+   "end": 126.121,
+   "lines": [
+    {
+     "index": 9,
+     "clip": "b8038a37fbde",
+     "beat": "under",
+     "show": "Dive under one, and you find a narrow tube of spinning water, reaching down into the river.",
+     "say": "Dive under one, and you find a narrow tube of spinning water, reaching down into the river.",
+     "start": 42.53,
+     "end": 49.14
+    },
+    {
+     "index": 10,
+     "clip": "3b4d9de36c2a",
+     "beat": "under",
+     "show": "Draw a line along its middle, and you have a vortex line.",
+     "say": "Draw a line along its middle, and you have a vortex line.",
+     "start": 51.9,
+     "end": 56.43
+    },
+    {
+     "index": 11,
+     "clip": "72caefeb47d6",
+     "beat": "under",
+     "show": "The water turns around it; the line is just how we draw the spin.",
+     "say": "The water turns around it; the line is just how we draw the spin.",
+     "start": 57.14,
+     "end": 62.25
+    },
+    {
+     "index": 12,
+     "clip": "942ed5d27210",
+     "beat": "under",
+     "show": "A line meets the surface in a single point.",
+     "say": "A line meets the surface in a single point.",
+     "start": 63.21,
+     "end": 66.25
+    },
+    {
+     "index": 13,
+     "clip": "55326166159d",
+     "beat": "under",
+     "show": "That point is the dimple.",
+     "say": "That point is the dimple.",
+     "start": 66.96,
+     "end": 68.75
+    },
+    {
+     "index": 14,
+     "clip": "90fbf3c675cb",
+     "beat": "under",
+     "show": "In 1858, Hermann von Helmholtz found a strange rule:",
+     "say": "In eighteen fifty-eight, Hermann von Helmholtz found a strange rule:",
+     "start": 70.91,
+     "end": 75.9
+    },
+    {
+     "index": 15,
+     "clip": "be99f9c3d948",
+     "beat": "under",
+     "show": "a tube of spin can't just have a loose end inside the water.",
+     "say": "a tube of spin can't just have a loose end inside the water.",
+     "start": 76.26,
+     "end": 81.18
+    },
+    {
+     "index": 16,
+     "clip": "c3ca5cdfdd65",
+     "beat": "under",
+     "show": "To see why, measure the spin with a loop.",
+     "say": "To see why, measure the spin with a loop.",
+     "start": 82.14,
+     "end": 85.3
+    },
+    {
+     "index": 17,
+     "clip": "6a683be47366",
+     "beat": "under",
+     "show": "Go around it, adding up how fast the water flows along each little piece.",
+     "say": "Go around it, adding up how fast the water flows along each little piece.",
+     "start": 86.01,
+     "end": 91.6
+    },
+    {
+     "index": 18,
+     "clip": "198f11b590e8",
+     "beat": "under",
+     "show": "That total is the circulation.",
+     "say": "That total is the circulation.",
+     "start": 92.31,
+     "end": 94.9
+    },
+    {
+     "index": 19,
+     "clip": "ecf7df9c32a4",
+     "beat": "under",
+     "show": "Now freeze the flow, and slide the loop along the tube and past its end,",
+     "say": "Now freeze the flow, and slide the loop along the tube and past its end,",
+     "start": 95.86,
+     "end": 101.36
+    },
+    {
+     "index": 20,
+     "clip": "2e63fc92156e",
+     "beat": "under",
+     "show": "never crossing any spinning water.",
+     "say": "never crossing any spinning water.",
+     "start": 101.72,
+     "end": 104.45
+    },
+    {
+     "index": 21,
+     "clip": "72ff2b02a40b",
+     "beat": "under",
+     "show": "The circulation can't change.",
+     "say": "The circulation can't change.",
+     "start": 105.16,
+     "end": 107.57
+    },
+    {
+     "index": 22,
+     "clip": "1aef4930fe03",
+     "beat": "under",
+     "show": "But past the end, the loop can shrink to nothing, and nothing has no circulation.",
+     "say": "But past the end, the loop can shrink to nothing, and nothing has no circulation.",
+     "start": 108.28,
+     "end": 114.54
+    },
+    {
+     "index": 23,
+     "clip": "06d8f755f493",
+     "beat": "under",
+     "show": "So the tube can't just stop.",
+     "say": "So the tube can't just stop.",
+     "start": 115.5,
+     "end": 117.481
+    },
+    {
+     "index": 24,
+     "clip": "c66fcdd7b6f9",
+     "beat": "under",
+     "show": "It has to close into a ring, or end on something: the riverbed, or the surface.",
+     "say": "It has to close into a ring, or end on something: the riverbed, or the surface.",
+     "start": 118.591,
+     "end": 125.221
+    }
+   ]
+  },
+  "rings": {
+   "start": 126.121,
+   "end": 224.531,
+   "lines": [
+    {
+     "index": 25,
+     "clip": "723e432f6cf3",
+     "beat": "rings",
+     "show": "A smoke ring is that ring: a tube of spinning air, closed on itself.",
+     "say": "A smoke ring is that ring: a tube of spinning air, closed on itself.",
+     "start": 126.981,
+     "end": 133.071
+    },
+    {
+     "index": 26,
+     "clip": "edf12113f66f",
+     "beat": "rings",
+     "show": "The smoke lets you see it roll.",
+     "say": "The smoke lets you see it roll.",
+     "start": 133.781,
+     "end": 136.071
+    },
+    {
+     "index": 27,
+     "clip": "16b06ea10061",
+     "beat": "rings",
+     "show": "In 1867, in Edinburgh, Peter Guthrie Tait showed his smoke rings to his friend William Thomson,",
+     "say": "In eighteen sixty-seven, in Edinburgh, Peter Guthrie Tate showed his smoke rings to his friend William Thomson,",
+     "start": 138.831,
+     "end": 147.231
+    },
+    {
+     "index": 28,
+     "clip": "8f018ea0296b",
+     "beat": "rings",
+     "show": "later Lord Kelvin.",
+     "say": "later Lord Kelvin.",
+     "start": 147.591,
+     "end": 149.731
+    },
+    {
+     "index": 29,
+     "clip": "86793830db3c",
+     "beat": "rings",
+     "show": "The rings bounced and wobbled without falling apart.",
+     "say": "The rings bounced and wobbled without falling apart.",
+     "start": 150.691,
+     "end": 154.331
+    },
+    {
+     "index": 30,
+     "clip": "e05e274dcb98",
+     "beat": "rings",
+     "show": "Two rings travelling together can even take turns passing through each other.",
+     "say": "Two rings travelling together can even take turns passing through each other.",
+     "start": 155.041,
+     "end": 159.971
+    },
+    {
+     "index": 31,
+     "clip": "8683599d1bbf",
+     "beat": "rings",
+     "show": "Kelvin saw an answer to a much bigger question.",
+     "say": "Kelvin saw an answer to a much bigger question.",
+     "start": 163.431,
+     "end": 166.991
+    },
+    {
+     "index": 32,
+     "clip": "243524755de2",
+     "beat": "rings",
+     "show": "In a perfect, frictionless fluid, a ring's circulation would never fade.",
+     "say": "In a perfect, frictionless fluid, a ring's circulation would never fade.",
+     "start": 167.701,
+     "end": 173.231
+    },
+    {
+     "index": 33,
+     "clip": "6d7e5d3e8a6a",
+     "beat": "rings",
+     "show": "So maybe atoms were vortex rings in the ether, and each element a different knot.",
+     "say": "So maybe atoms were vortex rings in the ether, and each element a different knot.",
+     "start": 173.941,
+     "end": 179.561
+    },
+    {
+     "index": 34,
+     "clip": "54fc4b78c82a",
+     "beat": "rings",
+     "show": "Kelvin was wrong about atoms.",
+     "say": "Kelvin was wrong about atoms.",
+     "start": 182.021,
+     "end": 184.251
+    },
+    {
+     "index": 35,
+     "clip": "6d3eae2caf80",
+     "beat": "rings",
+     "show": "But Tait's attempts to catalogue the knots helped start knot theory.",
+     "say": "But Tate's attempts to catalogue the knots helped start knot theory.",
+     "start": 184.961,
+     "end": 189.661
+    },
+    {
+     "index": 36,
+     "clip": "66950e6eae75",
+     "beat": "rings",
+     "show": "Now bring a ring up under the water's surface.",
+     "say": "Now bring a ring up under the water's surface.",
+     "start": 192.421,
+     "end": 195.441
+    },
+    {
+     "index": 37,
+     "clip": "e528ae7732f0",
+     "beat": "rings",
+     "show": "Tilted, its upper edge arrives first, and it can reconnect to the surface,",
+     "say": "Tilted, its upper edge arrives first, and it can reconnect to the surface,",
+     "start": 196.151,
+     "end": 201.461
+    },
+    {
+     "index": 38,
+     "clip": "b3baa2d6e3e1",
+     "beat": "rings",
+     "show": "leaving a curved tube with two ends.",
+     "say": "leaving a curved tube with two ends.",
+     "start": 201.821,
+     "end": 204.551
+    },
+    {
+     "index": 39,
+     "clip": "d9264bc2bcf8",
+     "beat": "rings",
+     "show": "From above, two dimples.",
+     "say": "From above, two dimples.",
+     "start": 205.511,
+     "end": 207.931
+    },
+    {
+     "index": 40,
+     "clip": "9b289ad3dbfa",
+     "beat": "rings",
+     "show": "From below, one connected tube.",
+     "say": "From below, one connected tube.",
+     "start": 208.641,
+     "end": 211.481
+    },
+    {
+     "index": 41,
+     "clip": "50bacee809b7",
+     "beat": "rings",
+     "show": "Its spin points up at one end and down at the other, so from above,",
+     "say": "Its spin points up at one end and down at the other, so from above,",
+     "start": 215.441,
+     "end": 220.391
+    },
+    {
+     "index": 42,
+     "clip": "d1d656e47179",
+     "beat": "rings",
+     "show": "the two dimples turn opposite ways.",
+     "say": "the two dimples turn opposite ways.",
+     "start": 220.751,
+     "end": 223.631
+    }
+   ]
+  },
+  "river": {
+   "start": 224.531,
+   "end": 274.841,
+   "lines": [
+    {
+     "index": 43,
+     "clip": "df86df767ae1",
+     "beat": "river",
+     "show": "The Rhine doesn't need a smoke box.",
+     "say": "The Rhine doesn't need a smoke box.",
+     "start": 225.391,
+     "end": 228.271
+    },
+    {
+     "index": 44,
+     "clip": "fc118345d5cf",
+     "beat": "river",
+     "show": "The current makes spinning structures for itself.",
+     "say": "The current makes spinning structures for itself.",
+     "start": 228.981,
+     "end": 232.101
+    },
+    {
+     "index": 45,
+     "clip": "905a51f7d25e",
+     "beat": "river",
+     "show": "One source is the riverbed.",
+     "say": "One source is the riverbed.",
+     "start": 233.061,
+     "end": 235.201
+    },
+    {
+     "index": 46,
+     "clip": "c8126e1a19b5",
+     "beat": "river",
+     "show": "Friction slows the water nearest the bottom, while the water above races past,",
+     "say": "Friction slows the water nearest the bottom, while the water above races past,",
+     "start": 235.911,
+     "end": 241.571
+    },
+    {
+     "index": 47,
+     "clip": "bceb1751494f",
+     "beat": "river",
+     "show": "and that shear rolls up into arches, like half smoke rings.",
+     "say": "and that shear rolls up into arches, like half smoke rings.",
+     "start": 241.931,
+     "end": 246.561
+    },
+    {
+     "index": 48,
+     "clip": "1d5481f605f0",
+     "beat": "river",
+     "show": "It happens all the time: the riverbed is a vortex factory.",
+     "say": "It happens all the time: the riverbed is a vortex factory.",
+     "start": 247.521,
+     "end": 252.491
+    },
+    {
+     "index": 49,
+     "clip": "b3102b893772",
+     "beat": "river",
+     "show": "Most arches are torn apart long before they reach the top.",
+     "say": "Most arches are torn apart long before they reach the top.",
+     "start": 253.201,
+     "end": 257.371
+    },
+    {
+     "index": 50,
+     "clip": "8b49fd1d1bc2",
+     "beat": "river",
+     "show": "But some rise and connect to the surface, leaving a pair of dimples, turning opposite ways.",
+     "say": "But some rise and connect to the surface, leaving a pair of dimples, turning opposite ways.",
+     "start": 258.331,
+     "end": 264.971
+    },
+    {
+     "index": 51,
+     "clip": "30c419921675",
+     "beat": "river",
+     "show": "Each rides the other's swirl, carrying the pair along.",
+     "say": "Each rides the other's swirl, carrying the pair along.",
+     "start": 265.931,
+     "end": 270.071
+    },
+    {
+     "index": 52,
+     "clip": "442e2478dbc6",
+     "beat": "river",
+     "show": "Bring them closer, and they go faster.",
+     "say": "Bring them closer, and they go faster.",
+     "start": 270.781,
+     "end": 273.941
+    }
+   ]
+  },
+  "keep": {
+   "start": 274.841,
+   "end": 331.631,
+   "lines": [
+    {
+     "index": 53,
+     "clip": "98989ddb58e1",
+     "beat": "keep",
+     "show": "So what keeps a whirlpool going?",
+     "say": "So what keeps a whirlpool going?",
+     "start": 275.701,
+     "end": 278.291
+    },
+    {
+     "index": 54,
+     "clip": "e5eac2e8a86a",
+     "beat": "keep",
+     "show": "Left alone, friction spreads its spin into the water around it.",
+     "say": "Left alone, friction spreads its spin into the water around it.",
+     "start": 279.251,
+     "end": 284.071
+    },
+    {
+     "index": 55,
+     "clip": "797d75dd3937",
+     "beat": "keep",
+     "show": "The core widens, and the dimple gets shallower.",
+     "say": "The core widens, and the dimple gets shallower.",
+     "start": 284.781,
+     "end": 288.291
+    },
+    {
+     "index": 56,
+     "clip": "37cf5dd3ce79",
+     "beat": "keep",
+     "show": "But the river can also work the other way.",
+     "say": "But the river can also work the other way.",
+     "start": 289.251,
+     "end": 292.281
+    },
+    {
+     "index": 57,
+     "clip": "66306f5f8b35",
+     "beat": "keep",
+     "show": "Where surface water converges and sinks, the downward flow stretches an upright whirlpool and spins it faster.",
+     "say": "Where surface water converges and sinks, the downward flow stretches an upright whirlpool and spins it faster.",
+     "start": 292.991,
+     "end": 300.801
+    },
+    {
+     "index": 58,
+     "clip": "73887892308b",
+     "beat": "keep",
+     "show": "The surface can look perfectly flat while this happens.",
+     "say": "The surface can look perfectly flat while this happens.",
+     "start": 301.761,
+     "end": 305.291
+    },
+    {
+     "index": 59,
+     "clip": "5f1dc7e3fcb9",
+     "beat": "keep",
+     "show": "Flat-looking water isn't the same as water moving only sideways.",
+     "say": "Flat-looking water isn't the same as water moving only sideways.",
+     "start": 306.001,
+     "end": 311.261
+    },
+    {
+     "index": 60,
+     "clip": "ceee33352295",
+     "beat": "keep",
+     "show": "So turbulence doesn't only tear whirlpools down.",
+     "say": "So turbulence doesn't only tear whirlpools down.",
+     "start": 312.221,
+     "end": 316.021
+    },
+    {
+     "index": 61,
+     "clip": "46bb15a4d0b4",
+     "beat": "keep",
+     "show": "It can also keep them going.",
+     "say": "It can also keep them going.",
+     "start": 316.731,
+     "end": 318.871
+    },
+    {
+     "index": 62,
+     "clip": "a515dfcb19a6",
+     "beat": "keep",
+     "show": "And a dimple can vanish from view before its whirlpool does.",
+     "say": "And a dimple can vanish from view before its whirlpool does.",
+     "start": 321.031,
+     "end": 325.351
+    },
+    {
+     "index": 63,
+     "clip": "ff8b7ffc0843",
+     "beat": "keep",
+     "show": "Ripples can hide a dimple without destroying the whirlpool underneath.",
+     "say": "Ripples can hide a dimple without destroying the whirlpool underneath.",
+     "start": 326.061,
+     "end": 330.731
+    }
+   ]
+  },
+  "reading": {
+   "start": 331.631,
+   "end": 385.831,
+   "lines": [
+    {
+     "index": 64,
+     "clip": "584a40a5c670",
+     "beat": "reading",
+     "show": "Those hidden motions are exactly what researchers are learning to read from the surface.",
+     "say": "Those hidden motions are exactly what researchers are learning to read from the surface.",
+     "start": 332.491,
+     "end": 337.851
+    },
+    {
+     "index": 65,
+     "clip": "28222c0b1df8",
+     "beat": "reading",
+     "show": "A team in Trondheim, Norway, including Omer Babiker and Simen Ellingsen,",
+     "say": "A team in Trondheim, Norway, including Omer Babiker and Simen Ellingsen,",
+     "start": 338.811,
+     "end": 345.251
+    },
+    {
+     "index": 66,
+     "clip": "d7bb3618222e",
+     "beat": "reading",
+     "show": "found in simulations that the number of dimples tracked how strongly the surface was spreading and converging.",
+     "say": "found in simulations that the number of dimples tracked how strongly the surface was spreading and converging.",
+     "start": 345.611,
+     "end": 352.491
+    },
+    {
+     "index": 67,
+     "clip": "8f5f40a09567",
+     "beat": "reading",
+     "show": "This year, laboratory experiments backed up the link,",
+     "say": "This year, laboratory experiments backed up the link,",
+     "start": 353.451,
+     "end": 357.461
+    },
+    {
+     "index": 68,
+     "clip": "1733e34f78ed",
+     "beat": "reading",
+     "show": "this time measuring the area covered by dimples and by longer marks called scars.",
+     "say": "this time measuring the area covered by dimples and by longer marks called scars.",
+     "start": 357.821,
+     "end": 364.471
+    },
+    {
+     "index": 69,
+     "clip": "382410b6f03e",
+     "beat": "reading",
+     "show": "That churning renews the surface,",
+     "say": "That churning renews the surface,",
+     "start": 365.431,
+     "end": 367.991
+    },
+    {
+     "index": 70,
+     "clip": "7aa28e8c93a8",
+     "beat": "reading",
+     "show": "and it helps set how fast gases like oxygen and carbon dioxide cross between water and air.",
+     "say": "and it helps set how fast gases like oxygen and carbon dioxide cross between water and air.",
+     "start": 368.351,
+     "end": 375.321
+    },
+    {
+     "index": 71,
+     "clip": "32bb2b6acbf7",
+     "beat": "reading",
+     "show": "A dimple isn't a map of everything underneath.",
+     "say": "A dimple isn't a map of everything underneath.",
+     "start": 376.281,
+     "end": 379.831
+    },
+    {
+     "index": 72,
+     "clip": "5fc8690123ce",
+     "beat": "reading",
+     "show": "But watch one long enough, and you're reading a little of the river below.",
+     "say": "But watch one long enough, and you're reading a little of the river below.",
+     "start": 380.541,
+     "end": 384.931
+    }
+   ]
+  }
+ },
+ "lines": [
+  {
+   "index": 0,
+   "clip": "2ad6b21fb8c2",
+   "beat": "open",
+   "show": "On a quiet stretch of the Rhine, we kept seeing them: small dimples on the water,",
+   "say": "On a quiet stretch of the Rhine, we kept seeing them: small dimples on the water,",
+   "start": 1.26,
+   "end": 6.92
+  },
+  {
+   "index": 1,
+   "clip": "f6b8564235ce",
+   "beat": "open",
+   "show": "drifting beside the boat.",
+   "say": "drifting beside the boat.",
+   "start": 7.28,
+   "end": 9.06
+  },
+  {
+   "index": 2,
+   "clip": "5c9c7e0663b2",
+   "beat": "open",
+   "show": "Some lasted a surprisingly long time.",
+   "say": "Some lasted a surprisingly long time.",
+   "start": 9.77,
+   "end": 12.81
+  },
+  {
+   "index": 3,
+   "clip": "0bf411477a8a",
+   "beat": "open",
+   "show": "Each one is the top of a whirlpool.",
+   "say": "Each one is the top of a whirlpool.",
+   "start": 13.77,
+   "end": 16.62
+  },
+  {
+   "index": 4,
+   "clip": "e3c1cc2db894",
+   "beat": "open",
+   "show": "Spinning water needs an inward push, and pressure provides it: higher outside, lower toward the centre.",
+   "say": "Spinning water needs an inward push, and pressure provides it: higher outside, lower toward the centre.",
+   "start": 17.58,
+   "end": 25.49
+  },
+  {
+   "index": 5,
+   "clip": "ba88925f9d52",
+   "beat": "open",
+   "show": "So above the low-pressure core, the surface dips.",
+   "say": "So above the low-pressure core, the surface dips.",
+   "start": 26.2,
+   "end": 30.01
+  },
+  {
+   "index": 6,
+   "clip": "68e5d2aa0d03",
+   "beat": "open",
+   "show": "But a river is restless.",
+   "say": "But a river is restless.",
+   "start": 30.97,
+   "end": 33.18
+  },
+  {
+   "index": 7,
+   "clip": "0148ddf406c6",
+   "beat": "open",
+   "show": "Everything in it gets sheared and stirred.",
+   "say": "Everything in it gets sheared and stirred.",
+   "start": 33.89,
+   "end": 36.86
+  },
+  {
+   "index": 8,
+   "clip": "928fb427d5e1",
+   "beat": "open",
+   "show": "So what keeps one tiny whirlpool going?",
+   "say": "So what keeps one tiny whirlpool going?",
+   "start": 37.57,
+   "end": 40.77
+  },
+  {
+   "index": 9,
+   "clip": "b8038a37fbde",
+   "beat": "under",
+   "show": "Dive under one, and you find a narrow tube of spinning water, reaching down into the river.",
+   "say": "Dive under one, and you find a narrow tube of spinning water, reaching down into the river.",
+   "start": 42.53,
+   "end": 49.14
+  },
+  {
+   "index": 10,
+   "clip": "3b4d9de36c2a",
+   "beat": "under",
+   "show": "Draw a line along its middle, and you have a vortex line.",
+   "say": "Draw a line along its middle, and you have a vortex line.",
+   "start": 51.9,
+   "end": 56.43
+  },
+  {
+   "index": 11,
+   "clip": "72caefeb47d6",
+   "beat": "under",
+   "show": "The water turns around it; the line is just how we draw the spin.",
+   "say": "The water turns around it; the line is just how we draw the spin.",
+   "start": 57.14,
+   "end": 62.25
+  },
+  {
+   "index": 12,
+   "clip": "942ed5d27210",
+   "beat": "under",
+   "show": "A line meets the surface in a single point.",
+   "say": "A line meets the surface in a single point.",
+   "start": 63.21,
+   "end": 66.25
+  },
+  {
+   "index": 13,
+   "clip": "55326166159d",
+   "beat": "under",
+   "show": "That point is the dimple.",
+   "say": "That point is the dimple.",
+   "start": 66.96,
+   "end": 68.75
+  },
+  {
+   "index": 14,
+   "clip": "90fbf3c675cb",
+   "beat": "under",
+   "show": "In 1858, Hermann von Helmholtz found a strange rule:",
+   "say": "In eighteen fifty-eight, Hermann von Helmholtz found a strange rule:",
+   "start": 70.91,
+   "end": 75.9
+  },
+  {
+   "index": 15,
+   "clip": "be99f9c3d948",
+   "beat": "under",
+   "show": "a tube of spin can't just have a loose end inside the water.",
+   "say": "a tube of spin can't just have a loose end inside the water.",
+   "start": 76.26,
+   "end": 81.18
+  },
+  {
+   "index": 16,
+   "clip": "c3ca5cdfdd65",
+   "beat": "under",
+   "show": "To see why, measure the spin with a loop.",
+   "say": "To see why, measure the spin with a loop.",
+   "start": 82.14,
+   "end": 85.3
+  },
+  {
+   "index": 17,
+   "clip": "6a683be47366",
+   "beat": "under",
+   "show": "Go around it, adding up how fast the water flows along each little piece.",
+   "say": "Go around it, adding up how fast the water flows along each little piece.",
+   "start": 86.01,
+   "end": 91.6
+  },
+  {
+   "index": 18,
+   "clip": "198f11b590e8",
+   "beat": "under",
+   "show": "That total is the circulation.",
+   "say": "That total is the circulation.",
+   "start": 92.31,
+   "end": 94.9
+  },
+  {
+   "index": 19,
+   "clip": "ecf7df9c32a4",
+   "beat": "under",
+   "show": "Now freeze the flow, and slide the loop along the tube and past its end,",
+   "say": "Now freeze the flow, and slide the loop along the tube and past its end,",
+   "start": 95.86,
+   "end": 101.36
+  },
+  {
+   "index": 20,
+   "clip": "2e63fc92156e",
+   "beat": "under",
+   "show": "never crossing any spinning water.",
+   "say": "never crossing any spinning water.",
+   "start": 101.72,
+   "end": 104.45
+  },
+  {
+   "index": 21,
+   "clip": "72ff2b02a40b",
+   "beat": "under",
+   "show": "The circulation can't change.",
+   "say": "The circulation can't change.",
+   "start": 105.16,
+   "end": 107.57
+  },
+  {
+   "index": 22,
+   "clip": "1aef4930fe03",
+   "beat": "under",
+   "show": "But past the end, the loop can shrink to nothing, and nothing has no circulation.",
+   "say": "But past the end, the loop can shrink to nothing, and nothing has no circulation.",
+   "start": 108.28,
+   "end": 114.54
+  },
+  {
+   "index": 23,
+   "clip": "06d8f755f493",
+   "beat": "under",
+   "show": "So the tube can't just stop.",
+   "say": "So the tube can't just stop.",
+   "start": 115.5,
+   "end": 117.481
+  },
+  {
+   "index": 24,
+   "clip": "c66fcdd7b6f9",
+   "beat": "under",
+   "show": "It has to close into a ring, or end on something: the riverbed, or the surface.",
+   "say": "It has to close into a ring, or end on something: the riverbed, or the surface.",
+   "start": 118.591,
+   "end": 125.221
+  },
+  {
+   "index": 25,
+   "clip": "723e432f6cf3",
+   "beat": "rings",
+   "show": "A smoke ring is that ring: a tube of spinning air, closed on itself.",
+   "say": "A smoke ring is that ring: a tube of spinning air, closed on itself.",
+   "start": 126.981,
+   "end": 133.071
+  },
+  {
+   "index": 26,
+   "clip": "edf12113f66f",
+   "beat": "rings",
+   "show": "The smoke lets you see it roll.",
+   "say": "The smoke lets you see it roll.",
+   "start": 133.781,
+   "end": 136.071
+  },
+  {
+   "index": 27,
+   "clip": "16b06ea10061",
+   "beat": "rings",
+   "show": "In 1867, in Edinburgh, Peter Guthrie Tait showed his smoke rings to his friend William Thomson,",
+   "say": "In eighteen sixty-seven, in Edinburgh, Peter Guthrie Tate showed his smoke rings to his friend William Thomson,",
+   "start": 138.831,
+   "end": 147.231
+  },
+  {
+   "index": 28,
+   "clip": "8f018ea0296b",
+   "beat": "rings",
+   "show": "later Lord Kelvin.",
+   "say": "later Lord Kelvin.",
+   "start": 147.591,
+   "end": 149.731
+  },
+  {
+   "index": 29,
+   "clip": "86793830db3c",
+   "beat": "rings",
+   "show": "The rings bounced and wobbled without falling apart.",
+   "say": "The rings bounced and wobbled without falling apart.",
+   "start": 150.691,
+   "end": 154.331
+  },
+  {
+   "index": 30,
+   "clip": "e05e274dcb98",
+   "beat": "rings",
+   "show": "Two rings travelling together can even take turns passing through each other.",
+   "say": "Two rings travelling together can even take turns passing through each other.",
+   "start": 155.041,
+   "end": 159.971
+  },
+  {
+   "index": 31,
+   "clip": "8683599d1bbf",
+   "beat": "rings",
+   "show": "Kelvin saw an answer to a much bigger question.",
+   "say": "Kelvin saw an answer to a much bigger question.",
+   "start": 163.431,
+   "end": 166.991
+  },
+  {
+   "index": 32,
+   "clip": "243524755de2",
+   "beat": "rings",
+   "show": "In a perfect, frictionless fluid, a ring's circulation would never fade.",
+   "say": "In a perfect, frictionless fluid, a ring's circulation would never fade.",
+   "start": 167.701,
+   "end": 173.231
+  },
+  {
+   "index": 33,
+   "clip": "6d7e5d3e8a6a",
+   "beat": "rings",
+   "show": "So maybe atoms were vortex rings in the ether, and each element a different knot.",
+   "say": "So maybe atoms were vortex rings in the ether, and each element a different knot.",
+   "start": 173.941,
+   "end": 179.561
+  },
+  {
+   "index": 34,
+   "clip": "54fc4b78c82a",
+   "beat": "rings",
+   "show": "Kelvin was wrong about atoms.",
+   "say": "Kelvin was wrong about atoms.",
+   "start": 182.021,
+   "end": 184.251
+  },
+  {
+   "index": 35,
+   "clip": "6d3eae2caf80",
+   "beat": "rings",
+   "show": "But Tait's attempts to catalogue the knots helped start knot theory.",
+   "say": "But Tate's attempts to catalogue the knots helped start knot theory.",
+   "start": 184.961,
+   "end": 189.661
+  },
+  {
+   "index": 36,
+   "clip": "66950e6eae75",
+   "beat": "rings",
+   "show": "Now bring a ring up under the water's surface.",
+   "say": "Now bring a ring up under the water's surface.",
+   "start": 192.421,
+   "end": 195.441
+  },
+  {
+   "index": 37,
+   "clip": "e528ae7732f0",
+   "beat": "rings",
+   "show": "Tilted, its upper edge arrives first, and it can reconnect to the surface,",
+   "say": "Tilted, its upper edge arrives first, and it can reconnect to the surface,",
+   "start": 196.151,
+   "end": 201.461
+  },
+  {
+   "index": 38,
+   "clip": "b3baa2d6e3e1",
+   "beat": "rings",
+   "show": "leaving a curved tube with two ends.",
+   "say": "leaving a curved tube with two ends.",
+   "start": 201.821,
+   "end": 204.551
+  },
+  {
+   "index": 39,
+   "clip": "d9264bc2bcf8",
+   "beat": "rings",
+   "show": "From above, two dimples.",
+   "say": "From above, two dimples.",
+   "start": 205.511,
+   "end": 207.931
+  },
+  {
+   "index": 40,
+   "clip": "9b289ad3dbfa",
+   "beat": "rings",
+   "show": "From below, one connected tube.",
+   "say": "From below, one connected tube.",
+   "start": 208.641,
+   "end": 211.481
+  },
+  {
+   "index": 41,
+   "clip": "50bacee809b7",
+   "beat": "rings",
+   "show": "Its spin points up at one end and down at the other, so from above,",
+   "say": "Its spin points up at one end and down at the other, so from above,",
+   "start": 215.441,
+   "end": 220.391
+  },
+  {
+   "index": 42,
+   "clip": "d1d656e47179",
+   "beat": "rings",
+   "show": "the two dimples turn opposite ways.",
+   "say": "the two dimples turn opposite ways.",
+   "start": 220.751,
+   "end": 223.631
+  },
+  {
+   "index": 43,
+   "clip": "df86df767ae1",
+   "beat": "river",
+   "show": "The Rhine doesn't need a smoke box.",
+   "say": "The Rhine doesn't need a smoke box.",
+   "start": 225.391,
+   "end": 228.271
+  },
+  {
+   "index": 44,
+   "clip": "fc118345d5cf",
+   "beat": "river",
+   "show": "The current makes spinning structures for itself.",
+   "say": "The current makes spinning structures for itself.",
+   "start": 228.981,
+   "end": 232.101
+  },
+  {
+   "index": 45,
+   "clip": "905a51f7d25e",
+   "beat": "river",
+   "show": "One source is the riverbed.",
+   "say": "One source is the riverbed.",
+   "start": 233.061,
+   "end": 235.201
+  },
+  {
+   "index": 46,
+   "clip": "c8126e1a19b5",
+   "beat": "river",
+   "show": "Friction slows the water nearest the bottom, while the water above races past,",
+   "say": "Friction slows the water nearest the bottom, while the water above races past,",
+   "start": 235.911,
+   "end": 241.571
+  },
+  {
+   "index": 47,
+   "clip": "bceb1751494f",
+   "beat": "river",
+   "show": "and that shear rolls up into arches, like half smoke rings.",
+   "say": "and that shear rolls up into arches, like half smoke rings.",
+   "start": 241.931,
+   "end": 246.561
+  },
+  {
+   "index": 48,
+   "clip": "1d5481f605f0",
+   "beat": "river",
+   "show": "It happens all the time: the riverbed is a vortex factory.",
+   "say": "It happens all the time: the riverbed is a vortex factory.",
+   "start": 247.521,
+   "end": 252.491
+  },
+  {
+   "index": 49,
+   "clip": "b3102b893772",
+   "beat": "river",
+   "show": "Most arches are torn apart long before they reach the top.",
+   "say": "Most arches are torn apart long before they reach the top.",
+   "start": 253.201,
+   "end": 257.371
+  },
+  {
+   "index": 50,
+   "clip": "8b49fd1d1bc2",
+   "beat": "river",
+   "show": "But some rise and connect to the surface, leaving a pair of dimples, turning opposite ways.",
+   "say": "But some rise and connect to the surface, leaving a pair of dimples, turning opposite ways.",
+   "start": 258.331,
+   "end": 264.971
+  },
+  {
+   "index": 51,
+   "clip": "30c419921675",
+   "beat": "river",
+   "show": "Each rides the other's swirl, carrying the pair along.",
+   "say": "Each rides the other's swirl, carrying the pair along.",
+   "start": 265.931,
+   "end": 270.071
+  },
+  {
+   "index": 52,
+   "clip": "442e2478dbc6",
+   "beat": "river",
+   "show": "Bring them closer, and they go faster.",
+   "say": "Bring them closer, and they go faster.",
+   "start": 270.781,
+   "end": 273.941
+  },
+  {
+   "index": 53,
+   "clip": "98989ddb58e1",
+   "beat": "keep",
+   "show": "So what keeps a whirlpool going?",
+   "say": "So what keeps a whirlpool going?",
+   "start": 275.701,
+   "end": 278.291
+  },
+  {
+   "index": 54,
+   "clip": "e5eac2e8a86a",
+   "beat": "keep",
+   "show": "Left alone, friction spreads its spin into the water around it.",
+   "say": "Left alone, friction spreads its spin into the water around it.",
+   "start": 279.251,
+   "end": 284.071
+  },
+  {
+   "index": 55,
+   "clip": "797d75dd3937",
+   "beat": "keep",
+   "show": "The core widens, and the dimple gets shallower.",
+   "say": "The core widens, and the dimple gets shallower.",
+   "start": 284.781,
+   "end": 288.291
+  },
+  {
+   "index": 56,
+   "clip": "37cf5dd3ce79",
+   "beat": "keep",
+   "show": "But the river can also work the other way.",
+   "say": "But the river can also work the other way.",
+   "start": 289.251,
+   "end": 292.281
+  },
+  {
+   "index": 57,
+   "clip": "66306f5f8b35",
+   "beat": "keep",
+   "show": "Where surface water converges and sinks, the downward flow stretches an upright whirlpool and spins it faster.",
+   "say": "Where surface water converges and sinks, the downward flow stretches an upright whirlpool and spins it faster.",
+   "start": 292.991,
+   "end": 300.801
+  },
+  {
+   "index": 58,
+   "clip": "73887892308b",
+   "beat": "keep",
+   "show": "The surface can look perfectly flat while this happens.",
+   "say": "The surface can look perfectly flat while this happens.",
+   "start": 301.761,
+   "end": 305.291
+  },
+  {
+   "index": 59,
+   "clip": "5f1dc7e3fcb9",
+   "beat": "keep",
+   "show": "Flat-looking water isn't the same as water moving only sideways.",
+   "say": "Flat-looking water isn't the same as water moving only sideways.",
+   "start": 306.001,
+   "end": 311.261
+  },
+  {
+   "index": 60,
+   "clip": "ceee33352295",
+   "beat": "keep",
+   "show": "So turbulence doesn't only tear whirlpools down.",
+   "say": "So turbulence doesn't only tear whirlpools down.",
+   "start": 312.221,
+   "end": 316.021
+  },
+  {
+   "index": 61,
+   "clip": "46bb15a4d0b4",
+   "beat": "keep",
+   "show": "It can also keep them going.",
+   "say": "It can also keep them going.",
+   "start": 316.731,
+   "end": 318.871
+  },
+  {
+   "index": 62,
+   "clip": "a515dfcb19a6",
+   "beat": "keep",
+   "show": "And a dimple can vanish from view before its whirlpool does.",
+   "say": "And a dimple can vanish from view before its whirlpool does.",
+   "start": 321.031,
+   "end": 325.351
+  },
+  {
+   "index": 63,
+   "clip": "ff8b7ffc0843",
+   "beat": "keep",
+   "show": "Ripples can hide a dimple without destroying the whirlpool underneath.",
+   "say": "Ripples can hide a dimple without destroying the whirlpool underneath.",
+   "start": 326.061,
+   "end": 330.731
+  },
+  {
+   "index": 64,
+   "clip": "584a40a5c670",
+   "beat": "reading",
+   "show": "Those hidden motions are exactly what researchers are learning to read from the surface.",
+   "say": "Those hidden motions are exactly what researchers are learning to read from the surface.",
+   "start": 332.491,
+   "end": 337.851
+  },
+  {
+   "index": 65,
+   "clip": "28222c0b1df8",
+   "beat": "reading",
+   "show": "A team in Trondheim, Norway, including Omer Babiker and Simen Ellingsen,",
+   "say": "A team in Trondheim, Norway, including Omer Babiker and Simen Ellingsen,",
+   "start": 338.811,
+   "end": 345.251
+  },
+  {
+   "index": 66,
+   "clip": "d7bb3618222e",
+   "beat": "reading",
+   "show": "found in simulations that the number of dimples tracked how strongly the surface was spreading and converging.",
+   "say": "found in simulations that the number of dimples tracked how strongly the surface was spreading and converging.",
+   "start": 345.611,
+   "end": 352.491
+  },
+  {
+   "index": 67,
+   "clip": "8f5f40a09567",
+   "beat": "reading",
+   "show": "This year, laboratory experiments backed up the link,",
+   "say": "This year, laboratory experiments backed up the link,",
+   "start": 353.451,
+   "end": 357.461
+  },
+  {
+   "index": 68,
+   "clip": "1733e34f78ed",
+   "beat": "reading",
+   "show": "this time measuring the area covered by dimples and by longer marks called scars.",
+   "say": "this time measuring the area covered by dimples and by longer marks called scars.",
+   "start": 357.821,
+   "end": 364.471
+  },
+  {
+   "index": 69,
+   "clip": "382410b6f03e",
+   "beat": "reading",
+   "show": "That churning renews the surface,",
+   "say": "That churning renews the surface,",
+   "start": 365.431,
+   "end": 367.991
+  },
+  {
+   "index": 70,
+   "clip": "7aa28e8c93a8",
+   "beat": "reading",
+   "show": "and it helps set how fast gases like oxygen and carbon dioxide cross between water and air.",
+   "say": "and it helps set how fast gases like oxygen and carbon dioxide cross between water and air.",
+   "start": 368.351,
+   "end": 375.321
+  },
+  {
+   "index": 71,
+   "clip": "32bb2b6acbf7",
+   "beat": "reading",
+   "show": "A dimple isn't a map of everything underneath.",
+   "say": "A dimple isn't a map of everything underneath.",
+   "start": 376.281,
+   "end": 379.831
+  },
+  {
+   "index": 72,
+   "clip": "5fc8690123ce",
+   "beat": "reading",
+   "show": "But watch one long enough, and you're reading a little of the river below.",
+   "say": "But watch one long enough, and you're reading a little of the river below.",
+   "start": 380.541,
+   "end": 384.931
+  }
+ ]
+}

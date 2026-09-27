@@ -29,6 +29,7 @@ PLAN = {
     'rings':   (['Dmaj9', 'A', 'Bm9', 'Gmaj7'], 1, 0.5,     0.8, 0.7),
     'river':   (['Gmaj7', 'D/F#', 'Em9', 'Asus4'], 2, 1,    0.6, 0.55),
     'flat':    (['Gmaj7', 'Bm9', 'Em9', 'A'], 2, 2,         0.45, 0.45),
+    'keep':    (['Em9', 'Gmaj7', 'Bm9', 'A'], 2, 1,         0.5, 0.5),
     'reading': (['Dmaj9', 'Gmaj7', 'Bm9', 'Asus4'], 2, 0.5, 0.55, 0.6),
 }
 # a soft, band-limited saw wavetable
