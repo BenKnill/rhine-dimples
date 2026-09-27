@@ -12,13 +12,16 @@
 //   density tints the light that passes through the water (like rhodamine tracer dye).
 (function (root) {
   const COMMON = `
-  uniform int uN; uniform vec4 uV[64]; uniform float uA2, uAmp, uRipple, uTime, uU, uWall, uRipSpeed;
+  uniform int uN, uNR; uniform vec4 uV[64], uRock[4], uRockB[4]; uniform float uA2, uAmp, uRipple, uTime, uU, uWall, uRipSpeed;   // uRock: x, y, radius, bulge; uRockB.x: rock height (0: flat on the bed)
   float h1(float n) { return fract(sin(n * 12.9898 + 78.233) * 43758.5453); }
   void surf(vec2 p, float fp, out float eta, out vec2 gr) {    // fp: pixel footprint (cm), to filter ripples
     eta = 0.0; gr = vec2(0);
     for (int j = 0; j < 64; j++) { if (j >= uN) break;
       vec4 v = uV[j]; float A = v.z * v.z * uAmp * v.w; vec2 d = p - v.xy; float s = dot(d, d) + uA2;
       eta -= A / s; gr += A * 2.0 * d / (s * s); }
+    for (int j = 0; j < 4; j++) { if (j >= uNR) break;          // the smooth hump the water rides over a shallow rock
+      vec4 r = uRock[j]; vec2 d = p - r.xy - vec2(0.7 * r.z, 0.0); float s2 = 1.8 * r.z * r.z, e = r.w * exp(-dot(d, d) / s2);
+      eta += e; gr -= 2.0 * d / s2 * e; }
     if (uRipple > 0.0) for (int i = 0; i < 24; i++) {           // capillary-gravity ripples from all directions
       float fi = float(i), ang = fi * 2.39996 + 0.5 * h1(fi + 3.0); vec2 dir = vec2(cos(ang), sin(ang));
       float kw = 1.3 + 2.4 * h1(fi + 11.0), keep = smoothstep(1.6, 0.8, kw * fp); if (keep <= 0.0) continue;
@@ -68,7 +71,7 @@
   const MAIN_FS = `#version 300 es
   precision highp float;
   uniform vec2 uRes, uCenter, uCMin, uCMax, uDMin, uDMax;
-  uniform float uScale, uPersp, uTanH, uDepth, uK, uGlint, uCausticOn, uDyeOn, uDebug, uSlopeVis, uMurk;
+  uniform float uScale, uPersp, uTanH, uDepth, uK, uGlint, uCausticOn, uDyeOn, uDebug, uSlopeVis, uMurk, uSky;
   uniform vec3 uCamPos, uCamF, uCamR, uCamU, uSunDir, uDyeT, uWaterCol;
   uniform sampler2D uCaustic, uDens; ${COMMON}
   out vec4 frag;
@@ -103,22 +106,45 @@
     vec3 col = mix(sand, small.rgb, small.a * 0.9 * smoothstep(0.6, 0.25, fp));
     col *= 1.0 - 0.18 * big.a * (1.0 - smoothstep(0.0, 0.5, big.a));
     return mix(mix(col, big.rgb, big.a), avg, smoothstep(0.35, 0.9, fp)); }
+  vec4 rockAt(vec2 q) {                                       // a lumpy boulder seen from above: colour and coverage
+    vec4 best = vec4(0);
+    for (int j = 0; j < 4; j++) { if (j >= uNR) break; if (uRockB[j].x > 0.0) continue;
+      vec2 d = (q - uRock[j].xy) / uRock[j].z; float a = atan(d.y, d.x), rr = length(d) * (1.0 + 0.10 * sin(3.0 * a + 1.3) + 0.06 * sin(7.0 * a + float(j)));
+      if (rr >= 1.0) continue;
+      vec3 n = normalize(vec3(d * 0.9, sqrt(1.0 - rr * rr))), L = normalize(vec3(0.3, 0.4, 1.0));
+      vec3 c = mix(vec3(0.42, 0.40, 0.36), vec3(0.58, 0.55, 0.48), vnoise(q * 0.9)) * (0.85 + 0.3 * vnoise(q * 4.0)) * (0.55 + 0.55 * max(dot(n, L), 0.0));
+      float cov = smoothstep(1.0, 0.92, rr); if (cov > best.a) best = vec4(c, cov); }
+    return best; }
+  float rockShade(vec2 q) { float sh = 1.0; for (int j = 0; j < 4; j++) { if (j >= uNR) break; float rr = length(q - uRock[j].xy) / uRock[j].z; sh *= 1.0 - 0.35 * exp(-(rr - 1.0) * (rr - 1.0) * 10.0) * step(1.0, rr); } return sh; }
   // what the water reflects: sky with clouds, the sun, and a wooded far bank at the horizon
   vec3 env(vec3 r, float full) {                              // full = 0: cheap sky only (for faint reflections)
     float el = r.z;
-    vec3 sky = mix(vec3(0.80, 0.86, 0.92), vec3(0.33, 0.53, 0.83), pow(clamp(el, 0.0, 1.0), 0.55));
+    vec3 sky = uSky > 0.5 ? mix(vec3(0.74, 0.84, 0.95), vec3(0.16, 0.40, 0.80), pow(clamp(el, 0.0, 1.0), 0.5))
+                          : mix(vec3(0.80, 0.86, 0.92), vec3(0.33, 0.53, 0.83), pow(clamp(el, 0.0, 1.0), 0.55));
     float sd = max(dot(r, uSunDir), 0.0);
     sky += vec3(1.0, 0.95, 0.86) * (pow(sd, 900.0) * 60.0 * uGlint + pow(sd, 10.0) * 0.18);
     if (full < 0.5) return sky;
     vec2 cp = r.xy / (max(el, 0.0) + 0.14) * 0.9 + vec2(uTime * 0.004, 0.0);
+    if (uSky > 0.5) {                                          // cumulus: bright crisp tops, greyer bases
+      float f = fbm(cp * 0.55 + vec2(3.1, 0.7)), f2 = fbm(cp * 0.55 + vec2(3.1, 0.7) + vec2(0.0, 0.06));
+      float cov = smoothstep(0.46, 0.53, f) * smoothstep(0.015, 0.10, el);
+      vec3 cc = mix(vec3(0.66, 0.70, 0.76), vec3(1.0, 1.0, 1.0), smoothstep(0.50, 0.70, f2) * 0.8 + 0.2);
+      sky = mix(sky, cc, cov);
+    } else {
     float cl = smoothstep(0.50, 0.78, fbm(cp)) * smoothstep(0.02, 0.2, el);
-    sky = mix(sky, vec3(0.96, 0.96, 0.97), cl * 0.8);
+    sky = mix(sky, vec3(0.96, 0.96, 0.97), cl * 0.8); }
     float az = atan(r.y, r.x), s = abs(sin(az));
     float top = 0.003 + s * s * (0.026 + 0.022 * vnoise(vec2(az * 9.0, 1.0)) + 0.010 * vnoise(vec2(az * 40.0, 2.0)) + 0.004 * vnoise(vec2(az * 160.0, 3.0)));
+    float house = 0.0;
+    if (uSky > 0.5) { float pop = pow(max(vnoise(vec2(az * 70.0, 5.0)) - 0.72, 0.0) / 0.28, 1.5);                 // poplars
+      top += s * s * (0.02 + 0.07 * pop); house = step(0.74, vnoise(vec2(az * 55.0, 8.0))) * step(0.3, s); }
     if (el < top) {
       float emb = 0.0015 + 0.004 * s, f = clamp((el - emb) / max(top - emb, 1e-4), 0.0, 1.0);
       vec3 c = el < emb ? vec3(0.30, 0.30, 0.27) * (0.85 + 0.25 * vnoise(vec2(az * 300.0, 3.0)))
                         : mix(vec3(0.05, 0.09, 0.05), vec3(0.16, 0.24, 0.12), f * 0.7 + 0.5 * vnoise(vec2(az * 160.0, el * 900.0)) - 0.2);
+      if (uSky > 0.5) { c *= vec3(1.1, 1.35, 1.0);
+        float hz = emb + (0.006 + 0.004 * vnoise(vec2(az * 55.0, 9.0))) * s;                                            // houses: pale walls, dark roofs
+        if (house > 0.5 && el > emb && el < hz) c = el > hz - 0.0025 * s ? vec3(0.34, 0.22, 0.18) : vec3(0.80, 0.77, 0.70) * (0.85 + 0.15 * vnoise(vec2(az * 90.0, 1.0))); }
       return mix(c, vec3(0.70, 0.76, 0.80), 0.22 * (1.0 - s));
     }
     return sky; }
@@ -135,6 +161,12 @@
     float eta; vec2 gr; surf(p, fp, eta, gr);
     vec3 n0 = normalize(vec3(-gr, 1.0)), nv = normalize(vec3(-gr * uSlopeVis, 1.0));
     vec3 tr = refract(rd, n0, 0.75); float tb = uDepth / max(-tr.z, 0.05); vec2 q = p + tb * tr.xy;
+    float tR = 1e9; vec3 nR = vec3(0, 0, 1); vec2 qR = q;                 // a raised rock: the refracted ray meets a half-ellipsoid on the bed
+    for (int j = 0; j < 4; j++) { if (j >= uNR) break; if (uRockB[j].x <= 0.0) continue;
+      vec3 C = vec3(uRock[j].xy, -uDepth), rad = vec3(uRock[j].z, uRock[j].z, uRockB[j].x), oo = (vec3(p, 0.0) - C) / rad, dd = tr / rad;
+      float a = dot(dd, dd), b = dot(oo, dd), c2 = dot(oo, oo) - 1.0, disc = b * b - a * c2;
+      if (disc > 0.0) { float t = (-b - sqrt(disc)) / a; if (t > 0.0 && t < tR && t < tb) { tR = t; vec3 hp = vec3(p, 0.0) + t * tr; nR = normalize((hp - C) / (rad * rad)); qR = hp.xy; } } }
+    bool onRock = tR < 1e8; if (onRock) { q = qR; tb = tR; }
     float irr = 1.0;
     if (uCausticOn > 0.5) { vec2 tc = (q - uCMin) / (uCMax - uCMin); float edge = smoothstep(0.0, 0.05, min(min(tc.x, 1.0 - tc.x), min(tc.y, 1.0 - tc.y)));
       irr = mix(1.0, texture(uCaustic, tc).r, edge); }
@@ -143,12 +175,16 @@
       for (int j = 0; j < 64; j++) { if (j >= uN) break; vec4 v = uV[j]; float A = v.z * v.z * uAmp * v.w; vec2 d = p - v.xy; float s = dot(d, d) + uA2, s2 = s * s, s3 = s2 * s;
         hxx += 2.0 * A / s2 - 8.0 * A * d.x * d.x / s3; hyy += 2.0 * A / s2 - 8.0 * A * d.y * d.y / s3; hxy -= 8.0 * A * d.x * d.y / s3; }
       float det = (1.0 + uK * hxx) * (1.0 + uK * hyy) - uK * uK * hxy * hxy; irr = clamp(1.0 / max(abs(det), 0.16), 0.0, 5.0); }
+    if (onRock) irr = mix(irr, 1.0, 0.7);                    // the caustic map is for the flat bed; on a raised rock, mostly skip it
     if (uDebug > 0.5) { frag = vec4(vec3(irr * 0.25), 1.0); return; }
     irr = irr / (1.0 + 0.035 * irr) * 1.035;
     vec3 tint = vec3(0.70, 0.80, 0.66);
-    vec3 under = bed(q, uPersp > 0.5 ? fp * 1.5 : fp) * tint * (0.36 + 0.66 * irr) + vec3(0.03, 0.05, 0.04);
+    vec3 bedc = bed(q, uPersp > 0.5 ? fp * 1.5 : fp) * rockShade(q); vec4 rk = rockAt(q); bedc = mix(bedc, rk.rgb, rk.a);
+    if (onRock) { float lump = vnoise(q * 0.8) * 0.6 + vnoise(q * 3.1) * 0.4; vec3 L = normalize(vec3(0.3, 0.4, 1.0));
+      bedc = mix(vec3(0.40, 0.38, 0.34), vec3(0.62, 0.58, 0.50), lump) * (0.45 + 0.65 * max(dot(nR, L), 0.0)); rk.a = 0.0; }
+    vec3 under = bedc * tint * (0.36 + 0.66 * irr) + vec3(0.03, 0.05, 0.04);
     under = mix(under, vec3(0.20, 0.27, 0.22) * (0.5 + 0.5 * irr), 0.16);        // a little turbidity
-    under = mix(uWaterCol, under, exp(-uMurk * max(tb - uDepth * 0.6, 0.0)));  // longer paths: the river's own colour
+    under = mix(uWaterCol, under, exp(-uMurk * max(tb * (1.0 - 0.55 * rk.a) - (onRock ? 0.0 : uDepth * 0.6), 0.0)));  // longer paths: the river's own colour
     if (uDyeOn > 0.5) {                                                           // dye near the surface absorbs light
       vec2 t = (p - uDMin) / (uDMax - uDMin), px = 1.0 / vec2(textureSize(uDens, 0));
       if (t.x > 0.0 && t.y > 0.0 && t.x < 1.0 && t.y < 1.0) {
@@ -226,7 +262,7 @@
     const SIDE = opts.dyeSide || 512, NP = SIDE * SIDE, DW = opts.dyeW || 2048, DH = opts.dyeH || 1400;
     let pTex = null, pFbo = null, pCur = 0, dyeOn = false, dyeWeight = 0, dTex = null, dFbo = null;
     if (floatOK) { pTex = [0, 1].map(() => tex(SIDE, SIDE, gl.RGBA32F, gl.RGBA, gl.FLOAT, gl.NEAREST)); pFbo = pTex.map(fbo); dTex = tex(DW, DH, gl.R16F, gl.RED, gl.HALF_FLOAT, gl.LINEAR); dFbo = fbo(dTex); }
-    const vbuf = new Float32Array(64 * 4);
+    const vbuf = new Float32Array(64 * 4), rbuf = new Float32Array(16), hbuf = new Float32Array(16);
     const setCommon = (p, o, vs) => {
       gl.uniform1f(U(p, "uA2"), (o.a ?? 0.6) ** 2); gl.uniform1f(U(p, "uAmp"), (o.exaggerate ?? 1) / (8 * Math.PI * Math.PI * 981));
       gl.uniform1f(U(p, "uRipple"), o.ripple ?? 0.004); gl.uniform1f(U(p, "uTime"), o.time ?? 0); gl.uniform1f(U(p, "uRipSpeed"), o.ripSpeed ?? 0.22);
@@ -234,6 +270,8 @@
       vs = vs || o.vortices || []; const n = Math.min(64, vs.length);
       for (let i = 0; i < n; i++) { vbuf[4 * i] = vs[i][0]; vbuf[4 * i + 1] = vs[i][1]; vbuf[4 * i + 2] = vs[i][2]; vbuf[4 * i + 3] = vs[i][3] ?? 1; }
       gl.uniform1i(U(p, "uN"), n); gl.uniform4fv(U(p, "uV"), vbuf);
+      const rocks = o.rocks || []; rbuf.fill(0); hbuf.fill(0); rocks.slice(0, 4).forEach((r, i) => { rbuf.set([r[0], r[1], r[2], r[3] || 0], 4 * i); hbuf[4 * i] = r[4] || 0; });
+      gl.uniform1i(U(p, "uNR"), Math.min(4, rocks.length)); gl.uniform4fv(U(p, "uRock"), rbuf); gl.uniform4fv(U(p, "uRockB"), hbuf);
     };
 
     // dye: xs, ys are particle positions (cm); each particle stands for `area / count` cm^2
@@ -289,7 +327,7 @@
       else gl.uniform1f(U(pMain, "uPersp"), 0);
       const sd = norm3(o.sunDir || [0.106, 0.141, 1]); gl.uniform3f(U(pMain, "uSunDir"), sd[0], sd[1], sd[2]);
       gl.uniform1f(U(pMain, "uDepth"), depth); gl.uniform1f(U(pMain, "uMurk"), o.murk ?? 0.025); const wc = o.waterColor || [0.07, 0.12, 0.10]; gl.uniform3f(U(pMain, "uWaterCol"), wc[0], wc[1], wc[2]); gl.uniform1f(U(pMain, "uK"), k);
-      gl.uniform1f(U(pMain, "uGlint"), o.glint ?? 1); gl.uniform1f(U(pMain, "uDebug"), o.debug ? 1 : 0); gl.uniform1f(U(pMain, "uSlopeVis"), o.slopeVis ?? (o.camera ? 1.3 : 3));
+      gl.uniform1f(U(pMain, "uGlint"), o.glint ?? 1); gl.uniform1f(U(pMain, "uSky"), o.sky === "june" ? 1 : 0); gl.uniform1f(U(pMain, "uDebug"), o.debug ? 1 : 0); gl.uniform1f(U(pMain, "uSlopeVis"), o.slopeVis ?? (o.camera ? 1.3 : 3));
       gl.uniform2f(U(pMain, "uCMin"), cwin[0], cwin[1]); gl.uniform2f(U(pMain, "uCMax"), cwin[2], cwin[3]);
       gl.uniform2f(U(pMain, "uDMin"), dwin[0], dwin[1]); gl.uniform2f(U(pMain, "uDMax"), dwin[2], dwin[3]);
       gl.uniform1f(U(pMain, "uCausticOn"), floatOK && o.caustics !== false ? 1 : 0);

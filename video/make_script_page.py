@@ -20,6 +20,12 @@ SOURCES = [
     "S. J. Terrington, K. Hourigan and M. C. Thompson (2022), J. Fluid Mech., doi:10.1017/jfm.2022.529 (vortex rings connecting to a free surface; for an oblique ring the upper edge connects first).",
     "T. Theodorsen (1952), Mechanism of turbulence (hairpin vortex model); S. J. Kline, W. C. Reynolds, F. A. Schraub and P. W. Runstadler (1967), The structure of turbulent boundary layers, J. Fluid Mech. 30, 741.",
     "J. Zhou, R. J. Adrian, S. Balachandar and T. M. Kendall (1999), Mechanisms for generating coherent packets of hairpin vortices in channel flow, J. Fluid Mech. 387, 353–396.",
+    "J. R. Aarnes, O. M. Babiker, A. Xuan, L. Shen and S. Å. Ellingsen (2025), Vortex structures under dimples and scars in turbulent free-surface flows, J. Fluid Mech. 1007, A38, doi:10.1017/jfm.2025.72 (Fig. 1: a marked-up photo of the Nidelva in Trondheim; 'the largest dimples are von Kármán vortices shed from a nearby bridge pillar').",
+    "D. M. Lloyd and P. K. Stansby (1997), Shallow-water flow around model conical islands of small side slope. II: Submerged, J. Hydraul. Eng. 123(12), 1068–1077, doi:10.1061/(ASCE)0733-9429(1997)123:12(1068) (submerged islands shed vortices only when the water over the top is shallow).",
+    "A. Shamloo, N. Rajaratnam and C. Katopodis (2001), Hydraulics of simple habitat structures, J. Hydraul. Res. 39(4), 351–366, doi:10.1080/00221680109499840 (flow regimes behind hemispheres set by depth over obstacle height).",
+    "B. Hajimirzaie and J. H. J. Buchholz (2013), Flow dynamics in the wakes of low-aspect-ratio wall-mounted obstacles, Exp. Fluids 54, 1616, doi:10.1007/s00348-013-1616-1 (smooth versus sharp-edged obstacles; shedding frequency rising as submergence falls).",
+    "M. Muraro, G. Dolcetti, A. Nichols, S. J. Tait and K. V. Horoshenkov (2021), Free-surface behaviour of shallow turbulent flows, J. Hydraul. Res. 59(1), 1–20, doi:10.1080/00221686.2020.1870007 (review; the role of relative submergence is unsettled; no field baseline for dimple counts).",
+    "SRF News, 3 June 2026: the western part of Lake Constance at its lowest level ever measured for June, about one metre below the long-term June average; Stein am Rhein to Diessenhofen not navigable.",
     "Y. Qi, Y. Li and F. Coletti (2025), Small-scale dynamics and structure of free-surface turbulence, J. Fluid Mech., doi:10.1017/jfm.2025.139; arXiv:2412.04361 (surface-attached vortices strengthening during downwellings and diffusing afterwards).",
     "O. M. Babiker, I. Bjerkebæk, A. Xuan, L. Shen and S. Å. Ellingsen (2023), Vortex imprints on a free surface as proxy for surface divergence, J. Fluid Mech. 964, R2, doi:10.1017/jfm.2023.370 (simulations: dimple count tracks mean-square surface divergence).",
     "O. M. Babiker, J. R. Aarnes, A. Semati, A. Ferran, Y. H. Tee, R. J. Hearst and S. Å. Ellingsen (2026), Experimental investigation relating free-surface features to subsurface turbulence, Phys. Rev. Fluids 11, 054802, doi:10.1103/bmx7-2z3h (laboratory tank: area covered by dimples and scars).",
@@ -32,7 +38,8 @@ PREMISE
 We, on a boat on the Rhine, noticed small dimples on the water. There were few boats and few paddlers (our own boat had an engine); the dimples appeared beside and ahead of the boat, rarely behind, were most visible on smooth water, and some lasted a long time. The question: in a restless, turbulent river, what keeps one tiny whirlpool going?
 
 THE STORY, AS IT NOW STANDS
-Dimples -> the vortex tube under each one (Helmholtz: a tube of spin can't end inside the water, shown with circulation and a frozen-flow loop argument) -> smoke rings (Tait and Kelvin, vortex atoms, knot theory; a tilted ring reconnecting to the surface gives two dimples above and one connected tube below) -> the river's own mechanisms (hairpin arches from the bed, most shredded; the pair's self-propulsion; friction spreading a core versus sinking surface water strengthening it; ripples hiding dimples) -> what researchers read from the surface (dimple counts in simulations, dimple-and-scar area in a laboratory tank, gas exchange). The earlier "why flat is special" act (2D turbulence, Jupiter, Hamiltonian phase space) has been cut from this video on purpose.
+Dimples -> the vortex tube under each one (Helmholtz: a tube of spin can't end inside the water, shown with circulation and a frozen-flow loop argument) -> smoke rings (Tait and Kelvin, vortex atoms, knot theory; a tilted ring reconnecting to the surface gives two dimples above and one connected tube below) -> the river's own mechanisms (hairpin arches from the bed, most shredded; the pair's self-propulsion; bed obstacles such as boulders and piers shedding a steady, alternating train of whirlpools, more of which reach the surface when the water over the obstacle is shallow; a record-low Lake Constance that spring; the honest admission that nobody has counted dimples on the Rhine; then friction spreading a core versus sinking surface water strengthening it; ripples hiding dimples) -> what researchers read from the surface (dimple counts in simulations, dimple-and-scar area in a laboratory tank, gas exchange), ending with an invitation to watch for a steady beat of whirlpools from one spot below a bridge.
+(Our outing was on the High Rhine below Lake Constance, around 1 June 2026, in gentle flow.) The earlier "why flat is special" act (2D turbulence, Jupiter, Hamiltonian phase space) has been cut from this video on purpose.
 
 PLEASE DO
 1. Fact-check every name, date, number and claim. Flag anything wrong, misattributed, oversimplified or contested, with a correction and a source where you can.
@@ -51,10 +58,12 @@ PHYSICS THAT MUST STAY RIGHT (flag rather than silently change)
 - An ideal counter-rotating pair moves at Gamma / (2 pi d): halve d, double the speed (strengths held fixed; labelled as an ideal model).
 - Viscosity spreads a core (its size grows roughly as the square root of viscosity times time) and the dip gets shallower. Downwelling (convergent, sinking surface flow) stretches a surface-attached vortex and intensifies it (Qi, Li and Coletti, J. Fluid Mech. 2025). A surface can look level while water beneath moves up and down: low surface slope does not mean purely horizontal flow.
 - Babiker et al., J. Fluid Mech. 2023 (simulations): the number of dimples in a region correlates with regional mean-square surface divergence. Babiker et al., Phys. Rev. Fluids 2026 (laboratory): the measured quantity is the area covered by dimples and scars, chosen because counting scars is not robust.
+- Obstacle wakes: a bed-mounted obstacle sheds vortices at roughly f = St U / D (St about 0.2 to 0.5, rising as submergence falls). In lab flumes, the wake barely reaches the surface when depth is more than about four times the obstacle's height, and forms full-depth, alternating vortices as depth approaches the obstacle height (Shamloo et al. 2001; Lloyd and Stansby 1997). These are laboratory results at much lower Reynolds numbers than a river. The only real-river evidence found is illustrative (the Nidelva photo in Aarnes et al. 2025). No published count of dimples exists for the Rhine, and none relates dimple density to depth or discharge in any river.
+- Low water: the lake level record is for the western part of Lake Constance (SRF, 3 June 2026). Near Schaffhausen the Rhine is held up by a power plant, so how much shallower our exact stretch was is not known; slower flow also sheds weaker whirlpools. The script only asks the question.
 - Surface divergence (surface renewal) is linked to air-water gas transfer; the video says it "helps set" the rate, not that it alone determines it.
 
 WHAT TO RETURN
-1. The revised script in the same format, with a word count (target 700 to 800 words).
+1. The revised script in the same format, with a word count (target 800 to 900 words).
 2. A fact-check table: claim, verdict, correction, source.
 3. A short list of changes and why, including any line whose picture would need to change.
 
@@ -68,11 +77,11 @@ def swap(pat, new):
     assert n == 1, pat
 swap(r'<title>.*?</title>', f'<title>Dimples on the Rhine: script, draft {TAG}</title>')
 swap(r'<p class="muted">Episode 3, tight cut.*?</p>',
-     f'<p class="muted">Episode 3, draft {TAG}: narration measured at {int(dur // 60)}:{dur % 60:04.1f} with pauses. The story runs dimples → vortex tubes → smoke rings → the river\'s own mechanisms → what the surface tells us. "Why flat is special" is cut on purpose.</p>')
+     f'<p class="muted">Episode 3, draft {TAG}: narration {"estimated" if T.get("estimated") else "measured"} at {int(dur // 60)}:{dur % 60:04.1f} with pauses. The story runs dimples → vortex tubes → smoke rings → the river\'s own mechanisms → what the surface tells us. "Why flat is special" is cut on purpose.</p>')
 swap(r'const ACTS = \[.*?\];\nconst SOURCES', 'const ACTS = ' + json.dumps(acts, indent=1, ensure_ascii=False) + ';\nconst SOURCES')
 swap(r'const SOURCES = \[.*?\];\nconst words', 'const SOURCES = ' + json.dumps(SOURCES, indent=1, ensure_ascii=False) + ';\nconst words')
 swap(r'const BRIEF = `.*?THE SCRIPT\n`;', 'const BRIEF = `' + BRIEF.replace('\\', '\\\\').replace('`', "'").replace('${', '$ {') + '`;')
 swap(r'document\.getElementById\("total"\)\.textContent = `.*?`;',
-     f'document.getElementById("total").textContent = `${{total}} words · narration measured at {int(dur // 60)}:{dur % 60:04.1f} including pauses`;')
+     f'document.getElementById("total").textContent = `${{total}} words · narration {"estimated" if T.get("estimated") else "measured"} at {int(dur // 60)}:{dur % 60:04.1f} including pauses`;')
 (HERE / f'script{TAG}.html').write_text(page)
 print(f'script{TAG}.html', sum(len(l.split()) for a in acts for l in a['lines']), 'words')
