@@ -1,0 +1,331 @@
+1
+00:00:01,180 --> 00:00:07,160
+On a quiet stretch of the Rhine, we kept seeing them: small dimples on the water,
+
+2
+00:00:07,200 --> 00:00:09,390
+drifting beside the boat.
+
+3
+00:00:12,490 --> 00:00:15,940
+Some lasted a surprisingly long time.
+
+4
+00:00:16,490 --> 00:00:19,190
+Each one marks a whirlpool.
+
+5
+00:00:19,740 --> 00:00:28,320
+Spinning water needs an inward push, and pressure provides it: higher outside, lower toward the centre.
+
+6
+00:00:28,360 --> 00:00:32,580
+So above the low-pressure core, the surface dips.
+
+7
+00:00:33,130 --> 00:00:36,010
+But a river is restless.
+
+8
+00:00:36,050 --> 00:00:39,690
+Everything in it gets sheared and stirred.
+
+9
+00:00:39,730 --> 00:00:43,340
+So what keeps one tiny whirlpool going?
+
+10
+00:00:44,690 --> 00:00:50,600
+Underneath is a narrow tube of spinning water, reaching down into the river.
+
+11
+00:00:51,150 --> 00:00:55,610
+Draw a line along its middle: a vortex line.
+
+12
+00:00:55,650 --> 00:01:00,850
+The water turns around it; the line is how we draw the spin.
+
+13
+00:01:01,400 --> 00:01:06,970
+In 1858, Hermann von Helmholtz described a rule:
+
+14
+00:01:07,010 --> 00:01:13,081
+an isolated tube of spin cannot simply have a loose end inside the water.
+
+15
+00:01:13,631 --> 00:01:16,171
+Draw a loop around it.
+
+16
+00:01:16,211 --> 00:01:23,541
+Along each little piece, take the water's speed in that direction, times the piece's length.
+
+17
+00:01:23,581 --> 00:01:27,511
+Add those contributions: circulation.
+
+18
+00:01:28,061 --> 00:01:30,071
+Freeze the flow.
+
+19
+00:01:30,111 --> 00:01:35,551
+Imagine the tube ended, and slide our measuring loop past that end,
+
+20
+00:01:35,591 --> 00:01:38,991
+without crossing any spinning water.
+
+21
+00:01:39,031 --> 00:01:42,541
+Its circulation should stay the same.
+
+22
+00:01:42,581 --> 00:01:48,171
+But now we can shrink the loop to a point: zero circulation.
+
+23
+00:01:48,211 --> 00:01:51,591
+That contradiction rules out the loose end.
+
+24
+00:01:53,741 --> 00:01:57,351
+A closed ring has no loose end.
+
+25
+00:01:57,391 --> 00:02:00,781
+A tube can also connect to the surface.
+
+26
+00:02:02,131 --> 00:02:07,671
+A smoke ring is that closed shape: a tube of spinning air.
+
+27
+00:02:07,711 --> 00:02:10,451
+The smoke lets us see it roll.
+
+28
+00:02:12,001 --> 00:02:20,721
+In 1867, in Edinburgh, Peter Guthrie Tait showed his smoke rings to his friend William Thomson,
+
+29
+00:02:20,761 --> 00:02:23,311
+later Lord Kelvin.
+
+30
+00:02:23,861 --> 00:02:28,171
+The rings bounced and wobbled without falling apart.
+
+31
+00:02:28,211 --> 00:02:34,431
+Under the right conditions, two rings can even take turns passing through each other.
+
+32
+00:02:35,981 --> 00:02:40,641
+Kelvin saw a possible answer to a much bigger question.
+
+33
+00:02:40,681 --> 00:02:46,881
+In a perfect, frictionless fluid, a ring's circulation would never fade.
+
+34
+00:02:46,921 --> 00:02:52,951
+So maybe atoms were vortex rings in the ether, and each element a different knot.
+
+35
+00:02:53,501 --> 00:02:56,401
+Kelvin was wrong about atoms.
+
+36
+00:02:56,441 --> 00:03:01,611
+But Tait's attempts to catalogue the knots helped build knot theory.
+
+37
+00:03:03,161 --> 00:03:07,371
+Now bring a tilted ring up under the water's surface.
+
+38
+00:03:07,411 --> 00:03:11,721
+Its upper edge arrives first, and it can reconnect,
+
+39
+00:03:11,761 --> 00:03:15,431
+leaving a curved tube with two ends at the surface.
+
+40
+00:03:15,981 --> 00:03:19,071
+From above, two dimples.
+
+41
+00:03:19,111 --> 00:03:22,361
+From below, one connected tube.
+
+42
+00:03:25,911 --> 00:03:30,281
+Its spin points up at one end and down at the other.
+
+43
+00:03:30,321 --> 00:03:34,281
+From above, the ends turn opposite ways.
+
+44
+00:03:35,631 --> 00:03:39,181
+The Rhine doesn't need a smoke box.
+
+45
+00:03:39,221 --> 00:03:42,751
+The current makes spinning structures for itself.
+
+46
+00:03:43,301 --> 00:03:46,111
+One source is the riverbed.
+
+47
+00:03:46,151 --> 00:03:52,691
+Friction slows the water nearest the bottom, while the water above keeps moving.
+
+48
+00:03:52,731 --> 00:03:57,901
+That shear feeds vortices, including arches called hairpins.
+
+49
+00:03:58,451 --> 00:04:02,421
+These structures can be stretched and dispersed.
+
+50
+00:04:02,461 --> 00:04:05,851
+Some can reach the surface and connect to it.
+
+51
+00:04:06,401 --> 00:04:11,831
+In our ideal pair, each whirlpool rides the other's swirl.
+
+52
+00:04:11,871 --> 00:04:17,621
+Bring them closer, keeping their strengths fixed, and the pair moves faster.
+
+53
+00:04:19,371 --> 00:04:22,231
+Obstacles make wakes too.
+
+54
+00:04:22,271 --> 00:04:29,941
+Under suitable conditions, a rock or a bridge pier can shed alternating whirlpools downstream.
+
+55
+00:04:30,491 --> 00:04:33,651
+In this photograph of a Norwegian river,
+
+56
+00:04:33,691 --> 00:04:39,911
+the researchers identify the largest dimples as vortices shed by a bridge pillar.
+
+57
+00:04:40,461 --> 00:04:47,091
+Experiments show that changing the depth over an obstacle can change its wake dramatically.
+
+58
+00:04:48,441 --> 00:04:51,441
+So what keeps a whirlpool going?
+
+59
+00:04:51,991 --> 00:04:57,481
+Left alone, friction spreads its spin into the water around it.
+
+60
+00:04:57,521 --> 00:05:01,441
+The core widens, and the dimple gets shallower.
+
+61
+00:05:01,991 --> 00:05:05,691
+But the river can also work the other way.
+
+62
+00:05:05,731 --> 00:05:14,211
+Where surface water converges and sinks, the downward flow stretches an upright whirlpool and spins it faster.
+
+63
+00:05:14,251 --> 00:05:18,141
+The surrounding surface can stay nearly level.
+
+64
+00:05:18,181 --> 00:05:22,421
+That doesn't mean the water underneath only moves sideways.
+
+65
+00:05:22,971 --> 00:05:27,961
+And a dimple can vanish from view before its whirlpool does.
+
+66
+00:05:28,001 --> 00:05:33,141
+Ripples can hide the dimple without destroying the whirlpool underneath.
+
+67
+00:05:33,691 --> 00:05:37,561
+A shallow dip bends the reflection above it.
+
+68
+00:05:37,601 --> 00:05:43,251
+Keep the whirlpool unchanged, but move a cloud's reflection across it.
+
+69
+00:05:43,291 --> 00:05:45,471
+Now the dimple shows.
+
+70
+00:05:47,021 --> 00:05:52,671
+Smooth water, distinct reflections, and a low viewing angle help.
+
+71
+00:05:52,711 --> 00:05:55,691
+That day, we had all three.
+
+72
+00:05:57,041 --> 00:06:02,361
+Those hidden motions are what researchers are learning to read from the surface.
+
+73
+00:06:02,401 --> 00:06:07,891
+A team in Trondheim, including Omer Babiker and Simen Ellingsen,
+
+74
+00:06:07,931 --> 00:06:15,611
+found in simulations that regional dimple counts tracked how strongly the surface was spreading and converging.
+
+75
+00:06:16,161 --> 00:06:21,361
+In 2026, laboratory experiments supported the link,
+
+76
+00:06:21,401 --> 00:06:28,661
+this time measuring the area covered by dimples and by elongated marks called scars.
+
+77
+00:06:29,211 --> 00:06:32,091
+That churning renews the surface,
+
+78
+00:06:32,131 --> 00:06:39,531
+and helps set how fast gases like oxygen and carbon dioxide cross between water and air.
+
+79
+00:06:40,081 --> 00:06:44,481
+We couldn't find a published count of them on any real river.
+
+80
+00:06:45,031 --> 00:06:50,621
+On a sunny day, look from a bridge into clear, shallow water.
+
+81
+00:06:50,661 --> 00:06:55,881
+A dimple can bend sunlight into a dark patch with a bright rim.
+
+82
+00:06:56,431 --> 00:07:00,651
+A dimple isn't a map of everything underneath.
+
+83
+00:07:00,691 --> 00:07:04,661
+But those little dents are clues to the river below.

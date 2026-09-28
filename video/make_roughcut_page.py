@@ -21,9 +21,9 @@ h1{{font-family:Georgia,serif;font-size:32px;margin:0 0 6px}}h3{{font-family:Geo
 video{{width:100%;border:1px solid #1F2736;border-radius:8px;background:#000}}a{{color:#6FA8FF}}</style></head><body><div class="w">
 <h1>Dimples on the Rhine: rough cut</h1>
 <p class="m">Measured runtime <b>{int(dur // 60)}:{dur % 60:04.1f}</b> ({dur:.1f} s) · narration speech {speech / 60:.1f} min of it · {words} words · 1280×720, 30 fps · {size:.0f} MB.
-Low-resolution rough cut: several shots are plain diagrams or labelled illustrations; subtitles are burned in.</p>
+{os.environ.get('NOTE', 'Low-resolution rough cut: several shots are plain diagrams or labelled illustrations; subtitles are burned in.')}</p>
 <video src="dimples-roughcut{TAG}.mp4" controls playsinline></video>
-<p class="m">Script with picture and knob notes, sources, and the copy-for-review button: <a href="{os.environ.get('SCRIPTPAGE', 'script15.html')}">{os.environ.get('SCRIPTPAGE', 'script15.html')}</a> · subtitles: <a href="dimples-on-the-rhine{TAG or 2}.srt">dimples-on-the-rhine{TAG or 2}.srt</a></p>
+<p class="m">Script with picture and knob notes, sources, and the copy-for-review button: <a href="{os.environ.get('SCRIPTPAGE', 'script15.html')}">{os.environ.get('SCRIPTPAGE', 'script15.html')}</a> · subtitles: <a href="dimples-on-the-rhine{TAG or 2}.srt">dimples-on-the-rhine{TAG or 2}.srt</a>{(' · YouTube title, description, chapters and credits: <a href="youtube' + TAG + '.txt">youtube' + TAG + '.txt</a>') if (HERE / f'youtube{TAG}.txt').exists() else ''}</p>
 <h2 style="font-family:Georgia,serif">Narration as recorded</h2>{''.join(rows)}
 </div></body></html>"""
 (HERE / f'roughcut{TAG}.html').write_text(page)

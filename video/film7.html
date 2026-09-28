@@ -281,7 +281,7 @@
     const im = S.lt < 5.2 ? clipAt(IMG.clip1, S.lt) : clipAt(IMG.clip2, S.lt - 5.2); if (im) c.drawImage(im, 0, 0, W, H); chip("our footage · normal speed", 40, 60, "#FFFFFF"); } });
   scene("open", 1, { id: "replay", nokb: true, subTop: true, draw(S) {                     // then the labelled slow replay, zooming onto the dimples
     const t = S.lt, slow = 4, f0 = 22, fr = f0 + t * 30 / slow, f = Math.min(66, Math.floor(fr) + 1);
-    const z = 1 + 1.3 * ss(t, 0.2, 1.4), pts = [TRK_A[f], TRK_B[f]].filter(Boolean);
+    const z = 1 + 1.3 * ss(t, 0.2, 1.4), pts = TRK_B[f] ? [TRK_B[f]] : TRK_A[f] ? [TRK_A[f]] : [];                 // follow the newest dimple
     let tx = 700, ty = 1030; if (pts.length) { tx = pts.reduce((a, q) => a + q[0], 0) / pts.length; ty = pts.reduce((a, q) => a + q[1], 0) / pts.length; }
     this.cx = this.cx === undefined ? tx : lerp(this.cx, tx, 0.12); const cx = clamp(this.cx, 960 / z, 1920 - 960 / z), cy = clamp(ty - 120, 540 / z, 1080 - 540 / z);
     const im = f >= 19 && IMG.hd[f - 19] ? IMG.hd[f - 19] : IMG.clip1[Math.min(156, f - 1)], sc = (im && im.width > 1300 ? 1 : 1.5);
@@ -570,6 +570,7 @@
   function nameCards(s, S) { for (const [li, name, sub] of (s.names || [])) { const t0 = T.beats[s.beat].lines[li].start, a = clamp(Math.min((S.T - t0) / 0.4, (t0 + 5.5 - S.T) / 0.5)); if (a <= 0) continue;
     c.save(); c.globalAlpha = a; font(24, 600, "IBM Plex Sans"); const w = Math.max(c.measureText(name).width, (font(16, 500), c.measureText(sub).width)) + 36; c.fillStyle = "rgba(10,14,22,0.86)"; c.strokeStyle = "#2C3649"; c.lineWidth = 1; c.beginPath(); c.roundRect(40, 560, w, sub ? 70 : 46, 8); c.fill(); c.stroke();
     serif(24, 600); c.fillStyle = "#F4F7FB"; c.textAlign = "left"; c.fillText(name, 58, 592); if (sub) { font(16, 500); c.fillStyle = MUTED; c.fillText(sub, 58, 616); } c.restore(); } }
+  const NOSUBS = new URLSearchParams(location.search).has("nosubs");
   window.renderAt = t => {
     const s = SC.find(x => t >= x.start && t < x.end) || SC[SC.length - 1];
     if (s !== cur || lastT === null || t < lastT) { if (cur && cur.leave) cur.leave(); cur = s; s.r = null; if (s.reset) s.reset(); lastT = t; }
@@ -585,7 +586,7 @@
     if (kb) c.restore();
     const act = { open: "", under: "Under the dimple", rings: "Smoke rings", river: "The river's own smoke rings", keep: "What keeps one going", reading: "Reading the river" }[s.beat];
     if (act) { font(15, 500); c.fillStyle = "rgba(138,149,170,0.9)"; c.textAlign = "right"; c.fillText(act, 1260, 30); }
-    nameCards(s, S); subtitle(t, !!s.subTop);
+    nameCards(s, S); if (!NOSUBS) subtitle(t, !!s.subTop);                        // ?nosubs: clean picture for an upload with a separate caption file
   };
   window.DURATION = DURATION;
   window.SCENES = SC.map(s => ({ id: s.id, start: s.start, end: s.end }));
