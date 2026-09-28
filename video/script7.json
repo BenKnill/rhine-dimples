@@ -1,0 +1,478 @@
+{
+ "title": "Dimples on the Rhine, draft 7",
+ "beats": [
+  {
+   "id": "open",
+   "title": "Cold open",
+   "pad_before": 1.2,
+   "pad_after": 0.8,
+   "lines": [
+    {
+     "show": "On a quiet stretch of the Rhine, we kept seeing them: small dimples on the water,",
+     "say": "On a quiet stretch of the Rhine, we kept seeing them: small dimples on the water,",
+     "b": "clause"
+    },
+    {
+     "show": "drifting beside the boat.",
+     "say": "drifting beside the boat.",
+     "b": "sentence",
+     "hold": 2.8
+    },
+    {
+     "show": "Some lasted a surprisingly long time.",
+     "say": "Some lasted a surprisingly long time.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Each one marks a whirlpool.",
+     "say": "Each one marks a whirlpool.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Spinning water needs an inward push, and pressure provides it: higher outside, lower toward the centre.",
+     "say": "Spinning water needs an inward push, and pressure provides it: higher outside, lower toward the centre.",
+     "b": "sentence"
+    },
+    {
+     "show": "So above the low-pressure core, the surface dips.",
+     "say": "So above the low-pressure core, the surface dips.",
+     "b": "paragraph"
+    },
+    {
+     "show": "But a river is restless.",
+     "say": "But a river is restless.",
+     "b": "sentence"
+    },
+    {
+     "show": "Everything in it gets sheared and stirred.",
+     "say": "Everything in it gets sheared and stirred.",
+     "b": "sentence"
+    },
+    {
+     "show": "So what keeps one tiny whirlpool going?",
+     "say": "So what keeps one tiny whirlpool going?",
+     "b": "paragraph",
+     "hold": 1.2
+    }
+   ]
+  },
+  {
+   "id": "under",
+   "title": "1 · Under the dimple",
+   "pad_before": 0.8,
+   "pad_after": 0.8,
+   "lines": [
+    {
+     "show": "Underneath is a narrow tube of spinning water, reaching down into the river.",
+     "say": "Underneath is a narrow tube of spinning water, reaching down into the river.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Draw a line along its middle: a vortex line.",
+     "say": "Draw a line along its middle: a vortex line.",
+     "b": "sentence"
+    },
+    {
+     "show": "The water turns around it; the line is how we draw the spin.",
+     "say": "The water turns around it; the line is how we draw the spin.",
+     "b": "paragraph"
+    },
+    {
+     "show": "In 1858, Hermann von Helmholtz described a rule:",
+     "say": "In eighteen fifty-eight, Hermann von Helmholtz described a rule:",
+     "b": "clause"
+    },
+    {
+     "show": "an isolated tube of spin cannot simply have a loose end inside the water.",
+     "say": "an isolated tube of spin cannot simply have a loose end inside the water.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Draw a loop around it.",
+     "say": "Draw a loop around it.",
+     "b": "sentence"
+    },
+    {
+     "show": "Along each little piece, take the water's speed in that direction, times the piece's length.",
+     "say": "Along each little piece, take the water's speed in that direction, times the piece's length.",
+     "b": "sentence"
+    },
+    {
+     "show": "Add those contributions: circulation.",
+     "say": "Add those contributions: circulation.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Freeze the flow.",
+     "say": "Freeze the flow.",
+     "b": "sentence"
+    },
+    {
+     "show": "Imagine the tube ended, and slide our measuring loop past that end,",
+     "say": "Imagine the tube ended, and slide our measuring loop past that end,",
+     "b": "clause"
+    },
+    {
+     "show": "without crossing any spinning water.",
+     "say": "without crossing any spinning water.",
+     "b": "sentence"
+    },
+    {
+     "show": "Its circulation should stay the same.",
+     "say": "Its circulation should stay the same.",
+     "b": "sentence"
+    },
+    {
+     "show": "But now we can shrink the loop to a point: zero circulation.",
+     "say": "But now we can shrink the loop to a point: zero circulation.",
+     "b": "sentence"
+    },
+    {
+     "show": "That contradiction rules out the loose end.",
+     "say": "That contradiction rules out the loose end.",
+     "b": "paragraph",
+     "hold": 1.6
+    },
+    {
+     "show": "A closed ring has no loose end.",
+     "say": "A closed ring has no loose end.",
+     "b": "sentence"
+    },
+    {
+     "show": "A tube can also connect to the surface.",
+     "say": "A tube can also connect to the surface.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "rings",
+   "title": "2 · Smoke rings",
+   "pad_before": 0.8,
+   "pad_after": 0.8,
+   "lines": [
+    {
+     "show": "A smoke ring is that closed shape: a tube of spinning air.",
+     "say": "A smoke ring is that closed shape: a tube of spinning air.",
+     "b": "sentence"
+    },
+    {
+     "show": "The smoke lets us see it roll.",
+     "say": "The smoke lets us see it roll.",
+     "b": "paragraph",
+     "hold": 1.0
+    },
+    {
+     "show": "In 1867, in Edinburgh, Peter Guthrie Tait showed his smoke rings to his friend William Thomson,",
+     "say": "In eighteen sixty-seven, in Edinburgh, Peter Guthrie Tate showed his smoke rings to his friend William Thomson,",
+     "b": "clause"
+    },
+    {
+     "show": "later Lord Kelvin.",
+     "say": "later Lord Kelvin.",
+     "b": "paragraph"
+    },
+    {
+     "show": "The rings bounced and wobbled without falling apart.",
+     "say": "The rings bounced and wobbled without falling apart.",
+     "b": "sentence"
+    },
+    {
+     "show": "Under the right conditions, two rings can even take turns passing through each other.",
+     "say": "Under the right conditions, two rings can even take turns passing through each other.",
+     "b": "paragraph",
+     "hold": 1.0
+    },
+    {
+     "show": "Kelvin saw a possible answer to a much bigger question.",
+     "say": "Kelvin saw a possible answer to a much bigger question.",
+     "b": "sentence"
+    },
+    {
+     "show": "In a perfect, frictionless fluid, a ring's circulation would never fade.",
+     "say": "In a perfect, frictionless fluid, a ring's circulation would never fade.",
+     "b": "sentence"
+    },
+    {
+     "show": "So maybe atoms were vortex rings in the ether, and each element a different knot.",
+     "say": "So maybe atoms were vortex rings in the ether, and each element a different knot.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Kelvin was wrong about atoms.",
+     "say": "Kelvin was wrong about atoms.",
+     "b": "sentence"
+    },
+    {
+     "show": "But Tait's attempts to catalogue the knots helped build knot theory.",
+     "say": "But Tate's attempts to catalogue the knots helped build knot theory.",
+     "b": "paragraph",
+     "hold": 1.0
+    },
+    {
+     "show": "Now bring a tilted ring up under the water's surface.",
+     "say": "Now bring a tilted ring up under the water's surface.",
+     "b": "sentence"
+    },
+    {
+     "show": "Its upper edge arrives first, and it can reconnect,",
+     "say": "Its upper edge arrives first, and it can reconnect,",
+     "b": "clause"
+    },
+    {
+     "show": "leaving a curved tube with two ends at the surface.",
+     "say": "leaving a curved tube with two ends at the surface.",
+     "b": "paragraph"
+    },
+    {
+     "show": "From above, two dimples.",
+     "say": "From above, two dimples.",
+     "b": "sentence"
+    },
+    {
+     "show": "From below, one connected tube.",
+     "say": "From below, one connected tube.",
+     "b": "paragraph",
+     "hold": 3.0
+    },
+    {
+     "show": "Its spin points up at one end and down at the other.",
+     "say": "Its spin points up at one end and down at the other.",
+     "b": "sentence"
+    },
+    {
+     "show": "From above, the ends turn opposite ways.",
+     "say": "From above, the ends turn opposite ways.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "river",
+   "title": "3 · The river's own smoke rings",
+   "pad_before": 0.8,
+   "pad_after": 0.8,
+   "lines": [
+    {
+     "show": "The Rhine doesn't need a smoke box.",
+     "say": "The Rhine doesn't need a smoke box.",
+     "b": "sentence"
+    },
+    {
+     "show": "The current makes spinning structures for itself.",
+     "say": "The current makes spinning structures for itself.",
+     "b": "paragraph"
+    },
+    {
+     "show": "One source is the riverbed.",
+     "say": "One source is the riverbed.",
+     "b": "sentence"
+    },
+    {
+     "show": "Friction slows the water nearest the bottom, while the water above keeps moving.",
+     "say": "Friction slows the water nearest the bottom, while the water above keeps moving.",
+     "b": "sentence"
+    },
+    {
+     "show": "That shear feeds vortices, including arches called hairpins.",
+     "say": "That shear feeds vortices, including arches called hairpins.",
+     "b": "paragraph"
+    },
+    {
+     "show": "These structures can be stretched and dispersed.",
+     "say": "These structures can be stretched and dispersed.",
+     "b": "sentence"
+    },
+    {
+     "show": "Some can reach the surface and connect to it.",
+     "say": "Some can reach the surface and connect to it.",
+     "b": "paragraph"
+    },
+    {
+     "show": "In our ideal pair, each whirlpool rides the other's swirl.",
+     "say": "In our ideal pair, each whirlpool rides the other's swirl.",
+     "b": "sentence"
+    },
+    {
+     "show": "Bring them closer, keeping their strengths fixed, and the pair moves faster.",
+     "say": "Bring them closer, keeping their strengths fixed, and the pair moves faster.",
+     "b": "paragraph",
+     "hold": 1.2
+    },
+    {
+     "show": "Obstacles make wakes too.",
+     "say": "Obstacles make wakes too.",
+     "b": "sentence"
+    },
+    {
+     "show": "Under suitable conditions, a rock or a bridge pier can shed alternating whirlpools downstream.",
+     "say": "Under suitable conditions, a rock or a bridge pier can shed alternating whirlpools downstream.",
+     "b": "paragraph"
+    },
+    {
+     "show": "In this photograph of a Norwegian river,",
+     "say": "In this photograph of a Norwegian river,",
+     "b": "clause"
+    },
+    {
+     "show": "the researchers identify the largest dimples as vortices shed by a bridge pillar.",
+     "say": "the researchers identify the largest dimples as vortices shed by a bridge pillar.",
+     "b": "paragraph"
+    },
+    {
+     "show": "Experiments show that changing the depth over an obstacle can change its wake dramatically.",
+     "say": "Experiments show that changing the depth over an obstacle can change its wake dramatically.",
+     "b": "paragraph"
+    }
+   ]
+  },
+  {
+   "id": "keep",
+   "title": "4 · What keeps one going",
+   "pad_before": 0.8,
+   "pad_after": 0.8,
+   "lines": [
+    {
+     "show": "So what keeps a whirlpool going?",
+     "say": "So what keeps a whirlpool going?",
+     "b": "paragraph"
+    },
+    {
+     "show": "Left alone, friction spreads its spin into the water around it.",
+     "say": "Left alone, friction spreads its spin into the water around it.",
+     "b": "sentence"
+    },
+    {
+     "show": "The core widens, and the dimple gets shallower.",
+     "say": "The core widens, and the dimple gets shallower.",
+     "b": "paragraph"
+    },
+    {
+     "show": "But the river can also work the other way.",
+     "say": "But the river can also work the other way.",
+     "b": "sentence"
+    },
+    {
+     "show": "Where surface water converges and sinks, the downward flow stretches an upright whirlpool and spins it faster.",
+     "say": "Where surface water converges and sinks, the downward flow stretches an upright whirlpool and spins it faster.",
+     "b": "sentence"
+    },
+    {
+     "show": "The surrounding surface can stay nearly level.",
+     "say": "The surrounding surface can stay nearly level.",
+     "b": "sentence"
+    },
+    {
+     "show": "That doesn't mean the water underneath only moves sideways.",
+     "say": "That doesn't mean the water underneath only moves sideways.",
+     "b": "paragraph"
+    },
+    {
+     "show": "And a dimple can vanish from view before its whirlpool does.",
+     "say": "And a dimple can vanish from view before its whirlpool does.",
+     "b": "sentence"
+    },
+    {
+     "show": "Ripples can hide the dimple without destroying the whirlpool underneath.",
+     "say": "Ripples can hide the dimple without destroying the whirlpool underneath.",
+     "b": "paragraph"
+    },
+    {
+     "show": "A shallow dip bends the reflection above it.",
+     "say": "A shallow dip bends the reflection above it.",
+     "b": "sentence"
+    },
+    {
+     "show": "Keep the whirlpool unchanged, but move a cloud's reflection across it.",
+     "say": "Keep the whirlpool unchanged, but move a cloud's reflection across it.",
+     "b": "sentence"
+    },
+    {
+     "show": "Now the dimple shows.",
+     "say": "Now the dimple shows.",
+     "b": "paragraph",
+     "hold": 1.0
+    },
+    {
+     "show": "Smooth water, distinct reflections, and a low viewing angle help.",
+     "say": "Smooth water, distinct reflections, and a low viewing angle help.",
+     "b": "sentence"
+    },
+    {
+     "show": "That day, we had all three.",
+     "say": "That day, we had all three.",
+     "b": "paragraph",
+     "hold": 1.0
+    }
+   ]
+  },
+  {
+   "id": "reading",
+   "title": "5 · Reading the river",
+   "pad_before": 0.8,
+   "pad_after": 0.8,
+   "lines": [
+    {
+     "show": "Those hidden motions are what researchers are learning to read from the surface.",
+     "say": "Those hidden motions are what researchers are learning to read from the surface.",
+     "b": "sentence"
+    },
+    {
+     "show": "A team in Trondheim, including Omer Babiker and Simen Ellingsen,",
+     "say": "A team in Trondheim, including Omer Babiker and Simen Ellingsen,",
+     "b": "clause"
+    },
+    {
+     "show": "found in simulations that regional dimple counts tracked how strongly the surface was spreading and converging.",
+     "say": "found in simulations that regional dimple counts tracked how strongly the surface was spreading and converging.",
+     "b": "paragraph"
+    },
+    {
+     "show": "In 2026, laboratory experiments supported the link,",
+     "say": "In twenty twenty-six, laboratory experiments supported the link,",
+     "b": "clause"
+    },
+    {
+     "show": "this time measuring the area covered by dimples and by elongated marks called scars.",
+     "say": "this time measuring the area covered by dimples and by elongated marks called scars.",
+     "b": "paragraph"
+    },
+    {
+     "show": "That churning renews the surface,",
+     "say": "That churning renews the surface,",
+     "b": "clause"
+    },
+    {
+     "show": "and helps set how fast gases like oxygen and carbon dioxide cross between water and air.",
+     "say": "and helps set how fast gases like oxygen and carbon dioxide cross between water and air.",
+     "b": "paragraph"
+    },
+    {
+     "show": "We couldn't find a published count of them on any real river.",
+     "say": "We couldn't find a published count of them on any real river.",
+     "b": "paragraph"
+    },
+    {
+     "show": "On a sunny day, look from a bridge into clear, shallow water.",
+     "say": "On a sunny day, look from a bridge into clear, shallow water.",
+     "b": "sentence"
+    },
+    {
+     "show": "A dimple can bend sunlight into a dark patch with a bright rim.",
+     "say": "A dimple can bend sunlight into a dark patch with a bright rim.",
+     "b": "paragraph"
+    },
+    {
+     "show": "A dimple isn't a map of everything underneath.",
+     "say": "A dimple isn't a map of everything underneath.",
+     "b": "sentence"
+    },
+    {
+     "show": "But those little dents are clues to the river below.",
+     "say": "But those little dents are clues to the river below.",
+     "b": "paragraph"
+    }
+   ]
+  }
+ ]
+}

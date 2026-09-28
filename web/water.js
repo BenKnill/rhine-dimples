@@ -71,7 +71,7 @@
   const MAIN_FS = `#version 300 es
   precision highp float;
   uniform vec2 uRes, uCenter, uCMin, uCMax, uDMin, uDMax;
-  uniform float uScale, uPersp, uTanH, uDepth, uK, uGlint, uCausticOn, uDyeOn, uDebug, uSlopeVis, uMurk, uSky, uOvercast;
+  uniform float uScale, uPersp, uTanH, uDepth, uK, uGlint, uCausticOn, uDyeOn, uDebug, uSlopeVis, uMurk, uSky, uOvercast, uNoClouds; uniform vec3 uEdge;
   uniform vec3 uCamPos, uCamF, uCamR, uCamU, uSunDir, uDyeT, uWaterCol;
   uniform sampler2D uCaustic, uDens; ${COMMON}
   out vec4 frag;
@@ -124,9 +124,10 @@
     float sd = max(dot(r, uSunDir), 0.0);
     sky += vec3(1.0, 0.95, 0.86) * (pow(sd, 900.0) * 60.0 * uGlint + pow(sd, 10.0) * 0.18);
     sky = mix(sky, vec3(0.74, 0.76, 0.78) * (0.92 + 0.08 * clamp(el * 3.0, 0.0, 1.0)), uOvercast);
+    if (uEdge.z > 0.5) sky = mix(sky, vec3(0.97, 0.97, 0.98), smoothstep(uEdge.x - uEdge.y, uEdge.x + uEdge.y, atan(r.x, r.y)) * smoothstep(0.01, 0.06, el));
     if (full < 0.5) return sky;
     vec2 cp = r.xy / (max(el, 0.0) + 0.14) * 0.9 + vec2(uTime * 0.004, 0.0);
-    if (uSky > 0.5) {                                          // cumulus: bright crisp tops, greyer bases
+    if (uNoClouds > 0.5) {} else if (uSky > 0.5) {                                          // cumulus: bright crisp tops, greyer bases
       float f = fbm(cp * 0.55 + vec2(3.1, 0.7)), f2 = fbm(cp * 0.55 + vec2(3.1, 0.7) + vec2(0.0, 0.06));
       float cov = smoothstep(0.46, 0.53, f) * smoothstep(0.015, 0.10, el);
       vec3 cc = mix(vec3(0.66, 0.70, 0.76), vec3(1.0, 1.0, 1.0), smoothstep(0.50, 0.70, f2) * 0.8 + 0.2);
@@ -329,7 +330,8 @@
       else gl.uniform1f(U(pMain, "uPersp"), 0);
       const sd = norm3(o.sunDir || [0.106, 0.141, 1]); gl.uniform3f(U(pMain, "uSunDir"), sd[0], sd[1], sd[2]);
       gl.uniform1f(U(pMain, "uDepth"), depth); gl.uniform1f(U(pMain, "uMurk"), o.murk ?? 0.025); const wc = o.waterColor || [0.07, 0.12, 0.10]; gl.uniform3f(U(pMain, "uWaterCol"), wc[0], wc[1], wc[2]); gl.uniform1f(U(pMain, "uK"), k);
-      gl.uniform1f(U(pMain, "uGlint"), o.glint ?? 1); gl.uniform1f(U(pMain, "uSky"), o.sky === "june" ? 1 : 0); gl.uniform1f(U(pMain, "uOvercast"), o.overcast ?? 0); gl.uniform1f(U(pMain, "uDebug"), o.debug ? 1 : 0); gl.uniform1f(U(pMain, "uSlopeVis"), o.slopeVis ?? (o.camera ? 1.3 : 3));
+      gl.uniform1f(U(pMain, "uGlint"), o.glint ?? 1); gl.uniform1f(U(pMain, "uSky"), o.sky === "june" ? 1 : 0); gl.uniform1f(U(pMain, "uOvercast"), o.overcast ?? 0); gl.uniform1f(U(pMain, "uNoClouds"), o.noClouds ? 1 : 0);
+      const ed = o.cloudEdge; gl.uniform3f(U(pMain, "uEdge"), ed ? ed[0] : 0, ed ? (ed[1] ?? 0.004) : 0.004, ed ? 1 : 0); gl.uniform1f(U(pMain, "uDebug"), o.debug ? 1 : 0); gl.uniform1f(U(pMain, "uSlopeVis"), o.slopeVis ?? (o.camera ? 1.3 : 3));
       gl.uniform2f(U(pMain, "uCMin"), cwin[0], cwin[1]); gl.uniform2f(U(pMain, "uCMax"), cwin[2], cwin[3]);
       gl.uniform2f(U(pMain, "uDMin"), dwin[0], dwin[1]); gl.uniform2f(U(pMain, "uDMax"), dwin[2], dwin[3]);
       gl.uniform1f(U(pMain, "uCausticOn"), floatOK && o.caustics !== false ? 1 : 0);

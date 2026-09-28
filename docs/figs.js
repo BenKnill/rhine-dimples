@@ -208,8 +208,8 @@
       const S = Math.min(W / (2 * X + 1.9), H / 5.2), P = camera(yaw, 0.42, S, W * (W < 560 ? 0.5 : 0.44), H * (W < 560 ? 0.42 : 0.34));
       const pts = curves[mode](), surf = slab(c, P, X, Y, D);
       // sliding loop
-      const cyc = 8, u = (t % cyc) / cyc; let li, shrink = 1, gam = "60", bad = false, beyond = 0;
-      if (mode === "end") { if (u < 0.45) li = Math.round(u / 0.45 * (pts.length - 1)); else { li = pts.length - 1; beyond = Math.min(1, (u - 0.45) / 0.2) * 0.45; if (u > 0.68) { shrink = Math.max(0, 1 - (u - 0.68) / 0.22); gam = shrink < 0.05 ? "0 ?!" : "60"; bad = shrink < 0.05; } } }
+      const cyc = 8, u = (t % cyc) / cyc; let li, shrink = 1, gam = "60 cm²/s", bad = false, beyond = 0;
+      if (mode === "end") { if (u < 0.45) li = Math.round(u / 0.45 * (pts.length - 1)); else { li = pts.length - 1; beyond = Math.min(1, (u - 0.45) / 0.2) * 0.45; if (u > 0.68) { shrink = Math.max(0, 1 - (u - 0.68) / 0.22); gam = shrink < 0.05 ? "0 ?!" : "60 cm²/s"; bad = shrink < 0.05; } } }
       else li = Math.round((0.1 + 0.8 * (0.5 - 0.5 * Math.cos(u * TAU))) * (pts.length - 1));
       tube(c, P, S, pts, r, t, 1);
       if (mode === "end") { const e = P(...pts[pts.length - 1]); c.fillStyle = "rgba(255,107,107,0.9)"; c.beginPath(); c.arc(e[0], e[1], 5, 0, TAU); c.fill(); font(c, 15, 600); c.fillText("?", e[0] + 9, e[1] + 5); }
