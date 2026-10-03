@@ -77,7 +77,7 @@
     vids.forEach(v => { if (v.readyState) { try { v.currentTime = 0; } catch (_) {} } });
     if (beat === 3) document.querySelector('[data-line="ring"]').click();
     sync(); draw();
-    if (!options.fromHash) history.replaceState(null, '', '#' + (beat + 1));
+    if (!options.fromHash) { try { history.replaceState(null, '', '#' + (beat + 1)); } catch (_) { /* Optional URL state may be restricted in local-file viewers. */ } }
   }
   labels.forEach((label, i) => {
     const b = document.createElement('button'); b.type = 'button';

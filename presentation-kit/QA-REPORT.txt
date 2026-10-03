@@ -27,13 +27,16 @@ Lattice
 
 Rhine
 - Eleven assertion-based model checks, including pair speed, orbital angle, invariants, stream-function derivatives, quadratic dip scaling and flat-model tracer area
-- Twenty-five live/controller checks at 960px and 390px command geometry
+- Twenty-six live/controller checks at 960px and 390px command geometry
 - Six scenes; exactly 300 seconds in timed rehearsal; correct hidden-tab behavior
 - Deterministic reset, loop dragging with CSS scaling, cancellation, slider and keyboard behavior, reduced motion, media-ready/error state and matching narration, and fullscreen API failures
 - Original article figure initialization and controls checked in the same command harness
 - Canvas draw commands are finite; these checks do not rasterize the page
 
 Package checks
+- Static file-opening audit: classic scripts only; no application fetch/XHR, ES modules, workers, server API or remote rendering assets
+- Embedded image data and generated GPU textures avoid image-origin/CORS dependencies
+- Local navigation uses explicit filenames, including the optional Lab; hash-history updates cannot abort a presentation
 - All non-media relative links and assets resolve
 - ZIP integrity and every SHA-256 file-manifest entry verified
 - The intentionally absent Rhine MP4/poster paths are handled by labelled illustration fallbacks
@@ -41,7 +44,7 @@ Package checks
 - No GitHub Actions runs or commit status checks were present for the reviewed Camel/Lattice commits
 
 Remaining verification boundary
-A fresh rendered desktop/mobile browser pass of this final bundle was not completed in the build environment. The DOM and canvas-command harnesses are not substitutes for checking actual WebGL output, typography, clipping, touch behavior or fullscreen in a browser. Earlier local checkpoint screenshots covered the six Rhine scenes and a complete lattice echo, but they do not verify this final revision. Camel and final mobile rendering still need that pass.
+Actual file:// execution and a fresh rendered desktop/mobile browser pass of this final bundle were not completed in the build environment. The DOM and canvas-command harnesses are not substitutes for checking actual WebGL output, typography, clipping, touch behavior or fullscreen in a browser. Earlier local checkpoint screenshots covered the six Rhine scenes and a complete lattice echo, but they do not verify this final revision. Camel and final mobile rendering still need that pass.
 
 No new HOL Light proof replay, native AArch64 comparison, benchmark or real-river measurement is claimed. The exact-byte proof boundary is explained in the lattice talk. This bundle does not deploy a website or modify the original voiced films.
 

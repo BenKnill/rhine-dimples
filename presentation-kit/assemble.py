@@ -2,7 +2,7 @@
 """Assemble an offline rehearsal kit from three sibling source checkouts.
 No network calls, deployments, or modification of the source checkouts.
 """
-import argparse, hashlib, json, re, shutil, zipfile
+import argparse, hashlib, json, os, re, shutil, zipfile
 from pathlib import Path
 
 REPOS = ('symplectic-camel', 'lattice-echo', 'rhine-dimples')
@@ -37,13 +37,17 @@ for name in REPOS:
         html=f.read_text()
         # System font fallbacks keep the kit offline. Research links are preserved.
         html=re.sub(r'<link\b[^>]*https://fonts\.(?:googleapis|gstatic)\.com[^>]*>\s*','',html,flags=re.I)
+        # Keep cross-episode navigation in this offline kit; source-paper links stay external.
+        for episode, entry in [('symplectic-camel','index.html?present=1'),('lattice-echo','live.html'),('rhine-dimples','live.html')]:
+            local = os.path.relpath(out/episode/'docs'/entry, f.parent).replace(os.sep, '/')
+            html = html.replace('href="https://benknill.github.io/'+episode+'/"','href="'+local+'"')
         f.write_text(html)
-for name in ('index.html','cue-sheet.html'): shutil.copy2(HERE/name,out/name)
+for name in ('index.html','cue-sheet.html','check-offline.py'): shutil.copy2(HERE/name,out/name)
 if (HERE/'QA-REPORT.txt').is_file(): shutil.copy2(HERE/'QA-REPORT.txt',out/'QA-REPORT.txt')
 media_present=all((sources/'rhine-dimples/docs/live-media'/f).is_file() for f in ('rhine-open.mp4','rhine-close.mp4','rhine-poster.jpg'))
 if media_present:
     launcher=out/'index.html';launcher.write_text(launcher.read_text().replace('The Rhine edition labels its rendered illustration; local field footage is not included.','The Rhine edition includes the transferred field footage; its rendered illustrations remain labelled.'))
-(out/'START-HERE.txt').write_text('Open index.html in a modern browser. If local-file restrictions affect your browser, run:\n\n  python3 -m http.server 8000 --directory .\n\nfrom this folder, then open http://localhost:8000/ in that same computer.\n\nThe kit needs no CDN. External research links require internet. Rhine field-footage availability is recorded in source-manifest.json. Source-manifest.json records source revisions and hashes.\n')
+(out/'START-HERE.txt').write_text('The pages use classic local scripts and require no modules, fetch/XHR, server API or CDN. Open index.html in a modern browser. Actual file:// execution has not been browser-verified; if your browser restricts local files, run:\n\n  python3 -m http.server 8000 --directory .\n\nfrom this folder, then open http://localhost:8000/ in that same computer.\n\nThe kit needs no CDN. External research links require internet. Rhine field-footage availability is recorded in source-manifest.json. Source-manifest.json records source revisions and hashes.\n')
 manifest={'title':'Three live explanations','source_revisions':revisions,'upstream_bases':{'symplectic-camel':'ac910deafd1a4c3da58ea961c78323f1126b7ea3','lattice-echo':'2e971c6b9051007285adaed4db9818f122a50564','rhine-dimples':'f82219640c52d1515af13f8c3ccd7b33d4b45418'},'field_footage_included':media_present,'limits':['No new HOL proof replay or native-kernel comparison is claimed',*(['Rhine field footage is not included'] if not media_present else []),'Browser verification status is recorded in the accompanying QA report'],'files':{str(f.relative_to(out)):hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(out.rglob('*')) if f.is_file()}}
 (out/'source-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 archive=out.with_suffix('.zip')

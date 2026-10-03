@@ -14,7 +14,7 @@ assert.ok(html.includes('not Kelvin'));
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
 assert.equal(new Set(ids).size, ids.length, 'IDs are unique');
 
-function harness({ width = 960, reduced = false, initialMediaError = false, legacy = false } = {}) {
+function harness({ width = 960, reduced = false, initialMediaError = false, legacy = false, historyDenied = false } = {}) {
   let now = 0, queued = [], operations = 0;
   const elements = new Map(), all = [], listeners = new Map();
   function canvasContext() {
@@ -77,7 +77,7 @@ function harness({ width = 960, reduced = false, initialMediaError = false, lega
   };
   const location = { hash: '#1' };
   const context = vm.createContext({ window, document, location, console,
-    history: { replaceState: (_, __, hash) => { location.hash = hash; } },
+    history: { replaceState: (_, __, hash) => { if(historyDenied) throw new Error('Local viewer restricts history'); location.hash = hash; } },
     performance: { now: () => now }, matchMedia: window.matchMedia,
     ResizeObserver: class { constructor(callback) { this.callback = callback; } observe() { this.callback(); } },
     IntersectionObserver: class { constructor(callback) { this.callback = callback; } observe() { this.callback([{ isIntersecting: false }]); } },
@@ -190,6 +190,9 @@ test('missing media uses live fallback and matching narration; loaded media swit
 });
 test('missing fullscreen API gives a recoverable status', () => {
   $('full').click(); assert.match($('status').textContent, /unavailable/);
+});
+test('local-file history rejection does not stop startup or navigation', () => {
+  const x=harness({historyDenied:true});x.window.RhineLive.select(2);assert.equal(x.window.RhineLive.getState().beat,2);x.key('ArrowLeft');assert.equal(x.window.RhineLive.getState().beat,1);
 });
 // Test asynchronous rejection separately.
 h.document.documentElement.requestFullscreen = () => Promise.reject(new Error('denied'));
