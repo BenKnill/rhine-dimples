@@ -14,7 +14,7 @@ assert.ok(html.includes('not Kelvin'));
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
 assert.equal(new Set(ids).size, ids.length, 'IDs are unique');
 
-function harness({ width = 960, reduced = false, initialMediaError = false, initialMediaReady = false, legacy = false, historyDenied = false } = {}) {
+function harness({ width = 960, height = 350, reduced = false, initialMediaError = false, initialMediaReady = false, legacy = false, historyDenied = false } = {}) {
   let now = 0, queued = [], operations = 0;
   const elements = new Map(), all = [], listeners = new Map();
   function canvasContext() {
@@ -48,7 +48,7 @@ function harness({ width = 960, reduced = false, initialMediaError = false, init
     append(el) { this.children.push(el); }
     closest(selector) { return selector === '[data-view]' ? all.find(x => x.dataset.view === (this.id === 'opening' ? 'observe' : 'evidence')) : null; }
     getContext() { return this.context; }
-    getBoundingClientRect() { return { left: 20, top: 30, width, height: this.id === 'figStretch' ? (width < 560 ? 420 : 310) : 350 }; }
+    getBoundingClientRect() { return { left: 20, top: 30, width, height: this.id === 'figStretch' ? (width < 560 ? 420 : 310) : height }; }
     setPointerCapture() {}
     play() { this.playing = true; return Promise.resolve(); }
     pause() { this.playing = false; }
@@ -117,7 +117,7 @@ for (const width of [960, 390]) {
     w.RhineLive.select(4); $('light').value = 4; $('light').dispatch('input'); $('restart').click(); assert.equal(+$('light').value, 50);
   });
   test(`${width}px direct loop drag uses CSS coordinates and cancellation ends drag`, () => {
-    w.RhineLive.select(2); const cv = $('figLoop'), r = cv.getBoundingClientRect(), scale = width / 13;
+    w.RhineLive.select(2); const cv = $('figLoop'), r = cv.getBoundingClientRect(), scale = Math.min(width / 13, r.height / 10);
     const loop = w.LOOP_STATE, x = r.left + width / 2 + loop.x * scale, y = r.top + r.height / 2 - loop.y * scale;
     cv.dispatch('pointerdown', { clientX: x, clientY: y, pointerId: 1 });
     cv.dispatch('pointermove', { clientX: x + scale, clientY: y, pointerId: 1 });
@@ -144,6 +144,19 @@ for (const width of [960, 390]) {
     h.location.hash = '#3'; h.listeners.get('hashchange')(); assert.equal(w.RhineLive.getState().beat, 2);
     h.location.hash = '#999'; h.listeners.get('hashchange')(); assert.equal(w.RhineLive.getState().beat, 5);
     w.RhineLive.select(NaN); assert.equal(w.RhineLive.getState().beat, 0);
+  });
+}
+for (const [width, height] of [[926, 340], [654, 261], [358, 350]]) {
+  test(`${width}×${height}px intended radius-three contour stays fully inside the live figure`, () => {
+    const x = harness({ width, height }); x.window.RhineLive.select(2);
+    x.elements.get('loopPair').click(); x.window.FIGS.figLoop.setLoop({ x: 0, r: 3 });
+    const state = x.window.FIGS.figLoop.getState(), { contour, scale } = state.viewport;
+    assert.equal(state.loop.y, 0.3, 'preserve the demonstrated vertical centre');
+    assert.equal(state.loop.r, 3, 'fit the intended radius without shrinking the model');
+    assert.ok(contour.left >= 6 && contour.right <= width - 6);
+    assert.ok(contour.top >= 6 && contour.bottom <= height - 6, 'whole dashed contour and stroke are visible');
+    assert.ok(Math.abs(contour.right - contour.left - 6 * scale) < 1e-10);
+    assert.ok(Math.abs(state.measured) < 1e-10, 'framing leaves the circulation integral unchanged');
   });
 }
 for (const width of [960, 390]) {
