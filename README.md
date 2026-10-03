@@ -8,8 +8,10 @@ and the difference between vortex persistence and visible lifetime. The optional
 and spread and is not thereby established to be a two-coordinate phase space.
 
 - **Live explanation:** `docs/live.html`, six scenes and a five-minute rehearsal. The source-only
-  copy opens with a labelled rendered illustration; optional local boat footage replaces it
-  when available. See `LIVE-SOURCE-CHECKPOINT.md` for provenance and missing-media details.
+  copy supports a labelled rendered illustration. The private offline review kit includes the recovered
+  field-footage bookends, with an explicit model-comparison control. See `LIVE-SOURCE-CHECKPOINT.md`
+  and `FOOTAGE-MANIFEST.json` for provenance; private media is ignored and never published.
+- **Speaker notes:** `docs/live-guide.html`, one printable page with the prediction/intervention/reveal sequence.
 - **Live checks:** `node proto/live-check.mjs` and `node proto/model-assert.mjs` (assertion-based controller/model checks, not browser visual QA).
 
 - Interactive page: https://benknill.github.io/rhine-dimples/

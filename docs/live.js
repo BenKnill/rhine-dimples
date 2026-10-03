@@ -12,16 +12,16 @@
   function markMissing(v) {
     v.hidden = true; $(v.id + '-missing').hidden = false;
     if (v.id === 'opening') { $('opening-illustration').hidden = false; $('opening-tools').hidden = false; }
-    $(v.id + '-status').textContent = 'Footage unavailable in this source-only copy · transfer is still needed';
+    $(v.id + '-status').textContent = 'Illustration only · original field footage not included';
     applySceneText();
   }
   for (const v of vids) {
     v.addEventListener('error', () => markMissing(v));
     v.addEventListener('loadeddata', () => {
       v.hidden = false; $(v.id + '-missing').hidden = true;
-      if (v.id === 'opening') { $('opening-illustration').hidden = true; $('opening-tools').hidden = true; }
+      if (v.id === 'opening') { $('opening-illustration').hidden = true; $('opening-tools').hidden = true; $('illustrationToggle').hidden = false; }
       sync();
-      $(v.id + '-status').textContent = 'Our boat footage · normal speed · 1 June 2026. Surface observations only.';
+      $(v.id + '-status').textContent = 'Ben’s boat footage · 1 June 2026 · normal speed · no synthetic imagery or interpolation.';
       applySceneText();
     });
     // Loading can fail before this script attaches listeners.
@@ -58,6 +58,8 @@
     $('eyebrow').textContent = (beat + 1) + ' / 6 · ' + text.label;
     $('title').textContent = text.title; $('claim').textContent = text.claim;
     $('prompt').textContent = text.prompt; $('narration').textContent = text.notes;
+    $('intervention').textContent = text.intervention;
+    $('consequence').textContent = text.reveal; $('establish').textContent = text.establish;
   }
   function select(n, options = {}) {
     const candidate = Number.isFinite(n) ? Math.trunc(n) : 0;
@@ -65,6 +67,7 @@
     if (!options.keepTour) auto = false;
     const b = story[beat]; views.forEach(v => { v.hidden = v.dataset.view !== b.view; });
     applySceneText();
+    $('result').hidden = true; $('reveal-result').setAttribute('aria-expanded', 'false');
     document.querySelectorAll('#beats button').forEach((v, i) => {
       v.setAttribute('aria-pressed', String(i === beat));
       if (i === beat) v.setAttribute('aria-current', 'step'); else v.removeAttribute('aria-current');
@@ -72,6 +75,12 @@
     $('prev').disabled = beat === 0; $('next').disabled = beat === story.length - 1;
     $('dipG').value = 60; $('light').value = 50; lastLight = null;
     showSpins = false; topView = false; waterSys = null; waterStep = 0;
+    if ($('opening').readyState >= 2 && !$('opening').error) {
+      $('opening').hidden = false; $('opening-illustration').hidden = true; $('opening-tools').hidden = true;
+      $('illustrationToggle').setAttribute('aria-pressed', 'false'); $('illustrationToggle').textContent = 'Compare with illustration';
+      $('opening-status').textContent = 'Ben’s boat footage · 1 June 2026 · normal speed · no synthetic imagery or interpolation.';
+      applySceneText();
+    }
     $('showSpins').setAttribute('aria-pressed', 'false'); $('waterView').setAttribute('aria-pressed', 'false');
     Object.values(window.FIGS).forEach(f => f.reset()); loopControls();
     vids.forEach(v => { if (v.readyState) { try { v.currentTime = 0; } catch (_) {} } });
@@ -85,6 +94,10 @@
   });
   $('prev').onclick = () => select(beat - 1); $('next').onclick = () => select(beat + 1);
   $('restart').onclick = () => select(beat);
+  $('reveal-result').onclick = () => {
+    $('result').hidden = !$('result').hidden;
+    $('reveal-result').setAttribute('aria-expanded', String(!$('result').hidden));
+  };
   $('pause').onclick = () => { playing = !playing; last = performance.now(); sync(); };
   $('tour').onclick = () => {
     auto = !auto;
@@ -97,6 +110,14 @@
       else if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
       else $('status').textContent = 'Fullscreen is unavailable here. The presentation still works in this window.';
     } catch (_) { $('status').textContent = 'Fullscreen was not enabled. Continue in this window or use your browser’s fullscreen control.'; }
+  };
+  $('illustrationToggle').onclick = () => {
+    const model = $('opening-illustration').hidden;
+    $('opening-illustration').hidden = !model; $('opening-tools').hidden = !model; $('opening').hidden = model;
+    $('illustrationToggle').setAttribute('aria-pressed', String(model));
+    $('illustrationToggle').textContent = model ? 'Return to field footage' : 'Compare with illustration';
+    $('opening-status').textContent = model ? 'Rendered illustration · not a reconstruction or field measurement.' : 'Ben’s boat footage · 1 June 2026 · normal speed · no synthetic imagery or interpolation.';
+    applySceneText(); sync(); draw();
   };
   $('showSpins').onclick = () => { showSpins = !showSpins; $('showSpins').setAttribute('aria-pressed', String(showSpins)); draw(); };
   $('waterView').onclick = () => { topView = !topView; $('waterView').setAttribute('aria-pressed', String(topView)); draw(); };
@@ -191,6 +212,6 @@
     }
     draw(); requestAnimationFrame(frame);
   }
-  window.RhineLive = { select, getState: () => ({ beat, t, playing, auto, gamma: +$('dipG').value, light: +$('light').value, loop: window.FIGS.figLoop.getState() }) };
+  window.RhineLive = { select, getState: () => ({ beat, t, playing, auto, revealed: !$('result').hidden, showSpins, topView, gamma: +$('dipG').value, light: +$('light').value, loop: window.FIGS.figLoop.getState() }) };
   select((+location.hash.slice(1) || 1) - 1); requestAnimationFrame(frame);
 })();

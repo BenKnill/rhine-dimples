@@ -1,21 +1,71 @@
+/* Real footage bookends; every mathematical model remains explicitly labelled. */
 window.RHINE_STORY = [
-{title:'A small dent. A hidden motion.',label:'Our footage · Büsingen · 1 June 2026',seconds:40,view:'observe',claim:'Watch the surface before we draw anything underneath.',prompt:'What would make a little dip travel with the current?',notes:'On a quiet stretch of the Rhine, we saw small dimples drifting beside the boat. Let us watch one before explaining it. The clip is our own footage, at normal speed. We can see the surface; we cannot see the whole flow beneath it. A dimple is a clue to a whirlpool, but it is not a complete map of the river. Our question is simple: why does spinning water make a dent, and what can keep that dent going?'},
-{title:'Spinning water needs an inward push.',label:'Ideal smooth-core model · not a measurement',seconds:45,view:'dip',claim:'Lower pressure at the centre lets the surface dip.',prompt:'Double the circulation. Does the dip double?',notes:'Water going around a circle needs an inward acceleration. Pressure supplies it: pressure is higher outside and lower toward the centre. The free surface adjusts, dipping over the low-pressure core. This illustration uses a smooth-core model, not a fit to our footage. Keep the core radius fixed and increase the circulation. In this model the depth grows with the square of circulation: twice the circulation gives four times the dip. The vertical profile is exaggerated so a millimetre-scale depression is visible.'},
-{title:'Measure the spin with a loop.',label:'Circulation integral · frozen velocity field',seconds:55,view:'loop',claim:'Γ = ∮ u · dl adds the tangential velocity around a closed path.',prompt:'Drag the loop away from the core. What changes?',notes:'Circulation adds the tangential velocity around a closed path. Drag the loop: moving water is not the same as local spin. This smooth core spreads vorticity, so the numerical integral changes continuously. Switch on the opposite pair and enclose both: their contributions cancel. This is a measuring contour in a frozen field, not a material loop carried by the same water particles. It illustrates a spatial circulation measurement, not Kelvin’s conservation through time. The connected-tube picture comes next; it is a different geometric argument.'},
-{title:'Two dimples can be one tube.',label:'Schematic geometry · not a reconstruction of this river',seconds:45,view:'ring',claim:'A surface-attached arch turns opposite ways at its two ends.',prompt:'Switch between the closed ring and the surface arch.',notes:'A smoke ring is a closed tube of spin. It has no loose end. Tait showed smoke rings to Kelvin; Kelvin’s idea of vortex atoms failed, while the geometry led toward knot theory. Now imagine a tilted ring approaching a free surface. Experiments and simulations show that it can reconnect with the surface, leaving an arch with two surface ends. Viewed from above, those ends rotate in opposite senses. A river can create vortices through bed shear or obstacle wakes. These are possible mechanisms, not a diagnosis of the particular dimples in our footage.'},
-{title:'Survival and visibility are different.',label:'3D mechanism + controlled optical illustration',seconds:65,view:'keep',claim:'A nearly level surface can still converge and sink.',prompt:'Change the reflection while keeping the drawn whirlpool fixed.',notes:'Friction spreads a vortex core and makes the depression shallower. But where surface water converges and sinks, the downward flow can stretch an upright vortex and strengthen its spin. A nearly level surface does not imply two-dimensional motion. The comparison on the left separates three-dimensional stretching from an ideal area-preserving flat flow. That flat model is useful mathematics, but it does not explain the real downwelling. Now keep the whirlpool fixed and change only the reflection. A dimple may disappear from view while the vortex remains. Ripples, the viewing angle and the pattern being reflected all affect what we notice.'},
-{title:'A clue, with an evidence boundary.',label:'Published research · different experiments, different observables',seconds:50,view:'evidence',claim:'Surface marks can tell us about turbulence. They do not tell us everything.',prompt:'Return to the real river. What can we now infer—and what remains hidden?',notes:'In 2023, Babiker and colleagues studied numerical simulations. Regional dimple counts tracked mean-square surface divergence. In 2026, laboratory work linked combined dimple-and-scar coverage to mean-square horizontal divergence measured below the surface. These region-wide statistics combine convergence and spreading. A June 2026 spatial-statistics preprint finds the link from dimples to divergence is nonlocal: an individual dimple is not a downwelling meter. Counts and covered area are different observables; a tank is not a field survey of the Rhine. These links matter because surface renewal helps set gas exchange between water and air. They do not let us read the exact underwater structure or the oxygen transfer rate from our boat video. So we finish where we began: the real water, with a better question. Which little marks reveal motion, and which motions stay invisible?'}
+{
+  title: 'A small dent. A hidden motion.', label: 'Rendered illustration · not field footage', seconds: 40, view: 'observe',
+  claim: 'Start with the surface, then look underneath the model.',
+  prompt: 'Which little marks would you associate with a hidden swirl?',
+  intervention: 'Find a dent. Press “Reveal the spins”, then “View from above”.',
+  reveal: 'The marked model vortices coincide with small surface depressions.',
+  establish: 'A dimple can be a clue to spin. This illustration is not an observation or reconstruction of the Rhine.',
+  notes: 'Ask for a prediction before revealing the arrows. All water shown here is rendered from ideal smooth-core vortices. This model panel is not field footage. The illustration connects a surface clue with its known model cause; it does not identify a cause in a real river.'
+},
+{
+  title: 'How deep should the dent be?', label: 'Ideal smooth-core model · not a measurement', seconds: 45, view: 'dip',
+  claim: 'Keep the core radius fixed and change only circulation.',
+  prompt: 'Double circulation from 40 to 80. Does the dip double?',
+  intervention: 'Move Γ to 40, then to 80. Compare the displayed depth.',
+  reveal: 'The dip becomes four times as deep in this model: depth scales as Γ².',
+  establish: 'The inward pressure force needed for circular motion gives lower pressure and a lower surface at the centre.',
+  notes: 'Use 40 then 80 cm²/s so the doubling fits the slider. Pressure is higher outside the core and pushes inward. The free surface adjusts to the pressure difference. The vertical profile is exaggerated; this is an ideal model, not a fit to river measurements.'
+},
+{
+  title: 'Measure the spin with a loop.', label: 'Circulation integral · frozen velocity field', seconds: 55, view: 'loop',
+  claim: 'Γ = ∮ u · dl adds tangential velocity around a closed path.',
+  prompt: 'What happens when one loop surrounds two opposite spins?',
+  intervention: 'Select “Opposite pair”. Centre the loop at x = 0 and set radius to 3.',
+  reveal: 'The two signed contributions cancel for a symmetric loop, although the water is moving.',
+  establish: 'Circulation is a signed integral. This frozen measuring contour does not demonstrate Kelvin’s conservation in a moving material loop.',
+  notes: 'First move the loop around one smooth core; its circulation changes continuously because the vorticity is spread out. Then select the opposite pair and enclose both symmetrically. Zero net circulation does not mean no motion. Keep spatial measurement separate from conservation through time.'
+},
+{
+  title: 'Two dimples can be one tube.', label: 'Schematic geometry · not a river reconstruction', seconds: 45, view: 'ring',
+  claim: 'Follow the direction around one connected tube of spin.',
+  prompt: 'If a vortex arch meets the surface twice, do its ends spin the same way?',
+  intervention: 'Compare “Closed ring” with “Surface arch”. Follow the arrows.',
+  reveal: 'Viewed from above, the two surface ends of the arch turn in opposite senses.',
+  establish: 'One connected tube can account for a pair. It does not follow that every visible dimple has a visible partner.',
+  notes: 'Use the closed ring to establish continuous direction, then switch to the surface arch. Real surface attachment involves deformation and reconnection. The geometry shows a possibility, not the origin of a particular river dimple. The loose-end control illustrates the geometric constraint.'
+},
+{
+  title: 'Survival and visibility are different.', label: '3D mechanism + controlled optical illustration', seconds: 65, view: 'keep',
+  claim: 'Hold the drawn depression fixed while changing its reflection.',
+  prompt: 'If a dimple fades from view, must its vortex have vanished?',
+  intervention: 'Sweep “Reflection position” from side to side. Watch the dashed outline.',
+  reveal: 'Contrast changes while the model depression stays fixed.',
+  establish: 'Visible lifetime is not vortex lifetime. Real downwelling can stretch spin; the separate flat model preserves area only by idealization.',
+  notes: 'Compare three-dimensional stretching with the ideal area-preserving flat flow above. A nearly level real surface can converge and sink. In the optical panel below, only the reflected light pattern moves. A fading mark alone cannot tell us that circulation has disappeared.'
+},
+{
+  title: 'A clue, with an evidence boundary.', label: 'Published research · different observables', seconds: 50, view: 'evidence',
+  claim: 'Compare what the two studies actually measured.',
+  prompt: 'Could we turn one visible dimple into a local downwelling measurement?',
+  intervention: 'Compare regional counts with combined dimple-and-scar area coverage.',
+  reveal: 'The studies report regional statistical links. Counts and covered area are different observables.',
+  establish: 'A dimple is a clue, not a calibrated local meter. These studies do not reconstruct the Rhine flow or determine its oxygen-transfer rate.',
+  notes: 'The 2023 study used simulations and regional dimple counts; the 2026 laboratory study used combined dimple-and-scar coverage and subsurface divergence. Mean-square divergence combines convergence and spreading. The June 2026 preprint reports a nonlocal link. Finish with the boundary: an illustration plus regional research cannot diagnose one river mark.'
+}
 ];
 
-// Source-only copy: never narrate a rendered fallback as field footage.
-window.RHINE_STORY[0].fallback = {
-  label: 'Rendered illustration · field footage not included',
-  claim: 'These dimples are rendered. Watch the surface before we draw the spin.',
-  prompt: 'Which surface marks suggest a hidden swirl?',
-  notes: 'The boat footage is not included in this source-only copy. We begin with a labelled illustration instead: smooth-core vortices and a model of light at the surface, not a reconstruction of the Rhine. Look for the tiny depressions, then reveal the spins. The question is the same: why does spinning water make a dent, and what can keep it visible? The real clip can replace this illustration once its files are transferred.'
-};
-window.RHINE_STORY[5].fallback = {
-  label: 'Published research · closing field clip not included',
-  prompt: 'What can a surface mark tell us—and what remains hidden?',
-  notes: 'In 2023, numerical simulations linked regional dimple counts to mean-square surface divergence. The 2026 laboratory experiment used combined dimple-and-scar area coverage and measured divergence below the surface. Those are different observables and observation settings. A June 2026 preprint finds the dimple–divergence link is nonlocal, so one dimple is not a downwelling meter. The closing field clip is not included here. These studies do not supply a calibrated census or an oxygen-transfer rate for the Rhine. The surface gives us clues; interpreting them needs a model and independent evidence.'
-};
+// Use footage narration only after the video has actually loaded.
+window.RHINE_STORY[0].fallback = { ...window.RHINE_STORY[0] };
+Object.assign(window.RHINE_STORY[0], {
+  label: 'Our boat footage · Büsingen · 1 June 2026',
+  claim: 'Watch the actual surface before comparing it with a model.',
+  prompt: 'Which small marks suggest hidden motion beneath the surface?',
+  intervention: 'Watch the normal-speed clip, then press “Compare with illustration” and reveal the model spins.',
+  reveal: 'The clip shows the surface. The illustration supplies a possible mechanism, not a measurement of the flow beneath it.',
+  establish: 'Observation starts the question. A model can explain a mechanism without reconstructing this particular river.',
+  notes: 'This is Ben’s recovered boat footage from 1 June 2026, at normal speed, with no synthetic imagery or frame interpolation. Ask the audience to find a small dent. Then compare with the clearly labelled smooth-core illustration. Only the illustration exposes its model spin: we cannot see the complete subsurface flow in the clip.'
+});
+window.RHINE_STORY[5].fallback = { ...window.RHINE_STORY[5], label: 'Published research · closing field clip unavailable' };
+window.RHINE_STORY[5].notes += ' Return to the actual river in the closing clip: we can now ask better questions, but the unmeasured flow remains hidden.';

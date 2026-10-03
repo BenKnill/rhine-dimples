@@ -9,3 +9,6 @@ proto/*.png
 video/*.jpg
 field/
 assets/
+
+# Private recovered field footage: local kit only, never publish to the public branch.
+docs/live-media/

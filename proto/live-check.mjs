@@ -179,14 +179,23 @@ test('missing media uses live fallback and matching narration; loaded media swit
   w.RhineLive.select(0);
   assert.equal($('opening-illustration').hidden, false);
   assert.match($('eyebrow').textContent, /Rendered illustration/);
-  assert.match($('narration').textContent, /not included/);
+  assert.match($('narration').textContent, /not field footage/);
   assert.ok($('opening-overlay').context.trace.length > 100);
   $('showSpins').click(); assert.equal($('showSpins').getAttribute('aria-pressed'), 'true');
   $('opening').dispatch('loadeddata'); assert.equal($('opening-illustration').hidden, true);
-  assert.match($('eyebrow').textContent, /Our footage/);
+  assert.match($('eyebrow').textContent, /Our boat footage/);
+  assert.match($('opening-status').textContent, /no synthetic imagery/);
+  $('illustrationToggle').click(); assert.match($('eyebrow').textContent, /Rendered illustration/);
+  $('illustrationToggle').click(); assert.match($('eyebrow').textContent, /Our boat footage/);
   $('opening').dispatch('error'); assert.equal($('opening-illustration').hidden, false);
   assert.match($('eyebrow').textContent, /Rendered illustration/);
-  w.RhineLive.select(5); assert.match($('eyebrow').textContent, /not included/);
+  w.RhineLive.select(5); assert.match($('narration').textContent, /cannot diagnose/);
+});
+test('reveal is deliberate and reset hides the conclusion', () => {
+  w.RhineLive.select(1); assert.equal($('result').hidden, true);
+  $('reveal-result').click(); assert.equal($('result').hidden, false);
+  assert.equal(w.RhineLive.getState().revealed, true);
+  $('restart').click(); assert.equal(w.RhineLive.getState().revealed, false);
 });
 test('missing fullscreen API gives a recoverable status', () => {
   $('full').click(); assert.match($('status').textContent, /unavailable/);

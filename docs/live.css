@@ -7,3 +7,6 @@ button{min-height:44px;touch-action:manipulation}input[type=range]{min-height:32
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 
 .opening-illustration{position:relative;height:clamp(320px,43vh,500px);background:#123542}.opening-illustration canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.illustration-label{position:absolute;top:14px;left:14px;right:14px;margin:0;font-size:11px;letter-spacing:.03em;color:#efffff;text-shadow:0 1px 8px #000;background:#092536db;padding:8px 10px;border-radius:5px;width:max-content;max-width:calc(100% - 28px)}.render-mode{position:absolute;left:15px;right:12px;bottom:13px;font-size:11px;color:#fff;text-shadow:0 1px 8px #000;background:#092536c9;padding:6px 9px;width:max-content;max-width:calc(100% - 28px)}
+
+/* Audience sequence stays short; reveal the answer after the intervention. */
+#intervention,#consequence,#establish{font-size:15px;margin:8px 0 16px}#result{border-left:2px solid #57debe;padding-left:14px;margin-top:16px}#result .small{margin-bottom:6px}#reveal-result{width:100%;color:#57debe}.missing{min-height:180px}

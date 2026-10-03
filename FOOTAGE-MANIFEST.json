@@ -1,0 +1,51 @@
+{
+  "result": "RECOVERED",
+  "verified_at_utc": "2026-10-03T13:57:29.817871+00:00",
+  "upstream_mac_path": "/Users/boxer/Documents/Codex/2026-10-02/task-4/rhine-dimples/docs/live-media/",
+  "original_frames_mac_path": "/Users/boxer/ben-advice/rhine-dimples/assets/film/",
+  "footage_date": "2026-06-01",
+  "ownership_and_scope": "Ben\u2019s own field footage, compressed without synthetic imagery or interpolation; local private review kit only; not published or committed.",
+  "files": [
+    {
+      "name": "rhine-close.mp4",
+      "source_path": "/home/bluestar/lanes/presentations/from-mac/live-media/rhine-close.mp4",
+      "kit_source_path": "/home/bluestar/lanes/presentations/rhine-dimples/docs/live-media/rhine-close.mp4",
+      "bytes": 5016654,
+      "sha256": "c0a9f64a540ecd1897a5d2fd8f4104a792a2ea4cc1555ebeaafbcf5579c79115",
+      "expected_sha256": "c0a9f64a540ecd1897a5d2fd8f4104a792a2ea4cc1555ebeaafbcf5579c79115",
+      "verdict": "PASS"
+    },
+    {
+      "name": "rhine-open.mp4",
+      "source_path": "/home/bluestar/lanes/presentations/from-mac/live-media/rhine-open.mp4",
+      "kit_source_path": "/home/bluestar/lanes/presentations/rhine-dimples/docs/live-media/rhine-open.mp4",
+      "bytes": 2104102,
+      "sha256": "fa27b6d7089c6d20f2dab8f6a07e18e27f5f0d21cb753c7a8d5e1f3c614c5141",
+      "expected_sha256": "fa27b6d7089c6d20f2dab8f6a07e18e27f5f0d21cb753c7a8d5e1f3c614c5141",
+      "verdict": "PASS"
+    },
+    {
+      "name": "rhine-poster.jpg",
+      "source_path": "/home/bluestar/lanes/presentations/from-mac/live-media/rhine-poster.jpg",
+      "kit_source_path": "/home/bluestar/lanes/presentations/rhine-dimples/docs/live-media/rhine-poster.jpg",
+      "bytes": 352983,
+      "sha256": "1b375a9e8038e0caf58c2d4dc4aff1ef348c83ac85e05c44602bf13bfbb055df",
+      "expected_sha256": "1b375a9e8038e0caf58c2d4dc4aff1ef348c83ac85e05c44602bf13bfbb055df",
+      "verdict": "PASS"
+    },
+    {
+      "name": "README.md",
+      "source_path": "/home/bluestar/lanes/presentations/from-mac/live-media/README.md",
+      "kit_source_path": "/home/bluestar/lanes/presentations/rhine-dimples/docs/live-media/README.md",
+      "bytes": 907,
+      "sha256": "76f621089eff77fcfe5ec9d2eadd389b7d9a33c3dbe845bdbc419cc72423f54e",
+      "expected_sha256": "76f621089eff77fcfe5ec9d2eadd389b7d9a33c3dbe845bdbc419cc72423f54e",
+      "verdict": "PASS"
+    }
+  ],
+  "source_frame_counts": {
+    "clip1": 157,
+    "clip2": 302,
+    "clip1hd": 49
+  }
+}

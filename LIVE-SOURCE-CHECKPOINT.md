@@ -1,4 +1,18 @@
-# Rhine live presentation: source recovery checkpoint
+# Rhine live presentation: current offline-kit checkpoint
+
+## Recovered footage and current presentation (3 October 2026)
+
+The coordinator recovered the original Mac-derived `rhine-open.mp4`, `rhine-close.mp4`, and `rhine-poster.jpg` into `/home/bluestar/lanes/presentations/from-mac/live-media/`. All source checksums and the ignored local copies under `docs/live-media/` were verified; both videos passed a complete local ffmpeg decode. [FOOTAGE-MANIFEST.json](FOOTAGE-MANIFEST.json) records the exact source paths, sizes, hashes and provenance. The lane evidence is in `../out/rhine-footage/recovery.json` and `RECOVERY.md`, including the bounded storage/GitHub search's negative findings before the coordinator's recovery. No large source frames or private footage are committed or published.
+
+The live presentation now has compact predict → intervene → reveal → establish text in all six scenes. Conclusions remain hidden until “Reveal the consequence” is pressed. The recovered normal-speed field clips bookend the presentation. “Compare with illustration” switches the opening to a clearly labelled ideal smooth-core model; the model is never narrated as original observation. Missing-media fallback wording retains that distinction.
+
+[docs/live-guide.html](docs/live-guide.html) contains one-page speaker notes. Navigation, numerical/controller fixes, frozen circulation versus Kelvin conservation, the 3D/2D distinction, and the different research observables are preserved. The local controller and model checks are `node proto/live-check.mjs` and `node proto/model-assert.mjs`; their run evidence is in `../out/rhine-footage/`. Actual extracted-kit browser and rehearsal evidence is maintained in the lane's QA report. The historical notes below describe earlier checkpoints; their missing-media and unverified-browser statements are historical, not the current kit's status.
+
+The committed offline-kit builder lives in the sibling `symplectic-camel/presentation-kit/` repo. It includes the locally recovered media in the private output archive while excluding it from public Git history. Rebuilding the media-bearing kit requires those local recovered assets and matching hashes.
+
+---
+
+# Historical source recovery checkpoint
 
 Open `docs/live.html` using any local HTTP server. The page reuses the existing `docs/figs.js` and includes six beats, concise narration, pressure and circulation controls, ring/arch geometry, a fixed-depression optical illustration, and a five-minute rehearsal. Keyboard: arrows, 1–6, Space, N, R, F.
 
