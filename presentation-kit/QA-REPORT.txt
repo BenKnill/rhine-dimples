@@ -1,0 +1,56 @@
+Three live explanations — verification report
+3 October 2026
+
+What this bundle contains
+- The actual browser simulations, with guided live modes
+- A shared launcher and short, printable cue sheet
+- Pinned Three.js r128 and its MIT notice, so the kit needs no CDN
+- Source revisions and SHA-256 hashes in source-manifest.json
+- Reproducible numerical and controller checks
+
+Passed checks
+Camel
+- Twelve actual numerical-map cases: vol/lin/ham/lag at three deformation levels
+- Identity and linear-shadow estimates checked against their expected areas
+- Regression for false containment: radius .50004 does not fit radius .5
+- Five-beat navigation, bounds, number shortcuts, button-focus arrows, input protection, narration and restart in a minimal DOM harness
+- JavaScript syntax; unique HTML IDs
+
+Lattice
+- All 65,536 cells, eight kick tables, both inverse orders and 200-step round trips
+- Five rotation angles, ten rotation/inverse cycles each
+- Every 8x8 teaching phase remains a 64-cell permutation and returns every identity
+- Scramble, pause, reverse, repeated runs, reset, timer cleanup, keyboard focus and measured counters in a minimal DOM harness
+- The exact lattice returns with zero coordinate mismatches
+- The float readout counts wrong display bins; it does not claim bitwise return
+- JavaScript syntax; unique HTML IDs
+
+Rhine
+- Eleven assertion-based model checks, including pair speed, orbital angle, invariants, stream-function derivatives, quadratic dip scaling and flat-model tracer area
+- Twenty-five live/controller checks at 960px and 390px command geometry
+- Six scenes; exactly 300 seconds in timed rehearsal; correct hidden-tab behavior
+- Deterministic reset, loop dragging with CSS scaling, cancellation, slider and keyboard behavior, reduced motion, media-ready/error state and matching narration, and fullscreen API failures
+- Original article figure initialization and controls checked in the same command harness
+- Canvas draw commands are finite; these checks do not rasterize the page
+
+Package checks
+- All non-media relative links and assets resolve
+- ZIP integrity and every SHA-256 file-manifest entry verified
+- The intentionally absent Rhine MP4/poster paths are handled by labelled illustration fallbacks
+- The reviewed source commits are verified on isolated GitHub branches; original work branches are preserved
+- No GitHub Actions runs or commit status checks were present for the reviewed Camel/Lattice commits
+
+Remaining verification boundary
+A fresh rendered desktop/mobile browser pass of this final bundle was not completed in the build environment. The DOM and canvas-command harnesses are not substitutes for checking actual WebGL output, typography, clipping, touch behavior or fullscreen in a browser. Earlier local checkpoint screenshots covered the six Rhine scenes and a complete lattice echo, but they do not verify this final revision. Camel and final mobile rendering still need that pass.
+
+No new HOL Light proof replay, native AArch64 comparison, benchmark or real-river measurement is claimed. The exact-byte proof boundary is explained in the lattice talk. This bundle does not deploy a website or modify the original voiced films.
+
+Repeat the checks after extracting
+  node symplectic-camel/tests/live-models.mjs
+  node symplectic-camel/tests/live-controls.mjs
+  node lattice-echo/tests/live-models.mjs
+  node lattice-echo/tests/live-controls.mjs
+  node rhine-dimples/proto/model-assert.mjs
+  node rhine-dimples/proto/live-check.mjs
+
+Open index.html to begin. If your browser restricts local files, use the same-computer HTTP-server command in START-HERE.txt.

@@ -10,9 +10,19 @@
   window.FIGS = window.FIGS || {};
   function makeFig(canvas, draw) {
     if (window.FILM_MODE) {
-      const c = canvas.getContext("2d"); let last = null, t = 0;
-      const paint = dt => { c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, canvas.width, canvas.height); draw(c, canvas.width, canvas.height, t, dt); };
-      const f = { redraw: () => paint(0), reset: () => { t = 0; last = null; }, at: T => { const dt = last === null ? 0 : Math.max(0, Math.min(0.1, T - last)); last = T; t += dt; paint(dt); }, canvas };
+      const c = canvas.getContext("2d"); let last = null, t = 0, W = canvas.width, H = canvas.height, dpr = 1;
+      const paint = dt => {
+        if (window.LIVE_MODE) {
+          const r = canvas.getBoundingClientRect();
+          if (r.width > 0 && r.height > 0) { W = r.width; H = r.height; dpr = Math.min(2, window.devicePixelRatio || 1);
+            const w = Math.round(W * dpr), h = Math.round(H * dpr);
+            if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+          }
+        }
+        c.setTransform(1, 0, 0, 1, 0, 0); c.clearRect(0, 0, canvas.width, canvas.height);
+        c.setTransform(dpr, 0, 0, dpr, 0, 0); draw(c, W, H, t, dt);
+      };
+      const f = { redraw: () => paint(0), reset: () => { t = 0; last = null; if (f.onReset) f.onReset(); }, at: T => { const dt = last === null ? 0 : Math.max(0, Math.min(0.1, T - last)); last = T; t = window.LIVE_MODE ? Math.max(0, T) : t + dt; paint(dt); }, canvas };
       window.FIGS[canvas.id] = f; return f;
     }
     const c = canvas.getContext("2d"); let W = 0, H = 0, dpr = 1, t = 0, last = 0, visible = false, running = false;
@@ -96,8 +106,9 @@
     const loop = { x: -0.5, y: 0.3, r: 1.6 }; let drag = null; window.LOOP_STATE = loop;
     const vel = (x, y) => { let u = 0, v = 0; for (const [X, Y, G] of vort) { const dx = x - X, dy = y - Y, s = dx * dx + dy * dy + a * a; u -= G / TAU * dy / s; v += G / TAU * dx / s; } return [u, v]; };
     const vorticity = (x, y) => { let w = 0; for (const [X, Y, G] of vort) { const s = (x - X) ** 2 + (y - Y) ** 2 + a * a; w += G * a * a / (Math.PI * s * s); } return w; };
-    const P = []; for (let i = 0; i < 520; i++) P.push([Math.random() * 14 - 7, Math.random() * 8 - 4, Math.random() * 3]);
-    let wheel = 0, view = null;
+    let seed = 731; const random = () => window.LIVE_MODE ? ((seed = (1664525 * seed + 1013904223) >>> 0) / 4294967296) : Math.random();
+    const P = []; function seedParticles() { seed = 731; P.length = 0; for (let i = 0; i < 520; i++) P.push([random() * 14 - 7, random() * 8 - 4, random() * 3]); }
+    seedParticles(); let wheel = 0, view = null, measured = 0;
     const fig = makeFig(cv, (c, W, H, t, dt) => {
       const S = W / 13, cx = W / 2, cy = H / 2, sx = x => cx + x * S, sy = y => cy - y * S; view = { S, cx, cy };
       const hw = W / 2 / S, hh = H / 2 / S;
@@ -106,7 +117,7 @@
       for (const p of P) {
         const [u, v] = vel(p[0], p[1]);
         if (dt) { const [u2, v2] = vel(p[0] + 0.5 * dt * u, p[1] + 0.5 * dt * v); p[0] += dt * u2; p[1] += dt * v2; p[2] -= dt; }
-        if (p[2] < 0 || Math.abs(p[0]) > hw + 0.5 || Math.abs(p[1]) > hh + 0.5) { p[0] = (Math.random() * 2 - 1) * hw; p[1] = (Math.random() * 2 - 1) * hh; p[2] = 1 + 2 * Math.random(); }
+        if (p[2] < 0 || Math.abs(p[0]) > hw + 0.5 || Math.abs(p[1]) > hh + 0.5) { p[0] = (random() * 2 - 1) * hw; p[1] = (random() * 2 - 1) * hh; p[2] = 1 + 2 * random(); }
         const sp = Math.hypot(u, v), L = Math.min(0.35, 0.18 * sp / 3);
         c.strokeStyle = `rgba(150,190,235,${Math.min(0.55, 0.15 + sp / 12)})`; c.lineWidth = 1.4;
         c.beginPath(); c.moveTo(sx(p[0]), sy(p[1])); c.lineTo(sx(p[0] - u / (sp + 1e-9) * L), sy(p[1] - v / (sp + 1e-9) * L)); c.stroke();
@@ -122,17 +133,29 @@
       const w = vorticity(loop.x, loop.y); wheel += dt * 0.5 * w * 0.12;
       c.save(); c.translate(sx(loop.x), sy(loop.y)); c.rotate(-wheel); c.strokeStyle = TEXT; c.lineWidth = 2;
       for (let k = 0; k < 4; k++) { c.beginPath(); c.moveTo(0, 0); c.lineTo(9 * Math.cos(k * Math.PI / 2), 9 * Math.sin(k * Math.PI / 2)); c.stroke(); } c.restore();
+      measured = circ;
       out.innerHTML = `circulation around the loop <b>${Math.abs(circ) < 0.05 ? "0.0" : circ.toFixed(1)}</b> cm²/s`;
       font(c, 12); c.fillStyle = MUTED; c.textAlign = "left"; c.fillText("drag the loop · drag its handle to resize", 10, H - 10);
     });
-    const pos = e => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left - view.cx) / view.S, -(e.clientY - r.top - view.cy) / view.S]; };
-    cv.addEventListener("pointerdown", e => { const [x, y] = pos(e), d = Math.hypot(x - loop.x, y - loop.y);
+    const pos = e => { const r = cv.getBoundingClientRect();
+      const sx = window.FILM_MODE && !window.LIVE_MODE ? cv.width / r.width : 1, sy = window.FILM_MODE && !window.LIVE_MODE ? cv.height / r.height : 1;
+      return [((e.clientX - r.left) * sx - view.cx) / view.S, -((e.clientY - r.top) * sy - view.cy) / view.S]; };
+    cv.addEventListener("pointerdown", e => { if (!view) return; const [x, y] = pos(e), d = Math.hypot(x - loop.x, y - loop.y);
       drag = Math.abs(d - loop.r) < 14 / view.S && Math.hypot(x - loop.x - loop.r, y - loop.y) < 0.6 ? "r" : d < loop.r + 12 / view.S ? [x - loop.x, y - loop.y] : null;
       if (drag) { cv.setPointerCapture(e.pointerId); e.preventDefault(); } });
     cv.addEventListener("pointermove", e => { if (!drag) return; const [x, y] = pos(e);
-      if (drag === "r") loop.r = Math.max(0.25, Math.min(4.5, Math.hypot(x - loop.x, y - loop.y))); else { loop.x = x - drag[0]; loop.y = y - drag[1]; } fig.redraw(); });
+      if (drag === "r") loop.r = Math.max(0.25, Math.min(4.5, Math.hypot(x - loop.x, y - loop.y))); else { loop.x = x - drag[0]; loop.y = y - drag[1]; } fig.redraw(); if (fig.onChange) fig.onChange(); });
     cv.addEventListener("pointerup", () => { drag = null; });
-    pairBtn.onclick = () => { pair = !pair; pairBtn.setAttribute("aria-pressed", String(pair)); vort = pair ? [[-1.5, 0, 60], [1.5, 0, -60]] : [[0, 0, 60]]; fig.redraw(); };
+    cv.addEventListener("pointercancel", () => { drag = null; });
+    cv.addEventListener("lostpointercapture", () => { drag = null; });
+    const setPair = on => { pair = !!on; pairBtn.setAttribute("aria-pressed", String(pair)); vort = pair ? [[-1.5, 0, 60], [1.5, 0, -60]] : [[0, 0, 60]]; };
+    pairBtn.onclick = () => { setPair(!pair); fig.redraw(); };
+    if (window.LIVE_MODE) {
+      fig.onReset = () => { loop.x = -0.5; loop.y = 0.3; loop.r = 1.6; drag = null; wheel = 0; seedParticles(); setPair(false); };
+      fig.setLoop = values => { Object.assign(loop, values); loop.r = Math.max(0.25, Math.min(4.5, loop.r)); fig.redraw(); };
+      fig.getState = () => ({ loop: { ...loop }, pair, measured, wheel, particles: P.map(p => p.slice()) });
+      fig.onReset();
+    }
   }
 
   // ---------------------------------------------------------------- tiny 3D helpers
@@ -227,10 +250,13 @@
       const iw = Math.min(150, W * 0.28); topInset(c, W - iw - 10, 10, iw, iw * 0.72, dots, t, dots.length ? "" : "no dimples");
     });
     const set = m => { mode = m; btns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.line === m))); cap.textContent = CAPS[m]; fig.reset(); fig.redraw(); };
-    btns.forEach(b => b.onclick = () => set(b.dataset.line)); set("upright");
+    if (window.LIVE_MODE) fig.onReset = () => { yaw = -0.55; userYaw = false; dragX = null; };
+    btns.forEach(b => b.onclick = () => set(b.dataset.line)); set(window.LIVE_MODE ? "ring" : "upright");
     cv.addEventListener("pointerdown", e => { dragX = [e.clientX, yaw]; userYaw = true; cv.setPointerCapture(e.pointerId); });
     cv.addEventListener("pointermove", e => { if (dragX) { yaw = dragX[1] + (e.clientX - dragX[0]) * 0.01; fig.redraw(); } });
     cv.addEventListener("pointerup", () => { dragX = null; });
+    cv.addEventListener("pointercancel", () => { dragX = null; });
+    cv.addEventListener("lostpointercapture", () => { dragX = null; });
   }
 
   // ---------------------------------------------------------------- 4. how the river makes them
@@ -275,7 +301,9 @@
     let th3 = 0, th2 = 0;
     makeFig(cv, (c, W, H, t, dt) => {
       const f = 1 + 2 * (0.5 - 0.5 * Math.cos(TAU * t / 7)), stacked = W < 560, pw = stacked ? W : W / 2, ph = stacked ? H / 2 : H;
-      th3 += dt * 2.2 * f; th2 += dt * 2.2;
+      // Analytic phase makes seeking/restarting independent of previous frames.
+      if (window.LIVE_MODE) { th3 = 2.2 * (2 * t - 7 / TAU * Math.sin(TAU * t / 7)); th2 = 2.2 * t; }
+      else { th3 += dt * 2.2 * f; th2 += dt * 2.2; }
       // left: a vortex tube stretched along its length
       { const ox = pw / 2, oy = ph * 0.52, L0 = pw * 0.13, r0 = ph * 0.16, L = L0 * f, r = r0 / Math.sqrt(f);
         c.fillStyle = "rgba(70,120,200,0.45)"; c.strokeStyle = "rgba(190,220,255,0.7)"; c.lineWidth = 1.5;
@@ -398,3 +426,4 @@
 
   figDip(); figLoop(); figLines(); figRiver(); figStretch(); figFade(); figHam();
 })();
+

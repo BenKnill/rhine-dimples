@@ -1,10 +1,16 @@
 # Dimples on the Rhine
 
-Small dimples on a river are the tops of whirlpools. Each one casts a shadow on the
-riverbed, a dark disk with a bright caustic rim. The page builds up, with small illustrations,
-why vortex lines can't end in the water (Helmholtz), why whirlpools come in pairs (Kelvin),
-where a river's own dimples come from (hairpin vortices from the bed), why flat flow lets them
-live so long, and why their motion is Hamiltonian: the river surface is its own phase space.
+A small surface dimple can be a signature of a vortex underneath. In clear, shallow water,
+its optical effects can include a dark patch and a bright caustic rim on the bed. This project
+uses illustrations to explore pressure, circulation, possible connected vortex geometry,
+and the difference between vortex persistence and visible lifetime. The optional exactly
+2D, area-preserving model has Hamiltonian structure; the real river surface can converge
+and spread and is not thereby established to be a two-coordinate phase space.
+
+- **Live explanation:** `docs/live.html`, six scenes and a five-minute rehearsal. The source-only
+  copy opens with a labelled rendered illustration; optional local boat footage replaces it
+  when available. See `LIVE-SOURCE-CHECKPOINT.md` for provenance and missing-media details.
+- **Live checks:** `node proto/live-check.mjs` and `node proto/model-assert.mjs` (assertion-based controller/model checks, not browser visual QA).
 
 - Interactive page: https://benknill.github.io/rhine-dimples/
 - Episode 1: [the symplectic camel](https://benknill.github.io/symplectic-camel/) · Episode 2: [running chaos backwards](https://benknill.github.io/lattice-echo/)
@@ -51,3 +57,4 @@ live so long, and why their motion is Hamiltonian: the river surface is its own 
 - `proto/`: checks and prototypes
 
 Built with Claude (Anthropic's Claude Opus 5.5) in Claude Code.
+
