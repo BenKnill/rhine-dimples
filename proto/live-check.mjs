@@ -14,7 +14,7 @@ assert.ok(html.includes('not Kelvin'));
 const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
 assert.equal(new Set(ids).size, ids.length, 'IDs are unique');
 
-function harness({ width = 960, reduced = false, initialMediaError = false, legacy = false, historyDenied = false } = {}) {
+function harness({ width = 960, reduced = false, initialMediaError = false, initialMediaReady = false, legacy = false, historyDenied = false } = {}) {
   let now = 0, queued = [], operations = 0;
   const elements = new Map(), all = [], listeners = new Map();
   function canvasContext() {
@@ -36,7 +36,7 @@ function harness({ width = 960, reduced = false, initialMediaError = false, lega
       this.dataset = {}; for (const k in attrs) if (k.startsWith('data-')) this.dataset[k.slice(5)] = attrs[k];
       this.value = attrs.value || ''; this.hidden = 'hidden' in attrs; this.disabled = false; this.children = []; this.events = new Map();
       this.width = Number(attrs.width || 960); this.height = Number(attrs.height || 540); this.open = false; this.textContent = '';
-      this.readyState = 0; this.currentTime = 0; this.error = initialMediaError && tag === 'video' ? { code: 4 } : null;
+      this.readyState = initialMediaReady && tag === 'video' ? 2 : 0; this.currentTime = 0; this.error = initialMediaError && tag === 'video' ? { code: 4 } : null;
       this.context = canvasContext(); all.push(this); if (this.id) elements.set(this.id, this);
     }
     setAttribute(k, v) { this.attrs[k] = String(v); }
@@ -158,7 +158,7 @@ for (const width of [960, 390]) {
     assert.equal(x.elements.get('loopPair').getAttribute('aria-pressed'), 'true');
   });
 }
-const h = harness(), w = h.window, $ = id => h.elements.get(id);
+const h = harness({ initialMediaError: true }), w = h.window, $ = id => h.elements.get(id);
 test('rehearsal follows wall time, carries scene overflow and stops at exactly 5 minutes', () => {
   $('tour').click(); h.tick(42); assert.equal(w.RhineLive.getState().beat, 1); assert.equal(w.RhineLive.getState().t, 2);
   h.tick(258); assert.equal(w.RhineLive.getState().beat, 5); assert.equal(w.RhineLive.getState().t, 50); assert.equal(w.RhineLive.getState().auto, false); assert.equal(w.RhineLive.getState().playing, false);
@@ -170,6 +170,14 @@ test('hidden tabs do not advance rehearsal or continue videos', () => {
 test('manual reset stops rehearsal; opening errors already present are handled', () => {
   $('restart').click(); assert.equal(w.RhineLive.getState().auto, false);
   const x = harness({ initialMediaError: true }); assert.equal(x.elements.get('opening').hidden, true); assert.equal(x.elements.get('opening-missing').hidden, false);
+});
+test('reset restores the initial motion preference after a single pause toggle', () => {
+  for (const reduced of [false, true]) {
+    const x = harness({ reduced });
+    const initial = x.window.RhineLive.getState().playing;
+    x.elements.get('pause').click(); assert.notEqual(x.window.RhineLive.getState().playing, initial);
+    x.elements.get('restart').click(); assert.equal(x.window.RhineLive.getState().playing, initial);
+  }
 });
 test('reduced motion begins paused, all six scenes can be selected', () => {
   const x = harness({ reduced: true }); assert.equal(x.window.RhineLive.getState().playing, false);
@@ -190,6 +198,14 @@ test('missing media uses live fallback and matching narration; loaded media swit
   $('opening').dispatch('error'); assert.equal($('opening-illustration').hidden, false);
   assert.match($('eyebrow').textContent, /Rendered illustration/);
   w.RhineLive.select(5); assert.match($('narration').textContent, /cannot diagnose/);
+});
+test('cached media loaded before handlers still selects footage and its captions', () => {
+  const x = harness({ initialMediaReady: true });
+  assert.equal(x.elements.get('opening').hidden, false);
+  assert.equal(x.elements.get('opening-illustration').hidden, true);
+  assert.equal(x.elements.get('illustrationToggle').hidden, false);
+  assert.equal(x.elements.get('closing').hidden, false);
+  assert.match(x.elements.get('eyebrow').textContent, /Our boat footage/);
 });
 test('reveal is deliberate and reset hides the conclusion', () => {
   w.RhineLive.select(1); assert.equal($('result').hidden, true);
